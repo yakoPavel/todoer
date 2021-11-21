@@ -4,7 +4,7 @@ import React from "react";
  * A helper for a creation of a Context and a Provider with no upfront
  * default value and without having to check for undefined all the time.
  */
-const createContext = <A extends Record<string, unknown> | null>() => {
+const createContext = <A>() => {
   const context = React.createContext<A | undefined>(undefined);
   const useContext = () => {
     const c = React.useContext(context);
