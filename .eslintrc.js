@@ -50,6 +50,7 @@ module.exports = {
     "simple-import-sort/exports": "error",
     "sort-imports": "off",
     "import/order": "off",
+    "import/prefer-default-export": "off",
     "no-use-before-define": "off",
     "arrow-body-style": "off",
     "react/jsx-props-no-spreading": "off",
