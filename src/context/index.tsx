@@ -1,12 +1,16 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import chakraTheme from "style/chakra-theme";
 
 import ThemeContextProvider from "./ThemeContext";
 
 const AppProviders: React.FC = ({ children }) => {
   return (
     <BrowserRouter>
-      <ThemeContextProvider>{children}</ThemeContextProvider>
+      <ThemeContextProvider>
+        <ChakraProvider theme={chakraTheme}>{children}</ChakraProvider>
+      </ThemeContextProvider>
     </BrowserRouter>
   );
 };
