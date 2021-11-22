@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material";
+import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
 import React from "react";
 
 import * as colorThemes from "../style/colors";
@@ -13,19 +13,16 @@ const ThemeContextProvider: React.FC = ({ children }) => {
   const [currentTheme, setCurrentTheme] = React.useState<ColorTheme>("light");
 
   const themeValue = React.useMemo(
-    () => ({
-      ...colorThemes[`${currentTheme}Theme`],
-      ...createTheme(),
-    }),
+    () => colorThemes[`${currentTheme}Theme`],
     [currentTheme],
   );
 
   return (
-    <MuiThemeProvider theme={themeValue}>
+    <EmotionThemeProvider theme={themeValue}>
       <CurrentThemeSetterProvider value={setCurrentTheme}>
         {children}
       </CurrentThemeSetterProvider>
-    </MuiThemeProvider>
+    </EmotionThemeProvider>
   );
 };
 
