@@ -6,6 +6,7 @@ export type ThemeColors = {
     | "background"
     | "backgroundSecondary"
     | "backgroundTertiary"
+    | "tooltipBackground"
     | "text"
     | "textSecondary"
     | "textSecondaryActive"
@@ -19,6 +20,7 @@ export const lightTheme: ThemeColors = {
   background: "#ffffff",
   backgroundSecondary: "#fafafa",
   backgroundTertiary: "#eeeeee",
+  tooltipBackground: "#555555",
   text: "#202020",
   textSecondary: "#999999",
   textSecondaryActive: "#555555",
@@ -50,6 +52,7 @@ export const darkTheme: ThemeColors = {
   background: "#1e1e1e",
   backgroundSecondary: "#282828",
   backgroundTertiary: "#363636",
+  tooltipBackground: "#363636",
   text: "#eeeeee",
   textSecondary: "#808080",
   textSecondaryActive: "#b2b2b2",
