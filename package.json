@@ -51,7 +51,7 @@
   "lint-staged": {
     "**/*.+(js|jsx|ts|tsx)": [
       "eslint .",
-      "jest --findRelatedTests"
+      "npm t -- --watchAll=false --findRelatedTests"
     ]
   },
   "browserslist": {
