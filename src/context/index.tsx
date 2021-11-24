@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import chakraTheme from "style/chakra-theme";
+import chakraTheme from "style/chakraTheme";
 
 import ThemeContextProvider from "./ThemeContext";
 
