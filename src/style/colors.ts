@@ -2,7 +2,8 @@ export type ThemeColors = {
   [color in
     | "main"
     | "header"
-    | "headerAlt"
+    | "headerSecondary"
+    | "headerTertiary"
     | "background"
     | "backgroundSecondary"
     | "backgroundTertiary"
@@ -16,7 +17,8 @@ export type ThemeColors = {
 export const lightTheme: ThemeColors = {
   main: "#db4c3f",
   header: "#db4c3f",
-  headerAlt: "rgba(255,255,255,0.2)",
+  headerSecondary: "rgba(255,255,255,0.2)",
+  headerTertiary: "rgba(150,150,150,0.2)",
   background: "#ffffff",
   backgroundSecondary: "#fafafa",
   backgroundTertiary: "#eeeeee",
@@ -48,7 +50,8 @@ export const orangeTheme: ThemeColors = {
 export const darkTheme: ThemeColors = {
   main: "#db4c3f",
   header: "#282828",
-  headerAlt: "rgba(255,255,255,0.2)",
+  headerSecondary: "rgba(255,255,255,0.2)",
+  headerTertiary: "rgba(150,150,150,0.2)",
   background: "#1e1e1e",
   backgroundSecondary: "#282828",
   backgroundTertiary: "#363636",
