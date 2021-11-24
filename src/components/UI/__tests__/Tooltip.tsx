@@ -8,7 +8,7 @@ function renderTooltip(shortcut?: string[]) {
   const tooltipText = faker.lorem.words();
 
   const renderResult = render(
-    <Tooltip content={{ text: tooltipText, shortcut }} isOpen>
+    <Tooltip tooltipText={tooltipText} shortcut={shortcut} isOpen>
       <div>Trigger</div>
     </Tooltip>,
   );
