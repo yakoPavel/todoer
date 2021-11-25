@@ -43,6 +43,7 @@ module.exports = {
     },
   },
   rules: {
+    "consistent-return": "off",
     "sonarjs/cognitive-complexity": ["warn", 5],
     "import/extensions": ["error", "never", { json: "always" }],
     "import/no-unresolved": 2,
