@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import { css } from "@emotion/react/macro";
 import styled from "@emotion/styled/macro";
 import { AiOutlineSearch, MdOutlineClear } from "react-icons/all";
@@ -7,14 +8,18 @@ const INPUT_HORIZONTAL_PADDING = 4;
 const BUTTON_SIZE = 2.4;
 const BUTTON_MARGIN_FROM_BORDER = (INPUT_HORIZONTAL_PADDING - BUTTON_SIZE) / 2;
 
+const absolutelyPositionedStyles = css`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
 export const SearchContainer = styled.div`
   position: relative;
 `;
 
 const buttonsCommonStyle = css`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  ${absolutelyPositionedStyles}
   height: ${BUTTON_SIZE}rem;
   width: ${BUTTON_SIZE}rem;
 `;
@@ -49,6 +54,24 @@ export const ClearButton = styled.button`
   }
 `;
 
+export const KeyboardShortcutHint = styled(Text)`
+  ${absolutelyPositionedStyles}
+  right: ${BUTTON_MARGIN_FROM_BORDER}rem;
+  align-items: center;
+  justify-content: center;
+
+  display: none;
+
+  border: 1px solid ${({ theme }) => theme.textSecondary};
+  border-radius: 2px;
+  cursor: default;
+  padding: 0.3rem 0.4rem;
+  color: ${({ theme }) => theme.textSecondary};
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+`;
+
 export const Input = styled.input`
   background: ${({ theme }) => theme.headerSecondary};
   font-size: 1.3rem;
@@ -61,11 +84,7 @@ export const Input = styled.input`
     color: transparent;
   }
 
-  &:hover {
-    background: ${({ theme }) => theme.background};
-  }
-
-  &:hover ~ ${SearchIcon}, &:focus ~ ${SearchIcon} {
+  &:focus ~ ${SearchIcon} {
     color: ${({ theme }) => theme.text};
   }
 
@@ -85,6 +104,12 @@ export const Input = styled.input`
     display: flex;
   }
 
+  @media (hover: hover) {
+    &:focus ~ ${KeyboardShortcutHint} {
+      display: none !important;
+    }
+  }
+
   ${mediaQueries.md} {
     &:focus {
       padding: 0.6rem ${INPUT_HORIZONTAL_PADDING}rem;
@@ -98,9 +123,28 @@ export const Input = styled.input`
       color: ${({ theme }) => theme.textAlt};
     }
 
-    &:hover::placeholder,
     &:focus::placeholder {
       color: ${({ theme }) => theme.textSecondary};
+    }
+  }
+`;
+
+export const Combobox = styled.div`
+  &:hover ${Input} {
+    background: ${({ theme }) => theme.background};
+  }
+
+  &:hover ${Input}::placeholder {
+    color: ${({ theme }) => theme.textSecondary};
+  }
+
+  &:hover ${SearchIcon} {
+    color: ${({ theme }) => theme.text};
+  }
+
+  @media (hover: hover) {
+    &:hover ${KeyboardShortcutHint} {
+      display: flex;
     }
   }
 `;

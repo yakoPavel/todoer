@@ -1,3 +1,5 @@
+import Tooltip from "components/UI/Tooltip";
+import * as keyboardShortcuts from "constants/keyboardShortcuts";
 import { useCombobox } from "downshift";
 import faker from "faker"; // TODO: remove it later
 import { debounce } from "lodash";
@@ -89,7 +91,7 @@ const Search = (): JSX.Element => {
 
   return (
     <Styled.SearchContainer>
-      <div {...getComboboxProps()}>
+      <Styled.Combobox {...getComboboxProps()}>
         <Styled.Input
           {...getInputProps({ ref: inputFieldRef })}
           placeholder="Search"
@@ -99,7 +101,10 @@ const Search = (): JSX.Element => {
           <Styled.ClearIcon />
         </Styled.ClearButton>
         <Styled.SearchIcon />
-      </div>
+        <Tooltip tooltipText="Search" shortcut={keyboardShortcuts.SEARCH}>
+          <Styled.KeyboardShortcutHint>F</Styled.KeyboardShortcutHint>
+        </Tooltip>
+      </Styled.Combobox>
       <Styled.Menu {...getMenuProps()}>
         {isOpen &&
           inputItems.map((item, index) => (
