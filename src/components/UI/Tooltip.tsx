@@ -24,10 +24,10 @@ const Tooltip = ({ tooltipText, shortcut, ...otherProps }: TooltipProps) => {
     if (!shortcut) return <Text>{tooltipText}</Text>;
 
     const formedShortcut = shortcut.map((kbKey, index) => (
-      <StyledKbd key={kbKey}>
-        {index > 0 ? "+" : ""}
-        {kbKey}
-      </StyledKbd>
+      <React.Fragment key={kbKey}>
+        {index > 0 && "+"}
+        <StyledKbd>{kbKey}</StyledKbd>
+      </React.Fragment>
     ));
 
     return (
