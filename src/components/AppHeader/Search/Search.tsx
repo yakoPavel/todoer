@@ -96,6 +96,7 @@ const Search = (): JSX.Element => {
           {...getInputProps({ ref: inputFieldRef })}
           placeholder="Search"
           onBlur={onInputBlur}
+          role="search"
         />
         <Styled.ClearButton onMouseDown={onClearClick}>
           <Styled.ClearIcon />
