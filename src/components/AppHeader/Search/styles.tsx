@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { css } from "@emotion/react/macro";
 import styled from "@emotion/styled/macro";
-import { AiOutlineSearch, MdOutlineClear } from "react-icons/all";
+import { MdOutlineClear, MdOutlineSearch } from "react-icons/md";
 import * as mediaQueries from "style/mediaQueries";
 
 const INPUT_HORIZONTAL_PADDING = 4;
@@ -24,7 +24,7 @@ const buttonsCommonStyle = css`
   width: ${BUTTON_SIZE}rem;
 `;
 
-export const SearchIcon = styled(AiOutlineSearch)`
+export const SearchIcon = styled(MdOutlineSearch)`
   ${buttonsCommonStyle}
   left: ${BUTTON_MARGIN_FROM_BORDER}rem;
   color: ${({ theme }) => theme.textAlt};
