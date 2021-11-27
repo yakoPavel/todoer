@@ -1,4 +1,6 @@
-const TOGGLE_MENU = ["shift", "M"];
-const GO_HOME = ["shift", "H"];
-
-export { GO_HOME, TOGGLE_MENU };
+export const TOGGLE_MENU = ["M"];
+export const GO_HOME = ["H"];
+export const SEARCH = ["F"];
+export const THEME = ["T"];
+export const QUICK_ADD = ["Q"];
+export const LOGOUT = ["shift", "A", "L"];
