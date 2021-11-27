@@ -89,7 +89,7 @@ export const Input = styled.input`
   }
 
   &:focus {
-    width: 40rem;
+    width: 100vw;
     background: ${({ theme }) => theme.background};
     outline: none;
     z-index: 10;
@@ -107,6 +107,12 @@ export const Input = styled.input`
   @media (hover: hover) {
     &:focus ~ ${KeyboardShortcutHint} {
       display: none !important;
+    }
+  }
+
+  ${mediaQueries.preMd} {
+    &:focus {
+      width: 40rem;
     }
   }
 
