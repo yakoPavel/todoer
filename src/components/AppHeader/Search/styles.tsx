@@ -140,10 +140,6 @@ export const Combobox = styled.div`
     background: ${({ theme }) => theme.background};
   }
 
-  &:hover ${Input}::placeholder {
-    color: ${({ theme }) => theme.textSecondary};
-  }
-
   &:hover ${SearchIcon} {
     color: ${({ theme }) => theme.text};
   }
@@ -151,6 +147,12 @@ export const Combobox = styled.div`
   @media (hover: hover) {
     &:hover ${KeyboardShortcutHint} {
       display: flex;
+    }
+  }
+
+  ${mediaQueries.md} {
+    &:hover ${Input}::placeholder {
+      color: ${({ theme }) => theme.textSecondary};
     }
   }
 `;
