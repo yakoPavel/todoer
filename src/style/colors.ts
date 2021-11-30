@@ -8,6 +8,8 @@ export type ThemeColors = {
     | "backgroundSecondary"
     | "backgroundTertiary"
     | "tooltipBackground"
+    | "separators"
+    | "focus"
     | "text"
     | "textSecondary"
     | "textSecondaryActive"
@@ -23,6 +25,8 @@ export const lightTheme: ThemeColors = {
   backgroundSecondary: "#fafafa",
   backgroundTertiary: "#eeeeee",
   tooltipBackground: "#555555",
+  separators: "#dddddd",
+  focus: "#000000",
   text: "#202020",
   textSecondary: "#999999",
   textSecondaryActive: "#555555",
@@ -56,6 +60,8 @@ export const darkTheme: ThemeColors = {
   backgroundSecondary: "#282828",
   backgroundTertiary: "#363636",
   tooltipBackground: "#363636",
+  separators: "#dddddd",
+  focus: "#ffffff",
   text: "#eeeeee",
   textSecondary: "#808080",
   textSecondaryActive: "#b2b2b2",
