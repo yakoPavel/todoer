@@ -17,6 +17,7 @@ module.exports = {
     "plugin:jest/style",
     "plugin:react-hooks/recommended",
     "prettier",
+    "plugin:storybook/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -45,7 +46,13 @@ module.exports = {
   rules: {
     "consistent-return": "off",
     "sonarjs/cognitive-complexity": ["warn", 5],
-    "import/extensions": ["error", "never", { json: "always" }],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        json: "always",
+      },
+    ],
     "import/no-unresolved": 2,
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
@@ -55,7 +62,12 @@ module.exports = {
     "no-use-before-define": "off",
     "arrow-body-style": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        extensions: [".jsx", ".tsx"],
+      },
+    ],
     "react/require-default-props": "off",
     "react/prop-types": "off",
     "react/function-component-definition": [
