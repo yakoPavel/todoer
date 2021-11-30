@@ -1,5 +1,5 @@
 import Divider from "components/UI/Divider";
-import Tooltip from "components/UI/Tooltip";
+import Tooltip from "components/UI/Tooltip/Tooltip";
 import React from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";

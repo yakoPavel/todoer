@@ -2,7 +2,7 @@ import faker from "faker";
 import React from "react";
 import { render, screen } from "test/testUtils";
 
-import Tooltip from "../Tooltip";
+import Tooltip from "../Tooltip/Tooltip";
 
 function renderTooltip(shortcut?: string[]) {
   const tooltipText = faker.lorem.words();

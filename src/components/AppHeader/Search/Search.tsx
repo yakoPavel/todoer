@@ -1,4 +1,4 @@
-import Tooltip from "components/UI/Tooltip";
+import Tooltip from "components/UI/Tooltip/Tooltip";
 import * as keyboardShortcuts from "constants/keyboardShortcuts";
 import { useCombobox } from "downshift";
 import faker from "faker"; // TODO: remove it later

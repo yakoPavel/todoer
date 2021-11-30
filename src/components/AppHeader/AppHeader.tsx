@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import Tooltip from "components/UI/Tooltip";
+import Tooltip from "components/UI/Tooltip/Tooltip";
 import * as keyboardShortcuts from "constants/keyboardShortcuts";
 import React from "react";
 import { IconType } from "react-icons";
