@@ -93,5 +93,12 @@ module.exports = {
         "import/no-extraneous-dependencies": "off",
       },
     },
+    {
+      files: ["**/*.stories.*"],
+      rules: {
+        "import/no-anonymous-default-export": "off",
+        "import/no-extraneous-dependencies": "off",
+      },
+    },
   ],
 };

@@ -73,17 +73,5 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.4.1",
     "eslint-plugin-storybook": "^0.5.1"
-  },
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
   }
 }
