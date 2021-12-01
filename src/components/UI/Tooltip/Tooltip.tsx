@@ -15,10 +15,16 @@ const StyledChakraTooltip = styled(ChakraTooltip)`
 `;
 
 export type TooltipProps = React.ComponentProps<typeof ChakraTooltip> & {
+  /** A tooltip text. */
   tooltipText: string;
+  /** A keyboard shortcut. Each entry in the array represents a keyboard key name. */
   shortcut?: string[];
 };
 
+/**
+ * It is a component that represents a tooltip with text content and optionally
+ * a keyboard shortcut.
+ */
 const Tooltip = ({ tooltipText, shortcut, ...otherProps }: TooltipProps) => {
   function formLabel() {
     if (!shortcut) return <Text>{tooltipText}</Text>;
