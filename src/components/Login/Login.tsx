@@ -1,4 +1,4 @@
-import Divider from "components/UI/Divider";
+import Divider from "components/UI/Divider/Divider";
 import Tooltip from "components/UI/Tooltip/Tooltip";
 import React from "react";
 import { BiHide, BiShow } from "react-icons/bi";
