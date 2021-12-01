@@ -24,7 +24,7 @@ const PasswordInput = () => {
   );
 };
 
-const Login = (): JSX.Element => {
+const Login: React.FC = () => {
   return (
     <Styled.Wrapper>
       <Styled.ContentWrapper>
