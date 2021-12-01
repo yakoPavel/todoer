@@ -9,11 +9,6 @@ export default {
   args: {
     tooltipText: "Sample text",
   },
-  parameters: {
-    controls: {
-      exclude: /_.*/,
-    },
-  },
 } as ComponentMeta<typeof Tooltip>;
 
 const Template: ComponentStory<typeof Tooltip> = (args) => (
