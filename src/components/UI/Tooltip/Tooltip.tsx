@@ -15,6 +15,8 @@ const StyledChakraTooltip = styled(ChakraTooltip)`
 `;
 
 export type TooltipProps = React.ComponentProps<typeof ChakraTooltip> & {
+  /** A react component to use as the trigger for the tooltip. */
+  children: React.ReactNode;
   /** A tooltip text. */
   tooltipText: string;
   /** A keyboard shortcut. Each entry in the array represents a keyboard key name. */
