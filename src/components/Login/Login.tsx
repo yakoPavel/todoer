@@ -13,7 +13,7 @@ const PasswordInput = () => {
 
   return (
     <Styled.PasswordInputWrapper>
-      <Styled.Input type={show ? "text" : "password"} />
+      <Styled.Input type={show ? "text" : "password"} id="password" />
       <Tooltip tooltipText={show ? "Hide password" : "Show password"}>
         <Styled.PasswordVisibilityBtn onClick={handleClick} type="button">
           {show && <BiShow size={24} />}
