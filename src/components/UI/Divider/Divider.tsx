@@ -20,6 +20,7 @@ const DividerPart = styled.div`
 const InBetweenText = styled(Text)`
   margin: 0 1.5rem;
   color: ${({ theme }) => theme.textSecondary};
+  white-space: nowrap;
 `;
 
 const Divider: React.FC<DividerProps> = ({ inBetweenText, ...otherProps }) => {
