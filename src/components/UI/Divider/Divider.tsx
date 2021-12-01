@@ -3,6 +3,7 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 
 type DividerProps = React.ComponentProps<typeof ChakraDivider> & {
+  /** A text that will be placed in the middle of the divider. */
   inBetweenText?: string;
 };
 
@@ -23,6 +24,9 @@ const InBetweenText = styled(Text)`
   white-space: nowrap;
 `;
 
+/**
+ * It is a component intended to be used as a divider.
+ */
 const Divider: React.FC<DividerProps> = ({ inBetweenText, ...otherProps }) => {
   if (!inBetweenText) return <ChakraDivider {...otherProps} />;
 
