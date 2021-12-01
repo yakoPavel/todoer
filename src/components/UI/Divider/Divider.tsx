@@ -23,7 +23,7 @@ const InBetweenText = styled(Text)`
 `;
 
 const Divider: React.FC<DividerProps> = ({ inBetweenText, ...otherProps }) => {
-  if (!inBetweenText) return <Divider {...otherProps} />;
+  if (!inBetweenText) return <ChakraDivider {...otherProps} />;
 
   return (
     <Wrapper>
