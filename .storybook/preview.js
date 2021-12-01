@@ -1,3 +1,6 @@
+import AppProviders from "../src/context";
+import "../src/style/global.css";
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -6,4 +9,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};
+
+export const decorators = [
+  (Story) => (
+    <AppProviders>
+      <Story />
+    </AppProviders>
+  ),
+];
