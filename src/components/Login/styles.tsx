@@ -40,8 +40,6 @@ export const AuthProviderButton = styled.button`
 
 /* Email-password form */
 
-export const Form = styled.form``;
-
 export const FormSection = styled.div`
   display: flex;
   flex-direction: column;

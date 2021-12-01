@@ -45,7 +45,7 @@ const Login: React.FC = () => {
 
           <Divider inBetweenText="OR" />
 
-          <Styled.Form>
+          <form>
             <Styled.FormSection>
               <Styled.Label htmlFor="email">Email</Styled.Label>
               <Styled.Input id="email" type="email" />
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
               <Styled.Label htmlFor="password">Password</Styled.Label>
               <PasswordInput />
             </Styled.FormSection>
-          </Styled.Form>
+          </form>
         </Styled.LoginWrapper>
       </Styled.ContentWrapper>
     </Styled.Wrapper>
