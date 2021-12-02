@@ -24,11 +24,15 @@ const InBetweenText = styled(Text)`
   white-space: nowrap;
 `;
 
+const WholeDivider = styled(ChakraDivider)`
+  background-color: ${({ theme }) => theme.separators};
+`;
+
 /**
  * It is a component intended to be used as a divider.
  */
 const Divider: React.FC<DividerProps> = ({ inBetweenText, ...otherProps }) => {
-  if (!inBetweenText) return <ChakraDivider {...otherProps} />;
+  if (!inBetweenText) return <WholeDivider {...otherProps} />;
 
   return (
     <Wrapper>
