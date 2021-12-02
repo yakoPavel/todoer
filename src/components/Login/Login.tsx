@@ -1,4 +1,6 @@
+import { Text } from "@chakra-ui/react";
 import Divider from "components/UI/Divider/Divider";
+import Link from "components/UI/Link/Link";
 import Tooltip from "components/UI/Tooltip/Tooltip";
 import React from "react";
 import { BiHide, BiShow } from "react-icons/bi";
@@ -54,7 +56,19 @@ const Login: React.FC = () => {
               <Styled.Label htmlFor="password">Password</Styled.Label>
               <PasswordInput />
             </Styled.FormSection>
+            <Styled.LoginButton>Log in</Styled.LoginButton>
           </form>
+
+          <Styled.ForgotPasswordLink href="https://google.com">
+            Forgot your password?
+          </Styled.ForgotPasswordLink>
+
+          <Styled.BottomDivider />
+
+          <Text fontSize="sm" textAlign="center">
+            Don&apos;t have an account?{" "}
+            <Link href="https://google.com">Sign up</Link>
+          </Text>
         </Styled.LoginWrapper>
       </Styled.ContentWrapper>
     </Styled.Wrapper>

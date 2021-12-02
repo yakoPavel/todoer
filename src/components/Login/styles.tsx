@@ -1,5 +1,8 @@
 import { Input as ChakraInput, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
+import Button from "components/UI/Button/Button";
+import Divider from "components/UI/Divider/Divider";
+import Link from "components/UI/Link/Link";
 import * as mediaQueries from "style/mediaQueries";
 
 export const AuthProviderButton = styled.button`
@@ -80,6 +83,22 @@ export const PasswordVisibilityBtn = styled.button`
   &:hover {
     color: ${({ theme }) => theme.textSecondaryActive};
   }
+`;
+
+export const LoginButton = styled(Button)`
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: 700;
+`;
+
+export const ForgotPasswordLink = styled(Link)`
+  display: block;
+  margin-top: 1.5rem;
+  color: ${({ theme }) => theme.textSecondaryActive};
+`;
+
+export const BottomDivider = styled(Divider)`
+  margin: 2rem 0;
 `;
 
 /* Brand section */
