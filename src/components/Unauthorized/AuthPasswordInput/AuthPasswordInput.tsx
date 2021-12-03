@@ -2,8 +2,8 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 
-import * as LoginInput from "../LoginInput/LoginInput";
-import Tooltip from "../Tooltip/Tooltip";
+import Tooltip from "../../UI/Tooltip/Tooltip";
+import * as AuthInput from "../AuthInput/AuthInput";
 
 const InputFieldWrapper = styled.div`
   position: relative;
@@ -27,37 +27,37 @@ const PasswordVisibilityBtn = styled.button`
  *
  * @example
  * ```tsx
- *  <PasswordInputWrapper>
- *    <PasswordInputLabel htmlFor="password">Password</PasswordInputLabel>
- *    <LoginInputField id="password" />
- *  </PasswordInputWrapper>
+ *  <AuthPasswordInputWrapper>
+ *    <AuthPasswordInputLabel htmlFor="password">Password</AuthPasswordInputLabel>
+ *    <AuthLoginInputField id="password" />
+ *  </AuthPasswordInputWrapper>
  * ```
  */
-const PasswordInputWrapper = LoginInput.LoginInputWrapper;
+const AuthPasswordInputWrapper = AuthInput.AuthInputWrapper;
 
 /**
  * It is a component that represents a label of the input field.
- * It's intended to be used inside the {@link PasswordInputWrapper}.
+ * It's intended to be used inside the {@link AuthPasswordInputWrapper}.
  */
-const PasswordInputLabel = LoginInput.LoginInputLabel;
+const AuthPasswordInputLabel = AuthInput.AuthInputLabel;
 
-type PasswordInputFieldProps = React.ComponentProps<
-  typeof LoginInput.LoginInputFiled
+type AuthPasswordInputFieldProps = React.ComponentProps<
+  typeof AuthInput.AuthInputField
 >;
 /**
  * It is a component that represents a password input field.
- * It's intended to be used inside the {@link LoginInputWrapper}.
+ * It's intended to be used inside the {@link AuthPasswordInputWrapper}.
  */
-const PasswordInputField = React.forwardRef<
+const AuthPasswordInputField = React.forwardRef<
   HTMLInputElement,
-  PasswordInputFieldProps
+  AuthPasswordInputFieldProps
 >((props, ref) => {
   const [show, setShow] = React.useState(false);
   const onChangePasswordVisibility = () => setShow(!show);
 
   return (
     <InputFieldWrapper>
-      <LoginInput.LoginInputFiled
+      <AuthInput.AuthInputField
         ref={ref}
         {...props}
         type={show ? "text" : "password"}
@@ -75,6 +75,10 @@ const PasswordInputField = React.forwardRef<
     </InputFieldWrapper>
   );
 });
-PasswordInputField.displayName = "PasswordInputField";
+AuthPasswordInputField.displayName = "AuthPasswordInputField";
 
-export { PasswordInputField, PasswordInputLabel, PasswordInputWrapper };
+export {
+  AuthPasswordInputField,
+  AuthPasswordInputLabel,
+  AuthPasswordInputWrapper,
+};

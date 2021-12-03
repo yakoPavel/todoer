@@ -6,22 +6,22 @@ import styled from "@emotion/styled/macro";
  *
  * @example
  * ```tsx
- *  <LoginInputWrapper>
- *    <LoginInputLabel htmlFor="email">Email</LoginInputLabel>
- *    <LoginInputField id="email" />
- *  </LoginInputWrapper>
+ *  <AuthInputWrapper>
+ *    <AuthInputLabel htmlFor="email">Email</AuthInputLabel>
+ *    <AuthInputField id="email" />
+ *  </AuthInputWrapper>
  * ```
  */
-export const LoginInputWrapper = styled.div`
+export const AuthInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 /**
  * It is a component that represents a label of the input field.
- * It's intended to be used inside the {@link LoginInputWrapper}.
+ * It's intended to be used inside the {@link AuthInput}.
  */
-export const LoginInputLabel = styled.label`
+export const AuthInputLabel = styled.label`
   font-weight: 700;
   font-size: 1.4rem;
   margin-bottom: 0.5rem;
@@ -29,9 +29,9 @@ export const LoginInputLabel = styled.label`
 
 /**
  * It is a component that represents an input field.
- * It's intended to be used inside the {@link LoginInputWrapper}.
+ * It's intended to be used inside the {@link AuthInput}.
  */
-export const LoginInputFiled = styled(ChakraInput)`
+export const AuthInputField = styled(ChakraInput)`
   padding: 1.2em 1em;
   border-color: ${({ theme }) => theme.separators};
 
