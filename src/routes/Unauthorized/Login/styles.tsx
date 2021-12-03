@@ -1,5 +1,4 @@
 import styled from "@emotion/styled/macro";
-import Button from "components/UI/Button/Button";
 import Divider from "components/UI/Divider/Divider";
 import StyledLink from "components/UI/StyledLink/StyledLink";
 import * as mediaQueries from "style/mediaQueries";
@@ -41,12 +40,6 @@ export const AuthProviderButton = styled.button`
 `;
 
 /* Email-password form */
-
-export const LoginButton = styled(Button)`
-  width: 100%;
-  font-size: 1.4rem;
-  font-weight: 700;
-`;
 
 export const ForgotPasswordLink = styled(StyledLink)`
   display: block;

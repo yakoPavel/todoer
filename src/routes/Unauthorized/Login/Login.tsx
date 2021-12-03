@@ -5,6 +5,7 @@ import Divider from "components/UI/Divider/Divider";
 import StyledLink from "components/UI/StyledLink/StyledLink";
 import * as AuthInput from "components/Unauthorized/AuthInput/AuthInput";
 import * as AuthPasswordInput from "components/Unauthorized/AuthPasswordInput/AuthPasswordInput";
+import ConfirmButton from "components/Unauthorized/ConfirmButton/ConfirmButton";
 import UnauthorizedContainer from "components/Unauthorized/UnauthorizedContainer/UnauthorizedContainer";
 import React from "react";
 import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
@@ -31,7 +32,7 @@ const EmailLogin = (): JSX.Element => {
           </AuthPasswordInput.AuthPasswordInputLabel>
           <AuthPasswordInput.AuthPasswordInputField id="password" />
         </AuthPasswordInput.AuthPasswordInputWrapper>
-        <Styled.LoginButton>Log in</Styled.LoginButton>
+        <ConfirmButton>Log in</ConfirmButton>
       </form>
 
       <Styled.ForgotPasswordLink to="/password-recovery">
