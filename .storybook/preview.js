@@ -10,6 +10,7 @@ export const parameters = {
     },
     exclude: /_.*/,
   },
+  layout: "fullscreen",
 };
 
 export const decorators = [
