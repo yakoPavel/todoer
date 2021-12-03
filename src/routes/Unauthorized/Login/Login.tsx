@@ -1,16 +1,25 @@
 /** @jsxImportSource @emotion/react */
 import { Text } from "@chakra-ui/react";
 import { css } from "@emotion/react/macro";
+import styled from "@emotion/styled";
 import Divider from "components/UI/Divider/Divider";
 import StyledLink from "components/UI/StyledLink/StyledLink";
 import * as AuthInput from "components/Unauthorized/AuthInput/AuthInput";
 import * as AuthPasswordInput from "components/Unauthorized/AuthPasswordInput/AuthPasswordInput";
+import AuthProviderButton from "components/Unauthorized/AuthProviderButton/AuthProviderButton";
 import ConfirmButton from "components/Unauthorized/ConfirmButton/ConfirmButton";
 import UnauthorizedContainer from "components/Unauthorized/UnauthorizedContainer/UnauthorizedContainer";
 import React from "react";
-import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
 
-import * as Styled from "./styles";
+const ForgotPasswordLink = styled(StyledLink)`
+  display: block;
+  margin-top: 1.5rem;
+  color: ${({ theme }) => theme.textSecondaryActive};
+` as typeof StyledLink;
+
+const BottomDivider = styled(Divider)`
+  margin: 2rem 0;
+`;
 
 const marginBottomStyle = css`
   margin-bottom: 1rem;
@@ -35,9 +44,9 @@ const EmailLogin = (): JSX.Element => {
         <ConfirmButton>Log in</ConfirmButton>
       </form>
 
-      <Styled.ForgotPasswordLink to="/password-recovery">
+      <ForgotPasswordLink to="/password-recovery">
         Forgot your password?
-      </Styled.ForgotPasswordLink>
+      </ForgotPasswordLink>
     </>
   );
 };
@@ -45,22 +54,12 @@ const EmailLogin = (): JSX.Element => {
 const Login: React.FC = () => {
   return (
     <UnauthorizedContainer>
-      <Styled.AuthProviderButton type="button">
-        <BsGoogle size={24} /> Continue with Google
-      </Styled.AuthProviderButton>
-      <Styled.AuthProviderButton type="button">
-        <BsFacebook size={24} /> Continue with Facebook
-      </Styled.AuthProviderButton>
-      <Styled.AuthProviderButton type="button">
-        <BsApple size={24} /> Continue with Apple
-      </Styled.AuthProviderButton>
-
+      <AuthProviderButton variant="google" />
+      <AuthProviderButton variant="facebook" />
+      <AuthProviderButton variant="apple" />
       <Divider inBetweenText="OR" />
-
       <EmailLogin />
-
-      <Styled.BottomDivider />
-
+      <BottomDivider />
       <Text fontSize="sm" textAlign="center">
         Don&apos;t have an account?{" "}
         <StyledLink to="/sign-up">Sign up</StyledLink>
