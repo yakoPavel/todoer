@@ -4,7 +4,7 @@ import React from "react";
 import ConfirmButton from "./ConfirmButton";
 
 export default {
-  title: "Unauthorized app/ConfirmButton",
+  title: "Unauthorized app/Components/ConfirmButton",
   component: ConfirmButton,
 } as ComponentMeta<typeof ConfirmButton>;
 

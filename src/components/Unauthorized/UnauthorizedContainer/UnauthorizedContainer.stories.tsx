@@ -4,7 +4,7 @@ import React from "react";
 import UnauthorizedContainer from "./UnauthorizedContainer";
 
 export default {
-  title: "Unauthorized App / UnauthorizedContainer",
+  title: "Unauthorized App/Components/UnauthorizedContainer",
   component: UnauthorizedContainer,
 } as ComponentMeta<typeof UnauthorizedContainer>;
 

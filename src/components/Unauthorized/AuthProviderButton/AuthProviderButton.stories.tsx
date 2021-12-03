@@ -4,7 +4,7 @@ import React from "react";
 import AuthProviderButton from "./AuthProviderButton";
 
 export default {
-  title: "Unauthorized app/AuthProviderButton",
+  title: "Unauthorized app/Components/AuthProviderButton",
   component: AuthProviderButton,
 } as ComponentMeta<typeof AuthProviderButton>;
 
