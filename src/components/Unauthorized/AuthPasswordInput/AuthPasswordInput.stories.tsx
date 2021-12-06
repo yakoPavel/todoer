@@ -4,7 +4,7 @@ import React from "react";
 import * as AuthPasswordInput from "./AuthPasswordInput";
 
 export default {
-  title: "Unauthorized app/Components/PasswordInput",
+  title: "Unauthorized app/Components/AuthPasswordInput",
   component: AuthPasswordInput.AuthPasswordInputWrapper,
 } as ComponentMeta<typeof AuthPasswordInput.AuthPasswordInputWrapper>;
 
