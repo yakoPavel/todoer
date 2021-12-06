@@ -9,7 +9,7 @@ const ErrorMessage = styled(Text)`
   font-size: 1.4rem;
 `;
 
-type InitialComponentProps = React.ComponentProps<typeof Input> & {
+type InitialComponentProps = React.ComponentPropsWithRef<typeof Input> & {
   /** A name of the field. */
   name: string;
 };
