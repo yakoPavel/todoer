@@ -13,7 +13,8 @@ export type ThemeColors = {
     | "text"
     | "textSecondary"
     | "textSecondaryActive"
-    | "textAlt"]: string;
+    | "textAlt"
+    | "error"]: string;
 };
 
 export const lightTheme: ThemeColors = {
@@ -31,6 +32,7 @@ export const lightTheme: ThemeColors = {
   textSecondary: "#999999",
   textSecondaryActive: "#555555",
   textAlt: "#ffffff",
+  error: "#e8051b",
 };
 
 export const noirTheme: ThemeColors = {
@@ -66,4 +68,5 @@ export const darkTheme: ThemeColors = {
   textSecondary: "#808080",
   textSecondaryActive: "#b2b2b2",
   textAlt: "#eeeeee",
+  error: "#e8051b",
 };

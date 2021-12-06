@@ -36,7 +36,12 @@ export const AuthInputField = styled(ChakraInput)`
   border-color: ${({ theme }) => theme.separators};
 
   &:focus {
-    border: 1px solid ${({ theme }) => theme.focus};
-    box-shadow: none;
+    border-color: ${({ theme }) => theme.focus};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.focus};
+  }
+
+  &:focus[aria-invalid="true"] {
+    border-color: ${({ theme }) => theme.error};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.error};
   }
 `;
