@@ -4,6 +4,7 @@ import { BiHide, BiShow } from "react-icons/bi";
 
 import Tooltip from "../../UI/Tooltip/Tooltip";
 import * as AuthInput from "../AuthInput/AuthInput";
+import { FormikAuthInputProps } from "../AuthInput/AuthInput";
 import withFormikField from "../withFormikField/withFormikField";
 
 const InputFieldWrapper = styled.div`
@@ -79,11 +80,40 @@ const AuthPasswordInputField = React.forwardRef<
 AuthPasswordInputField.displayName = "AuthPasswordInputField";
 
 /** The {@link AuthPasswordInputField} wrapped into the {@link withFormikField}. */
-const FormikAuthPasswordInput = withFormikField(AuthPasswordInputField);
+const FormikAuthPasswordInputField = withFormikField(AuthPasswordInputField);
+
+type FormikAuthPasswordInputProps = FormikAuthInputProps;
+/**
+ * It is a component that combines all the `AuthPasswordInput` elements into
+ * a single representation of a password-input field with a label.
+ *
+ * The input field is wrapped into the {@link withFormikField} HoC and as a
+ * result, has the functionality of the `formik`'s `useField` applied.
+ */
+const FormikAuthPasswordInput = ({
+  labelText,
+  name,
+  id,
+  type,
+  useFieldImplementation,
+}: FormikAuthPasswordInputProps) => {
+  return (
+    <AuthPasswordInputWrapper>
+      <AuthPasswordInputLabel htmlFor={id}>{labelText}</AuthPasswordInputLabel>
+      <FormikAuthPasswordInputField
+        name={name}
+        id={id}
+        type={type}
+        useField={useFieldImplementation}
+      />
+    </AuthPasswordInputWrapper>
+  );
+};
 
 export {
   AuthPasswordInputField,
   AuthPasswordInputLabel,
   AuthPasswordInputWrapper,
   FormikAuthPasswordInput,
+  FormikAuthPasswordInputField,
 };
