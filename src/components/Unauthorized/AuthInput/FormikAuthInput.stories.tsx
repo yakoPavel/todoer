@@ -1,10 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import withFormikField from "../withFormikField/withFormikField";
-import * as AuthInput from "./AuthInput";
-
-const FormikAuthInput = withFormikField(AuthInput.AuthInputField);
+import { FormikAuthInput } from "./AuthInput";
 
 export default {
   title: "Unauthorized app/Components/AuthInput/AuthInputWithFormik",
@@ -12,7 +9,6 @@ export default {
 } as ComponentMeta<typeof FormikAuthInput>;
 
 const Template: ComponentStory<typeof FormikAuthInput> = (args) => {
-  const { name, id } = args;
   return (
     <div
       style={{
@@ -22,12 +18,7 @@ const Template: ComponentStory<typeof FormikAuthInput> = (args) => {
         margin: "auto",
       }}
     >
-      <AuthInput.AuthInputWrapper>
-        <AuthInput.AuthInputLabel htmlFor={name ?? id}>
-          Email
-        </AuthInput.AuthInputLabel>
-        <FormikAuthInput {...args} />
-      </AuthInput.AuthInputWrapper>
+      <FormikAuthInput type="email" {...args} />
     </div>
   );
 };
@@ -36,11 +27,13 @@ export const WithoutErrors = Template.bind({});
 WithoutErrors.args = {
   name: "email",
   id: "email",
-  useField: () => [{}, {}] as any,
+  labelText: "Email",
+  useFieldImplementation: () => [{}, {}] as any,
 };
 
 export const WithErrors = Template.bind({});
 WithErrors.args = {
   ...WithoutErrors.args,
-  useField: () => [{}, { touched: true, error: "Invalid email" }] as any,
+  useFieldImplementation: () =>
+    [{}, { touched: true, error: "Invalid email" }] as any,
 };
