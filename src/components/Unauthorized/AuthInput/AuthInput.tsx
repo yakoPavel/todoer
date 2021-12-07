@@ -1,6 +1,8 @@
 import { Input as ChakraInput } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 
+import withFormikField from "../withFormikField/withFormikField";
+
 /**
  * This component wraps the content of a login input.
  *
@@ -45,3 +47,6 @@ export const AuthInputField = styled(ChakraInput)`
     box-shadow: 0 0 0 1px ${({ theme }) => theme.error};
   }
 `;
+
+/** The {@link AuthInputField} wrapped into the {@link withFormikField}. */
+export const FormikAuthInput = withFormikField(AuthInputField);

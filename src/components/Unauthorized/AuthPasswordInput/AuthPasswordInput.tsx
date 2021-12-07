@@ -4,6 +4,7 @@ import { BiHide, BiShow } from "react-icons/bi";
 
 import Tooltip from "../../UI/Tooltip/Tooltip";
 import * as AuthInput from "../AuthInput/AuthInput";
+import withFormikField from "../withFormikField/withFormikField";
 
 const InputFieldWrapper = styled.div`
   position: relative;
@@ -77,8 +78,12 @@ const AuthPasswordInputField = React.forwardRef<
 });
 AuthPasswordInputField.displayName = "AuthPasswordInputField";
 
+/** The {@link AuthPasswordInputField} wrapped into the {@link withFormikField}. */
+const FormikAuthPasswordInput = withFormikField(AuthPasswordInputField);
+
 export {
   AuthPasswordInputField,
   AuthPasswordInputLabel,
   AuthPasswordInputWrapper,
+  FormikAuthPasswordInput,
 };
