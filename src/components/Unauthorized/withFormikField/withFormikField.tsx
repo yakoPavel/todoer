@@ -1,4 +1,4 @@
-import { Input, Text } from "@chakra-ui/react";
+import { InputProps, Text } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled/macro";
 import { useField as formikUseField } from "formik";
@@ -9,12 +9,12 @@ const ErrorMessage = styled(Text)`
   font-size: 1.4rem;
 `;
 
-type InitialComponentProps = React.ComponentPropsWithRef<typeof Input> & {
+export type InitialComponentProps = InputProps & {
   /** A name of the field. */
   name: string;
 };
 
-type WrapperComponentProps = InitialComponentProps & {
+export type WrapperComponentProps = InitialComponentProps & {
   /**
    * A formik's `useField` implementation. It exists for testing purposes only.
    * Defaults to the real implementation of the aforementioned hook.
@@ -22,7 +22,7 @@ type WrapperComponentProps = InitialComponentProps & {
   useField?: typeof formikUseField;
 };
 
-type WithFormikFieldReturn = {
+export type WithFormikFieldReturn = {
   (props: WrapperComponentProps): JSX.Element;
   displayName: string;
 };
