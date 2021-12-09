@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Divider from "components/UI/Divider/Divider";
 import StyledLink from "components/UI/StyledLink/StyledLink";
 import AuthProviderButton from "components/Unauthorized/AuthProviderButton/AuthProviderButton";
-import SignUpForm from "components/Unauthorized/Form/Form";
+import SignUpWithPasswordForm from "components/Unauthorized/Form/SignUpWithPasswordForm";
 import UnauthorizedContainer from "components/Unauthorized/UnauthorizedContainer/UnauthorizedContainer";
 import React from "react";
 
@@ -20,7 +20,7 @@ const SignUp: React.FC = () => {
 
       <Divider inBetweenText="OR" />
 
-      <SignUpForm variant="signUp" />
+      <SignUpWithPasswordForm />
 
       <BottomDivider />
       <Text fontSize="sm" textAlign="center">

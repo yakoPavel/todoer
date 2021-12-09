@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Divider from "components/UI/Divider/Divider";
 import StyledLink from "components/UI/StyledLink/StyledLink";
 import AuthProviderButton from "components/Unauthorized/AuthProviderButton/AuthProviderButton";
-import LoginForm from "components/Unauthorized/Form/Form";
+import LoginWithPasswordForm from "components/Unauthorized/Form/LoginWithPasswordForm";
 import UnauthorizedContainer from "components/Unauthorized/UnauthorizedContainer/UnauthorizedContainer";
 import React from "react";
 
@@ -26,7 +26,7 @@ const Login: React.FC = () => {
 
       <Divider inBetweenText="OR" />
 
-      <LoginForm variant="signIn" />
+      <LoginWithPasswordForm />
 
       <ForgotPasswordLink to="/password-recovery">
         Forgot your password?

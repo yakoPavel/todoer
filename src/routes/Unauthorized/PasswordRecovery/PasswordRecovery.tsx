@@ -2,7 +2,7 @@ import { Heading, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Divider from "components/UI/Divider/Divider";
 import StyledLink from "components/UI/StyledLink/StyledLink";
-import RecoveryForm from "components/Unauthorized/Form/Form";
+import PasswordRecoveryForm from "components/Unauthorized/Form/PasswordRecoveryForm";
 import UnauthorizedContainer from "components/Unauthorized/UnauthorizedContainer/UnauthorizedContainer";
 import React from "react";
 
@@ -19,7 +19,7 @@ const SignUp: React.FC = () => {
       <Text whiteSpace="normal" fontSize="sm">
         To reset your password, please enter the email address of your account.
       </Text>
-      <RecoveryForm variant="passwordRecovery" />
+      <PasswordRecoveryForm />
       <BottomDivider />
       <Text fontSize="sm" textAlign="center">
         <StyledLink to="/">Go to login</StyledLink>
