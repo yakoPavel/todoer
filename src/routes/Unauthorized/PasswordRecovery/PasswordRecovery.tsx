@@ -10,7 +10,7 @@ const BottomDivider = styled(Divider)`
   margin: 2rem 0;
 `;
 
-const SignUp: React.FC = () => {
+const PasswordRecovery: React.FC = () => {
   return (
     <UnauthorizedContainer>
       <Heading as="h1" fontSize="2xl">
@@ -28,4 +28,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default PasswordRecovery;
