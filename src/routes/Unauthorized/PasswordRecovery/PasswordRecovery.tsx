@@ -10,15 +10,19 @@ const BottomDivider = styled(Divider)`
   margin: 2rem 0;
 `;
 
+const CommentText = styled(Text)`
+  margin: 2rem 0 1rem;
+`;
+
 const PasswordRecovery: React.FC = () => {
   return (
     <UnauthorizedContainer>
       <Heading as="h1" fontSize="2xl">
         Forgot your password?
       </Heading>
-      <Text whiteSpace="normal" fontSize="sm">
+      <CommentText whiteSpace="normal" fontSize="sm">
         To reset your password, please enter the email address of your account.
-      </Text>
+      </CommentText>
       <PasswordRecoveryForm />
       <BottomDivider />
       <Text fontSize="sm" textAlign="center">
