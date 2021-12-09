@@ -58,7 +58,11 @@ const withFormikField = (
           {...field}
           {...otherProps}
         />
-        {showError && <ErrorMessage role="alert">{meta.error}</ErrorMessage>}
+        {showError && (
+          <ErrorMessage role="alert" data-testid={otherProps.name}>
+            {meta.error}
+          </ErrorMessage>
+        )}
       </>
     );
   };
