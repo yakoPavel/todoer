@@ -10,11 +10,13 @@ export const Wrapper = styled.div`
   height: 100vh;
   min-width: min-content;
   min-height: min-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  ${mediaQueries.sm} {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  @media (max-height: 40em) and (max-width: 48em),
+    (max-height: 36em) and (min-width: 48em) {
+    align-items: flex-start;
   }
 `;
 
