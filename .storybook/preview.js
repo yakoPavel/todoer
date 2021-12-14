@@ -1,5 +1,6 @@
 import AppProviders from "../src/context";
 import "../src/style/global.css";
+import { initializeFirebase } from "../src/utils/initializeFirebase";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -14,9 +15,13 @@ export const parameters = {
 };
 
 export const decorators = [
-  (Story) => (
-    <AppProviders>
-      <Story />
-    </AppProviders>
-  ),
+  (Story) => {
+    initializeFirebase();
+
+    return (
+      <AppProviders>
+        <Story />
+      </AppProviders>
+    );
+  },
 ];
