@@ -24,3 +24,8 @@ const Template: ComponentStory<typeof ConfirmButton> = (args) => (
 );
 
 export const Default = Template.bind({});
+
+export const LoadingState = Template.bind({});
+LoadingState.args = {
+  isLoading: true,
+};
