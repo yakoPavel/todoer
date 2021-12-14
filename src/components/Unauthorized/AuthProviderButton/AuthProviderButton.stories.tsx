@@ -27,13 +27,28 @@ export const AppleButton = Template.bind({});
 AppleButton.args = {
   variant: "apple",
 };
+export const AppleButtonLoading = Template.bind({});
+AppleButtonLoading.args = {
+  ...AppleButton.args,
+  isLoading: true,
+};
 
 export const FacebookButton = Template.bind({});
 FacebookButton.args = {
   variant: "facebook",
 };
+export const FacebookButtonLoading = Template.bind({});
+FacebookButtonLoading.args = {
+  ...FacebookButton.args,
+  isLoading: true,
+};
 
 export const GoogleButton = Template.bind({});
 GoogleButton.args = {
   variant: "google",
+};
+export const GoogleButtonLoading = Template.bind({});
+GoogleButtonLoading.args = {
+  ...GoogleButton.args,
+  isLoading: true,
 };
