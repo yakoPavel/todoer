@@ -27,15 +27,18 @@ const SpinnerWrapper = styled.span`
 type ConfirmButtonProps = React.ComponentPropsWithRef<typeof StyledButton> & {
   /** Whether or not the button in the loading state. */
   isLoading?: boolean;
+  /** Whether or not the button is disabled. */
+  isDisabled?: boolean;
 };
 
 const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   children,
   isLoading = false,
+  isDisabled = isLoading,
   ...otherProps
 }) => {
   return (
-    <StyledButton disabled={isLoading} {...otherProps}>
+    <StyledButton disabled={isDisabled} {...otherProps}>
       <ContentWrapper>
         {children}
         {isLoading && (

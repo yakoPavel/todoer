@@ -73,11 +73,14 @@ type AuthProviderButtonProps = Omit<
   variant: "apple" | "facebook" | "google";
   /** Whether or not the button in the loading state. */
   isLoading?: boolean;
+  /** Whether or not the button is disabled. */
+  isDisabled?: boolean;
 };
 
 const AuthProviderButton = ({
   variant,
   isLoading = false,
+  isDisabled = isLoading,
   ...otherProps
 }: AuthProviderButtonProps) => {
   const Icon =
@@ -89,7 +92,7 @@ const AuthProviderButton = ({
       : BsGoogle;
 
   return (
-    <StyledButton disabled={isLoading} type="button" {...otherProps}>
+    <StyledButton disabled={isDisabled} type="button" {...otherProps}>
       <Icon size={24} /> Continue with{" "}
       {variant[0].toUpperCase() + variant.slice(1)}
     </StyledButton>
