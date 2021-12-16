@@ -21,6 +21,22 @@ const render: Renderer = (ui, options = {}) => {
   return rtlRender(ui, { wrapper: Wrapper, ...options });
 };
 
+/**
+ * Returns a promise and its `resolve` and `reject` functions through which
+ * we can change its state in the right moment.
+ */
+function getControlledPromise() {
+  let resolve!: (value: unknown) => void;
+  let reject!: (reason?: unknown) => void;
+
+  const promise = new Promise((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+
+  return { promise, resolve, reject };
+}
+
 export * from "@testing-library/react";
-export { render };
+export { getControlledPromise, render };
 export { default as userEvent } from "@testing-library/user-event";

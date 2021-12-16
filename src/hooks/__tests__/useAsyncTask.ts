@@ -1,19 +1,6 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useAsyncTask } from "hooks/useAsyncTask";
-
-/**
- * Returns a promise and its `resolve` and `reject` functions through which
- * we can change its state in the right moment.
- */
-function getControlledPromise() {
-  let resolve!: (value: unknown) => void;
-  let reject!: (reason?: any) => void;
-  const promise = new Promise((res, rej) => {
-    resolve = res;
-    reject = rej;
-  });
-  return { promise, resolve, reject };
-}
+import { getControlledPromise } from "test/testUtils";
 
 const defaultState = {
   status: "idle",
