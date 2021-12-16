@@ -1,11 +1,20 @@
 /* eslint-disable no-await-in-loop */
+import * as LoadingStateContext from "context/LoadingContext";
 import React from "react";
-import { act, fireEvent, render, screen, waitFor } from "test/testUtils";
+import {
+  act,
+  fireEvent,
+  getControlledPromise,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+  within,
+} from "test/testUtils";
 import { createValidationSchema } from "utils/createValidationSchema";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import ConfirmButton from "../ConfirmButton/ConfirmButton";
 import Form from "../Form/Form";
 
 /*
@@ -22,28 +31,37 @@ function renderForm() {
   const validationSchema = createValidationSchema([
     { name: "email", type: "email" },
     { name: "password", type: "password" },
-    {
-      name: "passwordConfirmation",
-      type: "passwordConfirmation",
-      passwordName: "password",
-    },
   ]);
-  const onSubmitHandler = jest.fn();
+
+  const {
+    promise,
+    reject: rejectAsyncTask,
+    resolve: resolveAsyncTask,
+  } = getControlledPromise();
+
+  const onSubmitHandler = jest.fn().mockReturnValue(promise);
 
   render(
-    <Form
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onFormSubmit={onSubmitHandler}
-    >
-      <FormikAuthInput id="email" name="email" labelText="Email" type="email" />
-      <FormikAuthPasswordInput
-        id="password"
-        name="password"
-        labelText="Password"
-      />
-      <ConfirmButton type="submit">Submit</ConfirmButton>
-    </Form>,
+    <LoadingStateContext.LoadingStateContextProvider>
+      <Form
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmitAction={onSubmitHandler}
+        submitButtonText="Submit"
+      >
+        <FormikAuthInput
+          id="email"
+          name="email"
+          labelText="Email"
+          type="email"
+        />
+        <FormikAuthPasswordInput
+          id="password"
+          name="password"
+          labelText="Password"
+        />
+      </Form>
+    </LoadingStateContext.LoadingStateContextProvider>,
   );
 
   const submitButton = screen.getByRole("button", { name: /submit/i });
@@ -54,6 +72,8 @@ function renderForm() {
     submitButton,
     emailField,
     passwordField,
+    rejectAsyncTask,
+    resolveAsyncTask,
     numberOfFieldsInTheForm: 2,
   };
 }
@@ -148,4 +168,27 @@ test("hides the error messages when the user corrects his input", async () => {
   await type(passwordField, correctPassword);
 
   expect(screen.queryAllByRole("alert")).toHaveLength(0);
+});
+
+test("disables the submit button and shows the loading indicator while submitting; restores the original state after.", async () => {
+  const { emailField, passwordField, submitButton, resolveAsyncTask } =
+    renderForm();
+
+  const correctEmail = "email@gmail.com";
+  await type(emailField, correctEmail);
+
+  const correctPassword = "fRfg35_tN49";
+  await type(passwordField, correctPassword);
+
+  await act(async () => {
+    fireEvent.click(submitButton);
+  });
+
+  expect(submitButton).toBeDisabled();
+  const spinner = within(submitButton).getByText(/loading/i);
+  expect(submitButton).toBeInTheDocument();
+
+  resolveAsyncTask(null);
+  await waitForElementToBeRemoved(spinner);
+  expect(submitButton).not.toBeDisabled();
 });

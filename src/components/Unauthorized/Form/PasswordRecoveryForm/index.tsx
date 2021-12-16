@@ -1,5 +1,4 @@
 import { FormikAuthInput } from "components/Unauthorized/AuthInput/AuthInput";
-import ConfirmButton from "components/Unauthorized/ConfirmButton/ConfirmButton";
 import Form from "components/Unauthorized/Form/Form";
 import React from "react";
 import { createValidationSchema } from "utils/createValidationSchema";
@@ -13,18 +12,17 @@ const LoginWithPasswordForm = () => {
     { name: "email", type: "email" },
   ]);
 
-  const onSubmit = (values: typeof initialValues) => {
-    console.log(values);
-  };
+  const onSubmitAction = ({ email, password }: typeof initialValues) =>
+    Promise.resolve();
 
   return (
     <Form
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onFormSubmit={onSubmit}
+      onSubmitAction={onSubmitAction}
+      submitButtonText="Recover my password"
     >
       <FormikAuthInput id="email" name="email" labelText="Email" type="email" />
-      <ConfirmButton type="submit">Recover my password</ConfirmButton>
     </Form>
   );
 };

@@ -1,34 +1,42 @@
 import { FormikAuthInput } from "components/Unauthorized/AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "components/Unauthorized/AuthPasswordInput/AuthPasswordInput";
-import ConfirmButton from "components/Unauthorized/ConfirmButton/ConfirmButton";
 import Form from "components/Unauthorized/Form/Form";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { signUpWithPassword } from "utils/authentication/signUpWithPassword";
 import { createValidationSchema } from "utils/createValidationSchema";
 
-const LoginWithPasswordForm = () => {
-  const initialValues = {
-    email: "",
-    password: "",
-  };
-  const validationSchema = createValidationSchema([
-    { name: "email", type: "email" },
-    { name: "password", type: "password" },
-    {
-      name: "passwordConfirmation",
-      type: "passwordConfirmation",
-      passwordName: "password",
-    },
-  ]);
+const initialFormValues = {
+  email: "",
+  password: "",
+  passwordConfirmation: "",
+};
 
-  const onSubmit = (values: typeof initialValues) => {
-    console.log(values);
-  };
+const validationSchema = createValidationSchema([
+  { name: "email", type: "email" },
+  { name: "password", type: "password" },
+  {
+    name: "passwordConfirmation",
+    type: "passwordConfirmation",
+    passwordName: "password",
+  },
+]);
+
+const SignUpWithPasswordForm = () => {
+  const navigate = useNavigate();
+
+  const onSubmitAction = ({ email, password }: typeof initialFormValues) =>
+    signUpWithPassword(email, password);
+
+  const onSuccessAction = () => navigate("/", { replace: true });
 
   return (
     <Form
-      initialValues={initialValues}
+      initialValues={initialFormValues}
       validationSchema={validationSchema}
-      onFormSubmit={onSubmit}
+      onSubmitAction={onSubmitAction}
+      onSuccessAction={onSuccessAction}
+      submitButtonText="Sign Up"
     >
       <FormikAuthInput id="email" name="email" labelText="Email" type="email" />
       <FormikAuthPasswordInput
@@ -41,9 +49,8 @@ const LoginWithPasswordForm = () => {
         name="passwordConfirmation"
         labelText="Confirm your password"
       />
-      <ConfirmButton type="submit">Sign up</ConfirmButton>
     </Form>
   );
 };
 
-export default LoginWithPasswordForm;
+export default SignUpWithPasswordForm;

@@ -1,6 +1,5 @@
 import { FormikAuthInput } from "components/Unauthorized/AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "components/Unauthorized/AuthPasswordInput/AuthPasswordInput";
-import ConfirmButton from "components/Unauthorized/ConfirmButton/ConfirmButton";
 import Form from "components/Unauthorized/Form/Form";
 import React from "react";
 import { createValidationSchema } from "utils/createValidationSchema";
@@ -15,15 +14,15 @@ const LoginWithPasswordForm = () => {
     { name: "password", type: "onlyRequired" },
   ]);
 
-  const onSubmit = (values: typeof initialValues) => {
-    console.log(values);
-  };
+  const onSubmitAction = ({ email, password }: typeof initialValues) =>
+    Promise.resolve();
 
   return (
     <Form
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onFormSubmit={onSubmit}
+      onSubmitAction={onSubmitAction}
+      submitButtonText="Sign in"
     >
       <FormikAuthInput id="email" name="email" labelText="Email" type="email" />
       <FormikAuthPasswordInput
@@ -31,7 +30,6 @@ const LoginWithPasswordForm = () => {
         name="password"
         labelText="Password"
       />
-      <ConfirmButton type="submit">Sign in</ConfirmButton>
     </Form>
   );
 };
