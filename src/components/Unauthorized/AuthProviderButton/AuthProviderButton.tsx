@@ -44,7 +44,7 @@ export const StyledButton = styled.button`
     cursor: not-allowed;
   }
 
-  &:disabled {
+  &.loading:disabled {
     background-image: linear-gradient(
       125deg,
       transparent 8%,
@@ -92,7 +92,12 @@ const AuthProviderButton = ({
       : BsGoogle;
 
   return (
-    <StyledButton disabled={isDisabled} type="button" {...otherProps}>
+    <StyledButton
+      className={isLoading ? "loading" : ""}
+      disabled={isDisabled}
+      type="button"
+      {...otherProps}
+    >
       <Icon size={24} /> Continue with{" "}
       {variant[0].toUpperCase() + variant.slice(1)}
     </StyledButton>

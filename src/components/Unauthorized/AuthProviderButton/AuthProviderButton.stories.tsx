@@ -32,6 +32,11 @@ AppleButtonLoading.args = {
   ...AppleButton.args,
   isLoading: true,
 };
+export const AppleButtonDisabled = Template.bind({});
+AppleButtonDisabled.args = {
+  ...AppleButton.args,
+  isDisabled: true,
+};
 
 export const FacebookButton = Template.bind({});
 FacebookButton.args = {
@@ -42,6 +47,11 @@ FacebookButtonLoading.args = {
   ...FacebookButton.args,
   isLoading: true,
 };
+export const FacebookButtonDisabled = Template.bind({});
+FacebookButtonDisabled.args = {
+  ...FacebookButton.args,
+  isDisabled: true,
+};
 
 export const GoogleButton = Template.bind({});
 GoogleButton.args = {
@@ -51,4 +61,9 @@ export const GoogleButtonLoading = Template.bind({});
 GoogleButtonLoading.args = {
   ...GoogleButton.args,
   isLoading: true,
+};
+export const GoogleButtonDisabled = Template.bind({});
+GoogleButtonDisabled.args = {
+  ...GoogleButton.args,
+  isDisabled: true,
 };
