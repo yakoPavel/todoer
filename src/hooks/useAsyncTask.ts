@@ -65,7 +65,6 @@ export function useAsyncTask<Arguments extends unknown[], Return = unknown>(
         return returnData;
       } catch (e) {
         setError(e instanceof Error ? e : Error("Unknown error"));
-        throw e;
       }
     },
     [task, setData, setError],
