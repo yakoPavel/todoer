@@ -1,6 +1,12 @@
+import { Alert, AlertDescription, AlertIcon } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import useLoadingState from "context/LoadingContext";
-import { Form as FormikForm, Formik, useFormikContext } from "formik";
+import {
+  Form as FormikForm,
+  Formik,
+  FormikHelpers,
+  useFormikContext,
+} from "formik";
 import { useAsyncTask } from "hooks/useAsyncTask";
 import React from "react";
 import { ObjectShape, OptionalObjectSchema } from "yup/lib/object";
@@ -24,6 +30,10 @@ type FormProps<InitialValues extends Record<string, string>> = HtmlFormProps & {
   onSubmitAction: (values: InitialValues) => Promise<unknown>;
   /** An action that will be invoked after the successful submission processing. */
   onSuccessAction?: () => void;
+  /** A message that will be shown after the successful submission processing. */
+  successMessage?: string;
+  /** Error messages  */
+  errorMessagesMapping: Record<string, string>;
   /** Text that will be placed inside the submit button. */
   submitButtonText: string;
 };
@@ -46,6 +56,10 @@ const FormRenderer = ({ setValidate, ...otherProps }: FormRendererProps) => {
   return <StyledForm noValidate {...otherProps} />;
 };
 
+function isFirebaseAuthError(error: Error): error is Error & { code: string } {
+  return "code" in error;
+}
+
 /**
  * It is a component that represents a generic form with `Formik`.
  *
@@ -67,24 +81,65 @@ const Form = <InitialValues extends Record<string, string>>({
   validationSchema,
   onSubmitAction,
   onSuccessAction,
+  successMessage,
   submitButtonText,
+  errorMessagesMapping,
   children,
   ...otherProps
 }: FormProps<InitialValues>) => {
   const [validate, setValidate] = React.useState(false);
   const { isScreenLoading, setIsScreenLoading } = useLoadingState();
-  const { isLoading, isSuccess, run } = useAsyncTask(onSubmitAction);
+  const { isLoading, isSuccess, error, run, reset } =
+    useAsyncTask(onSubmitAction);
 
   React.useEffect(() => {
     setIsScreenLoading(isLoading);
+
+    if (isSuccess && onSuccessAction) onSuccessAction();
   });
 
-  if (isSuccess && onSuccessAction) onSuccessAction();
+  const onSubmit = (
+    values: InitialValues,
+    { resetForm }: FormikHelpers<InitialValues>,
+  ) => {
+    reset();
+    resetForm();
+    run(values);
+  };
+
+  const getMessage = () => {
+    if (error && isFirebaseAuthError(error)) {
+      return (
+        <Alert status="error" variant="solid" borderRadius="5px">
+          <AlertIcon width="2rem" height="2rem" />{" "}
+          <AlertDescription whiteSpace="normal" textAlign="center">
+            {errorMessagesMapping[error.code] ??
+              "An error has happened. Please try again."}
+          </AlertDescription>
+        </Alert>
+      );
+    }
+    if (isSuccess && successMessage) {
+      return (
+        <Alert status="success" variant="solid" borderRadius="5px">
+          <AlertIcon width="2rem" height="2rem" />{" "}
+          <AlertDescription
+            whiteSpace="normal"
+            textAlign="center"
+            lineHeight={1.2}
+            fontSize="1.4rem"
+          >
+            {successMessage}
+          </AlertDescription>
+        </Alert>
+      );
+    }
+  };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={run}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
       validateOnBlur={validate}
       validateOnChange={validate}
@@ -98,6 +153,7 @@ const Form = <InitialValues extends Record<string, string>>({
         >
           {submitButtonText}
         </ConfirmButton>
+        {getMessage()}
       </FormRenderer>
     </Formik>
   );

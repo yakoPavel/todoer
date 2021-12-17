@@ -22,7 +22,15 @@ import Form from "../Form/Form";
   because of this bug: https://github.com/testing-library/user-event/issues/387
 */
 
-function renderForm() {
+type RenderOptions = {
+  errorMessagesMapping?: Record<string, string>;
+  successMessage?: string;
+};
+
+function renderForm({
+  errorMessagesMapping = {},
+  successMessage,
+}: RenderOptions = {}) {
   const initialValues = {
     email: "",
     password: "",
@@ -47,6 +55,8 @@ function renderForm() {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmitAction={onSubmitHandler}
+        errorMessagesMapping={errorMessagesMapping}
+        successMessage={successMessage}
         submitButtonText="Submit"
       >
         <FormikAuthInput
@@ -75,6 +85,7 @@ function renderForm() {
     rejectAsyncTask,
     resolveAsyncTask,
     numberOfFieldsInTheForm: 2,
+    errorMessagesMapping,
   };
 }
 
@@ -94,6 +105,13 @@ async function type(element: HTMLElement, text: string) {
   await act(async () => {
     fireEvent.blur(element);
   });
+}
+
+/* A class that mimics the Firebase Auth Error */
+class FirebaseAuthError extends Error {
+  constructor(public code: string, ...args: any[]) {
+    super(...args);
+  }
 }
 
 test("doesn't show error messages if the form is not submitted at least once", async () => {
@@ -191,4 +209,53 @@ test("disables the submit button and shows the loading indicator while submittin
   resolveAsyncTask(null);
   await waitForElementToBeRemoved(spinner);
   expect(submitButton).not.toBeDisabled();
+});
+
+test("renders an error message if the submit action throws an error", async () => {
+  const errorCode = "auth/error";
+  const errorMessagesMapping = {
+    [errorCode]: "Some error occurred during the authentication.",
+  };
+  const error = new FirebaseAuthError(errorCode);
+
+  const { emailField, passwordField, submitButton, rejectAsyncTask } =
+    renderForm({
+      errorMessagesMapping,
+    });
+
+  await type(emailField, "example@example.com");
+  await type(passwordField, "grgFr45Gl386");
+
+  await act(async () => {
+    fireEvent.click(submitButton);
+  });
+
+  rejectAsyncTask(error);
+
+  await waitFor(() =>
+    expect(
+      screen.getByText(errorMessagesMapping[errorCode]),
+    ).toBeInTheDocument(),
+  );
+});
+
+test("renders a message if the submit action successfully resolves and the message is specified", async () => {
+  const successMessage = "SOME_MESSAGE";
+  const { emailField, passwordField, submitButton, resolveAsyncTask } =
+    renderForm({
+      successMessage,
+    });
+
+  await type(emailField, "example@example.com");
+  await type(passwordField, "grgFr45Gl386");
+
+  await act(async () => {
+    fireEvent.click(submitButton);
+  });
+
+  resolveAsyncTask(null);
+
+  await waitFor(() =>
+    expect(screen.getByText(successMessage)).toBeInTheDocument(),
+  );
 });
