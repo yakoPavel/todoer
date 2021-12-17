@@ -3,7 +3,7 @@ import { FormikAuthPasswordInput } from "components/Unauthorized/AuthPasswordInp
 import Form from "components/Unauthorized/Form/Form";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { signUpWithPassword } from "utils/authentication/signUpWithPassword";
+import { signUpWithPassword } from "utils/authentication";
 import { createValidationSchema } from "utils/createValidationSchema";
 
 const initialFormValues = {
@@ -22,6 +22,13 @@ const validationSchema = createValidationSchema([
   },
 ]);
 
+const errorMessagesMapping = {
+  "auth/email-already-in-use": "The account with this email already exists",
+  "auth/invalid-email": "The submitted email is invalid",
+  "auth/too-may-requests": "You have sent too many request. Try again later.",
+  "auth/weak-password": "The submitted password is too weak",
+};
+
 const SignUpWithPasswordForm = () => {
   const navigate = useNavigate();
 
@@ -35,6 +42,7 @@ const SignUpWithPasswordForm = () => {
       initialValues={initialFormValues}
       validationSchema={validationSchema}
       onSubmitAction={onSubmitAction}
+      errorMessagesMapping={errorMessagesMapping}
       onSuccessAction={onSuccessAction}
       submitButtonText="Sign Up"
     >
