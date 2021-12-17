@@ -3,8 +3,8 @@ import StyledLink from "components/StyledLink/StyledLink";
 import React from "react";
 
 import AuthProviderButtons from "../../components/AuthProviderButtons/AuthProviderButtons";
-import SignUpWithPasswordForm from "../../components/Form/SignUpWithPasswordForm";
 import UnauthorizedScreen from "../../components/UnauthorizedScreen/UnauthorizedScreen";
+import { SignUpWithPasswordForm } from "../../features/Form";
 
 const SignUp: React.FC = () => {
   return (

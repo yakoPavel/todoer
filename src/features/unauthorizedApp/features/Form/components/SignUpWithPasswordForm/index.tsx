@@ -1,45 +1,51 @@
 import { createValidationSchema } from "features/unauthorizedApp/utils/createValidationSchema";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithPassword } from "utils/authentication";
+import { signUpWithPassword } from "utils/authentication";
 
-import { FormikAuthInput } from "../../AuthInput/AuthInput";
-import { FormikAuthPasswordInput } from "../../AuthPasswordInput/AuthPasswordInput";
+import { FormikAuthInput } from "../AuthInput/AuthInput";
+import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
 import Form from "../Form";
 
-const initialValues = {
+const initialFormValues = {
   email: "",
   password: "",
+  passwordConfirmation: "",
 };
 
 const validationSchema = createValidationSchema([
   { name: "email", type: "email" },
-  { name: "password", type: "onlyRequired" },
+  { name: "password", type: "password" },
+  {
+    name: "passwordConfirmation",
+    type: "passwordConfirmation",
+    passwordName: "password",
+  },
 ]);
 
 const errorMessagesMapping = {
+  "auth/email-already-in-use": "The account with this email already exists",
   "auth/invalid-email": "The submitted email is invalid",
   "auth/too-may-requests": "You have sent too many request. Try again later.",
-  "auth/user-not-found": "Incorrect email or password",
-  "auth/wrong-password": "Incorrect email or password",
+  "auth/weak-password": "The submitted password is too weak",
 };
 
-const LoginWithPasswordForm = () => {
+const SignUpWithPasswordForm = () => {
   const navigate = useNavigate();
 
-  const onSubmitAction = ({ email, password }: typeof initialValues) =>
-    signInWithPassword(email, password);
+  const onSubmitAction = ({ email, password }: typeof initialFormValues) =>
+    signUpWithPassword(email, password);
 
   const onSuccessAction = () => navigate("/", { replace: true });
 
   return (
     <Form
-      initialValues={initialValues}
+      initialValues={initialFormValues}
       validationSchema={validationSchema}
       onSubmitAction={onSubmitAction}
       errorMessagesMapping={errorMessagesMapping}
       onSuccessAction={onSuccessAction}
-      submitButtonText="Sign in"
+      submitButtonText="Sign Up"
     >
       <FormikAuthInput id="email" name="email" labelText="Email" type="email" />
       <FormikAuthPasswordInput
@@ -47,8 +53,13 @@ const LoginWithPasswordForm = () => {
         name="password"
         labelText="Password"
       />
+      <FormikAuthPasswordInput
+        id="passwordConfirmation"
+        name="passwordConfirmation"
+        labelText="Confirm your password"
+      />
     </Form>
   );
 };
 
-export default LoginWithPasswordForm;
+export default SignUpWithPasswordForm;

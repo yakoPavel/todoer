@@ -15,7 +15,7 @@ import {
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import Form from "../Form/Form";
+import Form from "../Form";
 
 /*
   These tests use the `fireEvent` function instead of the `userEvent`

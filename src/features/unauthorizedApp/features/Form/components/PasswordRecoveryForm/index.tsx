@@ -2,7 +2,7 @@ import { createValidationSchema } from "features/unauthorizedApp/utils/createVal
 import React from "react";
 import { sendPasswordResetEmail } from "utils/authentication";
 
-import { FormikAuthInput } from "../../AuthInput/AuthInput";
+import { FormikAuthInput } from "../AuthInput/AuthInput";
 import Form from "../Form";
 
 const errorMessagesMapping = {

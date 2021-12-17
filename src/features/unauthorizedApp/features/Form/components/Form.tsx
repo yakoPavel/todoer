@@ -11,7 +11,7 @@ import { useAsyncTask } from "hooks/useAsyncTask";
 import React from "react";
 import { ObjectShape, OptionalObjectSchema } from "yup/lib/object";
 
-import ConfirmButton from "../ConfirmButton/ConfirmButton";
+import ConfirmButton from "./ConfirmButton/ConfirmButton";
 
 const StyledForm = styled(FormikForm)`
   & > *:not(:last-child) {

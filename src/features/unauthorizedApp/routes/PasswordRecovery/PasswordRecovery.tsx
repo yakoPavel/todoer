@@ -2,8 +2,8 @@ import { Heading, Text } from "@chakra-ui/react";
 import StyledLink from "components/StyledLink/StyledLink";
 import React from "react";
 
-import PasswordRecoveryForm from "../../components/Form/PasswordRecoveryForm";
 import UnauthorizedScreen from "../../components/UnauthorizedScreen/UnauthorizedScreen";
+import { PasswordRecoveryForm } from "../../features/Form";
 
 const PasswordRecovery: React.FC = () => {
   return (
