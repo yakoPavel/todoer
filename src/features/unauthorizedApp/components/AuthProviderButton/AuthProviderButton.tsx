@@ -75,10 +75,13 @@ type AuthProviderButtonProps = Omit<
   isLoading?: boolean;
   /** Whether or not the button is disabled. */
   isDisabled?: boolean;
+  /** A callback that will be called when the button is clicked. */
+  onClick: () => void;
 };
 
 const AuthProviderButton = ({
   variant,
+  onClick,
   isLoading = false,
   isDisabled = isLoading,
   ...otherProps
@@ -96,6 +99,7 @@ const AuthProviderButton = ({
       className={isLoading ? "loading" : ""}
       disabled={isDisabled}
       type="button"
+      onClick={onClick}
       {...otherProps}
     >
       <Icon size={24} /> Continue with{" "}
