@@ -9,16 +9,7 @@ export default {
 } as ComponentMeta<typeof AuthProviderButton>;
 
 const Template: ComponentStory<typeof AuthProviderButton> = (args) => (
-  <div
-    style={{
-      width: "30vw",
-      height: "100vh",
-      margin: "auto",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
+  <div style={{ width: "30vw" }}>
     <AuthProviderButton {...args} />
   </div>
 );

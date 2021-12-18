@@ -9,18 +9,7 @@ export default {
 } as ComponentMeta<typeof FormikAuthInput>;
 
 const Template: ComponentStory<typeof FormikAuthInput> = (args) => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "50%",
-        margin: "auto",
-      }}
-    >
-      <FormikAuthInput type="email" {...args} />
-    </div>
-  );
+  return <FormikAuthInput type="email" {...args} />;
 };
 
 export const WithoutErrors = Template.bind({});

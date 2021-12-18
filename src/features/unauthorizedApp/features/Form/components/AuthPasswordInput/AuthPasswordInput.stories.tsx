@@ -11,21 +11,12 @@ export default {
 const Template: ComponentStory<
   typeof AuthPasswordInput.AuthPasswordInputWrapper
 > = (args) => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      width: "50%",
-      margin: "auto",
-    }}
-  >
-    <AuthPasswordInput.AuthPasswordInputWrapper {...args}>
-      <AuthPasswordInput.AuthPasswordInputLabel htmlFor="password">
-        Password
-      </AuthPasswordInput.AuthPasswordInputLabel>
-      <AuthPasswordInput.AuthPasswordInputField id="password" />
-    </AuthPasswordInput.AuthPasswordInputWrapper>
-  </div>
+  <AuthPasswordInput.AuthPasswordInputWrapper {...args}>
+    <AuthPasswordInput.AuthPasswordInputLabel htmlFor="password">
+      Password
+    </AuthPasswordInput.AuthPasswordInputLabel>
+    <AuthPasswordInput.AuthPasswordInputField id="password" />
+  </AuthPasswordInput.AuthPasswordInputWrapper>
 );
 
 export const Default = Template.bind({});

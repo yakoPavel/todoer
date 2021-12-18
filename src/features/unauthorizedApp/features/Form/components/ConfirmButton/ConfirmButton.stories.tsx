@@ -9,16 +9,7 @@ export default {
 } as ComponentMeta<typeof ConfirmButton>;
 
 const Template: ComponentStory<typeof ConfirmButton> = (args) => (
-  <div
-    style={{
-      width: "50vw",
-      height: "100vh",
-      margin: "auto",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
+  <div style={{ width: "50vw" }}>
     <ConfirmButton {...args}>Button</ConfirmButton>
   </div>
 );

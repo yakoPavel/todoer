@@ -17,7 +17,17 @@ export const decorators = [
   (Story) => {
     return (
       <AppProviders>
-        <Story />
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Story />
+        </div>
       </AppProviders>
     );
   },
