@@ -1,7 +1,8 @@
 import { keyframes } from "@emotion/react/macro";
 import styled from "@emotion/styled/macro";
 import React from "react";
-import { BsApple, BsFacebook, BsGoogle } from "react-icons/bs";
+import { BsFacebook, BsGoogle } from "react-icons/bs";
+import { FaYahoo } from "react-icons/fa";
 import * as mediaQueries from "style/mediaQueries";
 
 const loadingAnimation = keyframes`
@@ -70,7 +71,7 @@ type AuthProviderButtonProps = Omit<
   "children"
 > & {
   /** A button variant. */
-  variant: "apple" | "facebook" | "google";
+  variant: "yahoo" | "facebook" | "google";
   /** Whether or not the button in the loading state. */
   isLoading?: boolean;
   /** Whether or not the button is disabled. */
@@ -88,8 +89,8 @@ const AuthProviderButton = ({
 }: AuthProviderButtonProps) => {
   const Icon =
     // eslint-disable-next-line no-nested-ternary
-    variant === "apple"
-      ? BsApple
+    variant === "yahoo"
+      ? FaYahoo
       : variant === "facebook"
       ? BsFacebook
       : BsGoogle;

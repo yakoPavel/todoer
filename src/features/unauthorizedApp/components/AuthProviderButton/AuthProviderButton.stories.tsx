@@ -23,18 +23,18 @@ const Template: ComponentStory<typeof AuthProviderButton> = (args) => (
   </div>
 );
 
-export const AppleButton = Template.bind({});
-AppleButton.args = {
-  variant: "apple",
+export const YahooButton = Template.bind({});
+YahooButton.args = {
+  variant: "yahoo",
 };
-export const AppleButtonLoading = Template.bind({});
-AppleButtonLoading.args = {
-  ...AppleButton.args,
+export const YahooButtonLoading = Template.bind({});
+YahooButtonLoading.args = {
+  ...YahooButton.args,
   isLoading: true,
 };
-export const AppleButtonDisabled = Template.bind({});
-AppleButtonDisabled.args = {
-  ...AppleButton.args,
+export const YahooButtonDisabled = Template.bind({});
+YahooButtonDisabled.args = {
+  ...YahooButton.args,
   isDisabled: true,
 };
 
