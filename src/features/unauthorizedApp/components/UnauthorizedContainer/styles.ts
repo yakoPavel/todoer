@@ -13,11 +13,6 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media (max-height: 40em) and (max-width: 48em),
-    (max-height: 36em) and (min-width: 48em) {
-    align-items: flex-start;
-  }
 `;
 
 /**
@@ -26,6 +21,10 @@ export const Wrapper = styled.div`
 export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  &.alignToTop {
+    align-self: flex-start;
+  }
 
   ${mediaQueries.md} {
     flex-direction: row;
