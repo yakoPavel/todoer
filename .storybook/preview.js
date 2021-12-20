@@ -1,5 +1,7 @@
 import AppProviders from "../src/context";
 import "../src/style/global.css";
+import { ThemeProvider } from "@emotion/react";
+import * as colorThemes from "../src/style/colors";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -7,13 +9,27 @@ export const parameters = {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
+      select: /__theme__/,
     },
-    exclude: /_.*/,
+    exclude: /(?!_{1,2}theme__)(?<!__theme_?)_.*/,
   },
   layout: "fullscreen",
 };
 
 export const decorators = [
+  (Story, { args }) => {
+    const { __theme__ } = args;
+
+    if (__theme__) {
+      return (
+        <ThemeProvider theme={colorThemes[__theme__]}>
+          <Story />
+        </ThemeProvider>
+      );
+    }
+
+    return <Story />;
+  },
   (Story) => {
     return (
       <AppProviders>
