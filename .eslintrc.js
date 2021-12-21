@@ -45,7 +45,7 @@ module.exports = {
   },
   rules: {
     "consistent-return": "off",
-    "sonarjs/cognitive-complexity": ["warn", 5],
+    "sonarjs/cognitive-complexity": ["warn", 15],
     "import/extensions": [
       "error",
       "never",
