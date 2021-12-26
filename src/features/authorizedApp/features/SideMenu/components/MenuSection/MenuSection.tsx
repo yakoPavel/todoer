@@ -18,17 +18,20 @@ type MenuSectionProps = {
   sectionContent: React.ReactNode;
   /** A component that will be placed on the right side of the section title. */
   rightSlot?: React.ReactNode;
+  /** A class name that will be assigned to the outer-most component. */
+  className?: string;
 };
 
 const MenuSection: React.FC<MenuSectionProps> = ({
   rightSlot,
   sectionTitle,
   sectionContent,
+  className,
 }) => {
   const theme = useTheme();
 
   return (
-    <Accordion allowToggle width="100%">
+    <Accordion allowToggle width="100%" className={className}>
       <AccordionItem border="none">
         <h3>
           <AccordionButton
