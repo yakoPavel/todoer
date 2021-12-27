@@ -11,7 +11,7 @@ const StyledLink = styled.a`
   align-items: center;
   justify-content: space-between;
   font-size: 1.5rem;
-  padding: 0.4em 0.8em;
+  padding: 0.4em 1.3em;
   border-radius: 5px;
   color: ${({ theme }) => theme.text};
   cursor: pointer;
