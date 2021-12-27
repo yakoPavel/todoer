@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
 import React from "react";
+import { EventWithProcessedField } from "types";
 
 type MenuSectionProps = {
   /** A title of this section. */
@@ -29,9 +30,20 @@ const MenuSection: React.FC<MenuSectionProps> = ({
   className,
 }) => {
   const theme = useTheme();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const onToggle = (event: EventWithProcessedField<React.MouseEvent>) => {
+    if (event.processed) return;
+    setExpanded((prevState) => !prevState);
+  };
 
   return (
-    <Accordion allowToggle width="100%" className={className}>
+    <Accordion
+      allowToggle
+      width="100%"
+      className={className}
+      index={expanded ? 0 : -1}
+    >
       <AccordionItem border="none">
         <h3>
           <AccordionButton
@@ -44,13 +56,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({
             }}
             fontSize="md"
             display="inline-block"
+            onClick={onToggle}
           >
-            <Flex
-              alignItems="center"
-              color={theme.text}
-              width="100%"
-              justifyContent="space-between"
-            >
+            <Flex alignItems="center" color={theme.text} width="100%">
               <AccordionIcon alignSelf="flexStart" />
               <Text
                 marginLeft="1rem"
@@ -60,7 +68,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({
               >
                 {sectionTitle}
               </Text>
-              <Box marginLeft="1rem">{rightSlot}</Box>
+              <Box marginLeft="auto" marginRight="1rem">
+                {rightSlot}
+              </Box>
             </Flex>
           </AccordionButton>
         </h3>
