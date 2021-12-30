@@ -7,7 +7,7 @@ import { themeSwitcherArgType } from "storybook/commonArgTypes";
 import DragAndDrop, { DragAndDropProps } from "./DragAndDrop";
 
 export default {
-  title: "DragAndDrop",
+  title: "Authorized app/DragAndDrop",
   component: DragAndDrop,
   argTypes: {
     ...themeSwitcherArgType,
