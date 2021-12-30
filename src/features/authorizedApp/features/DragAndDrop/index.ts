@@ -1,3 +1,4 @@
 import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
+import { useOnDragEnd } from "./hooks/useOnDragEnd";
 
-export { DragAndDrop };
+export { DragAndDrop, useOnDragEnd };

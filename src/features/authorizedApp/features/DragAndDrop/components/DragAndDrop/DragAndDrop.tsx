@@ -4,7 +4,7 @@ import { DragDropContext, DragDropContextProps } from "react-beautiful-dnd";
 import Draggable from "../Draggable/Draggable";
 import Droppable from "../Droppable/Droppable";
 
-export type DragAndDropProps = DragDropContextProps & {
+export type DragAndDropProps = Omit<DragDropContextProps, "children"> & {
   /** An id of the droppable. */
   mainId: string;
   /** Draggable items config. */

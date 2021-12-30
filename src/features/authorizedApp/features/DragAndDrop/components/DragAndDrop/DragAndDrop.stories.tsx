@@ -4,7 +4,8 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
-import DragAndDrop, { DragAndDropProps } from "./DragAndDrop";
+import { useOnDragEnd } from "../../hooks/useOnDragEnd";
+import DragAndDrop from "./DragAndDrop";
 
 export default {
   title: "Authorized app/DragAndDrop",
@@ -50,23 +51,7 @@ const initialDraggables = [
 ];
 
 const Template: ComponentStory<typeof DragAndDrop> = (args) => {
-  const [draggables, setDraggables] = React.useState(initialDraggables);
-
-  const onDragEnd: DragAndDropProps["onDragEnd"] = ({
-    source,
-    destination,
-  }) => {
-    if (!destination) return;
-
-    const oldIndex = source.index;
-    const newIndex = destination.index;
-
-    const newDraggablesState = draggables.slice();
-    const [draggedItem] = newDraggablesState.splice(oldIndex, 1);
-    newDraggablesState.splice(newIndex, 0, draggedItem);
-
-    setDraggables(newDraggablesState);
-  };
+  const { draggables, onDragEnd } = useOnDragEnd(initialDraggables);
 
   return (
     <DragAndDrop {...args} onDragEnd={onDragEnd} draggables={draggables} />
