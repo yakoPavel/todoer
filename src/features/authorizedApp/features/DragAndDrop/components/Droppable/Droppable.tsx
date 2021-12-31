@@ -11,6 +11,7 @@ type ContainerProps = {
 const Container = styled.div<ContainerProps>`
   background-color: ${({ isDraggingOver, theme }) =>
     isDraggingOver ? theme.backgroundTertiary : "transparent"};
+  border-radius: 5px;
 `;
 
 type DroppableProps = Omit<OriginalDroppableProps, "children">;

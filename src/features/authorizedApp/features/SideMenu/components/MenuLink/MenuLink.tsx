@@ -2,18 +2,16 @@ import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-const LinkText = styled(Text)`
-  margin: 0 1rem;
-`;
-
 const StyledLink = styled.a`
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 1.5rem;
-  padding: 0.4em 1.3em;
+  padding: 0.4em 1.2em 0.4em 1.9em;
   border-radius: 5px;
   color: ${({ theme }) => theme.text};
+  width: 100%;
+  background-color: ${({ theme }) => theme.backgroundSecondary};
   cursor: pointer;
 
   &:hover {
@@ -43,7 +41,7 @@ const MenuLink = ({
   return (
     <StyledLink {...otherProps}>
       {leftSlot}
-      <LinkText>{text}</LinkText>
+      <Text>{text}</Text>
       {rightSlot}
     </StyledLink>
   );
