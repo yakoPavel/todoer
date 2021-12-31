@@ -11,9 +11,8 @@ const DragHandle = styled.div`
   top: 50%;
   left: 0;
   transform: translate(-100%, -50%);
-  display: none;
   cursor: move;
-  color: ${({ theme }) => theme.textSecondary};
+  color: transparent;
 
   &:hover {
     color: ${({ theme }) => theme.text};
@@ -34,7 +33,7 @@ const Container = styled.div<ContainerProps>`
   }};
 
   &:hover ${DragHandle} {
-    display: unset;
+    color: ${({ theme }) => theme.textSecondary};
   }
 `;
 
