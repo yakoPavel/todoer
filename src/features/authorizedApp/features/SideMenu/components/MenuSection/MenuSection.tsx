@@ -68,7 +68,16 @@ const MenuSection: React.FC<MenuSectionProps> = ({
               >
                 {sectionTitle}
               </Text>
-              <Box marginLeft="auto" marginRight="1rem">
+              <Box
+                marginLeft="auto"
+                marginRight="1rem"
+                visibility="hidden"
+                css={{
+                  "#sideMenu:hover &": {
+                    visibility: "visible",
+                  },
+                }}
+              >
                 {rightSlot}
               </Box>
             </Flex>
