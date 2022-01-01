@@ -59,19 +59,22 @@ const MenuSection: React.FC<MenuSectionProps> = ({
             onClick={onToggle}
           >
             <Flex alignItems="center" color={theme.text} width="100%">
-              <AccordionIcon alignSelf="flexStart" />
+              <Box alignSelf="flexStart" width="15%">
+                <AccordionIcon />
+              </Box>
               <Text
-                marginLeft="1rem"
                 fontSize="md"
                 fontWeight="700"
                 lineHeight="1"
+                width="70%"
+                textAlign="left"
               >
                 {sectionTitle}
               </Text>
               <Box
                 marginLeft="auto"
-                marginRight="1rem"
                 visibility="hidden"
+                width="15%"
                 css={{
                   "#sideMenu:hover &": {
                     visibility: "visible",

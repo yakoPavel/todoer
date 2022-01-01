@@ -5,8 +5,8 @@ import React from "react";
 const StyledLink = styled.a`
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
-  padding: 0.4em 1.3rem 0.4em 3rem;
+  font-size: 1.4rem;
+  padding: 0.4em 0;
   border-radius: 5px;
   color: ${({ theme }) => theme.text};
   width: 100%;
@@ -23,11 +23,20 @@ const StyledLink = styled.a`
 `;
 
 const LeftSlotWrapper = styled.div`
-  margin-right: 2rem;
+  width: 15%;
+  display: flex;
+  justify-content: center;
 `;
 
 const RightSlotWrapper = styled.div`
-  margin-left: auto;
+  width: 15%;
+  display: flex;
+  padding-right: calc(15% - 2.2rem);
+  justify-content: flex-end;
+`;
+
+const LinkText = styled(Text)`
+  width: 70%;
 `;
 
 type MenuLinkProps = Omit<React.ComponentPropsWithoutRef<"a">, "children"> & {
@@ -47,9 +56,9 @@ const MenuLink = ({
 }: MenuLinkProps) => {
   return (
     <StyledLink {...otherProps}>
-      {leftSlot && <LeftSlotWrapper>{leftSlot}</LeftSlotWrapper>}
-      <Text>{text}</Text>
-      {rightSlot && <RightSlotWrapper>{rightSlot}</RightSlotWrapper>}
+      <LeftSlotWrapper>{leftSlot}</LeftSlotWrapper>
+      <LinkText>{text}</LinkText>
+      <RightSlotWrapper>{rightSlot}</RightSlotWrapper>
     </StyledLink>
   );
 };
