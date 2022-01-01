@@ -17,10 +17,26 @@ export type DragAndDropProps = Omit<DragDropContextProps, "children"> & {
 const DragAndDrop = ({
   draggables,
   mainId,
+  onDragEnd,
+  onDragStart,
   ...otherProps
 }: DragAndDropProps) => {
   return (
-    <DragDropContext {...otherProps}>
+    <DragDropContext
+      {...otherProps}
+      onDragStart={(initial, provided) => {
+        document.documentElement.style.pointerEvents = "none";
+        document.documentElement.style.cursor = "move";
+
+        onDragStart?.(initial, provided);
+      }}
+      onDragEnd={(result, provided) => {
+        document.documentElement.style.pointerEvents = "";
+        document.documentElement.style.cursor = "";
+
+        onDragEnd(result, provided);
+      }}
+    >
       <Droppable droppableId={mainId}>
         {draggables.map(({ component, id }, index) => (
           <Draggable key={id} draggableId={id} index={index}>
