@@ -19,7 +19,6 @@
     "@types/tinycolor2": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "downshift": "^6.1.7",
-    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
@@ -81,6 +80,7 @@
     "@storybook/react": "^6.4.9",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/react-beautiful-dnd": "^13.1.2",
+    "eslint": "^7.32.0",
     "eslint-plugin-storybook": "^0.5.3"
   }
 }
