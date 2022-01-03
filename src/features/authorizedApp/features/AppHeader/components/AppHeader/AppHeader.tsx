@@ -56,8 +56,17 @@ const AppHeader = ({
   const menuButtonLabel =
     menuState === "closed" ? "Open the menu" : "Close the menu";
 
+  const saveHeaderHeight = (header: HTMLElement | null) => {
+    if (header === null) return;
+
+    document.documentElement.style.setProperty(
+      "--header-height",
+      `${header.offsetHeight}px`,
+    );
+  };
+
   return (
-    <Styled.Header>
+    <Styled.Header ref={saveHeaderHeight}>
       <Styled.SectionWrapper>
         <HeaderButton
           tooltipText={menuButtonLabel}
