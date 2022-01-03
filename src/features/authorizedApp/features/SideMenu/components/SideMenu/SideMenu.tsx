@@ -51,39 +51,51 @@ const AddNewButton = (props: AddNewButtonProps) => {
   );
 };
 
-const getNumberOfItemsComponent = (numberOfItems: number) => (
-  <Styled.NumberOfItemsText>{numberOfItems}</Styled.NumberOfItemsText>
-);
+function useDragAndDropState() {
+  const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
+    useOnDragEnd(
+      getLinksAsDraggables(dummyProjects, {
+        rightSlot: ({ tasks }) => (
+          <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
+        ),
+      }),
+    );
+  const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
+    useOnDragEnd(
+      getLinksAsDraggables(dummyLabels, {
+        leftSlot: ({ color }) => <MdLabel color={color} />,
+      }),
+    );
+  const { draggables: filterDraggables, onDragEnd: onFilterDragEnd } =
+    useOnDragEnd(
+      getLinksAsDraggables(dummyFilters, {
+        leftSlot: ({ color }) => <GiWaterDrop color={color} />,
+      }),
+    );
 
-const getLabelColorComponent = (color: string) => <MdLabel color={color} />;
-
-const getFilterColorComponent = (color: string) => (
-  <GiWaterDrop color={color} />
-);
+  return {
+    projectDraggables,
+    labelDraggables,
+    filterDraggables,
+    onProjectDragEnd,
+    onLabelDragEnd,
+    onFilterDragEnd,
+  };
+}
 
 type SideMenuProps = {
   /** Whether or not the side menu is opened. */
   isOpen: boolean;
 };
 const SideMenu = ({ isOpen }: SideMenuProps) => {
-  const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
-    useOnDragEnd(
-      getLinksAsDraggables(dummyProjects, {
-        rightSlot: ({ tasks }) => getNumberOfItemsComponent(tasks),
-      }),
-    );
-  const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
-    useOnDragEnd(
-      getLinksAsDraggables(dummyLabels, {
-        leftSlot: ({ color }) => getLabelColorComponent(color),
-      }),
-    );
-  const { draggables: filterDraggables, onDragEnd: onFilterDragEnd } =
-    useOnDragEnd(
-      getLinksAsDraggables(dummyFilters, {
-        leftSlot: ({ color }) => getFilterColorComponent(color),
-      }),
-    );
+  const {
+    projectDraggables,
+    labelDraggables,
+    filterDraggables,
+    onProjectDragEnd,
+    onLabelDragEnd,
+    onFilterDragEnd,
+  } = useDragAndDropState();
 
   const onAddNew = (
     type: "project" | "label" | "filter",
@@ -95,7 +107,11 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
   };
 
   return (
-    <Slide direction="left" in={isOpen} style={{ width: "30.5rem" }}>
+    <Slide
+      direction="left"
+      in={isOpen}
+      style={{ width: "30.5rem", top: "var(--header-height, 0)" }}
+    >
       <DragDropContext onDragEnd={onProjectDragEnd}>
         <Styled.MenuWrapper id="sideMenu">
           <Styled.StyledMenuSection
