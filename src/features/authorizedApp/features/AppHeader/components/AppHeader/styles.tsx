@@ -28,6 +28,8 @@ export const Header = styled.header`
   background: ${({ theme }) => theme.header};
   padding: 0.7rem 1.2rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  position: relative;
 
   & > ${SectionWrapper}:nth-of-type(2) {
     margin-left: 2rem;
