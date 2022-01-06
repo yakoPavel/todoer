@@ -1,4 +1,5 @@
 import { Slide } from "@chakra-ui/react";
+import { SIDE_MENU } from "config/localStorage";
 import {
   DragAndDrop,
   useOnDragEnd,
@@ -9,7 +10,9 @@ import { GiWaterDrop } from "react-icons/gi";
 import { IoAddOutline } from "react-icons/io5";
 import { MdLabel } from "react-icons/md";
 import { EventWithProcessedField } from "types";
+import * as localStorage from "utils/localStorage";
 
+import { useResize } from "../../hooks/useResize";
 import * as Styled from "./styles";
 import { getLinksAsDraggables } from "./utils";
 
@@ -97,6 +100,16 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
     onFilterDragEnd,
   } = useDragAndDropState();
 
+  const { ResizeHandle, resizableElementRef, resizeHandleProps } = useResize({
+    maxWidth: 350,
+    minWidth: 250,
+  });
+
+  const initialWidth = React.useMemo(
+    () => localStorage.getFromLocalStorage(SIDE_MENU.WIDTH, 305),
+    [],
+  );
+
   const onAddNew = (
     type: "project" | "label" | "filter",
     event: EventWithProcessedField<React.MouseEvent>,
@@ -110,7 +123,8 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
     <Slide
       direction="left"
       in={isOpen}
-      style={{ width: "30.5rem", top: "var(--header-height, 0)" }}
+      style={{ width: `${initialWidth}px`, top: "var(--header-height, 0)" }}
+      ref={resizableElementRef}
     >
       <DragDropContext onDragEnd={onProjectDragEnd}>
         <Styled.MenuWrapper id="sideMenu">
@@ -155,6 +169,7 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
           />
         </Styled.MenuWrapper>
       </DragDropContext>
+      <ResizeHandle {...resizeHandleProps} />
     </Slide>
   );
 };
