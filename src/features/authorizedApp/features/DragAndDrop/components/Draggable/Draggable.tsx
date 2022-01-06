@@ -3,7 +3,10 @@ import React from "react";
 import {
   Draggable as OriginalDraggable,
   DraggableProps as OriginalDraggableProps,
+  DraggableProvided,
+  DraggableStateSnapshot,
 } from "react-beautiful-dnd";
+import ReactDOM from "react-dom";
 import { MdDragIndicator } from "react-icons/md";
 
 const DragHandle = styled.div`
@@ -37,6 +40,34 @@ const Container = styled.div<ContainerProps>`
   }
 `;
 
+type ContentProps = {
+  provided: DraggableProvided;
+  snapshot: DraggableStateSnapshot;
+};
+const Content: React.FC<ContentProps> = ({ provided, snapshot, children }) => {
+  const isGoingToPortal = snapshot.isDragging;
+
+  const content = (
+    <Container
+      {...provided.draggableProps}
+      ref={provided.innerRef}
+      isDragging={snapshot.isDragging}
+    >
+      <DragHandle {...provided.dragHandleProps} style={{ cursor: "move" }}>
+        <MdDragIndicator size="2rem" />
+      </DragHandle>
+      {children}
+    </Container>
+  );
+
+  if (!isGoingToPortal) return content;
+
+  return ReactDOM.createPortal(
+    content,
+    document.querySelector("#root") as Element,
+  );
+};
+
 type DraggableProps = Omit<OriginalDraggableProps, "children">;
 
 const Draggable: React.FC<DraggableProps> = ({ children, ...otherProps }) => {
@@ -44,19 +75,9 @@ const Draggable: React.FC<DraggableProps> = ({ children, ...otherProps }) => {
     <OriginalDraggable {...otherProps}>
       {(provided, snapshot) => {
         return (
-          <Container
-            {...provided.draggableProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            <DragHandle
-              {...provided.dragHandleProps}
-              style={{ cursor: "move" }}
-            >
-              <MdDragIndicator size="2rem" />
-            </DragHandle>
+          <Content provided={provided} snapshot={snapshot}>
             {children}
-          </Container>
+          </Content>
         );
       }}
     </OriginalDraggable>
