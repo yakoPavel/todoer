@@ -23,20 +23,20 @@ const StyledLink = styled.a`
 `;
 
 const LeftSlotWrapper = styled.div`
-  width: 15%;
+  width: 4rem;
   display: flex;
   justify-content: center;
 `;
 
 const RightSlotWrapper = styled.div`
-  width: 15%;
+  flex: 1;
   display: flex;
   padding-right: calc(15% - 2.2rem);
   justify-content: flex-end;
 `;
 
 const LinkText = styled(Text)`
-  width: 70%;
+  flex-grow: 6.5;
 `;
 
 type MenuLinkProps = Omit<React.ComponentPropsWithoutRef<"a">, "children"> & {

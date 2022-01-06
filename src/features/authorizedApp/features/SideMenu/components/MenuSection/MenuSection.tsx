@@ -75,45 +75,48 @@ const MenuSection: React.FC<MenuSectionProps> = ({
     >
       <AccordionItem border="none">
         <h3>
-          <AccordionButton
-            _hover={{ background: "unset" }}
-            _focus={{
-              boxShadow: "unset",
-            }}
-            _focusVisible={{
-              border: `2px solid ${theme.focus}`,
-            }}
-            fontSize="md"
-            display="inline-block"
-            onClick={onToggle}
-          >
-            <Flex alignItems="center" color={theme.text} width="100%">
-              <Box alignSelf="flexStart" width="15%">
-                <AccordionIcon />
-              </Box>
-              <Text
-                fontSize="md"
-                fontWeight="700"
-                lineHeight="1"
-                width="70%"
-                textAlign="left"
-              >
-                {sectionTitle}
-              </Text>
-              <Box
-                marginLeft="auto"
-                visibility="hidden"
-                width="15%"
-                css={{
-                  "#sideMenu:hover &": {
-                    visibility: "visible",
-                  },
-                }}
-              >
-                {rightSlot}
-              </Box>
-            </Flex>
-          </AccordionButton>
+          <Flex alignItems="center">
+            <AccordionButton
+              _hover={{ background: "unset" }}
+              _focus={{
+                boxShadow: "unset",
+              }}
+              _focusVisible={{
+                border: `2px solid ${theme.focus}`,
+              }}
+              fontSize="md"
+              display="inline-block"
+              onClick={onToggle}
+              width="85%"
+            >
+              <Flex alignItems="center" color={theme.text}>
+                <Box width="4rem">
+                  <AccordionIcon />
+                </Box>
+                <Text
+                  fontSize="md"
+                  fontWeight="700"
+                  lineHeight="1"
+                  flexGrow="1"
+                  textAlign="left"
+                >
+                  {sectionTitle}
+                </Text>
+              </Flex>
+            </AccordionButton>
+            <Box
+              marginLeft="auto"
+              visibility="hidden"
+              width="15%"
+              css={{
+                "#sideMenu:hover &": {
+                  visibility: "visible",
+                },
+              }}
+            >
+              {rightSlot}
+            </Box>
+          </Flex>
         </h3>
         <AccordionPanel>{sectionContent}</AccordionPanel>
       </AccordionItem>
