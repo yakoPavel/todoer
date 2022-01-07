@@ -1,6 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 
+import { StyledLink } from "../MenuLink/MenuLink";
 import MenuSection from "../MenuSection/MenuSection";
 
 export const MenuWrapper = styled.section`
@@ -18,10 +19,6 @@ export const StyledMenuSection = styled(MenuSection)`
   }
 `;
 
-export const NumberOfItemsText = styled(Text)`
-  color: ${({ theme }) => theme.textSecondary};
-`;
-
 export const StyledButton = styled.button`
   cursor: pointer;
   display: flex;
@@ -34,5 +31,37 @@ export const StyledButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.backgroundTertiary};
     color: ${({ theme }) => theme.textSecondaryActive};
+  }
+`;
+
+export const NumberOfItemsText = styled(Text)`
+  color: ${({ theme }) => theme.textSecondary};
+
+  ${StyledLink}:hover & {
+    visibility: hidden;
+  }
+`;
+
+/* Popup trigger */
+
+export const PopupTriggerWrapper = styled.div`
+  position: relative;
+`;
+
+export const PopupTrigger = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  visibility: hidden;
+  color: ${({ theme }) => theme.textSecondary};
+  font-size: 2rem;
+
+  ${StyledLink}:hover & {
+    visibility: visible;
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.text};
   }
 `;

@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-const StyledLink = styled.a`
+export const StyledLink = styled.a`
   display: flex;
   align-items: center;
   font-size: 1.4rem;

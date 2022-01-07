@@ -6,6 +6,7 @@ import {
 } from "features/authorizedApp/features/DragAndDrop";
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
+import { BsThreeDots } from "react-icons/bs";
 import { GiWaterDrop } from "react-icons/gi";
 import { IoAddOutline } from "react-icons/io5";
 import { MdLabel } from "react-icons/md";
@@ -55,6 +56,23 @@ const AddNewButton = (props: AddNewButtonProps) => {
   );
 };
 
+type ComponentWithPopupTriggerProps = {
+  PopupTrigger: React.ComponentType;
+};
+const ComponentWithPopupTrigger: React.FC<ComponentWithPopupTriggerProps> = ({
+  PopupTrigger,
+  children,
+}) => {
+  return (
+    <Styled.PopupTriggerWrapper>
+      {children}
+      <PopupTrigger>
+        <BsThreeDots />
+      </PopupTrigger>
+    </Styled.PopupTriggerWrapper>
+  );
+};
+
 function useDragAndDropState() {
   const onPopupItemClick = (id: string) => {
     console.log(`${id} clicked!`);
@@ -69,12 +87,15 @@ function useDragAndDropState() {
           onClick: onPopupItemClick,
         },
         slots: {
-          rightSlot: ({ tasks }) => (
-            <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
+          rightSlot: ({ tasks }, PopupTrigger) => (
+            <ComponentWithPopupTrigger PopupTrigger={PopupTrigger}>
+              <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
+            </ComponentWithPopupTrigger>
           ),
         },
       }),
     );
+
   const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
     useOnDragEnd(
       getLinksAsDraggables({
@@ -85,9 +106,13 @@ function useDragAndDropState() {
         },
         slots: {
           leftSlot: ({ color }) => <MdLabel color={color} />,
+          rightSlot: (_, PopupTrigger) => (
+            <ComponentWithPopupTrigger PopupTrigger={PopupTrigger} />
+          ),
         },
       }),
     );
+
   const { draggables: filterDraggables, onDragEnd: onFilterDragEnd } =
     useOnDragEnd(
       getLinksAsDraggables({
@@ -98,6 +123,9 @@ function useDragAndDropState() {
         },
         slots: {
           leftSlot: ({ color }) => <GiWaterDrop color={color} />,
+          rightSlot: (_, PopupTrigger) => (
+            <ComponentWithPopupTrigger PopupTrigger={PopupTrigger} />
+          ),
         },
       }),
     );
