@@ -1,5 +1,6 @@
 import React from "react";
 
+import { PopupMenuProps, withPopupMenu } from "../../features/PopupMenu";
 import MenuLink from "../MenuLink/MenuLink";
 
 /**
@@ -20,16 +21,29 @@ type AdditionalSlots<T> = {
   leftSlot?: (data: T) => React.ReactNode;
 };
 
+type GetLinksAsDraggablesOptions<Data> = {
+  data: RawData<Data>[];
+  popupConfig: PopupMenuProps;
+  slots?: AdditionalSlots<RawData<Data>>;
+};
+
 /**
  * Generates 'draggables' for the `DragAndDrop` component
  */
-export function getLinksAsDraggables<Data>(
-  data: RawData<Data>[],
-  slots?: AdditionalSlots<RawData<Data>>,
-) {
+export function getLinksAsDraggables<Data>({
+  data,
+  slots,
+  popupConfig,
+}: GetLinksAsDraggablesOptions<Data>) {
+  const MenuLinkWithPopup = withPopupMenu({
+    Component: MenuLink,
+    popupMenuConfig: popupConfig,
+    showOn: "contextmenu",
+  });
+
   return data.map((itemInfo) => ({
     component: (
-      <MenuLink
+      <MenuLinkWithPopup
         key={itemInfo.name}
         text={itemInfo.name}
         rightSlot={slots?.rightSlot?.(itemInfo)}

@@ -48,19 +48,18 @@ type MenuLinkProps = Omit<React.ComponentPropsWithoutRef<"a">, "children"> & {
   rightSlot?: React.ReactNode;
 };
 
-const MenuLink = ({
-  rightSlot,
-  leftSlot,
-  text,
-  ...otherProps
-}: MenuLinkProps) => {
-  return (
-    <StyledLink {...otherProps}>
-      <LeftSlotWrapper>{leftSlot}</LeftSlotWrapper>
-      <LinkText>{text}</LinkText>
-      <RightSlotWrapper>{rightSlot}</RightSlotWrapper>
-    </StyledLink>
-  );
-};
+const MenuLink = React.forwardRef<HTMLAnchorElement, MenuLinkProps>(
+  ({ rightSlot, leftSlot, text, ...otherProps }, ref) => {
+    return (
+      <StyledLink {...otherProps} ref={ref}>
+        <LeftSlotWrapper>{leftSlot}</LeftSlotWrapper>
+        <LinkText>{text}</LinkText>
+        <RightSlotWrapper>{rightSlot}</RightSlotWrapper>
+      </StyledLink>
+    );
+  },
+);
+
+MenuLink.displayName = "MenuLink";
 
 export default MenuLink;

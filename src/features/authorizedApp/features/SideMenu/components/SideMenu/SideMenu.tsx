@@ -13,6 +13,7 @@ import { EventWithProcessedField } from "types";
 import * as localStorage from "utils/localStorage";
 
 import { useResize } from "../../hooks/useResize";
+import * as config from "./config";
 import * as Styled from "./styles";
 import { getLinksAsDraggables } from "./utils";
 
@@ -55,24 +56,49 @@ const AddNewButton = (props: AddNewButtonProps) => {
 };
 
 function useDragAndDropState() {
+  const onPopupItemClick = (id: string) => {
+    console.log(`${id} clicked!`);
+  };
+
   const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
     useOnDragEnd(
-      getLinksAsDraggables(dummyProjects, {
-        rightSlot: ({ tasks }) => (
-          <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
-        ),
+      getLinksAsDraggables({
+        data: dummyProjects,
+        popupConfig: {
+          menuItems: config.projectsPopupMenuItems,
+          onClick: onPopupItemClick,
+        },
+        slots: {
+          rightSlot: ({ tasks }) => (
+            <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
+          ),
+        },
       }),
     );
   const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
     useOnDragEnd(
-      getLinksAsDraggables(dummyLabels, {
-        leftSlot: ({ color }) => <MdLabel color={color} />,
+      getLinksAsDraggables({
+        data: dummyLabels,
+        popupConfig: {
+          menuItems: config.labelsPopupMenuItems,
+          onClick: onPopupItemClick,
+        },
+        slots: {
+          leftSlot: ({ color }) => <MdLabel color={color} />,
+        },
       }),
     );
   const { draggables: filterDraggables, onDragEnd: onFilterDragEnd } =
     useOnDragEnd(
-      getLinksAsDraggables(dummyFilters, {
-        leftSlot: ({ color }) => <GiWaterDrop color={color} />,
+      getLinksAsDraggables({
+        data: dummyFilters,
+        popupConfig: {
+          menuItems: config.filtersPopupMenuItems,
+          onClick: onPopupItemClick,
+        },
+        slots: {
+          leftSlot: ({ color }) => <GiWaterDrop color={color} />,
+        },
       }),
     );
 
