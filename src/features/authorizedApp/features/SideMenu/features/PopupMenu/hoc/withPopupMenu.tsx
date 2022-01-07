@@ -1,6 +1,7 @@
 import React from "react";
 
 import PopupMenu, { PopupMenuProps } from "../components/PopupMenu";
+import { dismissPopup } from "../utils/dismissPopup";
 import { fixPopupPosition } from "../utils/fixPopupPosition";
 
 type WithPopupMenuConfig<Props> = {
@@ -14,7 +15,7 @@ type WithPopupMenuConfig<Props> = {
   componentName?: string;
 };
 
-function withPopupMenu<Props extends Record<string, unknown>>({
+function withPopupMenu<Props>({
   Component,
   popupMenuConfig,
   showOn,
@@ -62,15 +63,21 @@ function withPopupMenu<Props extends Record<string, unknown>>({
     // Hides the popup on click
     React.useEffect(() => {
       if (popupElement === null || triggerElement === null) return;
-      const hidePopup = (event: MouseEvent) => {
-        if (showOn === "click" && event.target === triggerElement) return;
 
-        setShowPopup(false);
+      const hidePopup = dismissPopup.bind(
+        null,
+        setShowPopup,
+        triggerElement,
+        showOn,
+      );
+
+      document.documentElement.addEventListener("click", hidePopup);
+      document.documentElement.addEventListener("contextmenu", hidePopup);
+
+      return () => {
+        document.documentElement.removeEventListener("click", hidePopup);
+        document.documentElement.removeEventListener("contextmenu", hidePopup);
       };
-
-      document.body.addEventListener("click", hidePopup);
-
-      return () => document.body.removeEventListener("click", hidePopup);
     }, [popupElement, triggerElement]);
 
     return (
