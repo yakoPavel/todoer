@@ -23,7 +23,11 @@ function renderComponent(showOn: "click" | "contextmenu") {
     showOn,
   });
 
-  render(<Component />);
+  render(
+    <div id="root">
+      <Component />
+    </div>,
+  );
 
   return {
     triggerComponent: screen.getByText(/trigger/i),

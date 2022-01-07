@@ -1,5 +1,6 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
+import ReactDOM from "react-dom";
 
 const List = styled.ul`
   position: fixed;
@@ -12,6 +13,7 @@ const List = styled.ul`
   user-select: none;
   border-radius: 3px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  z-index: 5000;
 `;
 
 const IconWrapper = styled.span`
@@ -65,10 +67,11 @@ const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
       ));
     };
 
-    return (
+    return ReactDOM.createPortal(
       <List role="menu" ref={ref}>
         {getMenuItems()}
-      </List>
+      </List>,
+      document.querySelector("#root") as Element,
     );
   },
 );
