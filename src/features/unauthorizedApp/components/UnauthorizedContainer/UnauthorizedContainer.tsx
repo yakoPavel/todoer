@@ -1,7 +1,7 @@
+import LogoImg from "assets/logo.png";
 import { debounce } from "lodash";
 import React from "react";
 
-import LogoImg from "./logo.png";
 import * as Styled from "./styles";
 
 /**
