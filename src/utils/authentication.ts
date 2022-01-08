@@ -1,4 +1,5 @@
 import {
+  Auth,
   createUserWithEmailAndPassword,
   getAuth,
   sendEmailVerification as sendEmailVerificationFirebase,
@@ -34,3 +35,17 @@ export const sendEmailVerification = () => {
 /** Sends a password reset letter to the specified  */
 export const sendPasswordResetEmail = (email: string) =>
   sendPasswordResetEmailFirebase(getAuth(), email);
+
+/**
+ * Waits until the Firebase SDK checks the user's authentication token.
+ * When the app is loaded it takes some time for Firebase to check the token
+ * saved locally.
+ */
+export async function waitForInitialAuthChecking() {
+  if (waitForInitialAuthChecking.done) return;
+
+  const auth = getAuth() as Auth & { operations: Promise<unknown> };
+  await auth.operations;
+  waitForInitialAuthChecking.done = true;
+}
+waitForInitialAuthChecking.done = false;
