@@ -11,7 +11,7 @@ import {
 import { LABEL_COLORS } from "config/labelColors";
 import React from "react";
 
-import { Input } from "../Form/styles";
+import { StyledInput } from "../Input/Input";
 
 const itemStyles = css`
   display: flex;
@@ -29,8 +29,7 @@ const itemStyles = css`
     margin-left: 1rem;
   }
 `;
-
-const StyledListboxButton = styled(Input.withComponent(ListboxButton))<{
+const StyledListboxButton = styled(StyledInput.withComponent(ListboxButton))<{
   value: string;
 }>`
   ${itemStyles}
@@ -55,7 +54,7 @@ const StyledListboxOption = styled(ListboxOption)`
   ${itemStyles}
 `;
 
-const StyledListboxList = styled(Input.withComponent(ListboxList))`
+const StyledListboxList = styled(StyledInput.withComponent(ListboxList))`
   overflow-y: scroll;
   overflow-x: hidden;
   height: 30rem;
