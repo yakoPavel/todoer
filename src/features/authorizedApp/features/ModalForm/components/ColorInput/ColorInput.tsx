@@ -42,6 +42,7 @@ const StyledListboxOption = styled(ListboxOption)`
   list-style: none;
   cursor: pointer;
   padding: 0.5rem;
+  color: ${({ theme }) => theme.text};
 
   &:hover {
     background-color: ${({ theme }) => theme.backgroundTertiary};
