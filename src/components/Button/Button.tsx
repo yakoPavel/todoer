@@ -32,6 +32,8 @@ const PrimaryButton = styled.button`
       tinyColor(theme.main).desaturate(30).toHexString()};
     color: ${({ theme }) =>
       tinyColor(theme.textAlt).desaturate(30).toHexString()};
+    border-color: ${({ theme }) =>
+      tinyColor(theme.main).desaturate(30).toHexString()};
   }
 `;
 
