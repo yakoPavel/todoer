@@ -55,36 +55,33 @@ const StyledListboxOption = styled(ListboxOption)`
 `;
 
 const StyledListboxList = styled(StyledInput.withComponent(ListboxList))`
+  position: relative;
+  background: ${({ theme }) => theme.background};
   overflow-y: scroll;
   overflow-x: hidden;
   height: 30rem;
   padding: 0;
+  z-index: 600;
 `;
-
-type Color = typeof LABEL_COLORS[number]["value"];
 
 type ColorInputProps = {
   /** A name of the filed. */
   name: string;
   /** A current value. */
-  value: Color;
+  value: string;
   /** A callback that will be invoked on change. */
-  onChange: ({ name, value }: { name: string; value: Color }) => void;
+  onChange: (newValue: string) => void;
 };
 
 const ColorInput: React.FC<ColorInputProps> = ({ name, value, onChange }) => {
-  const onChangeHandler = (newValue: Color) => {
-    onChange({ name, value: newValue });
-  };
-
   return (
     <ListboxInput
       aria-label={name}
       defaultValue={LABEL_COLORS[0].value}
-      onChange={onChangeHandler}
-      value={value}
+      onChange={onChange}
+      value={value || LABEL_COLORS[0].value}
     >
-      <StyledListboxButton value={value} />
+      <StyledListboxButton value={value || LABEL_COLORS[0].value} />
       <ListboxPopover>
         <StyledListboxList>
           {LABEL_COLORS.map((color) => {
