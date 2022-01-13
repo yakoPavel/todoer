@@ -19,4 +19,4 @@ export const LABEL_COLORS = [
   { value: "#808080", label: "Charcoal" },
   { value: "grey", label: "Grey" },
   { value: "#ccac93", label: "Taupe" },
-] as const;
+];
