@@ -2,6 +2,7 @@ import AppProviders from "../src/context";
 import "../src/style/global.css";
 import { ThemeProvider } from "@emotion/react";
 import * as colorThemes from "../src/style/colors";
+import GlobalDynamicStyles from "../src/style/globalDynamicStyles";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -23,6 +24,7 @@ export const decorators = [
     if (__theme__) {
       return (
         <ThemeProvider theme={colorThemes[__theme__]}>
+          <GlobalDynamicStyles />
           <Story />
         </ThemeProvider>
       );

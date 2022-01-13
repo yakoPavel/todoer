@@ -8,13 +8,19 @@ export type ThemeColors = {
     | "backgroundSecondary"
     | "backgroundTertiary"
     | "tooltipBackground"
+    | "switchBackground"
+    | "switchThumb"
+    | "modalFormBackground"
+    | "modalFormTitleBackground"
     | "separators"
     | "focus"
     | "text"
     | "textSecondary"
     | "textSecondaryActive"
     | "textAlt"
-    | "error"]: string;
+    | "error"
+    | "scrollbarBackground"
+    | "scrollbarThumb"]: string;
 };
 
 export const lightTheme: ThemeColors = {
@@ -25,7 +31,11 @@ export const lightTheme: ThemeColors = {
   background: "#ffffff",
   backgroundSecondary: "#fafafa",
   backgroundTertiary: "#eeeeee",
+  switchBackground: "#aaaaaa",
+  switchThumb: "#ffffff",
   tooltipBackground: "#555555",
+  modalFormBackground: "#ffffff",
+  modalFormTitleBackground: "#fafafa",
   separators: "#dddddd",
   focus: "#000000",
   text: "#202020",
@@ -33,6 +43,8 @@ export const lightTheme: ThemeColors = {
   textSecondaryActive: "#555555",
   textAlt: "#ffffff",
   error: "#e8051b",
+  scrollbarBackground: "#eeeeee",
+  scrollbarThumb: "#aaaaaa",
 };
 
 export const noirTheme: ThemeColors = {
@@ -54,7 +66,7 @@ export const orangeTheme: ThemeColors = {
 };
 
 export const darkTheme: ThemeColors = {
-  main: "#db4c3f",
+  ...lightTheme,
   header: "#282828",
   headerSecondary: "rgba(255,255,255,0.2)",
   headerTertiary: "rgba(150,150,150,0.2)",
@@ -62,11 +74,14 @@ export const darkTheme: ThemeColors = {
   backgroundSecondary: "#282828",
   backgroundTertiary: "#363636",
   tooltipBackground: "#363636",
-  separators: "#dddddd",
+  modalFormBackground: "#282828",
+  modalFormTitleBackground: "#202020",
+  separators: "#333333",
   focus: "#ffffff",
   text: "#eeeeee",
   textSecondary: "#808080",
   textSecondaryActive: "#b2b2b2",
   textAlt: "#eeeeee",
-  error: "#e8051b",
+  scrollbarBackground: "#171717",
+  scrollbarThumb: "#8b8b8b",
 };
