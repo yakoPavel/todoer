@@ -12,6 +12,7 @@ import { LABEL_COLORS } from "config/labelColors";
 import React from "react";
 
 import { StyledInput } from "../Input/Input";
+import { positionPopover } from "./utils";
 
 const itemStyles = css`
   display: flex;
@@ -60,7 +61,7 @@ const StyledListboxList = styled(StyledInput.withComponent(ListboxList))`
   background: ${({ theme }) => theme.background};
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 30rem;
+  height: 28rem;
   padding: 0;
   z-index: 600;
 
@@ -87,7 +88,7 @@ const ColorInput: React.FC<ColorInputProps> = ({ name, value, onChange }) => {
       value={value || LABEL_COLORS[0].value}
     >
       <StyledListboxButton value={value || LABEL_COLORS[0].value} />
-      <ListboxPopover>
+      <ListboxPopover position={positionPopover}>
         <StyledListboxList>
           {LABEL_COLORS.map((color) => {
             return (
