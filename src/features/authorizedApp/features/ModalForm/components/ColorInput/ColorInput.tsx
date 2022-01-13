@@ -63,6 +63,10 @@ const StyledListboxList = styled(StyledInput.withComponent(ListboxList))`
   height: 30rem;
   padding: 0;
   z-index: 600;
+
+  &:focus {
+    border-color: ${({ theme }) => theme.separators};
+  }
 `;
 
 type ColorInputProps = {
