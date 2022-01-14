@@ -13,7 +13,7 @@ export type FormFieldConfig = {
   required?: boolean;
 };
 
-type ModalProps<Config extends FormFieldConfig[]> = {
+export type ModalFormProps<Config extends FormFieldConfig[]> = {
   /** A title of the Card. */
   title: string;
   /** A config based on which the form field will be rendered. */
@@ -35,7 +35,7 @@ const ModalForm = <Config extends FormFieldConfig[]>({
   formFieldsConfig,
   submitButtonTitle = "Submit",
   cancelButtonTitle = "Cancel",
-}: ModalProps<Config>) => {
+}: ModalFormProps<Config>) => {
   const { formFields, formState } = useFormState(formFieldsConfig);
 
   const handleSubmission = (event: React.FormEvent) => {
