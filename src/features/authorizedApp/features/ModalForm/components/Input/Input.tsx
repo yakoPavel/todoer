@@ -80,6 +80,7 @@ const Input = (props: InputProps) => {
         <Styled.Switch
           isChecked={props.value}
           name={props.label}
+          id={props.label}
           onChange={changeHandler}
           colorScheme="green"
           size="lg"
