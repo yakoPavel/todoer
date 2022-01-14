@@ -11,7 +11,7 @@ import {
 import { LABEL_COLORS } from "config/labelColors";
 import React from "react";
 
-import { StyledInput } from "../Input/Input";
+import { Input as StyledInput } from "../Input/styles";
 import { positionPopover } from "./utils";
 
 const itemStyles = css`
