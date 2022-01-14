@@ -82,7 +82,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["**/__tests__/**", "types.ts"],
+      files: ["**/__tests__/**", "**/tests/**", "types.ts"],
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
       },
