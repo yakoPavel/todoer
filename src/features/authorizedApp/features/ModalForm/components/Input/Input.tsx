@@ -1,50 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
-import { Switch } from "@chakra-ui/react";
-import styled from "@emotion/styled/macro";
 import React from "react";
 
 import ColorInput from "../ColorInput/ColorInput";
 import { FormFieldConfig } from "../Form/ModalForm";
-
-type InputTypes = FormFieldConfig["type"];
-
-const InputWrapper = styled.div<{ type: InputTypes }>`
-  display: flex;
-  flex-direction: ${({ type }) => (type === "switch" ? "row" : "column")};
-
-  &:not(:last-child) {
-    margin-bottom: 1.3rem;
-  }
-`;
-
-export const StyledInput = styled.input`
-  border: 1px solid ${({ theme }) => theme.separators};
-  background-color: ${({ theme }) => theme.background};
-  border-radius: 5px;
-  padding: 0.5rem;
-  transition: all 0.2s;
-  outline: none;
-
-  &:focus {
-    border-color: ${({ theme }) => theme.text};
-  }
-`;
-
-const InputLabel = styled.label<{ type: InputTypes }>`
-  font-weight: bold;
-  order: ${({ type }) => (type === "switch" ? 1 : "unset")};
-  margin-left: ${({ type }) => (type === "switch" ? "1rem" : "unset")};
-`;
-
-const StyledSwitch = styled(Switch)`
-  & span {
-    background-color: ${({ theme }) => theme.switchBackground};
-    box-shadow: none !important;
-  }
-  & [class*="thumb"] {
-    background-color: ${({ theme }) => theme.switchThumb};
-  }
-`;
+import * as Styled from "./styles";
 
 /* Props types */
 type BaseInputProps = Omit<FormFieldConfig, "required"> & {
@@ -96,12 +55,12 @@ const Input = (props: InputProps) => {
   };
 
   return (
-    <InputWrapper type={props.type}>
-      <InputLabel htmlFor={props.label} type={props.type}>
+    <Styled.InputWrapper type={props.type}>
+      <Styled.InputLabel htmlFor={props.label} type={props.type}>
         {props.label}
-      </InputLabel>
+      </Styled.InputLabel>
       {props.type === "text" && (
-        <StyledInput
+        <Styled.Input
           name={props.label}
           value={props.value}
           onChange={changeHandler}
@@ -118,7 +77,7 @@ const Input = (props: InputProps) => {
         />
       )}
       {props.type === "switch" && (
-        <StyledSwitch
+        <Styled.Switch
           isChecked={props.value}
           name={props.label}
           onChange={changeHandler}
@@ -126,7 +85,7 @@ const Input = (props: InputProps) => {
           size="lg"
         />
       )}
-    </InputWrapper>
+    </Styled.InputWrapper>
   );
 };
 
