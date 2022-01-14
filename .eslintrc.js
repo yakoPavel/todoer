@@ -88,7 +88,7 @@ module.exports = {
       },
     },
     {
-      files: ["src/test/**", "jest.setup.ts"],
+      files: ["src/test/**", "jest.setup.ts", "**/__tests__/**", "**/tests/**"],
       rules: {
         "import/no-extraneous-dependencies": "off",
       },

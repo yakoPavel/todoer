@@ -9,7 +9,7 @@ import {
 } from "test/testUtils";
 
 import withPopupMenu from "../hoc/withPopupMenu";
-import * as dataMocks from "../test/dataMocks";
+import * as dataMocks from "./utils/dataMocks";
 
 function renderComponent(showOn: "click" | "contextmenu") {
   const onClickHandler = jest.fn();

@@ -3,7 +3,7 @@ import React from "react";
 import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
 import withPopupMenu from "../hoc/withPopupMenu";
-import * as dataMocks from "../test/dataMocks";
+import * as dataMocks from "../tests/utils/dataMocks";
 import PopupMenu, { PopupMenuProps } from "./PopupMenu";
 
 const popupMenuConfig: PopupMenuProps = {
