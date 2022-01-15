@@ -4,7 +4,7 @@ import React from "react";
 import Loading from "./Loading";
 
 export default {
-  title: "Loading",
+  title: "UI/Loading",
   component: Loading,
 } as ComponentMeta<typeof Loading>;
 
