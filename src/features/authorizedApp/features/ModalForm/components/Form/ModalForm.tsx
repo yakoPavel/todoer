@@ -21,7 +21,7 @@ export type ModalFormProps<Config extends FormFieldConfig[]> = {
   /** A callback that will be called when the modal is dismissed. */
   onDismiss: () => void;
   /** A callback that will be called when the form is submitted. */
-  onSubmit: (formValues: FormState<Config>) => void;
+  onSubmit: (formValues: FormState<Config>["values"]) => void;
   /** A title for the submit button. */
   submitButtonTitle?: string;
   /** A title for the cancel button. */
@@ -40,11 +40,11 @@ const ModalForm = <Config extends FormFieldConfig[]>({
 
   const handleSubmission = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmit(formState);
+    onSubmit(formState.values as FormState<Config>["values"]);
   };
 
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="modalForm">
       <Styled.Card>
         <Styled.TitleContainer>
           <Heading as="h3" size="md">
