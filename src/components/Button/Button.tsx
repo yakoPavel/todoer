@@ -51,6 +51,7 @@ const SecondaryButton = styled(PrimaryButton)`
     background-color: ${({ theme }) =>
       tinyColor(theme.background).desaturate(30).toHexString()};
     color: ${({ theme }) => tinyColor(theme.text).desaturate(30).toHexString()};
+    border-color: ${({ theme }) => theme.separators};
   }
 `;
 
