@@ -12,9 +12,8 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const DividerPart = styled.div`
+const DividerPart = styled.hr`
   width: 100%;
-  height: 1px;
   background-color: ${({ theme }) => theme.separators};
 `;
 
