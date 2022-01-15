@@ -37,6 +37,17 @@ function getControlledPromise() {
   return { promise, resolve, reject };
 }
 
+/**
+ * Ensures that the function is a mock.
+ *
+ * @param fn - A function to check.
+ */
+function isMockFunction(fn: (...args: any[]) => any): asserts fn is jest.Mock {
+  if (!jest.isMockFunction(fn)) {
+    throw new Error(`${fn.name} is not a mock!`);
+  }
+}
+
 export * from "@testing-library/react";
-export { getControlledPromise, render };
+export { getControlledPromise, isMockFunction, render };
 export { default as userEvent } from "@testing-library/user-event";
