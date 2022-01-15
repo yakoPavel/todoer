@@ -1,25 +1,28 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Chance from "chance"; // TODO: remove it later
 import Tooltip from "components/Tooltip/Tooltip";
 import * as keyboardShortcuts from "config/keyboardShortcuts";
 import { useCombobox } from "downshift";
-import faker from "faker"; // TODO: remove it later
 import { debounce } from "lodash";
 import React from "react";
 
 import * as Styled from "./styles";
 
+const chance = new Chance();
+
 const items = [
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
-  faker.lorem.words(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
+  chance.sentence(),
 ];
 
 function getFilteredItems(inputValue?: string) {
