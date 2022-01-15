@@ -92,7 +92,11 @@ const ColorInput: React.FC<ColorInputProps> = ({ name, value, onChange }) => {
         <StyledListboxList>
           {LABEL_COLORS.map((color) => {
             return (
-              <StyledListboxOption key={color.value} value={color.value}>
+              <StyledListboxOption
+                key={color.value}
+                value={color.value}
+                data-testid={color.value}
+              >
                 {color.label}
               </StyledListboxOption>
             );

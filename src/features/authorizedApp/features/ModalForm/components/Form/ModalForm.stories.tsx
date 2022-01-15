@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { themeSwitcherArgType } from "storybook/commonArgTypes";
