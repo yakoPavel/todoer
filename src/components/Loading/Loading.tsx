@@ -34,7 +34,7 @@ const Loading: React.FC = () => {
       <LogoWrapper>
         <Logo src={LogoImg} alt="Todoer logo" />
       </LogoWrapper>
-      <StyledSpinner size="xl" />
+      <StyledSpinner data-testid="spinner" size="xl" />
     </Container>
   );
 };
