@@ -1,4 +1,4 @@
-import { Slide } from "@chakra-ui/react";
+import { Slide, VisuallyHidden } from "@chakra-ui/react";
 import { SIDE_MENU } from "config/localStorage";
 import {
   DragAndDrop,
@@ -47,11 +47,14 @@ const dummyFilters = [
   },
 ];
 
-type AddNewButtonProps = React.ComponentPropsWithRef<"button">;
-const AddNewButton = (props: AddNewButtonProps) => {
+type AddNewButtonProps = React.ComponentPropsWithRef<"button"> & {
+  label: string;
+};
+const AddNewButton = ({ label, ...otherProps }: AddNewButtonProps) => {
   return (
-    <Styled.StyledButton {...props}>
-      <IoAddOutline size="2rem" />
+    <Styled.StyledButton {...otherProps}>
+      <IoAddOutline size="2rem" aria-hidden />
+      <VisuallyHidden>{label}</VisuallyHidden>
     </Styled.StyledButton>
   );
 };
@@ -192,7 +195,10 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
               />
             }
             rightSlot={
-              <AddNewButton onClick={(event) => onAddNew("project", event)} />
+              <AddNewButton
+                label="Add new project"
+                onClick={(event) => onAddNew("project", event)}
+              />
             }
           />
           <Styled.StyledMenuSection
@@ -205,7 +211,10 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
               />
             }
             rightSlot={
-              <AddNewButton onClick={(event) => onAddNew("label", event)} />
+              <AddNewButton
+                label="Add new label"
+                onClick={(event) => onAddNew("label", event)}
+              />
             }
           />
           <Styled.StyledMenuSection
@@ -218,7 +227,10 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
               />
             }
             rightSlot={
-              <AddNewButton onClick={(event) => onAddNew("filter", event)} />
+              <AddNewButton
+                label="Add new filter"
+                onClick={(event) => onAddNew("filter", event)}
+              />
             }
           />
         </Styled.MenuWrapper>
