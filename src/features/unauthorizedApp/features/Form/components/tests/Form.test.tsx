@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+import Chance from "chance";
 import * as LoadingStateContext from "context/LoadingContext";
 import { createValidationSchema } from "features/unauthorizedApp/utils/createValidationSchema";
 import React from "react";
@@ -9,13 +10,15 @@ import {
   render,
   screen,
   waitFor,
-  waitForElementToBeRemoved,
   within,
 } from "test/testUtils";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
 import Form from "../Form";
+
+const SEED = 12345;
+const chance = new Chance(SEED);
 
 /*
   These tests use the `fireEvent` function instead of the `userEvent`
@@ -107,6 +110,23 @@ async function type(element: HTMLElement, text: string) {
   });
 }
 
+/**
+ * Submits the form with valid data.
+ */
+async function submitFormWithValidData(
+  renderResult: ReturnType<typeof renderForm>,
+) {
+  const correctEmail = "email@gmail.com";
+  await type(renderResult.emailField, correctEmail);
+
+  const correctPassword = "fRfg35_tN49";
+  await type(renderResult.passwordField, correctPassword);
+
+  await act(async () => {
+    fireEvent.click(renderResult.submitButton);
+  });
+}
+
 /* A class that mimics the Firebase Auth Error */
 class FirebaseAuthError extends Error {
   constructor(public code: string, ...args: any[]) {
@@ -114,148 +134,212 @@ class FirebaseAuthError extends Error {
   }
 }
 
-test("doesn't show error messages if the form is not submitted at least once", async () => {
-  const { emailField, passwordField } = renderForm();
+describe("The `Form` component", () => {
+  describe("When the form is rendered, and the user hasn't done anything yet", () => {
+    test("Doesn't show error messages", async () => {
+      renderForm();
 
-  expect(screen.queryAllByRole("alert")).toHaveLength(0);
-
-  const incorrectEmail = "incorrect-email@";
-  const tooShortPassword = "a";
-
-  await type(emailField, incorrectEmail);
-  await type(passwordField, tooShortPassword);
-
-  expect(screen.queryAllByRole("alert")).toHaveLength(0);
-});
-
-test("shows the correct error messages if the form is submitted at least one time", async () => {
-  const { emailField, passwordField, submitButton, numberOfFieldsInTheForm } =
-    renderForm();
-
-  await act(async () => {
-    fireEvent.click(submitButton);
+      expect(screen.queryAllByRole("alert")).toHaveLength(0);
+    });
   });
 
-  const errorMessages = screen.getAllByRole("alert");
-  expect(errorMessages).toHaveLength(numberOfFieldsInTheForm);
-  errorMessages.forEach((errorMessage) => {
-    expect(errorMessage).toHaveTextContent(/required/i);
+  describe("When some fields are invalid, but the form wasn't submitted at least once", () => {
+    test("Doesn't show error messages", async () => {
+      const { emailField, passwordField } = renderForm();
+
+      const incorrectEmail = chance.word();
+      const tooShortPassword = chance.word({ length: 2 });
+
+      await type(emailField, incorrectEmail);
+      await type(passwordField, tooShortPassword);
+
+      expect(screen.queryAllByRole("alert")).toHaveLength(0);
+    });
   });
 
-  const incorrectEmail = "incorrect-email@";
-  await type(emailField, incorrectEmail);
-  const emailErrorMessageElement = screen.getByTestId(/email/i);
-  await waitFor(() =>
-    expect(emailErrorMessageElement).not.toHaveTextContent(/required/i),
-  );
-  expect(emailErrorMessageElement.textContent).toMatchInlineSnapshot(
-    `"The email is invalid"`,
-  );
+  describe("When the form is submitted at least one time and has invalid fields", () => {
+    let renderResult: ReturnType<typeof renderForm>;
 
-  const tooShortPassword = "a";
-  await type(passwordField, tooShortPassword);
-  const passwordErrorMessageElement = screen.getByTestId(/password/i);
-  expect(passwordErrorMessageElement.textContent).toMatchInlineSnapshot(
-    `"The password is too short - should be 8 chars minimum"`,
-  );
+    beforeEach(async () => {
+      renderResult = renderForm();
 
-  const passwordWithoutCapitalLetters = "aaaaaaaaaaaaaaaaaa";
-  await type(passwordField, passwordWithoutCapitalLetters);
-  expect(passwordErrorMessageElement.textContent).toMatchInlineSnapshot(
-    `"The password should contain at least one capital letter"`,
-  );
-
-  const passwordWithoutDigits = "aaaaaaaaaaaaaaAAA";
-  await type(passwordField, passwordWithoutDigits);
-  expect(passwordErrorMessageElement.textContent).toMatchInlineSnapshot(
-    `"The password should contain at least on digit"`,
-  );
-});
-
-test("hides the error messages when the user corrects his input", async () => {
-  const { emailField, passwordField, submitButton } = renderForm();
-
-  await act(async () => {
-    fireEvent.click(submitButton);
-  });
-
-  const correctEmail = "email@gmail.com";
-  await type(emailField, correctEmail);
-
-  const correctPassword = "fRfg35_tN49";
-  await type(passwordField, correctPassword);
-
-  expect(screen.queryAllByRole("alert")).toHaveLength(0);
-});
-
-test("disables the submit button and shows the loading indicator while submitting; restores the original state after.", async () => {
-  const { emailField, passwordField, submitButton, resolveAsyncTask } =
-    renderForm();
-
-  const correctEmail = "email@gmail.com";
-  await type(emailField, correctEmail);
-
-  const correctPassword = "fRfg35_tN49";
-  await type(passwordField, correctPassword);
-
-  await act(async () => {
-    fireEvent.click(submitButton);
-  });
-
-  expect(submitButton).toBeDisabled();
-  const spinner = within(submitButton).getByText(/loading/i);
-  expect(submitButton).toBeInTheDocument();
-
-  resolveAsyncTask(null);
-  await waitForElementToBeRemoved(spinner);
-  expect(submitButton).not.toBeDisabled();
-});
-
-test("renders an error message if the submit action throws an error", async () => {
-  const errorCode = "auth/error";
-  const errorMessagesMapping = {
-    [errorCode]: "Some error occurred during the authentication.",
-  };
-  const error = new FirebaseAuthError(errorCode);
-
-  const { emailField, passwordField, submitButton, rejectAsyncTask } =
-    renderForm({
-      errorMessagesMapping,
+      await act(async () => {
+        fireEvent.click(renderResult.submitButton);
+      });
     });
 
-  await type(emailField, "example@example.com");
-  await type(passwordField, "grgFr45Gl386");
+    test("When required fields are not filled in, shows the correct error message", () => {
+      const { numberOfFieldsInTheForm } = renderResult;
 
-  await act(async () => {
-    fireEvent.click(submitButton);
-  });
-
-  rejectAsyncTask(error);
-
-  await waitFor(() =>
-    expect(
-      screen.getByText(errorMessagesMapping[errorCode]),
-    ).toBeInTheDocument(),
-  );
-});
-
-test("renders a message if the submit action successfully resolves and the message is specified", async () => {
-  const successMessage = "SOME_MESSAGE";
-  const { emailField, passwordField, submitButton, resolveAsyncTask } =
-    renderForm({
-      successMessage,
+      const errorMessages = screen.getAllByRole("alert");
+      expect(errorMessages).toHaveLength(numberOfFieldsInTheForm);
+      errorMessages.forEach((errorMessage) => {
+        expect(errorMessage).toHaveTextContent(/required/i);
+      });
     });
 
-  await type(emailField, "example@example.com");
-  await type(passwordField, "grgFr45Gl386");
+    test("When the typed-in email is not valid, shows the correct error message", async () => {
+      const { emailField } = renderResult;
 
-  await act(async () => {
-    fireEvent.click(submitButton);
+      const incorrectEmail = chance.word();
+      await type(emailField, incorrectEmail);
+
+      const emailErrorMessageElement = screen.getByTestId(/email/i);
+      await waitFor(() =>
+        expect(emailErrorMessageElement.textContent).toMatchInlineSnapshot(
+          `"The email is invalid"`,
+        ),
+      );
+    });
+
+    test("When the typed-in password is too short, shows the correct error message", async () => {
+      const { passwordField } = renderResult;
+
+      const tooShortPassword = chance.word({ length: 2 });
+      await type(passwordField, tooShortPassword);
+
+      await type(passwordField, tooShortPassword);
+      const passwordErrorMessageElement = screen.getByTestId(/password/i);
+      await waitFor(() =>
+        expect(passwordErrorMessageElement.textContent).toMatchInlineSnapshot(
+          `"The password is too short - should be 8 chars minimum"`,
+        ),
+      );
+    });
+
+    test("When the typed-in password doesn't contain capital letters, shows the correct error message", async () => {
+      const { passwordField } = renderResult;
+
+      const passwordWithoutCapitalLetters = chance
+        .word({ length: 10 })
+        .toLowerCase();
+      await type(passwordField, passwordWithoutCapitalLetters);
+
+      const passwordErrorMessageElement = screen.getByTestId(/password/i);
+      await waitFor(() =>
+        expect(passwordErrorMessageElement.textContent).toMatchInlineSnapshot(
+          `"The password should contain at least one capital letter"`,
+        ),
+      );
+    });
+    test("When the typed-in password doesn't contain numbers, shows the correct error message", async () => {
+      const { passwordField } = renderResult;
+
+      const passwordWithoutCapitalLetters =
+        chance.word({ length: 10 }) + chance.word().toUpperCase();
+      await type(passwordField, passwordWithoutCapitalLetters);
+
+      const passwordErrorMessageElement = screen.getByTestId(/password/i);
+      await waitFor(() =>
+        expect(passwordErrorMessageElement.textContent).toMatchInlineSnapshot(
+          `"The password should contain at least on digit"`,
+        ),
+      );
+    });
+
+    test("When the user corrects his input, hides error messages", async () => {
+      const { emailField, passwordField } = renderResult;
+
+      const correctEmail = chance.email();
+      await type(emailField, correctEmail);
+
+      const correctPassword = "fRfg35_tN49";
+      await type(passwordField, correctPassword);
+
+      expect(screen.queryAllByRole("alert")).toHaveLength(0);
+    });
   });
 
-  resolveAsyncTask(null);
+  describe("When the form is submitting", () => {
+    let renderResult: ReturnType<typeof renderForm>;
 
-  await waitFor(() =>
-    expect(screen.getByText(successMessage)).toBeInTheDocument(),
-  );
+    beforeEach(async () => {
+      renderResult = renderForm();
+      await submitFormWithValidData(renderResult);
+    });
+
+    test("Disables the submit button", () => {
+      const { submitButton } = renderResult;
+
+      expect(submitButton).toBeDisabled();
+    });
+
+    test("Renders a loading indicator within the submit button", () => {
+      const { submitButton } = renderResult;
+
+      const spinner = within(submitButton).getByText(/loading/i);
+      expect(spinner).toBeInTheDocument();
+    });
+  });
+
+  describe("When the form was successfully submitted", () => {
+    test("Clears all the fields", async () => {
+      const renderResult = renderForm();
+      const { emailField, passwordField, resolveAsyncTask } = renderResult;
+
+      await submitFormWithValidData(renderResult);
+      await act(async () => resolveAsyncTask(null));
+
+      expect(emailField).toHaveTextContent("");
+      expect(passwordField).toHaveTextContent("");
+    });
+
+    test("Enables the submit button and removes a loading indicator", async () => {
+      const renderResult = renderForm();
+      const { submitButton, resolveAsyncTask } = renderResult;
+
+      await submitFormWithValidData(renderResult);
+      await act(async () => resolveAsyncTask(null));
+
+      await waitFor(() =>
+        expect(
+          within(submitButton).queryByText(/loading/i),
+        ).not.toBeInTheDocument(),
+      );
+      expect(submitButton).not.toBeDisabled();
+    });
+
+    test("When the `successMessage` is specified, renders a message with its content", async () => {
+      const successMessage = chance.sentence();
+      const renderResult = renderForm({ successMessage });
+      const { resolveAsyncTask } = renderResult;
+
+      await submitFormWithValidData(renderResult);
+      await act(async () => resolveAsyncTask(null));
+
+      await waitFor(() =>
+        expect(screen.getByText(successMessage)).toBeInTheDocument(),
+      );
+    });
+
+    test("When the `successMessage` is not specified, doesn't render a message with its content", async () => {
+      const renderResult = renderForm();
+      const { resolveAsyncTask } = renderResult;
+
+      await submitFormWithValidData(renderResult);
+      await act(async () => resolveAsyncTask(null));
+
+      expect(screen.queryByTestId("successMessage")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("When the submit action throws an error", () => {
+    test("Renders an error message", async () => {
+      const errorCode = "auth/error";
+      const errorMessagesMapping = {
+        [errorCode]: "Some error occurred during the authentication.",
+      };
+      const error = new FirebaseAuthError(errorCode);
+      const renderResult = renderForm({ errorMessagesMapping });
+
+      await submitFormWithValidData(renderResult);
+      await act(async () => renderResult.rejectAsyncTask(error));
+
+      await waitFor(() =>
+        expect(
+          screen.getByText(errorMessagesMapping[errorCode]),
+        ).toBeInTheDocument(),
+      );
+    });
+  });
 });

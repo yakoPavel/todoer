@@ -110,7 +110,12 @@ const Form = <InitialValues extends Record<string, string>>({
   const getMessage = () => {
     if (error && isFirebaseAuthError(error)) {
       return (
-        <Alert status="error" variant="solid" borderRadius="5px">
+        <Alert
+          status="error"
+          variant="solid"
+          borderRadius="5px"
+          data-testid="errorMessage"
+        >
           <AlertIcon width="2rem" height="2rem" />{" "}
           <AlertDescription whiteSpace="normal" textAlign="center">
             {errorMessagesMapping[error.code] ??
@@ -121,7 +126,12 @@ const Form = <InitialValues extends Record<string, string>>({
     }
     if (isSuccess && successMessage) {
       return (
-        <Alert status="success" variant="solid" borderRadius="5px">
+        <Alert
+          status="success"
+          variant="solid"
+          borderRadius="5px"
+          data-testid="successMessage"
+        >
           <AlertIcon width="2rem" height="2rem" />{" "}
           <AlertDescription
             whiteSpace="normal"
