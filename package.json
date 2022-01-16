@@ -84,6 +84,7 @@
     "chance": "^1.1.8",
     "eslint": "^7.32.0",
     "eslint-plugin-storybook": "^0.5.3",
+    "fast-check": "^2.21.0",
     "jest-in-case": "^1.0.2"
   }
 }
