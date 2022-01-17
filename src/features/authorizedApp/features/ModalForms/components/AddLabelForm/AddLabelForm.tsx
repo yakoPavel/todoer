@@ -1,7 +1,7 @@
 import { useUiStateSetters } from "context/UiStateContext";
 import React from "react";
 
-import ModalForm from "../Form/ModalForm";
+import Form from "../Form/Form";
 
 const formFieldsConfig = [
   {
@@ -33,7 +33,7 @@ const AddProjectForm = () => {
   };
 
   return (
-    <ModalForm
+    <Form
       title="Add label"
       formFieldsConfig={formFieldsConfig}
       onSubmit={onSubmit}

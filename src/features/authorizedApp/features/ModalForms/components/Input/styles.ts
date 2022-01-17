@@ -1,7 +1,7 @@
 import { Switch as ChakraSwitch } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 
-import { FormFieldConfig } from "../Form/ModalForm";
+import { FormFieldConfig } from "../Form/Form";
 
 type InputTypes = FormFieldConfig["type"];
 

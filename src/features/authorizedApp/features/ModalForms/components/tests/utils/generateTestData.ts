@@ -1,7 +1,7 @@
 import { LABEL_COLORS } from "config/labelColors";
 import UniqueChance from "test/UniqueChance";
 
-import { FormFieldConfig, ModalFormProps } from "../../Form/ModalForm";
+import { FormFieldConfig, FormProps } from "../../Form/Form";
 
 const SEED = 123456;
 const chance = new UniqueChance(SEED);
@@ -9,10 +9,10 @@ const chance = new UniqueChance(SEED);
 type GenerateTestData = {
   numberOfFields?: number;
   numberOfRequiredFields?: number;
-  override?: Partial<ModalFormProps<FormFieldConfig[]>>;
+  override?: Partial<FormProps<FormFieldConfig[]>>;
 };
 /**
- * Generates `ModalForm` props and test data.
+ * Generates `Form` props and test data.
  */
 function generateTestData({
   numberOfFields = 6,

@@ -1,21 +1,21 @@
 import React from "react";
 import { isMockFunction, render, screen, userEvent } from "test/testUtils";
 
-import ModalForm from "../Form/ModalForm";
+import Form from "../Form/Form";
 import { generateTestData } from "./utils/generateTestData";
 
-describe("ModalForm", () => {
+describe("Form", () => {
   describe("Rendering", () => {
     test("Renders the form", () => {
       const { props } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       expect(screen.getByTestId("modalForm")).toBeInTheDocument();
     });
 
     test("Renders all the form fields", () => {
       const { props } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       props.formFieldsConfig.forEach((fieldConfig) => {
         expect(screen.getByLabelText(fieldConfig.label)).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe("ModalForm", () => {
 
     test("Renders control buttons", () => {
       const { props } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       expect(
         screen.getByRole("button", { name: props.submitButtonTitle }),
@@ -38,7 +38,7 @@ describe("ModalForm", () => {
   describe("When the required fields are not filled", () => {
     test("Doesn't allow to submit the form", () => {
       const { props } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       const submitButton = screen.getByRole("button", {
         name: props.submitButtonTitle,
@@ -52,7 +52,7 @@ describe("ModalForm", () => {
   describe("When all the required fields are filled", () => {
     test("Allows to submit the form", () => {
       const { props, formData } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       props.formFieldsConfig.forEach((fieldConfig) => {
         const inputElement = screen.getByLabelText(fieldConfig.label);
@@ -72,7 +72,7 @@ describe("ModalForm", () => {
     test("Invokes the 'onSubmit' callback with the form data", () => {
       // Arrange
       const { props, formData } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       // Act
       props.formFieldsConfig.forEach((fieldConfig) => {
@@ -98,7 +98,7 @@ describe("ModalForm", () => {
   describe("When the form is dismissed", () => {
     test("Invokes the 'onDismiss' callback", () => {
       const { props } = generateTestData();
-      render(<ModalForm {...props} />);
+      render(<Form {...props} />);
 
       const cancelButton = screen.getByRole("button", {
         name: props.cancelButtonTitle,

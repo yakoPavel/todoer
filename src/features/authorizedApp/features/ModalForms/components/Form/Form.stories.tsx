@@ -3,19 +3,17 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
-import ModalForm from "./ModalForm";
+import Form from "./Form";
 
 export default {
-  title: "Authorized app/ModalForm",
-  component: ModalForm,
+  title: "Authorized app/ModalForms/Form",
+  component: Form,
   argTypes: {
     ...themeSwitcherArgType,
   },
-} as ComponentMeta<typeof ModalForm>;
+} as ComponentMeta<typeof Form>;
 
-const Template: ComponentStory<typeof ModalForm> = (args) => (
-  <ModalForm {...args} />
-);
+const Template: ComponentStory<typeof Form> = (args) => <Form {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,7 +1,7 @@
 import React from "react";
 
 import AppHeader from "../features/AppHeader";
-import { ModalForms } from "../features/ModalForm";
+import { ModalForms } from "../features/ModalForms";
 import { SideMenu } from "../features/SideMenu";
 
 const Main = () => {

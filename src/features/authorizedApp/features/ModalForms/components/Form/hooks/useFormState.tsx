@@ -2,7 +2,7 @@ import { LABEL_COLORS } from "config/labelColors";
 import React from "react";
 
 import Input from "../../Input/Input";
-import { FormFieldConfig } from "../ModalForm";
+import { FormFieldConfig } from "../Form";
 
 export type FormState<Data extends FormFieldConfig[]> = {
   isValid: boolean;
