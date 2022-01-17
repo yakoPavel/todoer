@@ -42,7 +42,7 @@ export const NumberOfItemsText = styled(Text)`
   }
 `;
 
-/* Popup trigger */
+/* Three dots component that triggers the popup */
 
 export const PopupTriggerWrapper = styled.div`
   position: relative;
