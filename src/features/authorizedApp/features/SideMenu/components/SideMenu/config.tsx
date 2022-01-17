@@ -5,69 +5,69 @@ import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 const projectsPopupMenuItems = [
   {
     icon: <BsArrowBarUp />,
-    text: "Add project above",
+    text: "Add project above" as const,
   },
   {
     icon: <BsArrowBarDown />,
-    text: "Add project below",
+    text: "Add project below" as const,
   },
   {
     icon: <AiOutlineEdit />,
-    text: "Edit project",
+    text: "Edit project" as const,
   },
   {
     icon: <AiOutlineHeart />,
-    text: "Add to favorites",
+    text: "Add to favorites" as const,
   },
   {
     icon: <AiOutlineDelete />,
-    text: "Delete project",
+    text: "Delete project" as const,
   },
 ];
 
 const labelsPopupMenuItems = [
   {
     icon: <BsArrowBarUp />,
-    text: "Add label above",
+    text: "Add label above" as const,
   },
   {
     icon: <BsArrowBarDown />,
-    text: "Add label below",
+    text: "Add label below" as const,
   },
   {
     icon: <AiOutlineEdit />,
-    text: "Edit label",
+    text: "Edit label" as const,
   },
   {
     icon: <AiOutlineHeart />,
-    text: "Add to favorites",
+    text: "Add to favorites" as const,
   },
   {
     icon: <AiOutlineDelete />,
-    text: "Delete label",
+    text: "Delete label" as const,
   },
 ];
 
 const filtersPopupMenuItems = [
   {
     icon: <BsArrowBarUp />,
-    text: "Add filter above",
+    text: "Add filter above" as const,
   },
   {
     icon: <BsArrowBarDown />,
-    text: "Add filter below",
+    text: "Add filter below" as const,
   },
   {
     icon: <AiOutlineEdit />,
-    text: "Edit filter",
+    text: "Edit filter" as const,
   },
   {
     icon: <AiOutlineHeart />,
-    text: "Add to favorites",
+    text: "Add to favorites" as const,
   },
   {
     icon: <AiOutlineDelete />,
-    text: "Delete filter",
+    text: "Delete filter" as const,
   },
 ];
 

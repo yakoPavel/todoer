@@ -1,33 +1,28 @@
 import React from "react";
-import {
-  FiAlertCircle,
-  FiAnchor,
-  FiAperture,
-  FiArchive,
-  FiBell,
-} from "react-icons/fi";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
+import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 
 /* Sample menu items */
 export const menuItems = [
   {
-    icon: <FiAlertCircle />,
-    text: "Set an alert",
+    icon: <BsArrowBarUp />,
+    text: "Add filter above" as const,
   },
   {
-    icon: <FiAnchor />,
-    text: "Bind an item",
+    icon: <BsArrowBarDown />,
+    text: "Add filter below" as const,
   },
   {
-    icon: <FiAperture />,
-    text: "Take a picture",
+    icon: <AiOutlineEdit />,
+    text: "Edit filter" as const,
   },
   {
-    icon: <FiArchive />,
-    text: "Move to the archive",
+    icon: <AiOutlineHeart />,
+    text: "Add to favorites" as const,
   },
   {
-    icon: <FiBell />,
-    text: "Create a remainder",
+    icon: <AiOutlineDelete />,
+    text: "Delete filter" as const,
   },
 ];
 

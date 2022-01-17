@@ -81,7 +81,9 @@ test("correctly invokes the specified callback when the popup's item is clicked 
   const firstMenuItem = menuItems[0];
   act(() => userEvent.click(firstMenuItem));
 
-  expect(onClickHandler).toHaveBeenCalledWith(firstMenuItem.textContent);
+  expect(onClickHandler).toHaveBeenCalledWith(
+    firstMenuItem.textContent?.replace(/\s+/g, "_").toUpperCase(),
+  );
 
   expect(screen.queryByRole("menu")).not.toBeInTheDocument();
 });

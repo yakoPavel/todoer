@@ -2,6 +2,8 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { PopupAction, PopupText } from "../../../types";
+
 const List = styled.ul`
   position: fixed;
   list-style: none;
@@ -40,26 +42,28 @@ type MenuItem = {
   /** An element that represents an icon of the menu item. */
   icon: JSX.Element;
   /** Text of the menu item. */
-  text: string;
-  /** An id of the menu item. Must be unique from all other items in this menu. */
-  id?: string;
+  text: PopupText;
 };
 
 export type PopupMenuProps = {
   /** A click handler that will be invoked when the menu items get clicked. */
-  onClick: (clickedItemId: string) => void;
+  onClick: (clickedItemId: PopupAction) => void;
   /** Menu items setting. */
   menuItems: MenuItem[];
 };
 
+function generateId(text: PopupText) {
+  return text.replace(/\s+/g, "_").toUpperCase() as PopupAction;
+}
+
 const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   ({ onClick, menuItems }, ref) => {
     const getMenuItems = () => {
-      return menuItems.map(({ icon, text, id }) => (
+      return menuItems.map(({ icon, text }) => (
         <ListItem
           role="menuitem"
-          key={id ?? text}
-          onClick={() => onClick(id ?? text)}
+          key={text}
+          onClick={() => onClick(generateId(text))}
         >
           <IconWrapper>{icon}</IconWrapper>
           <span>{text}</span>
