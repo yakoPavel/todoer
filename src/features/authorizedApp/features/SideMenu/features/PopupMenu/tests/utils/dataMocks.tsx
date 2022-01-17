@@ -6,15 +6,15 @@ import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 export const menuItems = [
   {
     icon: <BsArrowBarUp />,
-    text: "Add filter above" as const,
+    text: "Add label above" as const,
   },
   {
     icon: <BsArrowBarDown />,
-    text: "Add filter below" as const,
+    text: "Add label below" as const,
   },
   {
     icon: <AiOutlineEdit />,
-    text: "Edit filter" as const,
+    text: "Edit label" as const,
   },
   {
     icon: <AiOutlineHeart />,
@@ -22,7 +22,7 @@ export const menuItems = [
   },
   {
     icon: <AiOutlineDelete />,
-    text: "Delete filter" as const,
+    text: "Delete label" as const,
   },
 ];
 
