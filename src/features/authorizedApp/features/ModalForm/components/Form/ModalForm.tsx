@@ -55,7 +55,11 @@ const ModalForm = <Config extends FormFieldConfig[]>({
           <Styled.Form onSubmit={handleSubmission}>
             {formFields}
             <Styled.ControlsContainer>
-              <Styled.ControlButton onClick={onDismiss} variant="secondary">
+              <Styled.ControlButton
+                type="button"
+                onClick={onDismiss}
+                variant="secondary"
+              >
                 {cancelButtonTitle}
               </Styled.ControlButton>
               <Styled.ControlButton type="submit" disabled={!formState.isValid}>
