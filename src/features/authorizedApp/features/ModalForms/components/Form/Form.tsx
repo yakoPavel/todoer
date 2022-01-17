@@ -4,14 +4,29 @@ import React from "react";
 import { FormState, useFormState } from "./hooks/useFormState";
 import * as Styled from "./styles";
 
-export type FormFieldConfig = {
+type BaseFormFieldConfig = {
   /** A label of the field. */
   label: string;
-  /** A type of the field. */
-  type: "text" | "color" | "switch";
   /** Whether or not the field is required. */
   required?: boolean;
 };
+
+type TextBasedFieldConfig = {
+  /** A type of the field. */
+  type: "text" | "color";
+  /** An initial value of the field. */
+  initialValue?: string;
+};
+type SwitchFieldConfig = {
+  /** A type of the field. */
+  type: "switch";
+  /** An initial value of the field. */
+  initialValue?: boolean;
+};
+
+export type FormFieldConfig =
+  | (BaseFormFieldConfig & TextBasedFieldConfig)
+  | (BaseFormFieldConfig & SwitchFieldConfig);
 
 export type FormProps<Config extends FormFieldConfig[]> = {
   /** A title of the Card. */

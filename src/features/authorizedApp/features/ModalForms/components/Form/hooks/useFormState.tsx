@@ -50,7 +50,10 @@ function getInitialState<Data extends FormFieldConfig[]>(
   formFieldsConfig: Data,
 ) {
   const isValid = !formFieldsConfig.some(
-    (fieldConfig) => fieldConfig.type === "text" && fieldConfig.required,
+    (fieldConfig) =>
+      fieldConfig.type === "text" &&
+      fieldConfig.required &&
+      !fieldConfig.initialValue,
   );
 
   const initialValueForTypes = {
@@ -62,9 +65,9 @@ function getInitialState<Data extends FormFieldConfig[]>(
   return {
     isValid,
     values: Object.fromEntries(
-      formFieldsConfig.map(({ label, type }) => [
+      formFieldsConfig.map(({ label, type, initialValue }) => [
         label,
-        initialValueForTypes[type],
+        initialValue ?? initialValueForTypes[type],
       ]),
     ),
   } as FormState<Data>;
