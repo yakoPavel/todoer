@@ -1,5 +1,6 @@
 import { Slide, VisuallyHidden } from "@chakra-ui/react";
 import { SIDE_MENU } from "config/localStorage";
+import { useUiStateSetters } from "context/UiStateContext";
 import {
   DragAndDrop,
   useOnDragEnd,
@@ -7,7 +8,6 @@ import {
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { BsThreeDots } from "react-icons/bs";
-import { GiWaterDrop } from "react-icons/gi";
 import { IoAddOutline } from "react-icons/io5";
 import { MdLabel } from "react-icons/md";
 import { EventWithProcessedField } from "types";
@@ -32,17 +32,6 @@ const dummyProjects = [
 const dummyLabels = [
   {
     name: "test",
-    color: "gold",
-  },
-];
-
-const dummyFilters = [
-  {
-    name: "Priority1",
-    color: "red",
-  },
-  {
-    name: "Assigned to me",
     color: "gold",
   },
 ];
@@ -116,30 +105,11 @@ function useDragAndDropState() {
       }),
     );
 
-  const { draggables: filterDraggables, onDragEnd: onFilterDragEnd } =
-    useOnDragEnd(
-      getLinksAsDraggables({
-        data: dummyFilters,
-        popupConfig: {
-          menuItems: config.filtersPopupMenuItems,
-          onClick: onPopupItemClick,
-        },
-        slots: {
-          leftSlot: ({ color }) => <GiWaterDrop color={color} />,
-          rightSlot: (_, PopupTrigger) => (
-            <ComponentWithPopupTrigger PopupTrigger={PopupTrigger} />
-          ),
-        },
-      }),
-    );
-
   return {
     projectDraggables,
     labelDraggables,
-    filterDraggables,
     onProjectDragEnd,
     onLabelDragEnd,
-    onFilterDragEnd,
   };
 }
 
@@ -151,10 +121,8 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
   const {
     projectDraggables,
     labelDraggables,
-    filterDraggables,
     onProjectDragEnd,
     onLabelDragEnd,
-    onFilterDragEnd,
   } = useDragAndDropState();
 
   const { ResizeHandle, resizableElementRef, resizeHandleProps } = useResize({
@@ -162,18 +130,25 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
     minWidth: 250,
   });
 
+  const uiStateSetters = useUiStateSetters();
+
   const initialWidth = React.useMemo(
     () => localStorage.getFromLocalStorage(SIDE_MENU.WIDTH, 305),
     [],
   );
 
   const onAddNew = (
-    type: "project" | "label" | "filter",
+    type: "project" | "label",
     event: EventWithProcessedField<React.MouseEvent>,
   ) => {
     // eslint-disable-next-line no-param-reassign
     event.processed = true;
-    console.log(`Adding a new ${type}...`);
+
+    if (type === "project") {
+      uiStateSetters.setAddProjectVisible(true);
+    } else if (type === "label") {
+      uiStateSetters.setAddLabelVisible(true);
+    }
   };
 
   return (
@@ -214,22 +189,6 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
               <AddNewButton
                 label="Add new label"
                 onClick={(event) => onAddNew("label", event)}
-              />
-            }
-          />
-          <Styled.StyledMenuSection
-            sectionTitle="Filters"
-            sectionContent={
-              <DragAndDrop
-                mainId="filters"
-                draggables={filterDraggables}
-                onDragEnd={onFilterDragEnd}
-              />
-            }
-            rightSlot={
-              <AddNewButton
-                label="Add new filter"
-                onClick={(event) => onAddNew("filter", event)}
               />
             }
           />
