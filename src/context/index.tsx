@@ -6,6 +6,7 @@ import GlobalDynamicStyles from "style/globalDynamicStyles";
 import { initializeFirebase } from "utils/initializeFirebase";
 
 import ThemeContextProvider from "./ThemeContext";
+import { UiStateContextProvider } from "./UiStateContext";
 import { UserContextProvider } from "./UserContext";
 
 initializeFirebase();
@@ -16,7 +17,9 @@ const AppProviders: React.FC = ({ children }) => {
       <ThemeContextProvider>
         <GlobalDynamicStyles />
         <ChakraProvider theme={chakraTheme}>
-          <UserContextProvider>{children}</UserContextProvider>
+          <UiStateContextProvider>
+            <UserContextProvider>{children}</UserContextProvider>
+          </UiStateContextProvider>
         </ChakraProvider>
       </ThemeContextProvider>
     </BrowserRouter>
