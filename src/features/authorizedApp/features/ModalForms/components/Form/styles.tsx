@@ -1,19 +1,6 @@
 import styled from "@emotion/styled/macro";
 import Button from "components/Button/Button";
 
-export const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const Card = styled.section`
   background: ${({ theme }) => theme.modalFormBackground};
   display: flex;

@@ -1,4 +1,5 @@
 import { Heading } from "@chakra-ui/react";
+import Overlay from "components/Overlay/Overlay";
 import React from "react";
 
 import { FormState, useFormState } from "./hooks/useFormState";
@@ -59,7 +60,7 @@ const Form = <Config extends FormFieldConfig[]>({
   };
 
   return (
-    <Styled.Container data-testid="modalForm">
+    <Overlay data-testid="modalForm">
       <Styled.Card>
         <Styled.TitleContainer>
           <Heading as="h3" size="md">
@@ -84,7 +85,7 @@ const Form = <Config extends FormFieldConfig[]>({
           </Styled.Form>
         </Styled.FormContainer>
       </Styled.Card>
-    </Styled.Container>
+    </Overlay>
   );
 };
 
