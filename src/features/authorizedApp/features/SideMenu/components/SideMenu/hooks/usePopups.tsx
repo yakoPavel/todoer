@@ -121,12 +121,22 @@ function usePopups() {
     config.labelsPopupMenuItems,
     onPopupItemClick,
   );
+  const FavoritesMenuLinkWithPopup = getMenuLinkWithPopupComponent(
+    config.favoritesPopupMenuItems,
+    onPopupItemClick,
+  );
+  const FavoritesClickPopupTrigger = getClickPopupTriggerComponent(
+    config.favoritesPopupMenuItems,
+    onPopupItemClick,
+  );
 
   return {
     ProjectsMenuLinkWithPopup,
     ProjectsClickPopupTrigger,
     LabelsMenuLinkWithPopup,
     LabelsClickPopupTrigger,
+    FavoritesMenuLinkWithPopup,
+    FavoritesClickPopupTrigger,
   };
 }
 

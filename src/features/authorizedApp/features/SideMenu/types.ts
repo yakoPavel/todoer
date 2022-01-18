@@ -7,11 +7,9 @@ type SwapSpacesWithUnderscores<T extends string> =
 
 type PopupText =
   | typeof popupConfig.projectsPopupMenuItems[number]["text"]
-  | typeof popupConfig.labelsPopupMenuItems[number]["text"];
+  | typeof popupConfig.labelsPopupMenuItems[number]["text"]
+  | typeof popupConfig.favoritesPopupMenuItems[number]["text"];
 
-type PopupAction =
-  | SwapSpacesWithUnderscores<Uppercase<PopupText>>
-  | SwapSpacesWithUnderscores<Uppercase<PopupText>>
-  | SwapSpacesWithUnderscores<Uppercase<PopupText>>;
+type PopupAction = SwapSpacesWithUnderscores<Uppercase<PopupText>>;
 
 export type { PopupAction, PopupText };

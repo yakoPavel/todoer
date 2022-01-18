@@ -48,4 +48,15 @@ const labelsPopupMenuItems = [
   },
 ];
 
-export { labelsPopupMenuItems, projectsPopupMenuItems };
+const favoritesPopupMenuItems = [
+  {
+    icon: <AiOutlineHeart />,
+    text: "Remove from favorites" as const,
+  },
+];
+
+export {
+  favoritesPopupMenuItems,
+  labelsPopupMenuItems,
+  projectsPopupMenuItems,
+};

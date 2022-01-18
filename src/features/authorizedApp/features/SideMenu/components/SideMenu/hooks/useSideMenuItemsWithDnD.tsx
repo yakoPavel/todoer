@@ -9,10 +9,12 @@ const dummyProjects = [
   {
     name: "Do my homework",
     tasks: 5,
+    type: "project" as const,
   },
   {
     name: "Repair the hole",
     tasks: 12,
+    type: "project" as const,
   },
 ];
 
@@ -20,6 +22,20 @@ const dummyLabels = [
   {
     name: "test",
     color: "gold",
+    type: "label" as const,
+  },
+];
+
+const dummyFavorites = [
+  {
+    name: "test",
+    color: "gold",
+    type: "label" as const,
+  },
+  {
+    name: "Repair the hole",
+    tasks: 12,
+    type: "project" as const,
   },
 ];
 
@@ -33,47 +49,97 @@ function useSideMenuItemsWithDnD() {
     LabelsClickPopupTrigger,
     ProjectsMenuLinkWithPopup,
     ProjectsClickPopupTrigger,
+    FavoritesMenuLinkWithPopup,
+    FavoritesClickPopupTrigger,
   } = usePopups();
 
-  const projectItems = dummyProjects.map(({ name, tasks }) => ({
-    component: (
-      <ProjectsMenuLinkWithPopup
+  const renderProjectLinkItem = (
+    name: string,
+    tasks: number,
+    MenuLinkComponent:
+      | typeof ProjectsMenuLinkWithPopup
+      | typeof FavoritesMenuLinkWithPopup = ProjectsMenuLinkWithPopup,
+    PopupTriggerComponent:
+      | typeof ProjectsClickPopupTrigger
+      | typeof FavoritesClickPopupTrigger = ProjectsClickPopupTrigger,
+  ) => {
+    return (
+      <MenuLinkComponent
         key={name}
         text={name}
         popupId={name}
         rightSlot={
-          <ProjectsClickPopupTrigger popupId={name}>
+          <PopupTriggerComponent popupId={name}>
             <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
-          </ProjectsClickPopupTrigger>
+          </PopupTriggerComponent>
         }
       />
-    ),
-    id: name,
-  }));
+    );
+  };
 
-  const labelItems = dummyLabels.map(({ name, color }) => ({
-    component: (
-      <LabelsMenuLinkWithPopup
+  const renderLabelLinkItem = (
+    name: string,
+    color: string,
+    MenuLinkComponent:
+      | typeof LabelsMenuLinkWithPopup
+      | typeof FavoritesMenuLinkWithPopup = LabelsMenuLinkWithPopup,
+    PopupTriggerComponent:
+      | typeof LabelsClickPopupTrigger
+      | typeof FavoritesClickPopupTrigger = LabelsClickPopupTrigger,
+  ) => {
+    return (
+      <MenuLinkComponent
         key={name}
         text={name}
         popupId={name}
         leftSlot={<MdLabel color={color} />}
-        rightSlot={<LabelsClickPopupTrigger popupId={name} />}
+        rightSlot={<PopupTriggerComponent popupId={name} />}
       />
-    ),
+    );
+  };
+
+  const projectItems = dummyProjects.map(({ name, tasks }) => ({
+    component: renderProjectLinkItem(name, tasks),
     id: name,
+  }));
+
+  const labelItems = dummyLabels.map(({ name, color }) => ({
+    component: renderLabelLinkItem(name, color),
+    id: name,
+  }));
+
+  const favoriteItems = dummyFavorites.map((itemConfig) => ({
+    component:
+      itemConfig.type === "project"
+        ? renderProjectLinkItem(
+            itemConfig.name,
+            itemConfig.tasks,
+            FavoritesMenuLinkWithPopup,
+            FavoritesClickPopupTrigger,
+          )
+        : renderLabelLinkItem(
+            itemConfig.name,
+            itemConfig.color,
+            FavoritesMenuLinkWithPopup,
+            FavoritesClickPopupTrigger,
+          ),
+    id: itemConfig.name,
   }));
 
   const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
     useOnDragEnd(projectItems);
   const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
     useOnDragEnd(labelItems);
+  const { draggables: favoriteDraggables, onDragEnd: onFavoritesDragEnd } =
+    useOnDragEnd(favoriteItems);
 
   return {
     projectDraggables,
     labelDraggables,
+    favoriteDraggables,
     onProjectDragEnd,
     onLabelDragEnd,
+    onFavoritesDragEnd,
   };
 }
 

@@ -33,8 +33,10 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
   const {
     projectDraggables,
     labelDraggables,
+    favoriteDraggables,
     onProjectDragEnd,
     onLabelDragEnd,
+    onFavoritesDragEnd,
   } = useSideMenuItemsWithDnD();
 
   const { ResizeHandle, resizableElementRef, resizeHandleProps } = useResize({
@@ -72,6 +74,16 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
     >
       <DragDropContext onDragEnd={onProjectDragEnd}>
         <Styled.MenuWrapper id="sideMenu">
+          <Styled.StyledMenuSection
+            sectionTitle="Favorites"
+            sectionContent={
+              <DragAndDrop
+                mainId="favorites"
+                draggables={favoriteDraggables}
+                onDragEnd={onFavoritesDragEnd}
+              />
+            }
+          />
           <Styled.StyledMenuSection
             sectionTitle="Projects"
             sectionContent={
