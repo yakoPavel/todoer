@@ -6,7 +6,7 @@ import { themeSwitcherArgType } from "storybook/commonArgTypes";
 import Form from "./Form";
 
 export default {
-  title: "Authorized app/ModalForms/Form",
+  title: "Authorized app/Modals/Form",
   component: Form,
   argTypes: {
     ...themeSwitcherArgType,

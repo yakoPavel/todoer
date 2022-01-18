@@ -1,7 +1,7 @@
 import React from "react";
 
 import AppHeader from "../features/AppHeader";
-import { ModalForms } from "../features/ModalForms";
+import { Modals } from "../features/Modals";
 import { SideMenu } from "../features/SideMenu";
 
 const Main = () => {
@@ -15,7 +15,7 @@ const Main = () => {
     <>
       <AppHeader menuState={menuState} onMenuToggle={setMenuState} />
       <SideMenu isOpen={menuState === "opened"} />
-      <ModalForms />
+      <Modals />
     </>
   );
 };

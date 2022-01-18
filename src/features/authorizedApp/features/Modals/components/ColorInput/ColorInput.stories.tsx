@@ -5,7 +5,7 @@ import React from "react";
 import ColorInput from "./ColorInput";
 
 export default {
-  title: "Authorized app/ModalForms/ColorInput",
+  title: "Authorized app/Modals/ColorInput",
   component: ColorInput,
 } as ComponentMeta<typeof ColorInput>;
 

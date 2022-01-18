@@ -7,7 +7,7 @@ import AddProjectForm from "../AddProjectForm/AddProjectForm";
 import EditLabelForm from "../EditLabelForm/EditLabelForm";
 import EditProjectForm from "../EditProjectForm/EditProjectForm";
 
-const ModalForms = () => {
+const Modals = () => {
   const addProjectForm = useAppSelector(selectors.selectAddProjectFormState);
   const addLabelForm = useAppSelector(selectors.selectAddLabelFormState);
   const editProjectForm = useAppSelector(selectors.selectEditProjectFormState);
@@ -29,4 +29,4 @@ const ModalForms = () => {
   return null;
 };
 
-export default ModalForms;
+export default Modals;
