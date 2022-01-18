@@ -5,6 +5,7 @@ import { selectors } from "store/slices/ui";
 import AddLabelForm from "../AddLabelForm/AddLabelForm";
 import AddProjectForm from "../AddProjectForm/AddProjectForm";
 import EditLabelForm from "../EditLabelForm/EditLabelForm";
+import EditProjectForm from "../EditProjectForm/EditProjectForm";
 
 const ModalForms = () => {
   const addProjectForm = useAppSelector(selectors.selectAddProjectFormState);
@@ -14,6 +15,9 @@ const ModalForms = () => {
 
   if (addProjectForm.visible) {
     return <AddProjectForm />;
+  }
+  if (editProjectForm.visible) {
+    return <EditProjectForm />;
   }
   if (addLabelForm.visible) {
     return <AddLabelForm />;

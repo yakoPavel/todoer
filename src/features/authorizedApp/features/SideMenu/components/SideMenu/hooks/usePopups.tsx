@@ -86,6 +86,8 @@ function usePopups() {
       );
     } else if (action === "EDIT_LABEL") {
       dispatch(uiActions.editLabelFormAppeared({ triggerId: popupId }));
+    } else if (action === "EDIT_PROJECT") {
+      dispatch(uiActions.editProjectFormAppeared({ triggerId: popupId }));
     }
   };
 
