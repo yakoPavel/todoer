@@ -4,6 +4,7 @@ import { selectors } from "store/slices/ui";
 
 import AddLabelForm from "../AddLabelForm/AddLabelForm";
 import AddProjectForm from "../AddProjectForm/AddProjectForm";
+import DeleteItemDialog from "../DeleteItemDialog/DeleteItemDialog";
 import EditLabelForm from "../EditLabelForm/EditLabelForm";
 import EditProjectForm from "../EditProjectForm/EditProjectForm";
 
@@ -12,6 +13,9 @@ const Modals = () => {
   const addLabelForm = useAppSelector(selectors.selectAddLabelFormState);
   const editProjectForm = useAppSelector(selectors.selectEditProjectFormState);
   const editLabelForm = useAppSelector(selectors.selectEditLabelFormState);
+  const deleteItemDialog = useAppSelector(
+    selectors.selectDeleteItemDialogState,
+  );
 
   if (addProjectForm.visible) {
     return <AddProjectForm />;
@@ -24,6 +28,14 @@ const Modals = () => {
   }
   if (editLabelForm.visible) {
     return <EditLabelForm />;
+  }
+  if (deleteItemDialog.visible) {
+    return (
+      <DeleteItemDialog
+        itemId={deleteItemDialog.itemId}
+        itemType={deleteItemDialog.itemType}
+      />
+    );
   }
 
   return null;
