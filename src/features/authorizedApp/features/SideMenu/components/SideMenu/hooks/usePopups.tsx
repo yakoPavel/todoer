@@ -1,5 +1,7 @@
+import { useAppDispatch } from "hooks/storeHooks";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
+import { actions as uiActions } from "store/slices/ui";
 
 import { PopupMenuProps, withPopupMenu } from "../../../features/PopupMenu";
 import { PopupAction } from "../../../types";
@@ -51,8 +53,40 @@ const ClickPopupTrigger = React.forwardRef<
 ClickPopupTrigger.displayName = "ClickPopupTrigger";
 
 function usePopups() {
-  const onPopupItemClick = (action: PopupAction) => {
-    console.log(action);
+  const dispatch = useAppDispatch();
+
+  const onPopupItemClick = (action: PopupAction, popupId: string) => {
+    if (action === "ADD_LABEL_ABOVE") {
+      dispatch(
+        uiActions.addLabelFormAppeared({
+          additionDirection: "above",
+          triggerId: popupId,
+        }),
+      );
+    } else if (action === "ADD_LABEL_BELOW") {
+      dispatch(
+        uiActions.addLabelFormAppeared({
+          additionDirection: "below",
+          triggerId: popupId,
+        }),
+      );
+    } else if (action === "ADD_PROJECT_ABOVE") {
+      dispatch(
+        uiActions.addProjectFormAppeared({
+          additionDirection: "above",
+          triggerId: popupId,
+        }),
+      );
+    } else if (action === "ADD_PROJECT_BELOW") {
+      dispatch(
+        uiActions.addProjectFormAppeared({
+          additionDirection: "below",
+          triggerId: popupId,
+        }),
+      );
+    } else if (action === "EDIT_LABEL") {
+      dispatch(uiActions.editLabelFormAppeared({ triggerId: popupId }));
+    }
   };
 
   const ProjectsMenuLinkWithPopup = getMenuLinkWithPopupComponent(

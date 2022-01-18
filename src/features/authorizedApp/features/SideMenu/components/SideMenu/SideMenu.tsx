@@ -1,10 +1,11 @@
 import { Slide, VisuallyHidden } from "@chakra-ui/react";
 import { SIDE_MENU } from "config/localStorage";
-import { useUiStateSetters } from "context/UiStateContext";
 import { DragAndDrop } from "features/authorizedApp/features/DragAndDrop";
+import { useAppDispatch } from "hooks/storeHooks";
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { IoAddOutline } from "react-icons/io5";
+import { actions as uiActions } from "store/slices/ui";
 import { EventWithProcessedField } from "types";
 import * as localStorage from "utils/localStorage";
 
@@ -41,7 +42,7 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
     minWidth: 250,
   });
 
-  const uiStateSetters = useUiStateSetters();
+  const dispatch = useAppDispatch();
 
   const initialWidth = React.useMemo(
     () => localStorage.getFromLocalStorage(SIDE_MENU.WIDTH, 305),
@@ -56,9 +57,9 @@ const SideMenu = ({ isOpen }: SideMenuProps) => {
     event.processed = true;
 
     if (type === "project") {
-      uiStateSetters.setAddProjectVisible(true);
+      dispatch(uiActions.addProjectFormAppeared());
     } else if (type === "label") {
-      uiStateSetters.setAddLabelVisible(true);
+      dispatch(uiActions.addLabelFormAppeared());
     }
   };
 

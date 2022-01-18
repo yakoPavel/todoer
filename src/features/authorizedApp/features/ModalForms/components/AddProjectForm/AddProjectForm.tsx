@@ -1,5 +1,6 @@
-import { useUiStateSetters } from "context/UiStateContext";
+import { useAppDispatch } from "hooks/storeHooks";
 import React from "react";
+import { actions as uiActions } from "store/slices/ui";
 
 import Form from "../Form/Form";
 
@@ -21,15 +22,15 @@ const formFieldsConfig = [
 ];
 
 const AddProjectForm = () => {
-  const uiStateSetters = useUiStateSetters();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (formValues: Record<string, string | boolean>) => {
     console.log("New project", formValues);
-    uiStateSetters.setAddProjectVisible(false);
+    dispatch(uiActions.addProjectFormDismissed());
   };
 
   const onDismiss = () => {
-    uiStateSetters.setAddProjectVisible(false);
+    dispatch(uiActions.addProjectFormDismissed());
   };
 
   return (
