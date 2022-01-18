@@ -47,23 +47,25 @@ type MenuItem = {
 
 export type PopupMenuProps = {
   /** A click handler that will be invoked when the menu items get clicked. */
-  onClick: (clickedItemId: PopupAction) => void;
+  onClick: (clickedItemId: PopupAction, popupId: string) => void;
   /** Menu items setting. */
   menuItems: MenuItem[];
+  /** A unique id for this popup. */
+  popupId: string;
 };
 
-function generateId(text: PopupText) {
+function generateActionId(text: PopupText) {
   return text.replace(/\s+/g, "_").toUpperCase() as PopupAction;
 }
 
 const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
-  ({ onClick, menuItems }, ref) => {
+  ({ onClick, menuItems, popupId }, ref) => {
     const getMenuItems = () => {
       return menuItems.map(({ icon, text }) => (
         <ListItem
           role="menuitem"
           key={text}
-          onClick={() => onClick(generateId(text))}
+          onClick={() => onClick(generateActionId(text), popupId)}
         >
           <IconWrapper>{icon}</IconWrapper>
           <span>{text}</span>

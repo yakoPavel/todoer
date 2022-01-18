@@ -8,7 +8,7 @@ type WithPopupMenuConfig<Props> = {
   /** A component that will be the target of the popup menu. */
   Component: React.JSXElementConstructor<Props> & { displayName?: string };
   /** A config that will be passed to the {@link PopupMenu}. */
-  popupMenuConfig: PopupMenuProps;
+  popupMenuConfig: Omit<PopupMenuProps, "popupId">;
   /** When to show the menu. */
   showOn: "click" | "contextmenu";
   /** A name of the component. */
@@ -21,7 +21,10 @@ function withPopupMenu<Props>({
   showOn,
   componentName = Component.displayName ?? Component.name,
 }: WithPopupMenuConfig<Props>) {
-  const WithPopupMenu = (props: Props) => {
+  const WithPopupMenu = ({
+    popupId,
+    ...targetComponentProps
+  }: Props & { popupId: string }) => {
     const [triggerElement, setTriggerElement] =
       React.useState<HTMLElement | null>(null);
     /* Pointer coordinates of the event that caused the popup to show. */
@@ -82,8 +85,21 @@ function withPopupMenu<Props>({
 
     return (
       <>
-        <Component {...props} ref={setTriggerElement} />
-        {showPopup && <PopupMenu ref={setPopupElement} {...popupMenuConfig} />}
+        {/* 
+          Typescript can not deduce that `targetComponentProps` are actually 
+          the props of this component, so we need to explicitly cast them.
+        */}
+        <Component
+          {...(targetComponentProps as unknown as Props)}
+          ref={setTriggerElement}
+        />
+        {showPopup && (
+          <PopupMenu
+            ref={setPopupElement}
+            popupId={popupId}
+            {...popupMenuConfig}
+          />
+        )}
       </>
     );
   };

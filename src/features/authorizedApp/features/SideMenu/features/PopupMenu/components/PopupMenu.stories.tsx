@@ -6,7 +6,7 @@ import withPopupMenu from "../hoc/withPopupMenu";
 import * as dataMocks from "../tests/utils/dataMocks";
 import PopupMenu, { PopupMenuProps } from "./PopupMenu";
 
-const popupMenuConfig: PopupMenuProps = {
+const popupMenuConfig: Omit<PopupMenuProps, "popupId"> = {
   menuItems: dataMocks.menuItems,
   onClick: (id: string) => {
     // eslint-disable-next-line no-console
@@ -36,8 +36,9 @@ export default {
 const Template: Story<PopupMenuProps & { showOn: "click" | "contextmenu" }> = ({
   showOn,
 }) => {
-  if (showOn === "click") return <ComponentWithPopupMenuShownOnClick />;
-  return <ComponentWithPopupMenuShownOnContextMenu />;
+  if (showOn === "click")
+    return <ComponentWithPopupMenuShownOnClick popupId="test" />;
+  return <ComponentWithPopupMenuShownOnContextMenu popupId="test" />;
 };
 
 export const TriggerByClick = Template.bind({});

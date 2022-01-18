@@ -40,8 +40,9 @@ function useSideMenuItemsWithDnD() {
       <ProjectsMenuLinkWithPopup
         key={name}
         text={name}
+        popupId={name}
         rightSlot={
-          <ProjectsClickPopupTrigger>
+          <ProjectsClickPopupTrigger popupId={name}>
             <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
           </ProjectsClickPopupTrigger>
         }
@@ -55,8 +56,9 @@ function useSideMenuItemsWithDnD() {
       <LabelsMenuLinkWithPopup
         key={name}
         text={name}
+        popupId={name}
         leftSlot={<MdLabel color={color} />}
-        rightSlot={<LabelsClickPopupTrigger />}
+        rightSlot={<LabelsClickPopupTrigger popupId={name} />}
       />
     ),
     id: name,

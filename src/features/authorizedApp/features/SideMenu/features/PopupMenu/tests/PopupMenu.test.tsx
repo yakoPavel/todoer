@@ -13,6 +13,7 @@ import * as dataMocks from "./utils/dataMocks";
 
 function renderComponent(showOn: "click" | "contextmenu") {
   const onClickHandler = jest.fn();
+  const popupId = "TEST_POPUP_ID";
 
   const Component = withPopupMenu({
     Component: dataMocks.TriggerComponent,
@@ -25,7 +26,7 @@ function renderComponent(showOn: "click" | "contextmenu") {
 
   render(
     <div id="root">
-      <Component />
+      <Component popupId={popupId} />
     </div>,
   );
 
@@ -33,6 +34,7 @@ function renderComponent(showOn: "click" | "contextmenu") {
     triggerComponent: screen.getByText(/trigger/i),
     menuItemsData: dataMocks.menuItems,
     onClickHandler,
+    popupId,
   };
 }
 
@@ -75,7 +77,7 @@ test("renders the popup menu and all its items when triggered as a context menu"
 });
 
 test("correctly invokes the specified callback when the popup's item is clicked and then hides the popup", async () => {
-  const { onClickHandler } = renderAndTriggerThePopup("click");
+  const { onClickHandler, popupId } = renderAndTriggerThePopup("click");
 
   const menuItems = screen.getAllByRole("menuitem");
   const firstMenuItem = menuItems[0];
@@ -83,6 +85,7 @@ test("correctly invokes the specified callback when the popup's item is clicked 
 
   expect(onClickHandler).toHaveBeenCalledWith(
     firstMenuItem.textContent?.replace(/\s+/g, "_").toUpperCase(),
+    popupId,
   );
 
   expect(screen.queryByRole("menu")).not.toBeInTheDocument();
