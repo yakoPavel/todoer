@@ -2,6 +2,9 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 
+import PopupMenu, { PopupMenuProps } from "../../components/PopupMenu";
+import { usePopupMenu } from "../../hooks/usePopupMenu";
+
 /* Sample menu items */
 export const menuItems = [
   {
@@ -26,8 +29,20 @@ export const menuItems = [
   },
 ];
 
-/* A component that will serve as a trigger for showing the popup. */
-export const TriggerComponent = React.forwardRef<HTMLDivElement>((_, ref) => (
-  <div ref={ref}>Trigger</div>
-));
-TriggerComponent.displayName = "TriggerComponent";
+type ComponentWithPopupProps = {
+  showOn: "click" | "contextmenu";
+  popupMenuConfig: PopupMenuProps;
+};
+export const ComponentWithPopup = ({
+  showOn,
+  popupMenuConfig,
+}: ComponentWithPopupProps) => {
+  const { isPopupVisible, popupRef, triggerRef } = usePopupMenu(showOn);
+
+  return (
+    <>
+      <div ref={triggerRef}>Trigger</div>
+      {isPopupVisible && <PopupMenu {...popupMenuConfig} ref={popupRef} />}
+    </>
+  );
+};

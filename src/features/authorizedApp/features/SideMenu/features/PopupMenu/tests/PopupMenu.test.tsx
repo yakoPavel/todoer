@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import React from "react";
 import {
   act,
@@ -8,36 +9,35 @@ import {
   within,
 } from "test/testUtils";
 
-import withPopupMenu from "../hoc/withPopupMenu";
 import * as dataMocks from "./utils/dataMocks";
 
 function renderComponent(showOn: "click" | "contextmenu") {
   const onClickHandler = jest.fn();
-  const popupId = "TEST_POPUP_ID";
 
-  const Component = withPopupMenu({
-    Component: dataMocks.TriggerComponent,
-    popupMenuConfig: {
-      menuItems: dataMocks.menuItems,
-      onClick: onClickHandler,
-    },
-    showOn,
-  });
+  const popupMenuConfig = {
+    menuItems: dataMocks.menuItems,
+    onClick: onClickHandler,
+  };
 
   render(
     <div id="root">
-      <Component popupId={popupId} />
+      <dataMocks.ComponentWithPopup
+        popupMenuConfig={popupMenuConfig}
+        showOn={showOn}
+      />
     </div>,
   );
 
   return {
-    triggerComponent: screen.getByText(/trigger/i),
+    triggerElement: screen.getByText(/trigger/i),
     menuItemsData: dataMocks.menuItems,
     onClickHandler,
-    popupId,
   };
 }
 
+/**
+ * Checks if the popup menu and its content in the document.
+ */
 function checkThePopupAndItsContent(menuItemsData: typeof dataMocks.menuItems) {
   const popupMenu = screen.getByRole("menu");
   expect(within(popupMenu).getAllByRole("menuitem")).toHaveLength(
@@ -48,45 +48,69 @@ function checkThePopupAndItsContent(menuItemsData: typeof dataMocks.menuItems) {
   );
 }
 
-function renderAndTriggerThePopup(by: "click" | "contextmenu") {
-  let renderingData: ReturnType<typeof renderComponent>;
+describe("Popup menu", () => {
+  describe("When the trigger component is clicked", () => {
+    test("When the popup `showOn` prop is the 'click', shows the popup menu", () => {
+      const { triggerElement } = renderComponent("click");
 
-  if (by === "click") {
-    renderingData = renderComponent("click");
-    act(() => userEvent.click(renderingData.triggerComponent));
-  } else {
-    renderingData = renderComponent("contextmenu");
-    act(() => {
-      fireEvent.contextMenu(renderingData.triggerComponent);
+      act(() => userEvent.click(triggerElement));
+
+      checkThePopupAndItsContent(dataMocks.menuItems);
     });
-  }
 
-  return renderingData;
-}
+    test("When the popup `showOn` prop is the 'contextmenu', doesn't show the popup menu", () => {
+      const { triggerElement } = renderComponent("contextmenu");
 
-test("renders the popup menu and all its items when triggered by a click", () => {
-  const { menuItemsData } = renderAndTriggerThePopup("click");
+      act(() => userEvent.click(triggerElement));
 
-  expect(() => checkThePopupAndItsContent(menuItemsData)).not.toThrow();
-});
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
 
-test("renders the popup menu and all its items when triggered as a context menu", () => {
-  const { menuItemsData } = renderAndTriggerThePopup("contextmenu");
+  describe("When the user triggers a context menu on the trigger element", () => {
+    test("When the popup `showOn` prop is the 'contextmenu', shows the popup menu", () => {
+      const { triggerElement } = renderComponent("contextmenu");
 
-  expect(() => checkThePopupAndItsContent(menuItemsData)).not.toThrow();
-});
+      act(() => {
+        fireEvent.contextMenu(triggerElement);
+      });
 
-test("correctly invokes the specified callback when the popup's item is clicked and then hides the popup", async () => {
-  const { onClickHandler, popupId } = renderAndTriggerThePopup("click");
+      checkThePopupAndItsContent(dataMocks.menuItems);
+    });
 
-  const menuItems = screen.getAllByRole("menuitem");
-  const firstMenuItem = menuItems[0];
-  act(() => userEvent.click(firstMenuItem));
+    test("When the popup `showOn` prop is the 'click', doesn't show the popup menu", () => {
+      const { triggerElement } = renderComponent("click");
 
-  expect(onClickHandler).toHaveBeenCalledWith(
-    firstMenuItem.textContent?.replace(/\s+/g, "_").toUpperCase(),
-    popupId,
-  );
+      act(() => {
+        fireEvent.contextMenu(triggerElement);
+      });
 
-  expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("When a popup menu item is clicked", () => {
+    test("Invokes the passed callback with the correct id", () => {
+      const { onClickHandler, triggerElement } = renderComponent("click");
+
+      act(() => userEvent.click(triggerElement));
+      const menuItems = screen.getAllByRole("menuitem");
+      const firstMenuItem = menuItems[0];
+      act(() => userEvent.click(firstMenuItem));
+
+      expect(onClickHandler).toHaveBeenCalledTimes(1);
+      expect(onClickHandler).toHaveBeenCalledWith(
+        firstMenuItem.textContent?.replace(/\s+/g, "_").toUpperCase(),
+      );
+    });
+
+    test("Hides the popup menu", () => {
+      const { triggerElement } = renderComponent("click");
+
+      act(() => userEvent.click(triggerElement));
+      act(() => userEvent.click(screen.getAllByRole("menuitem")[0]));
+
+      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
 });

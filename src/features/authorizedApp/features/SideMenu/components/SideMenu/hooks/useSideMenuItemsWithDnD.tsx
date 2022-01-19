@@ -1,9 +1,8 @@
 import { useOnDragEnd } from "features/authorizedApp/features/DragAndDrop";
 import React from "react";
-import { MdLabel } from "react-icons/md";
 
-import * as Styled from "../styles";
-import { usePopups } from "./usePopups";
+import LabelsMenuLink from "../../LabelsMenuLink/LabelsMenuLink";
+import ProjectsMenuLink from "../../ProjectsMenuLink/ProjectsMenuLink";
 
 const dummyProjects = [
   {
@@ -44,85 +43,35 @@ const dummyFavorites = [
  * mechanism.
  */
 function useSideMenuItemsWithDnD() {
-  const {
-    LabelsMenuLinkWithPopup,
-    LabelsClickPopupTrigger,
-    ProjectsMenuLinkWithPopup,
-    ProjectsClickPopupTrigger,
-    FavoritesMenuLinkWithPopup,
-    FavoritesClickPopupTrigger,
-  } = usePopups();
-
-  const renderProjectLinkItem = (
-    name: string,
-    tasks: number,
-    MenuLinkComponent:
-      | typeof ProjectsMenuLinkWithPopup
-      | typeof FavoritesMenuLinkWithPopup = ProjectsMenuLinkWithPopup,
-    PopupTriggerComponent:
-      | typeof ProjectsClickPopupTrigger
-      | typeof FavoritesClickPopupTrigger = ProjectsClickPopupTrigger,
-  ) => {
-    return (
-      <MenuLinkComponent
-        key={name}
-        text={name}
-        popupId={name}
-        rightSlot={
-          <PopupTriggerComponent popupId={name}>
-            <Styled.NumberOfItemsText>{tasks}</Styled.NumberOfItemsText>
-          </PopupTriggerComponent>
-        }
-      />
-    );
-  };
-
-  const renderLabelLinkItem = (
-    name: string,
-    color: string,
-    MenuLinkComponent:
-      | typeof LabelsMenuLinkWithPopup
-      | typeof FavoritesMenuLinkWithPopup = LabelsMenuLinkWithPopup,
-    PopupTriggerComponent:
-      | typeof LabelsClickPopupTrigger
-      | typeof FavoritesClickPopupTrigger = LabelsClickPopupTrigger,
-  ) => {
-    return (
-      <MenuLinkComponent
-        key={name}
-        text={name}
-        popupId={name}
-        leftSlot={<MdLabel color={color} />}
-        rightSlot={<PopupTriggerComponent popupId={name} />}
-      />
-    );
-  };
-
   const projectItems = dummyProjects.map(({ name, tasks }) => ({
-    component: renderProjectLinkItem(name, tasks),
+    component: (
+      <ProjectsMenuLink isFavorite={false} name={name} numberOfTasks={tasks} />
+    ),
     id: name,
   }));
 
   const labelItems = dummyLabels.map(({ name, color }) => ({
-    component: renderLabelLinkItem(name, color),
+    component: <LabelsMenuLink isFavorite={false} name={name} color={color} />,
     id: name,
   }));
 
   const favoriteItems = dummyFavorites.map((itemConfig) => ({
     component:
-      itemConfig.type === "project"
-        ? renderProjectLinkItem(
-            itemConfig.name,
-            itemConfig.tasks,
-            FavoritesMenuLinkWithPopup,
-            FavoritesClickPopupTrigger,
-          )
-        : renderLabelLinkItem(
-            itemConfig.name,
-            itemConfig.color,
-            FavoritesMenuLinkWithPopup,
-            FavoritesClickPopupTrigger,
-          ),
+      itemConfig.type === "project" ? (
+        <ProjectsMenuLink
+          isFavorite={false}
+          name={itemConfig.name}
+          numberOfTasks={itemConfig.tasks}
+          isFavoritesSection
+        />
+      ) : (
+        <LabelsMenuLink
+          isFavorite={false}
+          name={itemConfig.name}
+          color={itemConfig.color}
+          isFavoritesSection
+        />
+      ),
     id: itemConfig.name,
   }));
 

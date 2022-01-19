@@ -39,7 +39,10 @@ const LinkText = styled(Text)`
   flex-grow: 6.5;
 `;
 
-type MenuLinkProps = Omit<React.ComponentPropsWithoutRef<"a">, "children"> & {
+export type MenuLinkProps = Omit<
+  React.ComponentPropsWithoutRef<"a">,
+  "children"
+> & {
   /** Link text. It will be placed in the middle. */
   text: string;
   /** A component that will be placed on the left. */
