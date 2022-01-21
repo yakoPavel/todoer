@@ -83,7 +83,7 @@ const projectHandlers = [
 
     persistDb("project");
 
-    return delayedResponse(ctx.status(201), ctx.json(result));
+    return delayedResponse(ctx.status(201), ctx.json(omit(result, "owner")));
   }),
 
   rest.patch<ProjectToPatchBody>("/projects", (req, res, ctx) => {
@@ -114,7 +114,7 @@ const projectHandlers = [
 
     persistDb("project");
 
-    return delayedResponse(ctx.json(result));
+    return delayedResponse(ctx.json(omit(result, "owner")));
   }),
 
   rest.delete<never, { id: string }>("/projects/:id", (req, res, ctx) => {
@@ -144,7 +144,7 @@ const projectHandlers = [
 
     persistDb("project");
 
-    return delayedResponse(ctx.json(result));
+    return delayedResponse(ctx.json(omit(result, "owner")));
   }),
 ];
 
