@@ -1,8 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import ThemeContextProvider from "context/ThemeContext";
 import { UserContextProvider } from "context/UserContext";
+import { queryClient } from "lib/react-query";
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -12,8 +13,6 @@ import GlobalDynamicStyles from "style/globalDynamicStyles";
 import { initializeFirebase } from "utils/initializeFirebase";
 
 initializeFirebase();
-
-const queryClient = new QueryClient();
 
 const AppProviders: React.FC = ({ children }) => {
   return (
