@@ -16,7 +16,7 @@ const models = {
     name: String,
     color: String,
     owner: oneOf("user", { unique: true }),
-    tasks: nullable(manyOf("task", { unique: true })),
+    tasks: manyOf("task", { unique: true }),
     isFavorite: Boolean,
   },
   label: {
@@ -31,6 +31,7 @@ const models = {
     id: primaryKey(() => nanoid()),
     createdAt: () => Date.now(),
     project: oneOf("project", { unique: true }),
+    owner: oneOf("user", { unique: true }),
     label: nullable(oneOf("label", { unique: true })),
     name: String,
     description: String,
@@ -40,7 +41,9 @@ const models = {
 
 export const db = factory(models);
 
-export type Model = keyof typeof models;
+export type Models = typeof models;
+
+export type Model = keyof Models;
 
 export const loadDb = () =>
   Object.assign(JSON.parse(window.localStorage.getItem(DB_KEY) || "{}"));
