@@ -99,6 +99,7 @@ const taskHandlers = [
 
     const result = db.task.create({
       done,
+      userId: user.id,
       ...otherData,
     });
 
