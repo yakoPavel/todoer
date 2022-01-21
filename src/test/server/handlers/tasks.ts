@@ -118,7 +118,7 @@ const taskHandlers = [
     persistDb("task");
     persistDb("project");
 
-    return delayedResponse(ctx.json(stripData(result)));
+    return delayedResponse(ctx.status(201), ctx.json(stripData(result)));
   }),
 
   // Updates the specified task
