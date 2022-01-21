@@ -15,6 +15,7 @@ type ProjectToPatchBody = {
   name?: string;
   color?: string;
   isFavorite?: boolean;
+  tasks: string[];
 };
 
 const projectHandlers = [
@@ -78,6 +79,7 @@ const projectHandlers = [
       name,
       color,
       isFavorite,
+      tasks: [],
       owner: user,
     });
 
@@ -92,7 +94,56 @@ const projectHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { id: projectToPatchId, ...data } = req.body;
+    const { id: projectToPatchId, tasks: tasksIds, ...data } = req.body;
+
+    const getMergedTasks = () => {
+      const project = db.project.findFirst({
+        where: {
+          id: {
+            equals: projectToPatchId,
+          },
+        },
+      });
+
+      if (!project) {
+        throw new Error("The specified project was not found.");
+      }
+
+      const { tasks = [] } = project;
+
+      if (tasksIds) {
+        const tasksToAdd = db.task.findMany({
+          where: {
+            id: {
+              in: tasksIds,
+            },
+            owner: {
+              id: {
+                equals: user.id,
+              },
+            },
+          },
+        });
+
+        if (tasksToAdd.length === 0) {
+          throw new Error("The specified tasks was not found.");
+        }
+
+        tasks.push(...tasksToAdd);
+      }
+
+      return tasks;
+    };
+
+    let tasks;
+    try {
+      tasks = getMergedTasks();
+    } catch (e) {
+      return delayedResponse(
+        ctx.status(404),
+        ctx.json({ message: (e as Error).message }),
+      );
+    }
 
     const result = db.project.update({
       where: {
@@ -105,7 +156,10 @@ const projectHandlers = [
           },
         },
       },
-      data,
+      data: {
+        tasks,
+        ...data,
+      },
     });
 
     if (!result) {
