@@ -1,5 +1,5 @@
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
-import AppProviders from "context";
+import AppProviders from "providers/app";
 import React from "react";
 
 export type Renderer = (

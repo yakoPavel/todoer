@@ -1,4 +1,4 @@
-import AppProviders from "../src/context";
+import AppProviders from "../src/providers/app";
 import "../src/style/global.css";
 import { ThemeProvider } from "@emotion/react";
 import * as colorThemes from "../src/style/colors";

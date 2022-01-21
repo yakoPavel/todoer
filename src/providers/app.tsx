@@ -1,5 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import ThemeContextProvider from "context/ThemeContext";
+import { UserContextProvider } from "context/UserContext";
 import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "store/store";
@@ -7,10 +10,9 @@ import chakraTheme from "style/chakraTheme";
 import GlobalDynamicStyles from "style/globalDynamicStyles";
 import { initializeFirebase } from "utils/initializeFirebase";
 
-import ThemeContextProvider from "./ThemeContext";
-import { UserContextProvider } from "./UserContext";
-
 initializeFirebase();
+
+const queryClient = new QueryClient();
 
 const AppProviders: React.FC = ({ children }) => {
   return (
@@ -19,7 +21,9 @@ const AppProviders: React.FC = ({ children }) => {
         <GlobalDynamicStyles />
         <ChakraProvider theme={chakraTheme}>
           <UserContextProvider>
-            <ReduxProvider store={store}>{children}</ReduxProvider>
+            <QueryClientProvider client={queryClient}>
+              <ReduxProvider store={store}>{children}</ReduxProvider>
+            </QueryClientProvider>
           </UserContextProvider>
         </ChakraProvider>
       </ThemeContextProvider>

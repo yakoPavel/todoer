@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import { initMocks } from "test/server";
 
 import App from "./App";
-import AppProviders from "./context";
+import AppProviders from "./providers/app";
 
 initMocks();
 
