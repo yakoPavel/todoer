@@ -1,4 +1,4 @@
-import { factory, manyOf, nullable, oneOf, primaryKey } from "@mswjs/data";
+import { factory, nullable, primaryKey } from "@mswjs/data";
 import { nanoid } from "nanoid";
 
 const DB_KEY = "msw-db";
@@ -6,33 +6,33 @@ const DB_KEY = "msw-db";
 const models = {
   user: {
     id: primaryKey(String),
+    projectIds: () => [] as string[],
+    labelIds: () => [] as string[],
     createdAt: () => Date.now(),
-    projects: manyOf("project", { unique: true }),
-    labels: manyOf("label", { unique: true }),
   },
   project: {
     id: primaryKey(() => nanoid()),
+    userId: String,
+    taskIds: () => [] as string[],
     createdAt: () => Date.now(),
     name: String,
     color: String,
-    owner: oneOf("user", { unique: true }),
-    tasks: manyOf("task", { unique: true }),
     isFavorite: Boolean,
   },
   label: {
     id: primaryKey(() => nanoid()),
+    userId: String,
     createdAt: () => Date.now(),
     color: String,
     name: String,
-    owner: oneOf("user", { unique: true }),
     isFavorite: Boolean,
   },
   task: {
     id: primaryKey(() => nanoid()),
+    userId: String,
+    projectId: String,
+    labelId: nullable(String),
     createdAt: () => Date.now(),
-    project: oneOf("project", { unique: true }),
-    owner: oneOf("user", { unique: true }),
-    label: nullable(oneOf("label", { unique: true })),
     name: String,
     description: String,
     done: Boolean,

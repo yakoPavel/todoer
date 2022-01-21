@@ -1,7 +1,7 @@
-import { omit } from "lodash";
+import { Value } from "@mswjs/data/lib/glossary";
 import { rest } from "msw";
 
-import { db, persistDb } from "../db";
+import { db, Models, persistDb } from "../db";
 import { delayedResponse, getUser } from "../utils";
 
 type ProjectBody = {
@@ -15,8 +15,13 @@ type ProjectToPatchBody = {
   name?: string;
   color?: string;
   isFavorite?: boolean;
-  tasks: string[];
+  taskIds?: string[];
 };
+
+function stripData(project: Value<Models["project"], Models>) {
+  const { userId, ...otherData } = project;
+  return otherData;
+}
 
 const projectHandlers = [
   rest.get("/projects", (req, res, ctx) => {
@@ -28,14 +33,12 @@ const projectHandlers = [
     const result = db.project
       .findMany({
         where: {
-          owner: {
-            id: {
-              equals: user.id,
-            },
+          userId: {
+            equals: user.id,
           },
         },
       })
-      .map((project) => omit(project, "owner"));
+      .map(stripData);
 
     return delayedResponse(ctx.json(result));
   }),
@@ -50,10 +53,8 @@ const projectHandlers = [
 
     const result = db.project.findFirst({
       where: {
-        owner: {
-          id: {
-            equals: user.id,
-          },
+        userId: {
+          equals: user.id,
         },
         id: {
           equals: projectToGetId,
@@ -65,7 +66,7 @@ const projectHandlers = [
       return delayedResponse(ctx.status(404));
     }
 
-    return delayedResponse(ctx.json(omit(result, "owner")));
+    return delayedResponse(ctx.json(stripData(result)));
   }),
 
   rest.post<ProjectBody>("/projects", (req, res, ctx) => {
@@ -79,13 +80,15 @@ const projectHandlers = [
       name,
       color,
       isFavorite,
-      tasks: [],
-      owner: user,
+      userId: user.id,
     });
 
-    persistDb("project");
+    user.projectIds.push(result.id);
 
-    return delayedResponse(ctx.status(201), ctx.json(omit(result, "owner")));
+    persistDb("project");
+    persistDb("user");
+
+    return delayedResponse(ctx.status(201), ctx.json(stripData(result)));
   }),
 
   rest.patch<ProjectToPatchBody>("/projects", (req, res, ctx) => {
@@ -94,71 +97,24 @@ const projectHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { id: projectToPatchId, tasks: tasksIds, ...data } = req.body;
-
-    const getMergedTasks = () => {
-      const project = db.project.findFirst({
-        where: {
-          id: {
-            equals: projectToPatchId,
-          },
-        },
-      });
-
-      if (!project) {
-        throw new Error("The specified project was not found.");
-      }
-
-      const { tasks = [] } = project;
-
-      if (tasksIds) {
-        const tasksToAdd = db.task.findMany({
-          where: {
-            id: {
-              in: tasksIds,
-            },
-            owner: {
-              id: {
-                equals: user.id,
-              },
-            },
-          },
-        });
-
-        if (tasksToAdd.length === 0) {
-          throw new Error("The specified tasks was not found.");
-        }
-
-        tasks.push(...tasksToAdd);
-      }
-
-      return tasks;
-    };
-
-    let tasks;
-    try {
-      tasks = getMergedTasks();
-    } catch (e) {
-      return delayedResponse(
-        ctx.status(404),
-        ctx.json({ message: (e as Error).message }),
-      );
-    }
+    const { id: projectToPatchId, taskIds = [], ...otherData } = req.body;
 
     const result = db.project.update({
       where: {
         id: {
           equals: projectToPatchId,
         },
-        owner: {
-          id: {
-            equals: user.id,
-          },
+        userId: {
+          equals: user.id,
         },
       },
       data: {
-        tasks,
-        ...data,
+        taskIds(prevValue, project) {
+          return [...prevValue, ...taskIds];
+        },
+        // For some reason the type of the data object doesn't accept an
+        // updater function and regular properties together.
+        ...(otherData as any),
       },
     });
 
@@ -168,7 +124,7 @@ const projectHandlers = [
 
     persistDb("project");
 
-    return delayedResponse(ctx.json(omit(result, "owner")));
+    return delayedResponse(ctx.json(stripData(result)));
   }),
 
   rest.delete<never, { id: string }>("/projects/:id", (req, res, ctx) => {
@@ -184,10 +140,8 @@ const projectHandlers = [
         id: {
           equals: projectToDeleteId,
         },
-        owner: {
-          id: {
-            equals: user.id,
-          },
+        userId: {
+          equals: user.id,
         },
       },
     });
@@ -196,9 +150,26 @@ const projectHandlers = [
       return delayedResponse(ctx.status(404));
     }
 
-    persistDb("project");
+    db.task.deleteMany({
+      where: {
+        projectId: {
+          equals: projectToDeleteId,
+        },
+        userId: {
+          equals: user.id,
+        },
+      },
+    });
 
-    return delayedResponse(ctx.json(omit(result, "owner")));
+    user.projectIds = user.projectIds.filter(
+      (projectId) => projectId !== result.id,
+    );
+
+    persistDb("project");
+    persistDb("task");
+    persistDb("user");
+
+    return delayedResponse(ctx.json(stripData(result)));
   }),
 ];
 
