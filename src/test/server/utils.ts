@@ -16,11 +16,19 @@ export const getUser = (req: RestRequest) => {
   const token = req.headers.get("Authentication");
   if (!token) return null;
 
-  return db.user.findFirst({
+  let user = db.user.findFirst({
     where: {
       id: {
         equals: token,
       },
     },
   });
+
+  if (!user) {
+    user = db.user.create({
+      id: token,
+    });
+  }
+
+  return user;
 };
