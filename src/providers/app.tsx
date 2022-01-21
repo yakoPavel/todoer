@@ -3,6 +3,7 @@ import ThemeContextProvider from "context/ThemeContext";
 import { UserContextProvider } from "context/UserContext";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "store/store";
@@ -22,6 +23,7 @@ const AppProviders: React.FC = ({ children }) => {
         <ChakraProvider theme={chakraTheme}>
           <UserContextProvider>
             <QueryClientProvider client={queryClient}>
+              {process.env.NODE_ENV !== "test" && <ReactQueryDevtools />}
               <ReduxProvider store={store}>{children}</ReduxProvider>
             </QueryClientProvider>
           </UserContextProvider>
