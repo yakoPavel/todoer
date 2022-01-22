@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import Divider from "./Divider";
+import { Divider } from "./Divider";
 
 export default {
   title: "UI/Divider",

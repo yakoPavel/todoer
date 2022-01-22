@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import Dialog from "./Dialog";
+import { Dialog } from "./Dialog";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

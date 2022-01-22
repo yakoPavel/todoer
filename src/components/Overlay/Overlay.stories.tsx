@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import Overlay from "./Overlay";
+import { Overlay } from "./Overlay";
 
 export default {
   title: "Ui/Overlay",
