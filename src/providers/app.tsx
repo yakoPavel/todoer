@@ -1,16 +1,17 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import ThemeContextProvider from "context/ThemeContext";
-import { UserContextProvider } from "context/UserContext";
-import { queryClient } from "lib/react-query";
 import React from "react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { store } from "store/store";
-import chakraTheme from "style/chakraTheme";
-import GlobalDynamicStyles from "style/globalDynamicStyles";
-import { initializeFirebase } from "utils/initializeFirebase";
+
+import ThemeContextProvider from "@/context/ThemeContext";
+import { UserContextProvider } from "@/context/UserContext";
+import { queryClient } from "@/lib/react-query";
+import { store } from "@/store/store";
+import chakraTheme from "@/style/chakraTheme";
+import GlobalDynamicStyles from "@/style/globalDynamicStyles";
+import { initializeFirebase } from "@/utils/initializeFirebase";
 
 initializeFirebase();
 

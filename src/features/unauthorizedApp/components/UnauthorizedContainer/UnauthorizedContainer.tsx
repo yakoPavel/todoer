@@ -1,8 +1,9 @@
-import LogoImg from "assets/logo.png";
 import { debounce } from "lodash";
 import React from "react";
 
 import * as Styled from "./styles";
+
+import LogoImg from "@/assets/logo.png";
 
 /**
  * Makes the handed element align itself by the top of the screen if the element

@@ -1,8 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LABEL_COLORS } from "config/labelColors";
 import React from "react";
 
 import ColorInput from "./ColorInput";
+
+import { LABEL_COLORS } from "@/config/labelColors";
 
 export default {
   title: "Authorized app/Modals/ColorInput",

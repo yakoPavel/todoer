@@ -1,8 +1,10 @@
 import React from "react";
-import { isMockFunction, render, screen, userEvent } from "test/testUtils";
 
 import Form from "../Form/Form";
+
 import { generateTestData } from "./utils/generateTestData";
+
+import { isMockFunction, render, screen, userEvent } from "@/test/testUtils";
 
 describe("Form", () => {
   describe("Rendering", () => {

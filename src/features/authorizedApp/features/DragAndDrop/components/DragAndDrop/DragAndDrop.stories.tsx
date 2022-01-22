@@ -2,10 +2,12 @@
 import { css } from "@emotion/react/macro";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
-import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
 import { useOnDragEnd } from "../../hooks/useOnDragEnd";
+
 import DragAndDrop from "./DragAndDrop";
+
+import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 export default {
   title: "Authorized app/DragAndDrop",

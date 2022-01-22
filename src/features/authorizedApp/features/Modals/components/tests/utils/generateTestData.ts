@@ -1,7 +1,7 @@
-import { LABEL_COLORS } from "config/labelColors";
-import UniqueChance from "test/UniqueChance";
-
 import { FormFieldConfig, FormProps } from "../../Form/Form";
+
+import { LABEL_COLORS } from "@/config/labelColors";
+import UniqueChance from "@/test/UniqueChance";
 
 const SEED = 123456;
 const chance = new UniqueChance(SEED);

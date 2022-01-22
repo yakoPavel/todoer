@@ -1,4 +1,5 @@
 import { Value } from "@mswjs/data/lib/glossary";
+import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
@@ -19,8 +20,7 @@ type ProjectToPatchBody = {
 };
 
 function stripData(project: Value<Models["project"], Models>) {
-  const { userId, ...otherData } = project;
-  return otherData;
+  return omit(project, "userId");
 }
 
 const projectHandlers = [
@@ -109,7 +109,7 @@ const projectHandlers = [
         },
       },
       data: {
-        taskIds(prevValue, project) {
+        taskIds(prevValue) {
           return [...prevValue, ...taskIds];
         },
         // For some reason the type of the data object doesn't accept an

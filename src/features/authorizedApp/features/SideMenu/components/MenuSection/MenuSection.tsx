@@ -9,10 +9,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
-import { SIDE_MENU } from "config/localStorage";
 import React from "react";
-import { EventWithProcessedField } from "types";
-import * as localStorage from "utils/localStorage";
+
+import { SIDE_MENU } from "@/config/localStorage";
+import { EventWithProcessedField } from "@/types";
+import * as localStorage from "@/utils/localStorage";
 
 type MenuSectionProps = {
   /** A title of this section. */

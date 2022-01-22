@@ -1,7 +1,8 @@
 import { Spinner } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
-import Button from "components/Button/Button";
 import React from "react";
+
+import Button from "@/components/Button/Button";
 
 const StyledButton = styled(Button)`
   width: 100%;

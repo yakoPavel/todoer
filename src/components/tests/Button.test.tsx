@@ -1,9 +1,10 @@
 /* eslint-disable jest/no-standalone-expect */
 import Chance from "chance";
-import Button from "components/Button/Button";
 import cases from "jest-in-case";
 import React from "react";
-import { render, screen } from "test/testUtils";
+
+import Button from "@/components/Button/Button";
+import { render, screen } from "@/test/testUtils";
 
 const SEED = 12345;
 const chance = new Chance(SEED);

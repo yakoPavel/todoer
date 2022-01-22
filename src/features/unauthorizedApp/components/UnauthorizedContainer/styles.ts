@@ -1,6 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import * as mediaQueries from "style/mediaQueries";
+
+import * as mediaQueries from "@/style/mediaQueries";
 
 /**
  * The top-most wrapper.

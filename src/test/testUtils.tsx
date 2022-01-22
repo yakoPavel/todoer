@@ -1,6 +1,8 @@
+/* eslint-disable import/export */
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
-import AppProviders from "providers/app";
 import React from "react";
+
+import AppProviders from "@/providers/app";
 
 export type Renderer = (
   ui: React.ReactElement,

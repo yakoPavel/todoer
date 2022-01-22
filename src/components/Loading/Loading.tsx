@@ -1,7 +1,8 @@
 import { Spinner } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
-import LogoImg from "assets/logo.png";
 import React from "react";
+
+import LogoImg from "@/assets/logo.png";
 
 const Container = styled.div`
   background: ${({ theme }) => theme.background};

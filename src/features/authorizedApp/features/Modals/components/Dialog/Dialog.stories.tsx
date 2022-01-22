@@ -1,8 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
-import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
 import Dialog from "./Dialog";
+
+import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 export default {
   title: "Authorized app/Modals/Dialog",

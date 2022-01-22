@@ -1,9 +1,10 @@
 import { Heading } from "@chakra-ui/react";
-import Overlay from "components/Overlay/Overlay";
 import React from "react";
 
 import { FormState, useFormState } from "./hooks/useFormState";
 import * as Styled from "./styles";
+
+import Overlay from "@/components/Overlay/Overlay";
 
 type BaseFormFieldConfig = {
   /** A label of the field. */

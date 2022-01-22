@@ -1,11 +1,12 @@
 import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import StyledLink from "components/StyledLink/StyledLink";
 import React from "react";
 
 import AuthProviderButtons from "../../components/AuthProviderButtons/AuthProviderButtons";
 import UnauthorizedScreen from "../../components/UnauthorizedScreen/UnauthorizedScreen";
 import { LoginWithPasswordForm } from "../../features/Form";
+
+import StyledLink from "@/components/StyledLink/StyledLink";
 
 const ForgotPasswordLink = styled(StyledLink)`
   display: block;

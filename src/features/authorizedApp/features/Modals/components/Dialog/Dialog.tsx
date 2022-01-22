@@ -1,9 +1,10 @@
 import styled from "@emotion/styled/macro";
-import Button from "components/Button/Button";
-import Overlay from "components/Overlay/Overlay";
-import Tooltip from "components/Tooltip/Tooltip";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
+
+import Button from "@/components/Button/Button";
+import Overlay from "@/components/Overlay/Overlay";
+import Tooltip from "@/components/Tooltip/Tooltip";
 
 const Container = styled.div`
   position: relative;

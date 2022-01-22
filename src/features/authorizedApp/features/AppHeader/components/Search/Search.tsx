@@ -1,12 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Chance from "chance"; // TODO: remove it later
-import Tooltip from "components/Tooltip/Tooltip";
-import * as keyboardShortcuts from "config/keyboardShortcuts";
 import { useCombobox } from "downshift";
 import { debounce } from "lodash";
 import React from "react";
 
 import * as Styled from "./styles";
+
+import Tooltip from "@/components/Tooltip/Tooltip";
+import * as keyboardShortcuts from "@/config/keyboardShortcuts";
 
 const chance = new Chance();
 

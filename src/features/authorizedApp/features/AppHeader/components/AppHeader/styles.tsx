@@ -1,5 +1,6 @@
 import styled from "@emotion/styled/macro";
-import * as mediaQueries from "style/mediaQueries";
+
+import * as mediaQueries from "@/style/mediaQueries";
 
 export const Button = styled.button`
   display: flex;

@@ -1,9 +1,10 @@
-import { createValidationSchema } from "features/unauthorizedApp/utils/createValidationSchema";
 import React from "react";
-import { sendPasswordResetEmail } from "utils/authentication";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import Form from "../Form";
+
+import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
+import { sendPasswordResetEmail } from "@/utils/authentication";
 
 const errorMessagesMapping = {
   "auth/user-not-found": "The user with the specified email doesn't exist",

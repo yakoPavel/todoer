@@ -1,8 +1,9 @@
-import { useAppDispatch } from "hooks/storeHooks";
 import React from "react";
-import { actions as uiActions } from "store/slices/ui";
 
 import Form from "../Form/Form";
+
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { actions as uiActions } from "@/store/slices/ui";
 
 const formFieldsConfig = [
   {

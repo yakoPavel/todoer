@@ -1,6 +1,7 @@
-import { Login, PasswordRecovery, SignUp } from "features/unauthorizedApp";
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+
+import { Login, PasswordRecovery, SignUp } from "@/features/unauthorizedApp";
 
 const UnauthorizedAppRoutes = () => {
   return (

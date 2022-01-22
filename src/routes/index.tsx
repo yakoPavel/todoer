@@ -1,10 +1,12 @@
-import Loading from "components/Loading/Loading";
 import React from "react";
-import { waitForInitialAuthChecking } from "utils/authentication";
 
 import useUserContext from "../context/UserContext";
+
 import AuthorizedAppRoutes from "./AuthorizedAppRoutes";
 import UnauthorizedAppRoutes from "./UnauthorizedAppRoutes";
+
+import Loading from "@/components/Loading/Loading";
+import { waitForInitialAuthChecking } from "@/utils/authentication";
 
 const AppRoutes = () => {
   const user = useUserContext();

@@ -1,7 +1,8 @@
 import styled from "@emotion/styled/macro";
-import { SIDE_MENU } from "config/localStorage";
 import React from "react";
-import * as localStorage from "utils/localStorage";
+
+import { SIDE_MENU } from "@/config/localStorage";
+import * as localStorage from "@/utils/localStorage";
 
 const ResizeHandle = styled.div<{ resizing: boolean }>`
   width: 0.5rem;

@@ -1,8 +1,13 @@
 /* eslint-disable no-await-in-loop */
 import Chance from "chance";
-import * as LoadingStateContext from "context/LoadingContext";
-import { createValidationSchema } from "features/unauthorizedApp/utils/createValidationSchema";
 import React from "react";
+
+import { FormikAuthInput } from "../AuthInput/AuthInput";
+import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
+import Form from "../Form";
+
+import * as LoadingStateContext from "@/context/LoadingContext";
+import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
 import {
   act,
   fireEvent,
@@ -11,11 +16,7 @@ import {
   screen,
   waitFor,
   within,
-} from "test/testUtils";
-
-import { FormikAuthInput } from "../AuthInput/AuthInput";
-import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import Form from "../Form";
+} from "@/test/testUtils";
 
 const SEED = 12345;
 const chance = new Chance(SEED);
@@ -139,7 +140,7 @@ describe("The `Form` component", () => {
     test("Doesn't show error messages", async () => {
       renderForm();
 
-      expect(screen.queryAllByRole("alert")).toHaveLength(0);
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
   });
 
@@ -153,7 +154,7 @@ describe("The `Form` component", () => {
       await type(emailField, incorrectEmail);
       await type(passwordField, tooShortPassword);
 
-      expect(screen.queryAllByRole("alert")).toHaveLength(0);
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
   });
 
@@ -246,7 +247,7 @@ describe("The `Form` component", () => {
       const correctPassword = "fRfg35_tN49";
       await type(passwordField, correctPassword);
 
-      expect(screen.queryAllByRole("alert")).toHaveLength(0);
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
   });
 
@@ -296,7 +297,7 @@ describe("The `Form` component", () => {
           within(submitButton).queryByText(/loading/i),
         ).not.toBeInTheDocument(),
       );
-      expect(submitButton).not.toBeDisabled();
+      expect(submitButton).toBeEnabled();
     });
 
     test("When the `successMessage` is specified, renders a message with its content", async () => {

@@ -3,6 +3,7 @@ import React from "react";
 
 import ColorInput from "../ColorInput/ColorInput";
 import { FormFieldConfig } from "../Form/Form";
+
 import * as Styled from "./styles";
 
 /* Props types */

@@ -1,10 +1,12 @@
 import { ComponentMeta, Story } from "@storybook/react";
 import React from "react";
-import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
 import * as dataMocks from "../tests/utils/dataMocks";
 import { ComponentWithPopup } from "../tests/utils/dataMocks";
+
 import PopupMenu, { PopupMenuProps } from "./PopupMenu";
+
+import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 const popupMenuConfig: PopupMenuProps = {
   menuItems: dataMocks.menuItems,

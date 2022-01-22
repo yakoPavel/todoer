@@ -1,11 +1,12 @@
-import "style/global.css";
+import "@/style/global.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { initMocks } from "test/server";
 
 import App from "./App";
 import AppProviders from "./providers/app";
+
+import { initMocks } from "@/test/server";
 
 initMocks();
 

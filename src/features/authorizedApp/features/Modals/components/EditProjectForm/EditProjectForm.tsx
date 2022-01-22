@@ -1,10 +1,11 @@
 /* eslint-disable dot-notation */
 /* eslint-disable no-param-reassign */
-import { useAppDispatch } from "hooks/storeHooks";
 import React from "react";
-import { actions as uiActions } from "store/slices/ui";
 
 import Form from "../Form/Form";
+
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { actions as uiActions } from "@/store/slices/ui";
 
 type FormFieldsConfig = React.ComponentPropsWithoutRef<
   typeof Form

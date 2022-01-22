@@ -1,12 +1,13 @@
-import { useAppSelector } from "hooks/storeHooks";
 import React from "react";
-import { selectors } from "store/slices/ui";
 
 import AddLabelForm from "../AddLabelForm/AddLabelForm";
 import AddProjectForm from "../AddProjectForm/AddProjectForm";
 import DeleteItemDialog from "../DeleteItemDialog/DeleteItemDialog";
 import EditLabelForm from "../EditLabelForm/EditLabelForm";
 import EditProjectForm from "../EditProjectForm/EditProjectForm";
+
+import { useAppSelector } from "@/hooks/storeHooks";
+import { selectors } from "@/store/slices/ui";
 
 const Modals = () => {
   const addProjectForm = useAppSelector(selectors.selectAddProjectFormState);

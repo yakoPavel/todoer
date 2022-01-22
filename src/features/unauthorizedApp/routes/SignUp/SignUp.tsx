@@ -1,10 +1,11 @@
 import { Text } from "@chakra-ui/react";
-import StyledLink from "components/StyledLink/StyledLink";
 import React from "react";
 
 import AuthProviderButtons from "../../components/AuthProviderButtons/AuthProviderButtons";
 import UnauthorizedScreen from "../../components/UnauthorizedScreen/UnauthorizedScreen";
 import { SignUpWithPasswordForm } from "../../features/Form";
+
+import StyledLink from "@/components/StyledLink/StyledLink";
 
 const SignUp: React.FC = () => {
   return (

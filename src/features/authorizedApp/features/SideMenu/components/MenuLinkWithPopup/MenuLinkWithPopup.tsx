@@ -8,6 +8,7 @@ import {
   usePopupMenu,
 } from "../../features/PopupMenu";
 import MenuLink, { MenuLinkProps, StyledLink } from "../MenuLink/MenuLink";
+
 import { usePopupItemsClickHandler } from "./hooks/usePopupItemsClickHandler";
 
 const PopupTriggerWrapper = styled.div`

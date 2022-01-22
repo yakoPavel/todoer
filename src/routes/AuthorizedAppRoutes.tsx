@@ -1,6 +1,7 @@
-import { Main } from "features/authorizedApp";
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+
+import { Main } from "@/features/authorizedApp";
 
 const UnauthorizedAppRoutes = () => {
   return (

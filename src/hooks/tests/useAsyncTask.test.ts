@@ -1,6 +1,7 @@
 import { act, renderHook } from "@testing-library/react-hooks";
-import { useAsyncTask } from "hooks/useAsyncTask";
-import { getControlledPromise } from "test/testUtils";
+
+import { useAsyncTask } from "@/hooks/useAsyncTask";
+import { getControlledPromise } from "@/test/testUtils";
 
 const defaultState = {
   status: "idle",
@@ -65,7 +66,7 @@ test("correctly works with a task that rejects", async () => {
   const { result } = renderHook(() => useAsyncTask(() => promise));
 
   await act(async () => {
-    const runPromise = result.current.run().catch((e) => {
+    const runPromise = result.current.run().catch(() => {
       /* Ignoring the error */
     });
 

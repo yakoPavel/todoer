@@ -1,4 +1,5 @@
 import { Value } from "@mswjs/data/lib/glossary";
+import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
@@ -22,8 +23,7 @@ type TaskToPatchBody = {
 };
 
 function stripData(task: Value<Models["task"], Models>) {
-  const { userId, ...otherData } = task;
-  return otherData;
+  return omit(task, "userId");
 }
 
 const taskHandlers = [
@@ -110,7 +110,7 @@ const taskHandlers = [
         },
       },
       data: {
-        taskIds(prevValue, project) {
+        taskIds(prevValue) {
           return [...prevValue, result.id];
         },
       },

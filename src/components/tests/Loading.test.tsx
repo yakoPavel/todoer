@@ -1,6 +1,7 @@
-import Loading from "components/Loading/Loading";
 import React from "react";
-import { render, screen } from "test/testUtils";
+
+import Loading from "@/components/Loading/Loading";
+import { render, screen } from "@/test/testUtils";
 
 describe("The `Loading` component", () => {
   test("Renders the app logo", () => {

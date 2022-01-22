@@ -1,11 +1,12 @@
 import styled from "@emotion/styled/macro";
-import Tooltip from "components/Tooltip/Tooltip";
 import React from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 
 import * as AuthInput from "../AuthInput/AuthInput";
 import { FormikAuthInputProps } from "../AuthInput/AuthInput";
 import withFormikField from "../withFormikField/withFormikField";
+
+import Tooltip from "@/components/Tooltip/Tooltip";
 
 const InputFieldWrapper = styled.div`
   position: relative;

@@ -1,9 +1,10 @@
 import { Text } from "@chakra-ui/react";
-import { useAppDispatch } from "hooks/storeHooks";
 import React from "react";
-import { actions as uiActions } from "store/slices/ui";
 
 import Dialog from "../Dialog/Dialog";
+
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { actions as uiActions } from "@/store/slices/ui";
 
 type RemoveItemDialogProps = {
   /** A type of the item that needs to be removed. */

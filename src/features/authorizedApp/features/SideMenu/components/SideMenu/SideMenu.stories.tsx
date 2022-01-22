@@ -1,8 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
-import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
 import SideMenu from "./SideMenu";
+
+import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 export default {
   title: "Authorized app/SideMenu/SideMenu",

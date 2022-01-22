@@ -1,11 +1,12 @@
-import { createValidationSchema } from "features/unauthorizedApp/utils/createValidationSchema";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithPassword } from "utils/authentication";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
 import Form from "../Form";
+
+import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
+import { signInWithPassword } from "@/utils/authentication";
 
 const initialValues = {
   email: "",

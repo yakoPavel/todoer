@@ -1,4 +1,5 @@
 import { Value } from "@mswjs/data/lib/glossary";
+import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
@@ -18,8 +19,7 @@ type LabelToPatchBody = {
 };
 
 function stripData(project: Value<Models["label"], Models>) {
-  const { userId, ...otherData } = project;
-  return otherData;
+  return omit(project, "userId");
 }
 
 const labelHandlers = [

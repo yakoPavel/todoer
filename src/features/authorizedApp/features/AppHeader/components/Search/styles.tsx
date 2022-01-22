@@ -2,7 +2,8 @@ import { Text } from "@chakra-ui/react";
 import { css } from "@emotion/react/macro";
 import styled from "@emotion/styled/macro";
 import { MdOutlineClear, MdOutlineSearch } from "react-icons/md";
-import * as mediaQueries from "style/mediaQueries";
+
+import * as mediaQueries from "@/style/mediaQueries";
 
 const INPUT_HORIZONTAL_PADDING = 4;
 const BUTTON_SIZE = 2.4;

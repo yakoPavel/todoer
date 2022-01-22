@@ -1,9 +1,10 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { themeSwitcherArgType } from "storybook/commonArgTypes";
 
 import MenuSection from "./MenuSection";
+
+import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 export default {
   title: "Authorized app/SideMenu/MenuSection",

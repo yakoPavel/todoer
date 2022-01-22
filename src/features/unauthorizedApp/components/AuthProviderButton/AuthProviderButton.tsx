@@ -3,7 +3,8 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import { BsFacebook, BsGoogle } from "react-icons/bs";
 import { FaYahoo } from "react-icons/fa";
-import * as mediaQueries from "style/mediaQueries";
+
+import * as mediaQueries from "@/style/mediaQueries";
 
 const loadingAnimation = keyframes`
   from {

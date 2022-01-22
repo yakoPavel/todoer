@@ -76,6 +76,9 @@ module.exports = {
       },
     ],
     "import/prefer-default-export": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-named-as-default": "off",
+    "import/namespace": ["error", { allowComputed: true }],
 
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [

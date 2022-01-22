@@ -8,11 +8,13 @@ import {
   ListboxOption,
   ListboxPopover,
 } from "@reach/listbox";
-import { LABEL_COLORS } from "config/labelColors";
 import React from "react";
 
 import { Input as StyledInput } from "../Input/styles";
+
 import { positionPopover } from "./utils";
+
+import { LABEL_COLORS } from "@/config/labelColors";
 
 const itemStyles = css`
   display: flex;

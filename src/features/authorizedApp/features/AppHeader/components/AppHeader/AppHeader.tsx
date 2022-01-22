@@ -1,6 +1,4 @@
 import { useTheme } from "@emotion/react";
-import Tooltip from "components/Tooltip/Tooltip";
-import * as keyboardShortcuts from "config/keyboardShortcuts";
 import React from "react";
 import { IconType } from "react-icons";
 import { AiOutlineHome, AiOutlineMenu } from "react-icons/ai";
@@ -11,7 +9,11 @@ import {
 } from "react-icons/io5";
 
 import Search from "../Search/Search";
+
 import * as Styled from "./styles";
+
+import Tooltip from "@/components/Tooltip/Tooltip";
+import * as keyboardShortcuts from "@/config/keyboardShortcuts";
 
 type HeaderButtonProps = Omit<
   React.ComponentPropsWithoutRef<"button">,

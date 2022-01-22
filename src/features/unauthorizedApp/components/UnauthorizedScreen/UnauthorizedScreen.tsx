@@ -1,8 +1,9 @@
-import Divider from "components/Divider/Divider";
-import { LoadingStateContextProvider } from "context/LoadingContext";
 import React from "react";
 
 import UnauthorizedContainer from "../UnauthorizedContainer/UnauthorizedContainer";
+
+import Divider from "@/components/Divider/Divider";
+import { LoadingStateContextProvider } from "@/context/LoadingContext";
 
 type UnauthorizedScreenProps = {
   /** A component that will be placed at the top. */

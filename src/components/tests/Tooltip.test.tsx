@@ -1,8 +1,9 @@
 import Chance from "chance";
 import React from "react";
-import { render, screen } from "test/testUtils";
 
 import Tooltip from "../Tooltip/Tooltip";
+
+import { render, screen } from "@/test/testUtils";
 
 const chance = new Chance();
 
@@ -43,7 +44,7 @@ describe("The `Tooltip` component", () => {
       });
 
       sampleShortcut.forEach((key) =>
-        expect(tooltip.textContent).toMatch(RegExp(key)),
+        expect(tooltip).toHaveTextContent(new RegExp(RegExp(key))),
       );
     });
   });

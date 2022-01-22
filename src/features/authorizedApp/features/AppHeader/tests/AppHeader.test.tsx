@@ -1,7 +1,8 @@
 import React from "react";
-import { render, screen } from "test/testUtils";
 
 import AppHeader from "../components/AppHeader/AppHeader";
+
+import { render, screen } from "@/test/testUtils";
 
 test("renders all the header content", () => {
   render(<AppHeader menuState="closed" />);

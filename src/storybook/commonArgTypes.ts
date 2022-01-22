@@ -1,5 +1,6 @@
 import { capitalize, startCase } from "lodash";
-import * as themeColors from "style/colors";
+
+import * as themeColors from "@/style/colors";
 
 /**
  * This arg type defines a control that allows us to change the theme of the

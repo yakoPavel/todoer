@@ -1,5 +1,8 @@
 /* eslint-disable jest/expect-expect */
 import React from "react";
+
+import * as dataMocks from "./utils/dataMocks";
+
 import {
   act,
   fireEvent,
@@ -7,9 +10,7 @@ import {
   screen,
   userEvent,
   within,
-} from "test/testUtils";
-
-import * as dataMocks from "./utils/dataMocks";
+} from "@/test/testUtils";
 
 function renderComponent(showOn: "click" | "contextmenu") {
   const onClickHandler = jest.fn();

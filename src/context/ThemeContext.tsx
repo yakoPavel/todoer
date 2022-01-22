@@ -2,6 +2,7 @@ import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
 import React from "react";
 
 import * as colorThemes from "../style/colors";
+
 import createContext from "./createContext";
 
 type ColorTheme = "dark" | "light" | "neutral" | "noir" | "orange";
