@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import LabelsMenuLink from "./LabelsMenuLink";
+import { LabelsMenuLink } from "./LabelsMenuLink";
 
 export default {
   title: "Authorized app/SideMenu/MenuLink/LabelsMenuLink",

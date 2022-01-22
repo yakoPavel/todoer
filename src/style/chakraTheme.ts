@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
-const chakraTheme = extendTheme({
+export const chakraTheme = extendTheme({
   fonts: {
     body: "Lato, system-ui, sans-serif",
   },
@@ -20,5 +20,3 @@ const chakraTheme = extendTheme({
     "9xl": "12.8rem",
   },
 });
-
-export default chakraTheme;

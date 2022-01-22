@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import Loading from "./Loading";
+import { Loading } from "./Loading";
 
 export default {
   title: "UI/Loading",

@@ -3,7 +3,7 @@ import React from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 
-import MenuLink from "./MenuLink";
+import { MenuLink } from "./MenuLink";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

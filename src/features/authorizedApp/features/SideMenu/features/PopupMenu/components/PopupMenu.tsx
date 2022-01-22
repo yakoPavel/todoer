@@ -54,7 +54,7 @@ function generateActionId(text: string) {
   return text.replace(/\s+/g, "_").toUpperCase();
 }
 
-const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
+export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   ({ onClick, menuItems }, ref) => {
     const getMenuItems = () => {
       return menuItems.map(({ icon, text }) => (
@@ -78,5 +78,3 @@ const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   },
 );
 PopupMenu.displayName = "PopupMenu";
-
-export default PopupMenu;

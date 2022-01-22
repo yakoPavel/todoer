@@ -1,8 +1,8 @@
 import React from "react";
 import { DragDropContext, DragDropContextProps } from "react-beautiful-dnd";
 
-import Draggable from "../Draggable/Draggable";
-import Droppable from "../Droppable/Droppable";
+import { Draggable } from "../Draggable/Draggable";
+import { Droppable } from "../Droppable/Droppable";
 
 export type DragAndDropProps = Omit<DragDropContextProps, "children"> & {
   /** An id of the droppable. */
@@ -14,7 +14,7 @@ export type DragAndDropProps = Omit<DragDropContextProps, "children"> & {
   }[];
 };
 
-const DragAndDrop = ({
+export const DragAndDrop = ({
   draggables,
   mainId,
   onDragEnd,
@@ -47,5 +47,3 @@ const DragAndDrop = ({
     </DragDropContext>
   );
 };
-
-export default DragAndDrop;

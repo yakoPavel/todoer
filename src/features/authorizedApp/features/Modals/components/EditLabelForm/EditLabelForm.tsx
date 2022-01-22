@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import React from "react";
 
-import Form from "../Form/Form";
+import { Form } from "../Form/Form";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { actions as uiActions } from "@/store/slices/ui";
@@ -28,7 +28,7 @@ const formFieldsConfig = [
   },
 ] as FormFieldsConfig;
 
-const EditLabelForm = () => {
+export const EditLabelForm = () => {
   const dispatch = useAppDispatch();
 
   // We should get this data from the state for this concrete label
@@ -62,5 +62,3 @@ const EditLabelForm = () => {
     />
   );
 };
-
-export default EditLabelForm;

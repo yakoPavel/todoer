@@ -3,8 +3,8 @@ import "@/style/global.css";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./App";
-import AppProviders from "./providers/app";
+import { App } from "./App";
+import { AppProviders } from "./providers/app";
 
 import { initMocks } from "@/test/server";
 

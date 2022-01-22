@@ -35,7 +35,7 @@ export type WithFormikFieldReturn = {
  * @param componentName - A name of the component that will be displayed in the
  * DevTools.
  */
-const withFormikField = (
+export const withFormikField = (
   Component: {
     (props: InitialComponentProps): JSX.Element | null;
     displayName?: string;
@@ -71,5 +71,3 @@ const withFormikField = (
 
   return FormikField;
 };
-
-export default withFormikField;

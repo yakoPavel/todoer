@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import StyledLink from "./StyledLink";
+import { StyledLink } from "./StyledLink";
 
 export default {
   title: "UI/StyledLink",

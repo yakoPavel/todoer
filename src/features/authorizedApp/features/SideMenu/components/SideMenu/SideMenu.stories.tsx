@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import SideMenu from "./SideMenu";
+import { SideMenu } from "./SideMenu";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

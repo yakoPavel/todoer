@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import ConfirmButton from "./ConfirmButton";
+import { ConfirmButton } from "./ConfirmButton";
 
 export default {
   title: "Unauthorized app/Components/ConfirmButton",

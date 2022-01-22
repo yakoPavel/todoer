@@ -1,6 +1,6 @@
 import React from "react";
 
-import AppHeader from "../components/AppHeader/AppHeader";
+import { AppHeader } from "../components/AppHeader/AppHeader";
 
 import { render, screen } from "@/test/testUtils";
 

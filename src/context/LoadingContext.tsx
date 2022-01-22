@@ -1,6 +1,6 @@
 import React from "react";
 
-import createContext from "./createContext";
+import { createContext } from "./createContext";
 
 type LoadingState = {
   /** Whether or not the screen in the loading state. */
@@ -20,4 +20,4 @@ export const LoadingStateContextProvider: React.FC = ({ children }) => {
   );
 };
 
-export default useLoadingState;
+export { useLoadingState };

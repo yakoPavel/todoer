@@ -5,7 +5,7 @@ import React from "react";
 
 import { useOnDragEnd } from "../../hooks/useOnDragEnd";
 
-import DragAndDrop from "./DragAndDrop";
+import { DragAndDrop } from "./DragAndDrop";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

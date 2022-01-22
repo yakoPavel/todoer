@@ -1,8 +1,8 @@
 import React from "react";
 
-import UnauthorizedContainer from "../UnauthorizedContainer/UnauthorizedContainer";
+import { UnauthorizedContainer } from "../UnauthorizedContainer/UnauthorizedContainer";
 
-import Divider from "@/components/Divider/Divider";
+import { Divider } from "@/components/Divider/Divider";
 import { LoadingStateContextProvider } from "@/context/LoadingContext";
 
 type UnauthorizedScreenProps = {
@@ -18,7 +18,7 @@ type UnauthorizedScreenProps = {
   bottomSlot?: React.ReactNode;
 };
 
-const UnauthorizedScreen: React.FC<UnauthorizedScreenProps> = ({
+export const UnauthorizedScreen: React.FC<UnauthorizedScreenProps> = ({
   topSlot,
   topSlotDividerText,
   middleSlot,
@@ -49,5 +49,3 @@ const UnauthorizedScreen: React.FC<UnauthorizedScreenProps> = ({
     </LoadingStateContextProvider>
   );
 };
-
-export default UnauthorizedScreen;

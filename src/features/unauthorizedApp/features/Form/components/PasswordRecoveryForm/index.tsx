@@ -1,7 +1,7 @@
 import React from "react";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
-import Form from "../Form";
+import { Form } from "../Form";
 
 import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
 import { sendPasswordResetEmail } from "@/utils/authentication";
@@ -12,7 +12,7 @@ const errorMessagesMapping = {
   "auth/too-may-requests": "You have sent too many request. Try again later.",
 };
 
-const PasswordRecoveryForm = () => {
+export const PasswordRecoveryForm = () => {
   const initialValues = {
     email: "",
   };
@@ -36,5 +36,3 @@ const PasswordRecoveryForm = () => {
     </Form>
   );
 };
-
-export default PasswordRecoveryForm;

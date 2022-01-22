@@ -81,7 +81,11 @@ type ColorInputProps = {
   onChange: (newValue: string) => void;
 };
 
-const ColorInput: React.FC<ColorInputProps> = ({ name, value, onChange }) => {
+export const ColorInput: React.FC<ColorInputProps> = ({
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <ListboxInput
       aria-label={name}
@@ -108,5 +112,3 @@ const ColorInput: React.FC<ColorInputProps> = ({ name, value, onChange }) => {
     </ListboxInput>
   );
 };
-
-export default ColorInput;

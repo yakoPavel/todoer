@@ -4,7 +4,7 @@ import Chance from "chance";
  * Enforces some methods of the original `Chance` class to return unique
  * results per instance.
  */
-class UniqueChance extends Chance {
+export class UniqueChance extends Chance {
   private history = new Set();
 
   word(opts?: Partial<Chance.WordOptions>): string {
@@ -25,5 +25,3 @@ class UniqueChance extends Chance {
     throw new Error("An attempt to get a unique value was unsuccessful.");
   }
 }
-
-export default UniqueChance;

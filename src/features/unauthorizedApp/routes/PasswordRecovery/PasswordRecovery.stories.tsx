@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import PasswordRecovery from "./PasswordRecovery";
+import { PasswordRecovery } from "./PasswordRecovery";
 
 export default {
   title: "Unauthorized app/PasswordRecovery",

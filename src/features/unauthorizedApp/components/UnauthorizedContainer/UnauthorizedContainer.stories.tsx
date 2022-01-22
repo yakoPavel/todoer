@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import UnauthorizedContainer from "./UnauthorizedContainer";
+import { UnauthorizedContainer } from "./UnauthorizedContainer";
 
 export default {
   title: "Unauthorized App/Components/UnauthorizedContainer",

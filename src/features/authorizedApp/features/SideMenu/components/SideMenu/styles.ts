@@ -1,6 +1,6 @@
 import styled from "@emotion/styled/macro";
 
-import MenuSection from "../MenuSection/MenuSection";
+import { MenuSection } from "../MenuSection/MenuSection";
 
 export const MenuWrapper = styled.section`
   color: ${({ theme }) => theme.text};

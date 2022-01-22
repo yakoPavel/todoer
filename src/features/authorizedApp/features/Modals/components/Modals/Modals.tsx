@@ -1,15 +1,15 @@
 import React from "react";
 
-import AddLabelForm from "../AddLabelForm/AddLabelForm";
-import AddProjectForm from "../AddProjectForm/AddProjectForm";
-import DeleteItemDialog from "../DeleteItemDialog/DeleteItemDialog";
-import EditLabelForm from "../EditLabelForm/EditLabelForm";
-import EditProjectForm from "../EditProjectForm/EditProjectForm";
+import { AddLabelForm } from "../AddLabelForm/AddLabelForm";
+import { AddProjectForm } from "../AddProjectForm/AddProjectForm";
+import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
+import { EditLabelForm } from "../EditLabelForm/EditLabelForm";
+import { EditProjectForm } from "../EditProjectForm/EditProjectForm";
 
 import { useAppSelector } from "@/hooks/storeHooks";
 import { selectors } from "@/store/slices/ui";
 
-const Modals = () => {
+export const Modals = () => {
   const addProjectForm = useAppSelector(selectors.selectAddProjectFormState);
   const addLabelForm = useAppSelector(selectors.selectAddLabelFormState);
   const editProjectForm = useAppSelector(selectors.selectEditProjectFormState);
@@ -41,5 +41,3 @@ const Modals = () => {
 
   return null;
 };
-
-export default Modals;

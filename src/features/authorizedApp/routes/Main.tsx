@@ -1,10 +1,10 @@
 import React from "react";
 
-import AppHeader from "../features/AppHeader";
+import { AppHeader } from "../features/AppHeader";
 import { Modals } from "../features/Modals";
 import { SideMenu } from "../features/SideMenu";
 
-const Main = () => {
+export const Main = () => {
   const [menuState, setMenuState] = React.useReducer(
     (currentState: "opened" | "closed") =>
       currentState === "opened" ? "closed" : "opened",
@@ -19,5 +19,3 @@ const Main = () => {
     </>
   );
 };
-
-export default Main;

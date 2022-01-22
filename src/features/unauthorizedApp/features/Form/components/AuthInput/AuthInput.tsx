@@ -2,8 +2,9 @@ import { Input as ChakraInput } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-import withFormikField, {
+import {
   WrapperComponentProps,
+  withFormikField,
 } from "../withFormikField/withFormikField";
 
 /**

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import Form from "../Form";
+import { Form } from "../Form";
 
 import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
 import { signUpWithPassword } from "@/utils/authentication";
@@ -31,7 +31,7 @@ const errorMessagesMapping = {
   "auth/weak-password": "The submitted password is too weak",
 };
 
-const SignUpWithPasswordForm = () => {
+export const SignUpWithPasswordForm = () => {
   const navigate = useNavigate();
 
   const onSubmitAction = ({ email, password }: typeof initialFormValues) =>
@@ -62,5 +62,3 @@ const SignUpWithPasswordForm = () => {
     </Form>
   );
 };
-
-export default SignUpWithPasswordForm;

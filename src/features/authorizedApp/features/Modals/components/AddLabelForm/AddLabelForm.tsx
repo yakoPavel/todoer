@@ -1,6 +1,6 @@
 import React from "react";
 
-import Form from "../Form/Form";
+import { Form } from "../Form/Form";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { actions as uiActions } from "@/store/slices/ui";
@@ -22,7 +22,7 @@ const formFieldsConfig = [
   },
 ];
 
-const AddProjectForm = () => {
+export const AddLabelForm = () => {
   const dispatch = useAppDispatch();
 
   const onSubmit = (formValues: Record<string, string | boolean>) => {
@@ -43,5 +43,3 @@ const AddProjectForm = () => {
     />
   );
 };
-
-export default AddProjectForm;

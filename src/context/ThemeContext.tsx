@@ -3,14 +3,14 @@ import React from "react";
 
 import * as colorThemes from "../style/colors";
 
-import createContext from "./createContext";
+import { createContext } from "./createContext";
 
 type ColorTheme = "dark" | "light" | "neutral" | "noir" | "orange";
 
 const [useCurrentThemeSetter, CurrentThemeSetterProvider] =
   createContext<React.Dispatch<React.SetStateAction<ColorTheme>>>();
 
-const ThemeContextProvider: React.FC = ({ children }) => {
+export const ThemeContextProvider: React.FC = ({ children }) => {
   const [currentTheme, setCurrentTheme] = React.useState<ColorTheme>("light");
 
   const themeValue = React.useMemo(
@@ -26,7 +26,5 @@ const ThemeContextProvider: React.FC = ({ children }) => {
     </EmotionThemeProvider>
   );
 };
-
-export default ThemeContextProvider;
 
 export { useCurrentThemeSetter };

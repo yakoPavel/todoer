@@ -4,7 +4,7 @@ import React from "react";
 import * as dataMocks from "../tests/utils/dataMocks";
 import { ComponentWithPopup } from "../tests/utils/dataMocks";
 
-import PopupMenu, { PopupMenuProps } from "./PopupMenu";
+import { PopupMenuProps, PopupMenu } from "./PopupMenu";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

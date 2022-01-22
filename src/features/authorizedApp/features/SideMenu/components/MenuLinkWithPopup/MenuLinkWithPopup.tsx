@@ -7,7 +7,7 @@ import {
   PopupMenuProps,
   usePopupMenu,
 } from "../../features/PopupMenu";
-import MenuLink, { MenuLinkProps, StyledLink } from "../MenuLink/MenuLink";
+import { MenuLinkProps, StyledLink, MenuLink } from "../MenuLink/MenuLink";
 
 import { usePopupItemsClickHandler } from "./hooks/usePopupItemsClickHandler";
 
@@ -61,7 +61,7 @@ type MenuLinkWithPopupProps = MenuLinkProps & {
   type: "project" | "label";
 };
 
-const MenuLinkWithPopup = ({
+export const MenuLinkWithPopup = ({
   leftSlot,
   rightSlot,
   text,
@@ -106,5 +106,3 @@ const MenuLinkWithPopup = ({
     </>
   );
 };
-
-export default MenuLinkWithPopup;

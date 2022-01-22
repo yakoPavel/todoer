@@ -1,6 +1,6 @@
 import React from "react";
 
-import Input from "../../Input/Input";
+import { Input } from "../../Input/Input";
 import { FormFieldConfig } from "../Form";
 
 import { LABEL_COLORS } from "@/config/labelColors";

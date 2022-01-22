@@ -2,11 +2,11 @@ import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import React from "react";
 
-import AuthProviderButtons from "../../components/AuthProviderButtons/AuthProviderButtons";
-import UnauthorizedScreen from "../../components/UnauthorizedScreen/UnauthorizedScreen";
+import { AuthProviderButtons } from "../../components/AuthProviderButtons/AuthProviderButtons";
+import { UnauthorizedScreen } from "../../components/UnauthorizedScreen/UnauthorizedScreen";
 import { LoginWithPasswordForm } from "../../features/Form";
 
-import StyledLink from "@/components/StyledLink/StyledLink";
+import { StyledLink } from "@/components/StyledLink/StyledLink";
 
 const ForgotPasswordLink = styled(StyledLink)`
   display: block;
@@ -14,7 +14,7 @@ const ForgotPasswordLink = styled(StyledLink)`
   color: ${({ theme }) => theme.textSecondaryActive};
 ` as typeof StyledLink;
 
-const Login: React.FC = () => {
+export const Login: React.FC = () => {
   return (
     <UnauthorizedScreen
       topSlot={<AuthProviderButtons />}
@@ -37,5 +37,3 @@ const Login: React.FC = () => {
     />
   );
 };
-
-export default Login;

@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import ColorInput from "./ColorInput";
+import { ColorInput } from "./ColorInput";
 
 import { LABEL_COLORS } from "@/config/labelColors";
 

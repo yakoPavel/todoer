@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import React from "react";
 
-import Dialog from "../Dialog/Dialog";
+import { Dialog } from "../Dialog/Dialog";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { actions as uiActions } from "@/store/slices/ui";
@@ -13,7 +13,7 @@ type RemoveItemDialogProps = {
   itemId: string;
 };
 
-const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
+export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
   itemType,
   itemId,
 }) => {
@@ -45,5 +45,3 @@ const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
     />
   );
 };
-
-export default DeleteItemDialog;

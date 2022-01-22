@@ -4,7 +4,7 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 
-import MenuLinkWithPopup from "../MenuLinkWithPopup/MenuLinkWithPopup";
+import { MenuLinkWithPopup } from "../MenuLinkWithPopup/MenuLinkWithPopup";
 
 export const NumberOfTasks = styled(Text)`
   color: ${({ theme }) => theme.textSecondary};
@@ -64,7 +64,7 @@ type ProjectsMenuLinkProps = {
   isFavoritesSection?: boolean;
 };
 
-const ProjectsMenuLink = ({
+export const ProjectsMenuLink = ({
   name,
   numberOfTasks,
   isFavorite,
@@ -84,5 +84,3 @@ const ProjectsMenuLink = ({
     />
   );
 };
-
-export default ProjectsMenuLink;

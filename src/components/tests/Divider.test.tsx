@@ -1,7 +1,7 @@
 import Chance from "chance";
 import React from "react";
 
-import Divider from "@/components/Divider/Divider";
+import { Divider } from "@/components/Divider/Divider";
 import { render, screen } from "@/test/testUtils";
 
 const SEED = 12345;

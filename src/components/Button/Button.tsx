@@ -63,12 +63,10 @@ type ButtonProps = React.ComponentProps<"button"> & {
 /**
  * It is a styled button.
  */
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   ...otherProps
 }) => {
   if (variant === "primary") return <PrimaryButton {...otherProps} />;
   return <SecondaryButton {...otherProps} />;
 };
-
-export default Button;

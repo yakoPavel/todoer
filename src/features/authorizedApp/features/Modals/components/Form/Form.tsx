@@ -4,7 +4,7 @@ import React from "react";
 import { FormState, useFormState } from "./hooks/useFormState";
 import * as Styled from "./styles";
 
-import Overlay from "@/components/Overlay/Overlay";
+import { Overlay } from "@/components/Overlay/Overlay";
 
 type BaseFormFieldConfig = {
   /** A label of the field. */
@@ -45,7 +45,7 @@ export type FormProps<Config extends FormFieldConfig[]> = {
   cancelButtonTitle?: string;
 };
 
-const Form = <Config extends FormFieldConfig[]>({
+export const Form = <Config extends FormFieldConfig[]>({
   title,
   onDismiss,
   onSubmit,
@@ -89,5 +89,3 @@ const Form = <Config extends FormFieldConfig[]>({
     </Overlay>
   );
 };
-
-export default Form;

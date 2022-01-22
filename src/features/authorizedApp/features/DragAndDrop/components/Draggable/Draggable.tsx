@@ -70,7 +70,10 @@ const Content: React.FC<ContentProps> = ({ provided, snapshot, children }) => {
 
 type DraggableProps = Omit<OriginalDraggableProps, "children">;
 
-const Draggable: React.FC<DraggableProps> = ({ children, ...otherProps }) => {
+export const Draggable: React.FC<DraggableProps> = ({
+  children,
+  ...otherProps
+}) => {
   return (
     <OriginalDraggable {...otherProps}>
       {(provided, snapshot) => {
@@ -83,5 +86,3 @@ const Draggable: React.FC<DraggableProps> = ({ children, ...otherProps }) => {
     </OriginalDraggable>
   );
 };
-
-export default Draggable;

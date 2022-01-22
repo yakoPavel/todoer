@@ -29,7 +29,7 @@ const StyledSpinner = styled(Spinner)`
   color: ${({ theme }) => theme.main}; ;
 `;
 
-const Loading: React.FC = () => {
+export const Loading: React.FC = () => {
   return (
     <Container>
       <LogoWrapper>
@@ -39,5 +39,3 @@ const Loading: React.FC = () => {
     </Container>
   );
 };
-
-export default Loading;

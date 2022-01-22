@@ -16,7 +16,10 @@ const Container = styled.div<ContainerProps>`
 
 type DroppableProps = Omit<OriginalDroppableProps, "children">;
 
-const Droppable: React.FC<DroppableProps> = ({ children, ...otherProps }) => {
+export const Droppable: React.FC<DroppableProps> = ({
+  children,
+  ...otherProps
+}) => {
   return (
     <OriginalDroppable {...otherProps}>
       {(provided, snapshot) => (
@@ -32,5 +35,3 @@ const Droppable: React.FC<DroppableProps> = ({ children, ...otherProps }) => {
     </OriginalDroppable>
   );
 };
-
-export default Droppable;

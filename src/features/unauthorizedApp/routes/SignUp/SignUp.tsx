@@ -1,13 +1,13 @@
 import { Text } from "@chakra-ui/react";
 import React from "react";
 
-import AuthProviderButtons from "../../components/AuthProviderButtons/AuthProviderButtons";
-import UnauthorizedScreen from "../../components/UnauthorizedScreen/UnauthorizedScreen";
+import { AuthProviderButtons } from "../../components/AuthProviderButtons/AuthProviderButtons";
+import { UnauthorizedScreen } from "../../components/UnauthorizedScreen/UnauthorizedScreen";
 import { SignUpWithPasswordForm } from "../../features/Form";
 
-import StyledLink from "@/components/StyledLink/StyledLink";
+import { StyledLink } from "@/components/StyledLink/StyledLink";
 
-const SignUp: React.FC = () => {
+export const SignUp: React.FC = () => {
   return (
     <UnauthorizedScreen
       topSlot={<AuthProviderButtons />}
@@ -21,5 +21,3 @@ const SignUp: React.FC = () => {
     />
   );
 };
-
-export default SignUp;

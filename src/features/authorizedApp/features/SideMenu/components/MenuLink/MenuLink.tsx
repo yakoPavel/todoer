@@ -51,7 +51,7 @@ export type MenuLinkProps = Omit<
   rightSlot?: React.ReactNode;
 };
 
-const MenuLink = React.forwardRef<HTMLAnchorElement, MenuLinkProps>(
+export const MenuLink = React.forwardRef<HTMLAnchorElement, MenuLinkProps>(
   ({ rightSlot, leftSlot, text, ...otherProps }, ref) => {
     return (
       <StyledLink {...otherProps} ref={ref}>
@@ -64,5 +64,3 @@ const MenuLink = React.forwardRef<HTMLAnchorElement, MenuLinkProps>(
 );
 
 MenuLink.displayName = "MenuLink";
-
-export default MenuLink;

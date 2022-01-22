@@ -2,7 +2,7 @@
 import { css, Global, useTheme } from "@emotion/react/macro";
 import React from "react";
 
-const GlobalDynamicStyles = () => {
+export const GlobalDynamicStyles = () => {
   const theme = useTheme();
 
   return (
@@ -22,5 +22,3 @@ const GlobalDynamicStyles = () => {
     />
   );
 };
-
-export default GlobalDynamicStyles;

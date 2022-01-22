@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Main } from "@/features/authorizedApp";
 
-const UnauthorizedAppRoutes = () => {
+export const UnauthorizedAppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
@@ -11,5 +11,3 @@ const UnauthorizedAppRoutes = () => {
     </Routes>
   );
 };
-
-export default UnauthorizedAppRoutes;

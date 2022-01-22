@@ -3,7 +3,7 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 import { MdLabel } from "react-icons/md";
 
-import MenuLinkWithPopup from "../MenuLinkWithPopup/MenuLinkWithPopup";
+import { MenuLinkWithPopup } from "../MenuLinkWithPopup/MenuLinkWithPopup";
 
 function getLabelsPopupMenuItems(
   isFavorite: boolean,
@@ -59,7 +59,7 @@ type LabelsMenuLinkProps = {
   isFavoritesSection?: boolean;
 };
 
-const LabelsMenuLink = ({
+export const LabelsMenuLink = ({
   name,
   color,
   isFavorite,
@@ -79,5 +79,3 @@ const LabelsMenuLink = ({
     />
   );
 };
-
-export default LabelsMenuLink;

@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import SignUp from "./SignUp";
+import { SignUp } from "./SignUp";
 
 export default {
   title: "Unauthorized app/SignUp",

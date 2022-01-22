@@ -8,11 +8,11 @@ import {
   IoLogOutOutline,
 } from "react-icons/io5";
 
-import Search from "../Search/Search";
+import { Search } from "../Search/Search";
 
 import * as Styled from "./styles";
 
-import Tooltip from "@/components/Tooltip/Tooltip";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 import * as keyboardShortcuts from "@/config/keyboardShortcuts";
 
 type HeaderButtonProps = Omit<
@@ -48,7 +48,7 @@ type AppHeaderProps = {
   onThemeChange?: () => void;
   menuState: "opened" | "closed";
 };
-const AppHeader = ({
+export const AppHeader = ({
   onMenuToggle,
   onGoHome,
   onQuickAdd,
@@ -113,5 +113,3 @@ const AppHeader = ({
     </Styled.Header>
   );
 };
-
-export default AppHeader;

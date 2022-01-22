@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import useUserContext from "@/context/UserContext";
+import { useUserContext } from "@/context/UserContext";
 
 /**
  * Returns an Axios client instance with the current user's auth token

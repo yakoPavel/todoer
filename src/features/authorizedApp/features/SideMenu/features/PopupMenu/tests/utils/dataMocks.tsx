@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 
-import PopupMenu, { PopupMenuProps } from "../../components/PopupMenu";
+import { PopupMenuProps, PopupMenu } from "../../components/PopupMenu";
 import { usePopupMenu } from "../../hooks/usePopupMenu";
 
 /* Sample menu items */

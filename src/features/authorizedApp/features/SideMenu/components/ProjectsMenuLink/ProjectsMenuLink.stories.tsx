@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import ProjectsMenuLink from "./ProjectsMenuLink";
+import { ProjectsMenuLink } from "./ProjectsMenuLink";
 
 export default {
   title: "Authorized app/SideMenu/MenuLink/ProjectsMenuLink",

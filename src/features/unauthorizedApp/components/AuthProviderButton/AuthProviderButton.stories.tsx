@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import AuthProviderButton from "./AuthProviderButton";
+import { AuthProviderButton } from "./AuthProviderButton";
 
 export default {
   title: "Unauthorized app/Components/AuthProviderButton",

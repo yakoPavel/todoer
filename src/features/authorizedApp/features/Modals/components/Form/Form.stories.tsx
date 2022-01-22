@@ -2,7 +2,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import Form from "./Form";
+import { Form } from "./Form";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

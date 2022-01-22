@@ -2,7 +2,7 @@ import { Spinner } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -32,7 +32,7 @@ type ConfirmButtonProps = React.ComponentPropsWithRef<typeof StyledButton> & {
   isDisabled?: boolean;
 };
 
-const ConfirmButton: React.FC<ConfirmButtonProps> = ({
+export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   children,
   isLoading = false,
   isDisabled = isLoading,
@@ -51,5 +51,3 @@ const ConfirmButton: React.FC<ConfirmButtonProps> = ({
     </StyledButton>
   );
 };
-
-export default ConfirmButton;

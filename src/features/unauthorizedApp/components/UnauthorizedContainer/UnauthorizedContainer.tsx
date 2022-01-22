@@ -17,7 +17,7 @@ function placeAtTheTopIfOverflows(element: HTMLElement) {
   }
 }
 
-const UnauthorizedContainer: React.FC = ({ children }) => {
+export const UnauthorizedContainer: React.FC = ({ children }) => {
   const cardWrapperRef = React.useRef<HTMLDivElement>(null);
 
   /* Corrects the position of the cart. */
@@ -53,5 +53,3 @@ const UnauthorizedContainer: React.FC = ({ children }) => {
     </Styled.Wrapper>
   );
 };
-
-export default UnauthorizedContainer;

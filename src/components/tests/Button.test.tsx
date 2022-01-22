@@ -3,7 +3,7 @@ import Chance from "chance";
 import cases from "jest-in-case";
 import React from "react";
 
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 import { render, screen } from "@/test/testUtils";
 
 const SEED = 12345;

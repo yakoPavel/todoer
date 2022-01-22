@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Login, PasswordRecovery, SignUp } from "@/features/unauthorizedApp";
 
-const UnauthorizedAppRoutes = () => {
+export const UnauthorizedAppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
@@ -13,5 +13,3 @@ const UnauthorizedAppRoutes = () => {
     </Routes>
   );
 };
-
-export default UnauthorizedAppRoutes;

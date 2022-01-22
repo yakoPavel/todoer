@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signInThroughProvider } from "../../utils/signInThroughProvider";
-import AuthProviderButton from "../AuthProviderButton/AuthProviderButton";
+import { AuthProviderButton } from "../AuthProviderButton/AuthProviderButton";
 
-import useLoadingState from "@/context/LoadingContext";
+import { useLoadingState } from "@/context/LoadingContext";
 import { useAsyncTask } from "@/hooks/useAsyncTask";
 
-const AuthProviderButtons = () => {
+export const AuthProviderButtons = () => {
   const navigate = useNavigate();
   const { isScreenLoading, setIsScreenLoading } = useLoadingState();
   const { isSuccess, isLoading, run } = useAsyncTask(signInThroughProvider);
@@ -41,5 +41,3 @@ const AuthProviderButtons = () => {
     </>
   );
 };
-
-export default AuthProviderButtons;

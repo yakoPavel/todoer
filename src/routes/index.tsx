@@ -1,14 +1,14 @@
 import React from "react";
 
-import useUserContext from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
 
-import AuthorizedAppRoutes from "./AuthorizedAppRoutes";
-import UnauthorizedAppRoutes from "./UnauthorizedAppRoutes";
+import { UnauthorizedAppRoutes as AuthorizedAppRoutes } from "./AuthorizedAppRoutes";
+import { UnauthorizedAppRoutes } from "./UnauthorizedAppRoutes";
 
-import Loading from "@/components/Loading/Loading";
+import { Loading } from "@/components/Loading/Loading";
 import { waitForInitialAuthChecking } from "@/utils/authentication";
 
-const AppRoutes = () => {
+export const AppRoutes = () => {
   const user = useUserContext();
   const [initialAuthChecking, setInitialAuthChecking] = React.useState(true);
 
@@ -26,5 +26,3 @@ const AppRoutes = () => {
 
   return <AuthorizedAppRoutes />;
 };
-
-export default AppRoutes;

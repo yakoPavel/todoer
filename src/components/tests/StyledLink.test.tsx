@@ -1,7 +1,7 @@
 import Chance from "chance";
 import React from "react";
 
-import StyledLink from "@/components/StyledLink/StyledLink";
+import { StyledLink } from "@/components/StyledLink/StyledLink";
 import { render, screen } from "@/test/testUtils";
 
 const SEED = 12345;

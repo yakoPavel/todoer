@@ -5,17 +5,17 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import ThemeContextProvider from "@/context/ThemeContext";
+import { ThemeContextProvider } from "@/context/ThemeContext";
 import { UserContextProvider } from "@/context/UserContext";
 import { queryClient } from "@/lib/react-query";
 import { store } from "@/store/store";
-import chakraTheme from "@/style/chakraTheme";
-import GlobalDynamicStyles from "@/style/globalDynamicStyles";
+import { chakraTheme } from "@/style/chakraTheme";
+import { GlobalDynamicStyles } from "@/style/globalDynamicStyles";
 import { initializeFirebase } from "@/utils/initializeFirebase";
 
 initializeFirebase();
 
-const AppProviders: React.FC = ({ children }) => {
+export const AppProviders: React.FC = ({ children }) => {
   return (
     <BrowserRouter>
       <ThemeContextProvider>
@@ -32,5 +32,3 @@ const AppProviders: React.FC = ({ children }) => {
     </BrowserRouter>
   );
 };
-
-export default AppProviders;

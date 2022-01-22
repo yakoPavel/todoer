@@ -2,7 +2,7 @@
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 import React from "react";
 
-import AppProviders from "@/providers/app";
+import { AppProviders } from "@/providers/app";
 
 export type Renderer = (
   ui: React.ReactElement,

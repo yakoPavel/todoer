@@ -1,9 +1,9 @@
 import React from "react";
 
-import Dialog from "../Dialog/Dialog";
+import { Dialog } from "../Dialog/Dialog";
 
 import { render, screen, userEvent } from "@/test/testUtils";
-import UniqueChance from "@/test/UniqueChance";
+import { UniqueChance } from "@/test/UniqueChance";
 
 const SEED = 12345;
 const chance = new UniqueChance(SEED);

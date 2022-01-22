@@ -41,4 +41,4 @@ function StyledLink(props: RouterLinkProps | AnchorLinkProps) {
   return <StyledAnchor {...props} />;
 }
 
-export default StyledLink;
+export { StyledLink };

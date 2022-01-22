@@ -1,6 +1,6 @@
 import styled from "@emotion/styled/macro";
 
-import Button from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 
 export const Card = styled.section`
   background: ${({ theme }) => theme.modalFormBackground};

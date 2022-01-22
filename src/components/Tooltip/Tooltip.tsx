@@ -27,7 +27,11 @@ export type TooltipProps = React.ComponentProps<typeof ChakraTooltip> & {
  * It is a component that represents a tooltip with text content and optionally
  * a keyboard shortcut.
  */
-const Tooltip = ({ tooltipText, shortcut, ...otherProps }: TooltipProps) => {
+export const Tooltip = ({
+  tooltipText,
+  shortcut,
+  ...otherProps
+}: TooltipProps) => {
   function formLabel() {
     if (!shortcut) return <Text>{tooltipText}</Text>;
 
@@ -54,5 +58,3 @@ const Tooltip = ({ tooltipText, shortcut, ...otherProps }: TooltipProps) => {
     />
   );
 };
-
-export default Tooltip;

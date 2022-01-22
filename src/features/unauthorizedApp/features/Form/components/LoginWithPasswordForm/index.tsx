@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import Form from "../Form";
+import { Form } from "../Form";
 
 import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
 import { signInWithPassword } from "@/utils/authentication";
@@ -25,7 +25,7 @@ const errorMessagesMapping = {
   "auth/wrong-password": "Incorrect email or password",
 };
 
-const LoginWithPasswordForm = () => {
+export const LoginWithPasswordForm = () => {
   const navigate = useNavigate();
 
   const onSubmitAction = ({ email, password }: typeof initialValues) =>
@@ -51,5 +51,3 @@ const LoginWithPasswordForm = () => {
     </Form>
   );
 };
-
-export default LoginWithPasswordForm;

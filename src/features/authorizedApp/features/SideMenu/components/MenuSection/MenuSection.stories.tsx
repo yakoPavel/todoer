@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 
-import MenuSection from "./MenuSection";
+import { MenuSection } from "./MenuSection";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 

@@ -30,7 +30,10 @@ const WholeDivider = styled(ChakraDivider)`
 /**
  * It is a component intended to be used as a divider.
  */
-const Divider: React.FC<DividerProps> = ({ inBetweenText, ...otherProps }) => {
+export const Divider: React.FC<DividerProps> = ({
+  inBetweenText,
+  ...otherProps
+}) => {
   if (!inBetweenText) return <WholeDivider {...otherProps} />;
 
   return (
@@ -41,5 +44,3 @@ const Divider: React.FC<DividerProps> = ({ inBetweenText, ...otherProps }) => {
     </Wrapper>
   );
 };
-
-export default Divider;

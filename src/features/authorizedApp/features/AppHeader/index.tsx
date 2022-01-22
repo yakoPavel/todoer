@@ -1,3 +1,3 @@
-import AppHeader from "./components/AppHeader/AppHeader";
+import { AppHeader } from "./components/AppHeader/AppHeader";
 
-export default AppHeader;
+export { AppHeader };

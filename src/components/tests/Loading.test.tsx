@@ -1,6 +1,6 @@
 import React from "react";
 
-import Loading from "@/components/Loading/Loading";
+import { Loading } from "@/components/Loading/Loading";
 import { render, screen } from "@/test/testUtils";
 
 describe("The `Loading` component", () => {

@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from "react";
 
-import ColorInput from "../ColorInput/ColorInput";
+import { ColorInput } from "../ColorInput/ColorInput";
 import { FormFieldConfig } from "../Form/Form";
 
 import * as Styled from "./styles";
@@ -38,7 +38,7 @@ type InputProps =
 /**
  * It is is generic input component.
  */
-const Input = (props: InputProps) => {
+export const Input = (props: InputProps) => {
   const changeHandler = (
     update: string | React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -90,5 +90,3 @@ const Input = (props: InputProps) => {
     </Styled.InputWrapper>
   );
 };
-
-export default Input;

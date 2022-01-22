@@ -1,3 +1,3 @@
-import Modals from "./components/Modals/Modals";
+import { Modals } from "./components/Modals/Modals";
 
 export { Modals };

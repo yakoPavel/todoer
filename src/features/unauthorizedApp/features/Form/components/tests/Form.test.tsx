@@ -4,7 +4,7 @@ import React from "react";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import Form from "../Form";
+import { Form } from "../Form";
 
 import * as LoadingStateContext from "@/context/LoadingContext";
 import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";

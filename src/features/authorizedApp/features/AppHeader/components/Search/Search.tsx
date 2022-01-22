@@ -6,7 +6,7 @@ import React from "react";
 
 import * as Styled from "./styles";
 
-import Tooltip from "@/components/Tooltip/Tooltip";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 import * as keyboardShortcuts from "@/config/keyboardShortcuts";
 
 const chance = new Chance();
@@ -37,7 +37,7 @@ function getFilteredItems(inputValue?: string) {
   );
 }
 
-const Search = (): JSX.Element => {
+export const Search = (): JSX.Element => {
   const inputFieldRef = React.useRef<HTMLInputElement>(null);
   const [inputItems, setInputItems] = React.useState(items);
   const {
@@ -121,5 +121,3 @@ const Search = (): JSX.Element => {
     </Styled.SearchContainer>
   );
 };
-
-export default Search;

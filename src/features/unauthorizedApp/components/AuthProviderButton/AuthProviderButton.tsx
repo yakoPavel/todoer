@@ -81,7 +81,7 @@ type AuthProviderButtonProps = Omit<
   onClick: () => void;
 };
 
-const AuthProviderButton = ({
+export const AuthProviderButton = ({
   variant,
   onClick,
   isLoading = false,
@@ -109,5 +109,3 @@ const AuthProviderButton = ({
     </StyledButton>
   );
 };
-
-export default AuthProviderButton;

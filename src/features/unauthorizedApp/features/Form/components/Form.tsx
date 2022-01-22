@@ -9,9 +9,9 @@ import {
 import React from "react";
 import { ObjectShape, OptionalObjectSchema } from "yup/lib/object";
 
-import ConfirmButton from "./ConfirmButton/ConfirmButton";
+import { ConfirmButton } from "./ConfirmButton/ConfirmButton";
 
-import useLoadingState from "@/context/LoadingContext";
+import { useLoadingState } from "@/context/LoadingContext";
 import { useAsyncTask } from "@/hooks/useAsyncTask";
 
 const StyledForm = styled(FormikForm)`
@@ -77,7 +77,7 @@ function isFirebaseAuthError(error: Error): error is Error & { code: string } {
  *  </Form>
  * ```
  */
-const Form = <InitialValues extends Record<string, string>>({
+export const Form = <InitialValues extends Record<string, string>>({
   initialValues,
   validationSchema,
   onSubmitAction,
@@ -169,5 +169,3 @@ const Form = <InitialValues extends Record<string, string>>({
     </Formik>
   );
 };
-
-export default Form;

@@ -26,7 +26,7 @@ type MenuSectionProps = {
   className?: string;
 };
 
-const MenuSection: React.FC<MenuSectionProps> = ({
+export const MenuSection: React.FC<MenuSectionProps> = ({
   rightSlot,
   sectionTitle,
   sectionContent,
@@ -124,5 +124,3 @@ const MenuSection: React.FC<MenuSectionProps> = ({
     </Accordion>
   );
 };
-
-export default MenuSection;
