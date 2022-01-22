@@ -7,16 +7,19 @@ module.exports = {
     "jest/globals": true,
   },
   extends: [
-    "react-app",
-    "react-app/jest",
-    "airbnb",
     "eslint:recommended",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
     "plugin:jest/style",
+    "plugin:jest-dom/recommended",
+    "plugin:testing-library/react",
     "plugin:react-hooks/recommended",
-    "prettier",
     "plugin:storybook/recommended",
   ],
   parser: "@typescript-eslint/parser",
@@ -32,20 +35,22 @@ module.exports = {
     "react-hooks",
     "@typescript-eslint",
     "sonarjs",
-    "simple-import-sort",
     "jest",
+    "jest-dom",
+    "testing-library",
   ],
   settings: {
     "import/resolver": {
-      node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx", ".d.ts"],
-        paths: ["src"],
-      },
+      typescript: {},
     },
   },
   rules: {
+    "no-use-before-define": "off",
+    "arrow-body-style": "off",
     "consistent-return": "off",
+
     "sonarjs/cognitive-complexity": ["warn", 15],
+
     "import/extensions": [
       "error",
       "never",
@@ -54,13 +59,24 @@ module.exports = {
       },
     ],
     "import/no-unresolved": 2,
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "sort-imports": "off",
-    "import/order": "off",
+    "import/order": [
+      "error",
+      {
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+        ],
+        "newlines-between": "always",
+        alphabetize: { order: "asc", caseInsensitive: true },
+      },
+    ],
     "import/prefer-default-export": "off",
-    "no-use-before-define": "off",
-    "arrow-body-style": "off",
+
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [
       "error",
@@ -77,6 +93,7 @@ module.exports = {
         unnamedComponents: "arrow-function",
       },
     ],
+
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
   },
