@@ -7,8 +7,19 @@ import Chance from "chance";
 export class UniqueChance extends Chance {
   private history = new Set();
 
+  constructor(...args: any[]) {
+    super(...args);
+  }
+
   word(opts?: Partial<Chance.WordOptions>): string {
     const result = this.getUnique(super.word.bind(this, opts));
+    this.history.add(result);
+
+    return result;
+  }
+
+  sentence(opts?: Partial<Chance.SentenceOptions>): string {
+    const result = this.getUnique(super.sentence.bind(this, opts));
     this.history.add(result);
 
     return result;
