@@ -1,79 +1,52 @@
-import { useOnDragEnd } from "features/authorizedApp/features/DragAndDrop";
 import React from "react";
 
-import LabelsMenuLink from "../../LabelsMenuLink/LabelsMenuLink";
-import ProjectsMenuLink from "../../ProjectsMenuLink/ProjectsMenuLink";
+import { LabelsMenuLink } from "../../LabelsMenuLink/LabelsMenuLink";
+import { ProjectsMenuLink } from "../../ProjectsMenuLink/ProjectsMenuLink";
 
-const dummyProjects = [
-  {
-    name: "Do my homework",
-    tasks: 5,
-    type: "project" as const,
-  },
-  {
-    name: "Repair the hole",
-    tasks: 12,
-    type: "project" as const,
-  },
-];
-
-const dummyLabels = [
-  {
-    name: "test",
-    color: "gold",
-    type: "label" as const,
-  },
-];
-
-const dummyFavorites = [
-  {
-    name: "test",
-    color: "gold",
-    type: "label" as const,
-  },
-  {
-    name: "Repair the hole",
-    tasks: 12,
-    type: "project" as const,
-  },
-];
+import {
+  useOnDragEnd,
+  DragAndDropProps,
+} from "@/features/authorizedApp/features/DragAndDrop";
+import { Label, Project } from "@/features/authorizedApp/types";
 
 /**
  * This hook creates side menu items and passes them to the DnD establishing
  * mechanism.
  */
-function useSideMenuItemsWithDnD() {
-  const projectItems = dummyProjects.map(({ name, tasks }) => ({
-    component: (
-      <ProjectsMenuLink isFavorite={false} name={name} numberOfTasks={tasks} />
-    ),
-    id: name,
-  }));
+function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
+  const favoriteItems: DragAndDropProps["draggables"] = [];
 
-  const labelItems = dummyLabels.map(({ name, color }) => ({
-    component: <LabelsMenuLink isFavorite={false} name={name} color={color} />,
-    id: name,
-  }));
+  const projectItems = projectsData.map(
+    ({ name, color, id, isFavorite, taskIds }) => {
+      const item = {
+        component: (
+          <ProjectsMenuLink
+            isFavorite={isFavorite}
+            name={name}
+            numberOfTasks={taskIds.length}
+          />
+        ),
+        id,
+      };
 
-  const favoriteItems = dummyFavorites.map((itemConfig) => ({
-    component:
-      itemConfig.type === "project" ? (
-        <ProjectsMenuLink
-          isFavorite={false}
-          name={itemConfig.name}
-          numberOfTasks={itemConfig.tasks}
-          isFavoritesSection
-        />
-      ) : (
-        <LabelsMenuLink
-          isFavorite={false}
-          name={itemConfig.name}
-          color={itemConfig.color}
-          isFavoritesSection
-        />
+      if (isFavorite) favoriteItems.push(item);
+
+      return item;
+    },
+  );
+
+  const labelItems = labelsData.map(({ name, color, id, isFavorite }) => {
+    const item = {
+      component: (
+        <LabelsMenuLink isFavorite={isFavorite} name={name} color={color} />
       ),
-    id: itemConfig.name,
-  }));
+      id,
+    };
+
+    if (isFavorite) favoriteItems.push(item);
+
+    return item;
+  });
 
   const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
     useOnDragEnd(projectItems);

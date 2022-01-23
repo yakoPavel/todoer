@@ -1,7 +1,8 @@
-import { LABEL_COLORS } from "config/labelColors";
 import { SyntheticEvent } from "react";
 
-export type { ThemeColors } from "style/colors";
+import { LABEL_COLORS } from "@/config/labelColors";
+
+export type { ThemeColors } from "@/style/colors";
 
 /**
  * A react event with the `processed` field. This field signals that the
@@ -14,3 +15,8 @@ export type EventWithProcessedField<EventType extends SyntheticEvent> =
  * A color value of a task label.
  */
 export type Color = typeof LABEL_COLORS[number]["value"];
+
+export type BaseEntry = {
+  id: string;
+  createdAt: number;
+};
