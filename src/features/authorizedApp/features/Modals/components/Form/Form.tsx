@@ -1,7 +1,9 @@
 import { Heading } from "@chakra-ui/react";
 import React from "react";
 
-import { FormState, useFormState } from "./hooks/useFormState";
+import { FormValues } from "../../types";
+
+import { useFormState } from "./hooks/useFormState";
 import * as Styled from "./styles";
 
 import { Overlay } from "@/components/Overlay/Overlay";
@@ -9,6 +11,8 @@ import { Overlay } from "@/components/Overlay/Overlay";
 type BaseFormFieldConfig = {
   /** A label of the field. */
   label: string;
+  /** A name of the field. Will be used when the form submits. */
+  name: string;
   /** Whether or not the field is required. */
   required?: boolean;
 };
@@ -38,7 +42,7 @@ export type FormProps<Config extends FormFieldConfig[]> = {
   /** A callback that will be called when the modal is dismissed. */
   onDismiss: () => void;
   /** A callback that will be called when the form is submitted. */
-  onSubmit: (formValues: FormState<Config>["values"]) => void;
+  onSubmit: (formValues: FormValues<Config>) => void;
   /** A title for the submit button. */
   submitButtonTitle?: string;
   /** A title for the cancel button. */
@@ -57,7 +61,7 @@ export const Form = <Config extends FormFieldConfig[]>({
 
   const handleSubmission = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmit(formState.values as FormState<Config>["values"]);
+    onSubmit(formState.values as FormValues<Config>);
   };
 
   return (

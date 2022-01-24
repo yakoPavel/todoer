@@ -59,7 +59,7 @@ describe("Form", () => {
       props.formFieldsConfig.forEach((fieldConfig) => {
         const inputElement = screen.getByLabelText(fieldConfig.label);
         if (fieldConfig.type === "text") {
-          userEvent.type(inputElement, formData[fieldConfig.label] as string);
+          userEvent.type(inputElement, formData[fieldConfig.name] as string);
         }
       });
       const submitButton = screen.getByRole("button", {
@@ -80,9 +80,9 @@ describe("Form", () => {
       props.formFieldsConfig.forEach((fieldConfig) => {
         const inputElement = screen.getByLabelText(fieldConfig.label);
         if (fieldConfig.type === "switch") {
-          if (formData[fieldConfig.label]) userEvent.click(inputElement);
+          if (formData[fieldConfig.name]) userEvent.click(inputElement);
         } else if (fieldConfig.type === "text") {
-          userEvent.type(inputElement, formData[fieldConfig.label] as string);
+          userEvent.type(inputElement, formData[fieldConfig.name] as string);
         }
       });
       const submitButton = screen.getByRole("button", {

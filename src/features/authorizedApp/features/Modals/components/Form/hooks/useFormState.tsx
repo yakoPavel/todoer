@@ -1,16 +1,11 @@
 import React from "react";
 
+import { FormState } from "../../../types";
 import { Input } from "../../Input/Input";
 import { FormFieldConfig } from "../Form";
 
 import { LABEL_COLORS } from "@/config/labelColors";
 
-export type FormState<Data extends FormFieldConfig[]> = {
-  isValid: boolean;
-  values: {
-    [FieldName in Data[number]["label"]]: string | boolean;
-  };
-};
 type NewStateValue<Data extends FormFieldConfig[]> = {
   name: keyof FormState<Data>;
   value: string;
@@ -66,8 +61,8 @@ function getInitialState<Data extends FormFieldConfig[]>(
   return {
     isValid,
     values: Object.fromEntries(
-      formFieldsConfig.map(({ label, type, initialValue }) => [
-        label,
+      formFieldsConfig.map(({ name, type, initialValue }) => [
+        name,
         initialValue ?? initialValueForTypes[type],
       ]),
     ),
@@ -77,13 +72,13 @@ function getInitialState<Data extends FormFieldConfig[]>(
 /**
  * It is a hook that encapsulates the input fields creation and state management.
  *
- * @param formFieldsConfig - A configuration object based on which the fields
- * will be created.
+ * @param formFieldsConfig - A configuration object based on which the fields will be created.
  */
 function useFormState<Data extends FormFieldConfig[]>(formFieldsConfig: Data) {
   const [formState, updateFormState] = React.useReducer(
     formStateReducer,
-    formFieldsConfig,
+    // Typescript can't correctly infer the type here
+    formFieldsConfig as any,
     getInitialState,
   );
 
@@ -102,8 +97,8 @@ function useFormState<Data extends FormFieldConfig[]>(formFieldsConfig: Data) {
     updateFormState({ formFieldsConfig, newStateValue: newValue });
   };
 
-  const formFields = formFieldsConfig.map(({ label, type }) => {
-    const value = formState.values[label];
+  const formFields = formFieldsConfig.map(({ label, type, name }) => {
+    const value = formState.values[name];
 
     /* 
       It's not a very elegant code below, but we need it for typescript to 
@@ -112,7 +107,8 @@ function useFormState<Data extends FormFieldConfig[]>(formFieldsConfig: Data) {
     if (type === "switch" && typeof value === "boolean") {
       return (
         <Input
-          key={label}
+          key={name}
+          name={name}
           label={label}
           type={type}
           value={value}
@@ -123,7 +119,8 @@ function useFormState<Data extends FormFieldConfig[]>(formFieldsConfig: Data) {
     if (type !== "switch" && typeof value === "string") {
       return (
         <Input
-          key={label}
+          key={name}
+          name={name}
           label={label}
           type={type}
           value={value}

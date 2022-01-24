@@ -8,8 +8,6 @@ import * as Styled from "./styles";
 
 /* Props types */
 type BaseInputProps = Omit<FormFieldConfig, "required"> & {
-  /** A label of the input. */
-  label: string;
   /** A callback that will be called on change. */
   onChange: ({
     name,
@@ -39,26 +37,28 @@ type InputProps =
  * It is is generic input component.
  */
 export const Input = (props: InputProps) => {
+  const { label, type, name, onChange } = props;
+
   const changeHandler = (
     update: string | React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (typeof update === "string") {
-      return props.onChange({ name: props.label, value: update });
+      return onChange({ name, value: update });
     }
     if (update.target.type === "checkbox") {
-      return props.onChange({
-        name: props.label,
+      return onChange({
+        name,
         value: update.target.checked,
       });
     }
 
-    props.onChange({ name: props.label, value: update.target.value });
+    onChange({ name, value: update.target.value });
   };
 
   return (
-    <Styled.InputWrapper type={props.type}>
-      <Styled.InputLabel htmlFor={props.label} type={props.type}>
-        {props.label}
+    <Styled.InputWrapper type={type}>
+      <Styled.InputLabel htmlFor={label} type={type}>
+        {label}
       </Styled.InputLabel>
       {props.type === "text" && (
         <Styled.Input

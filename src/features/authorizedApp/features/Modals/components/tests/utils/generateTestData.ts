@@ -25,6 +25,7 @@ function generateTestData({
     return {
       label: chance.word(),
       type: fieldTypes[i % fieldTypes.length],
+      name: chance.word(),
       required: i < numberOfRequiredFields ? true : undefined,
     };
   }) as FormFieldConfig[];
@@ -33,11 +34,11 @@ function generateTestData({
   const formData: Record<string, string | boolean> = {};
   formFieldsConfig.forEach((fieldConfig) => {
     if (fieldConfig.type === "text") {
-      formData[fieldConfig.label] = chance.word();
+      formData[fieldConfig.name] = chance.word();
     } else if (fieldConfig.type === "switch") {
-      formData[fieldConfig.label] = chance.pickone([true, false]);
+      formData[fieldConfig.name] = chance.pickone([true, false]);
     } else {
-      formData[fieldConfig.label] = LABEL_COLORS[0].value;
+      formData[fieldConfig.name] = LABEL_COLORS[0].value;
     }
   });
 
