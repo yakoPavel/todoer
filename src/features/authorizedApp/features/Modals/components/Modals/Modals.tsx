@@ -28,7 +28,7 @@ export const Modals = () => {
     return <AddLabelForm />;
   }
   if (editLabelForm.visible) {
-    return <EditLabelForm />;
+    return <EditLabelForm labelId={editLabelForm.triggerId} />;
   }
   if (deleteItemDialog.visible) {
     return (
