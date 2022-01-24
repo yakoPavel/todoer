@@ -5,19 +5,7 @@ import { rest } from "msw";
 import { db, Models, persistDb } from "../db";
 import { delayedResponse, getUser } from "../utils";
 
-type ProjectBody = {
-  name: string;
-  color: string;
-  isFavorite?: boolean;
-};
-
-type ProjectToPatchBody = {
-  id: string;
-  name?: string;
-  color?: string;
-  isFavorite?: boolean;
-  taskIds?: string[];
-};
+import { CreateProjectBody, PatchProjectBody } from "@/types";
 
 function stripData(project: Value<Models["project"], Models>) {
   return omit(project, "userId");
@@ -69,7 +57,7 @@ const projectHandlers = [
     return delayedResponse(ctx.json(stripData(result)));
   }),
 
-  rest.post<ProjectBody>("/projects", (req, res, ctx) => {
+  rest.post<CreateProjectBody>("/projects", (req, res, ctx) => {
     const user = getUser(req);
     if (!user) {
       return delayedResponse(ctx.status(401));
@@ -91,7 +79,7 @@ const projectHandlers = [
     return delayedResponse(ctx.status(201), ctx.json(stripData(result)));
   }),
 
-  rest.patch<ProjectToPatchBody>("/projects", (req, res, ctx) => {
+  rest.patch<PatchProjectBody>("/projects", (req, res, ctx) => {
     const user = getUser(req);
     if (!user) {
       return delayedResponse(ctx.status(401));

@@ -5,22 +5,7 @@ import { rest } from "msw";
 import { db, Models, persistDb } from "../db";
 import { delayedResponse, getUser } from "../utils";
 
-type TaskBody = {
-  projectId: string;
-  labelId?: string;
-  name: string;
-  description: string;
-  done?: boolean;
-};
-
-type TaskToPatchBody = {
-  id: string;
-  projectId?: string;
-  labelId?: string;
-  name?: string;
-  description?: string;
-  done?: boolean;
-};
+import { CreateTaskBody, PatchTaskBody } from "@/types";
 
 function stripData(task: Value<Models["task"], Models>) {
   return omit(task, "userId");
@@ -89,7 +74,7 @@ const taskHandlers = [
   ),
 
   // Creates a new task
-  rest.post<TaskBody>("/tasks", (req, res, ctx) => {
+  rest.post<CreateTaskBody>("/tasks", (req, res, ctx) => {
     const user = getUser(req);
     if (!user) {
       return delayedResponse(ctx.status(401));
@@ -123,7 +108,7 @@ const taskHandlers = [
   }),
 
   // Updates the specified task
-  rest.patch<TaskToPatchBody>("/tasks", (req, res, ctx) => {
+  rest.patch<PatchTaskBody>("/tasks", (req, res, ctx) => {
     const user = getUser(req);
     if (!user) {
       return delayedResponse(ctx.status(401));

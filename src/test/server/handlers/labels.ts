@@ -5,18 +5,7 @@ import { rest } from "msw";
 import { db, Models, persistDb } from "../db";
 import { delayedResponse, getUser } from "../utils";
 
-type LabelBody = {
-  color: string;
-  name: string;
-  isFavorite?: boolean;
-};
-
-type LabelToPatchBody = {
-  id: string;
-  color?: string;
-  name?: string;
-  isFavorite?: boolean;
-};
+import { CreateLabelBody, PatchLabelBody } from "@/types";
 
 function stripData(project: Value<Models["label"], Models>) {
   return omit(project, "userId");
@@ -68,7 +57,7 @@ const labelHandlers = [
     return delayedResponse(ctx.json(stripData(result)));
   }),
 
-  rest.post<LabelBody>("/labels", (req, res, ctx) => {
+  rest.post<CreateLabelBody>("/labels", (req, res, ctx) => {
     const user = getUser(req);
     if (!user) {
       return delayedResponse(ctx.status(401));
@@ -90,7 +79,7 @@ const labelHandlers = [
     return delayedResponse(ctx.status(201), ctx.json(stripData(result)));
   }),
 
-  rest.patch<LabelToPatchBody>("/labels", (req, res, ctx) => {
+  rest.patch<PatchLabelBody>("/labels", (req, res, ctx) => {
     const user = getUser(req);
     if (!user) {
       return delayedResponse(ctx.status(401));
