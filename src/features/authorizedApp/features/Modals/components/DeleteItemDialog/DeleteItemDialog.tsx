@@ -3,6 +3,8 @@ import React from "react";
 
 import { Dialog } from "../Dialog/Dialog";
 
+import { useDeleteLabel } from "@/features/authorizedApp/api/deleteLabel";
+import { useDeleteProject } from "@/features/authorizedApp/api/deleteProject";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { actions as uiActions } from "@/store/slices/ui";
 
@@ -18,6 +20,8 @@ export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
   itemId,
 }) => {
   const dispatch = useAppDispatch();
+  const deleteProjectMutation = useDeleteProject();
+  const deleteLabelMutation = useDeleteLabel();
   const dummyItemToDelete = { name: "Do my homework" };
 
   const onCancel = () => {
@@ -25,7 +29,11 @@ export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
   };
 
   const onConfirm = () => {
-    // TODO: remove item here
+    if (itemType === "project") {
+      deleteProjectMutation.mutate(itemId);
+    } else {
+      deleteLabelMutation.mutate(itemId);
+    }
 
     dispatch(uiActions.deleteItemDialogDismissed());
   };
