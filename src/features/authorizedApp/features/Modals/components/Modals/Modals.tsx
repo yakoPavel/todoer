@@ -22,7 +22,7 @@ export const Modals = () => {
     return <AddProjectForm />;
   }
   if (editProjectForm.visible) {
-    return <EditProjectForm />;
+    return <EditProjectForm projectId={editProjectForm.triggerId} />;
   }
   if (addLabelForm.visible) {
     return <AddLabelForm />;

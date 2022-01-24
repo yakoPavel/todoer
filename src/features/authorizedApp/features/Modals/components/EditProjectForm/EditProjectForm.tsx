@@ -2,8 +2,10 @@
 /* eslint-disable no-param-reassign */
 import React from "react";
 
+import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
+import { useEditProject } from "@/features/authorizedApp/api/editProject";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { actions as uiActions } from "@/store/slices/ui";
 
@@ -11,25 +13,33 @@ type FormFieldsConfig = React.ComponentPropsWithoutRef<
   typeof Form
 >["formFieldsConfig"];
 
-const formFieldsConfig = [
+const formFieldsConfig: FormFieldsConfig = [
   {
     label: "Name" as const,
     type: "text" as const,
+    name: "name" as const,
     required: true,
   },
   {
     label: "Color" as const,
     type: "color" as const,
+    name: "color" as const,
     required: true,
   },
   {
     label: "Add to favorites" as const,
     type: "switch" as const,
+    name: "isFavorite" as const,
   },
-] as FormFieldsConfig;
+];
 
-export const EditProjectForm = () => {
+type EditProjectFormProps = {
+  projectId: string;
+};
+
+export const EditProjectForm = ({ projectId }: EditProjectFormProps) => {
   const dispatch = useAppDispatch();
+  const editProjectMutation = useEditProject();
 
   // We should get this data from the state for this concrete label
   const dummyCurrentData = {
@@ -44,8 +54,8 @@ export const EditProjectForm = () => {
     }
   });
 
-  const onSubmit = (formValues: Record<string, string | boolean>) => {
-    console.log("Edit project", formValues);
+  const onSubmit = (formValues: FormValues<typeof formFieldsConfig>) => {
+    editProjectMutation.mutate({ id: projectId, ...formValues });
     dispatch(uiActions.editProjectFormDismissed());
   };
 
