@@ -24,14 +24,17 @@ Default.args = {
       label: "Name",
       type: "text",
       required: true,
+      name: "name",
     },
     {
       label: "Color",
       type: "color",
+      name: "color",
     },
     {
       label: "Add to list",
       type: "switch",
+      name: "addToList",
     },
   ],
   onSubmit: (values) => console.log(values),
