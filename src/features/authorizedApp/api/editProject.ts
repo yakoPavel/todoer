@@ -6,8 +6,10 @@ import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { PatchProjectBody } from "@/types";
 
+const DATA_LABEL = "projects";
+
 function optimisticallyUpdateData(newProjectData: PatchProjectBody) {
-  const prevData = queryClient.getQueryData<Project[]>("projects");
+  const prevData = queryClient.getQueryData<Project[]>(DATA_LABEL);
 
   if (!prevData) return;
 
@@ -22,7 +24,7 @@ function optimisticallyUpdateData(newProjectData: PatchProjectBody) {
 
   newData[projectToEditIndex] = { ...projectToEdit, ...newProjectData };
 
-  queryClient.setQueryData<Project[]>("projects", newData);
+  queryClient.setQueryData<Project[]>(DATA_LABEL, newData);
 }
 
 export async function editProject(
@@ -43,10 +45,10 @@ export const useEditProject = ({ config }: UseEditProjectOptions = {}) => {
 
   return useMutation({
     onMutate: async (newProjectData) => {
-      await queryClient.cancelQueries("projects");
+      await queryClient.cancelQueries(DATA_LABEL);
 
       const previousProjectData =
-        queryClient.getQueryData<Project[]>("projects");
+        queryClient.getQueryData<Project[]>(DATA_LABEL);
 
       optimisticallyUpdateData(newProjectData);
 
@@ -59,13 +61,13 @@ export const useEditProject = ({ config }: UseEditProjectOptions = {}) => {
         "previousProjectData" in context
       ) {
         queryClient.setQueryData<Project[]>(
-          "project",
+          DATA_LABEL,
           context.previousProjectData,
         );
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries("projects");
+      queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
     mutationFn: editProject.bind(null, awaitedClient),

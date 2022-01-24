@@ -5,6 +5,8 @@ import { Project } from "../types";
 
 import { useClient } from "@/hooks/useClient";
 
+const DATA_LABEL = "projects";
+
 async function getProjects(
   instance: Promise<AxiosInstance>,
 ): Promise<Project[]> {
@@ -16,7 +18,7 @@ async function getProjects(
 function useProjects() {
   const client = useClient();
 
-  return useQuery("projects", () => getProjects(client));
+  return useQuery(DATA_LABEL, () => getProjects(client));
 }
 
 export { getProjects, useProjects };

@@ -6,8 +6,10 @@ import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { PatchLabelBody } from "@/types";
 
+const DATA_LABEL = "labels";
+
 function optimisticallyUpdateData(newLabelData: PatchLabelBody) {
-  const prevData = queryClient.getQueryData<Label[]>("labels");
+  const prevData = queryClient.getQueryData<Label[]>(DATA_LABEL);
 
   if (!prevData) return;
 
@@ -22,7 +24,7 @@ function optimisticallyUpdateData(newLabelData: PatchLabelBody) {
 
   newData[labelToEditIndex] = { ...labelToEdit, ...newLabelData };
 
-  queryClient.setQueryData<Label[]>("labels", newData);
+  queryClient.setQueryData<Label[]>(DATA_LABEL, newData);
 }
 
 export async function editLabel(
@@ -43,9 +45,9 @@ export const useEditLabel = ({ config }: UseEditLabelOptions = {}) => {
 
   return useMutation({
     onMutate: async (newLabelData) => {
-      await queryClient.cancelQueries("labels");
+      await queryClient.cancelQueries(DATA_LABEL);
 
-      const previousLabelData = queryClient.getQueryData<Label[]>("labels");
+      const previousLabelData = queryClient.getQueryData<Label[]>(DATA_LABEL);
 
       optimisticallyUpdateData(newLabelData);
 
@@ -58,13 +60,13 @@ export const useEditLabel = ({ config }: UseEditLabelOptions = {}) => {
         "previousProjectData" in context
       ) {
         queryClient.setQueryData<Label[]>(
-          "labels",
+          DATA_LABEL,
           context.previousProjectData,
         );
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries("labels");
+      queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
     mutationFn: editLabel.bind(null, awaitedClient),

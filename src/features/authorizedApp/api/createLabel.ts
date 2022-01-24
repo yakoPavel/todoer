@@ -6,6 +6,8 @@ import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { CreateLabelBody } from "@/types";
 
+const DATA_LABEL = "labels";
+
 export async function createLabel(
   instance: Promise<AxiosInstance>,
   projectData: CreateLabelBody,
@@ -24,11 +26,11 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
 
   return useMutation({
     onMutate: async (newLabelData) => {
-      await queryClient.cancelQueries("labels");
+      await queryClient.cancelQueries(DATA_LABEL);
 
-      const previousProjectData = queryClient.getQueryData<Label[]>("labels");
+      const previousProjectData = queryClient.getQueryData<Label[]>(DATA_LABEL);
 
-      queryClient.setQueryData<Label[]>("labels", [
+      queryClient.setQueryData<Label[]>(DATA_LABEL, [
         ...(previousProjectData ?? []),
         {
           id: String(Date.now()),
@@ -53,7 +55,7 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries("labels");
+      queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
     mutationFn: createLabel.bind(null, awaitedClient),

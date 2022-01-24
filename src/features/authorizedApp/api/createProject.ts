@@ -6,6 +6,8 @@ import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { CreateProjectBody } from "@/types";
 
+const DATA_LABEL = "projects";
+
 export async function createProject(
   instance: Promise<AxiosInstance>,
   projectData: CreateProjectBody,
@@ -24,12 +26,12 @@ export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
 
   return useMutation({
     onMutate: async (newProjectData) => {
-      await queryClient.cancelQueries("projects");
+      await queryClient.cancelQueries(DATA_LABEL);
 
       const previousProjectData =
-        queryClient.getQueryData<Project[]>("projects");
+        queryClient.getQueryData<Project[]>(DATA_LABEL);
 
-      queryClient.setQueryData("projects", [
+      queryClient.setQueryData(DATA_LABEL, [
         ...(previousProjectData ?? []),
         {
           id: String(Date.now()),
@@ -55,7 +57,7 @@ export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries("projects");
+      queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
     mutationFn: createProject.bind(null, awaitedClient),
