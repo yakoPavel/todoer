@@ -8,10 +8,14 @@ import { DragAndDropProps } from "../components/DragAndDrop/DragAndDrop";
  * draggable is determined just by the user's actions, i.e. if a user drops
  * a draggable to a new position this position applied.
  *
- * @param initialDraggables - Initial draggables and their ids.
+ * @param draggablesData - Draggable items and their ids. For better performance should be memoized.
  */
-function useOnDragEnd(initialDraggables: DragAndDropProps["draggables"]) {
-  const [draggables, setDraggables] = React.useState(initialDraggables);
+function useOnDragEnd(draggablesData: DragAndDropProps["draggables"]) {
+  const [draggables, setDraggables] = React.useState(draggablesData);
+
+  React.useEffect(() => {
+    setDraggables(draggablesData);
+  }, [draggablesData]);
 
   const onDragEnd: DragAndDropProps["onDragEnd"] = ({
     source,
