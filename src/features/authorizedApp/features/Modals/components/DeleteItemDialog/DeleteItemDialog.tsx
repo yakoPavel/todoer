@@ -5,7 +5,7 @@ import { Dialog } from "../Dialog/Dialog";
 
 import { useDeleteLabel } from "@/features/authorizedApp/api/deleteLabel";
 import { useDeleteProject } from "@/features/authorizedApp/api/deleteProject";
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 type RemoveItemDialogProps = {
@@ -25,7 +25,7 @@ export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
   const dummyItemToDelete = { name: "Do my homework" };
 
   const onCancel = () => {
-    dispatch(uiActions.deleteItemDialogDismissed());
+    dispatch(modalsUiActions.deleteItemDialogDismissed());
   };
 
   const onConfirm = () => {
@@ -35,7 +35,7 @@ export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
       deleteLabelMutation.mutate(itemId);
     }
 
-    dispatch(uiActions.deleteItemDialogDismissed());
+    dispatch(modalsUiActions.deleteItemDialogDismissed());
   };
 
   const dialogContent = (

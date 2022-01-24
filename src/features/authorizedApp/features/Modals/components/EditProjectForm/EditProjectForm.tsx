@@ -6,7 +6,7 @@ import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
 import { useEditProject } from "@/features/authorizedApp/api/editProject";
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 type FormFieldsConfig = React.ComponentPropsWithoutRef<
@@ -56,11 +56,11 @@ export const EditProjectForm = ({ projectId }: EditProjectFormProps) => {
 
   const onSubmit = (formValues: FormValues<typeof formFieldsConfig>) => {
     editProjectMutation.mutate({ id: projectId, ...formValues });
-    dispatch(uiActions.editProjectFormDismissed());
+    dispatch(modalsUiActions.editProjectFormDismissed());
   };
 
   const onDismiss = () => {
-    dispatch(uiActions.editProjectFormDismissed());
+    dispatch(modalsUiActions.editProjectFormDismissed());
   };
 
   return (

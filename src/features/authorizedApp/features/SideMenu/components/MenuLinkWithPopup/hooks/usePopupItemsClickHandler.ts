@@ -1,4 +1,4 @@
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 type ActionType =
@@ -20,7 +20,7 @@ function usePopupItemsClickHandler(triggerId: string) {
     switch (action as ActionType) {
       case "ADD_LABEL_ABOVE": {
         dispatch(
-          uiActions.addLabelFormAppeared({
+          modalsUiActions.addLabelFormAppeared({
             additionDirection: "above",
             triggerId,
           }),
@@ -29,7 +29,7 @@ function usePopupItemsClickHandler(triggerId: string) {
       }
       case "ADD_LABEL_BELOW": {
         dispatch(
-          uiActions.addLabelFormAppeared({
+          modalsUiActions.addLabelFormAppeared({
             additionDirection: "below",
             triggerId,
           }),
@@ -38,7 +38,7 @@ function usePopupItemsClickHandler(triggerId: string) {
       }
       case "ADD_PROJECT_ABOVE": {
         dispatch(
-          uiActions.addProjectFormAppeared({
+          modalsUiActions.addProjectFormAppeared({
             additionDirection: "above",
             triggerId,
           }),
@@ -47,7 +47,7 @@ function usePopupItemsClickHandler(triggerId: string) {
       }
       case "ADD_PROJECT_BELOW": {
         dispatch(
-          uiActions.addProjectFormAppeared({
+          modalsUiActions.addProjectFormAppeared({
             additionDirection: "below",
             triggerId,
           }),
@@ -55,16 +55,16 @@ function usePopupItemsClickHandler(triggerId: string) {
         break;
       }
       case "EDIT_LABEL": {
-        dispatch(uiActions.editLabelFormAppeared({ triggerId }));
+        dispatch(modalsUiActions.editLabelFormAppeared({ triggerId }));
         break;
       }
       case "EDIT_PROJECT": {
-        dispatch(uiActions.editProjectFormAppeared({ triggerId }));
+        dispatch(modalsUiActions.editProjectFormAppeared({ triggerId }));
         break;
       }
       case "DELETE_LABEL": {
         dispatch(
-          uiActions.deleteItemDialogAppeared({
+          modalsUiActions.deleteItemDialogAppeared({
             itemType: "label",
             itemId: triggerId,
           }),
@@ -73,7 +73,7 @@ function usePopupItemsClickHandler(triggerId: string) {
       }
       case "DELETE_PROJECT": {
         dispatch(
-          uiActions.deleteItemDialogAppeared({
+          modalsUiActions.deleteItemDialogAppeared({
             itemType: "project",
             itemId: triggerId,
           }),

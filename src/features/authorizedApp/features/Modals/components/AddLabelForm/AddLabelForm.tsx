@@ -4,7 +4,7 @@ import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
 import { useCreateLabel } from "@/features/authorizedApp/api/createLabel";
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 const formFieldsConfig = [
@@ -33,11 +33,11 @@ export const AddLabelForm = () => {
 
   const onSubmit = (formValues: FormValues<typeof formFieldsConfig>) => {
     createLabelMutation.mutate(formValues);
-    dispatch(uiActions.addLabelFormDismissed());
+    dispatch(modalsUiActions.addLabelFormDismissed());
   };
 
   const onDismiss = () => {
-    dispatch(uiActions.addLabelFormDismissed());
+    dispatch(modalsUiActions.addLabelFormDismissed());
   };
 
   return (

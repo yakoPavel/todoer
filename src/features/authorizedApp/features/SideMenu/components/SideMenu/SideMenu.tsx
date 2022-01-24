@@ -12,7 +12,7 @@ import { SIDE_MENU } from "@/config/localStorage";
 import { useLabels } from "@/features/authorizedApp/api/getLabels";
 import { useProjects } from "@/features/authorizedApp/api/getProjects";
 import { DragAndDrop } from "@/features/authorizedApp/features/DragAndDrop";
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { Label, Project } from "@/features/authorizedApp/types";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { EventWithProcessedField } from "@/types";
@@ -57,9 +57,9 @@ const SideMenuContent = ({
     event.processed = true;
 
     if (type === "project") {
-      dispatch(uiActions.addProjectFormAppeared());
+      dispatch(modalsUiActions.addProjectFormAppeared());
     } else if (type === "label") {
-      dispatch(uiActions.addLabelFormAppeared());
+      dispatch(modalsUiActions.addLabelFormAppeared());
     }
   };
 

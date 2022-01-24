@@ -38,23 +38,20 @@ type DeleteItemDialogNotVisibleState = {
   visible: false;
 };
 
-type UiState = {
+type ModalsUiState = {
   addProject: AddNewFormNotVisibleState | AddNewFormVisibleState;
   editProject: EditFormNotVisibleState | EditFormVisibleState;
   addLabel: AddNewFormNotVisibleState | AddNewFormVisibleState;
   editLabel: EditFormNotVisibleState | EditFormVisibleState;
   deleteItem: DeleteItemDialogNotVisibleState | DeleteItemDialogVisibleState;
-  /** Whether or not the side menu is opened. */
-  sideMenuOpened: boolean;
 };
 
-const initialState: UiState = {
+const initialState: ModalsUiState = {
   addProject: { visible: false },
   editProject: { visible: false },
   addLabel: { visible: false },
   editLabel: { visible: false },
   deleteItem: { visible: false },
-  sideMenuOpened: false,
 };
 
 /* Action payload types */
@@ -71,8 +68,8 @@ type DeleteItemDialogAppearedPayload = {
 };
 
 /* Slice */
-const uiSlice = createSlice({
-  name: "ui",
+const modalsUiSlice = createSlice({
+  name: "modalsUi",
   initialState,
   reducers: {
     addProjectFormDismissed(state) {
@@ -139,27 +136,19 @@ const uiSlice = createSlice({
         ...action.payload,
       };
     },
-
-    sideMenuOpened(state) {
-      state.sideMenuOpened = true;
-    },
-    sideMenuClosed(state) {
-      state.sideMenuOpened = false;
-    },
   },
 });
 
 /* Public actions */
-export const { actions } = uiSlice;
+export const { actions } = modalsUiSlice;
 
 /* Selectors */
 export const selectors = {
-  selectAddProjectFormState: (state: RootState) => state.ui.addProject,
-  selectAddLabelFormState: (state: RootState) => state.ui.addLabel,
-  selectEditProjectFormState: (state: RootState) => state.ui.editProject,
-  selectEditLabelFormState: (state: RootState) => state.ui.editLabel,
-  selectIsSideMenuOpened: (state: RootState) => state.ui.sideMenuOpened,
-  selectDeleteItemDialogState: (state: RootState) => state.ui.deleteItem,
+  selectAddProjectFormState: (state: RootState) => state.modalsUi.addProject,
+  selectAddLabelFormState: (state: RootState) => state.modalsUi.addLabel,
+  selectEditProjectFormState: (state: RootState) => state.modalsUi.editProject,
+  selectEditLabelFormState: (state: RootState) => state.modalsUi.editLabel,
+  selectDeleteItemDialogState: (state: RootState) => state.modalsUi.deleteItem,
 };
 
-export default uiSlice.reducer;
+export default modalsUiSlice.reducer;

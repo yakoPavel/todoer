@@ -5,7 +5,7 @@ import React from "react";
 import { Form } from "../Form/Form";
 
 import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 type FormFieldsConfig = React.ComponentPropsWithoutRef<
@@ -53,11 +53,11 @@ export const EditLabelForm = ({ labelId }: EditLabelFormProps) => {
 
   const onSubmit = (formValues: Record<string, string | boolean>) => {
     editLabelMutation.mutate({ id: labelId, ...formValues });
-    dispatch(uiActions.editLabelFormDismissed());
+    dispatch(modalsUiActions.editLabelFormDismissed());
   };
 
   const onDismiss = () => {
-    dispatch(uiActions.editLabelFormDismissed());
+    dispatch(modalsUiActions.editLabelFormDismissed());
   };
 
   return (

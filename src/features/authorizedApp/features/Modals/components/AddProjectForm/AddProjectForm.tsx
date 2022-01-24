@@ -4,7 +4,7 @@ import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
 import { useCreateProject } from "@/features/authorizedApp/api/createProject";
-import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
+import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 const formFieldsConfig = [
@@ -41,11 +41,11 @@ export const AddProjectForm = () => {
       name,
       isFavorite,
     });
-    dispatch(uiActions.addProjectFormDismissed());
+    dispatch(modalsUiActions.addProjectFormDismissed());
   };
 
   const onDismiss = () => {
-    dispatch(uiActions.addProjectFormDismissed());
+    dispatch(modalsUiActions.addProjectFormDismissed());
   };
 
   return (
