@@ -13,7 +13,7 @@ type ActionType =
   | "DELETE_LABEL"
   | "REMOVE_FROM_FAVORITES";
 
-function usePopupItemsClickHandler(popupType: string) {
+function usePopupItemsClickHandler(triggerId: string) {
   const dispatch = useAppDispatch();
 
   const popupItemsClickHandler = (action: string) => {
@@ -22,7 +22,7 @@ function usePopupItemsClickHandler(popupType: string) {
         dispatch(
           uiActions.addLabelFormAppeared({
             additionDirection: "above",
-            triggerId: popupType,
+            triggerId,
           }),
         );
         break;
@@ -31,7 +31,7 @@ function usePopupItemsClickHandler(popupType: string) {
         dispatch(
           uiActions.addLabelFormAppeared({
             additionDirection: "below",
-            triggerId: popupType,
+            triggerId,
           }),
         );
         break;
@@ -40,7 +40,7 @@ function usePopupItemsClickHandler(popupType: string) {
         dispatch(
           uiActions.addProjectFormAppeared({
             additionDirection: "above",
-            triggerId: popupType,
+            triggerId,
           }),
         );
         break;
@@ -49,24 +49,24 @@ function usePopupItemsClickHandler(popupType: string) {
         dispatch(
           uiActions.addProjectFormAppeared({
             additionDirection: "below",
-            triggerId: popupType,
+            triggerId,
           }),
         );
         break;
       }
       case "EDIT_LABEL": {
-        dispatch(uiActions.editLabelFormAppeared({ triggerId: popupType }));
+        dispatch(uiActions.editLabelFormAppeared({ triggerId }));
         break;
       }
       case "EDIT_PROJECT": {
-        dispatch(uiActions.editProjectFormAppeared({ triggerId: popupType }));
+        dispatch(uiActions.editProjectFormAppeared({ triggerId }));
         break;
       }
       case "DELETE_LABEL": {
         dispatch(
           uiActions.deleteItemDialogAppeared({
             itemType: "label",
-            itemId: popupType,
+            itemId: triggerId,
           }),
         );
         break;
@@ -75,7 +75,7 @@ function usePopupItemsClickHandler(popupType: string) {
         dispatch(
           uiActions.deleteItemDialogAppeared({
             itemType: "project",
-            itemId: popupType,
+            itemId: triggerId,
           }),
         );
         break;

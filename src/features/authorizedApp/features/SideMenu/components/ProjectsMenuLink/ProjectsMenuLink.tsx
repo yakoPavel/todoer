@@ -54,6 +54,11 @@ function getProjectsPopupMenuItems(
 }
 
 type ProjectsMenuLinkProps = {
+  /**
+   * An id of the link. Will be passed as a payload when the user clicks
+   * on a popup menu item.
+   */
+  id: string;
   /** A name of this project. */
   name: string;
   /** A number of tasks in this project. */
@@ -65,6 +70,7 @@ type ProjectsMenuLinkProps = {
 };
 
 export const ProjectsMenuLink = ({
+  id,
   name,
   numberOfTasks,
   isFavorite,
@@ -77,7 +83,7 @@ export const ProjectsMenuLink = ({
 
   return (
     <MenuLinkWithPopup
-      type="project"
+      id={id}
       text={name}
       rightSlot={<NumberOfTasks>{numberOfTasks}</NumberOfTasks>}
       popupItemsConfig={projectsPopupMenuItems}

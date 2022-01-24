@@ -49,6 +49,11 @@ function getLabelsPopupMenuItems(
 }
 
 type LabelsMenuLinkProps = {
+  /**
+   * An id of the link. Will be passed as a payload when the user clicks
+   * on a popup menu item.
+   */
+  id: string;
   /** A name of this project. */
   name: string;
   /** A color of the label. */
@@ -60,6 +65,7 @@ type LabelsMenuLinkProps = {
 };
 
 export const LabelsMenuLink = ({
+  id,
   name,
   color,
   isFavorite,
@@ -72,7 +78,7 @@ export const LabelsMenuLink = ({
 
   return (
     <MenuLinkWithPopup
-      type="label"
+      id={id}
       text={name}
       leftSlot={<MdLabel color={color} />}
       popupItemsConfig={labelsPopupMenuItems}

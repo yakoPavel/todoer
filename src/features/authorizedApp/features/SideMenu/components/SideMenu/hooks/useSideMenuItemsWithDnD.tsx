@@ -24,6 +24,7 @@ function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
             isFavorite={isFavorite}
             name={name}
             numberOfTasks={taskIds.length}
+            id={id}
           />
         ),
         id,
@@ -38,7 +39,12 @@ function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
   const labelItems = labelsData.map(({ name, color, id, isFavorite }) => {
     const item = {
       component: (
-        <LabelsMenuLink isFavorite={isFavorite} name={name} color={color} />
+        <LabelsMenuLink
+          isFavorite={isFavorite}
+          name={name}
+          color={color}
+          id={id}
+        />
       ),
       id,
     };

@@ -57,8 +57,11 @@ ClickPopupTrigger.displayName = "ClickPopupTrigger";
 type MenuLinkWithPopupProps = MenuLinkProps & {
   /** A popup items config. */
   popupItemsConfig: PopupMenuProps["menuItems"];
-  /** A type of the link. */
-  type: "project" | "label";
+  /**
+   * An id of the link. Will be passed as a payload when the user clicks
+   * on a popup menu item.
+   */
+  id: string;
 };
 
 export const MenuLinkWithPopup = ({
@@ -66,7 +69,7 @@ export const MenuLinkWithPopup = ({
   rightSlot,
   text,
   popupItemsConfig,
-  type,
+  id,
 }: MenuLinkWithPopupProps) => {
   const {
     isPopupVisible: isContextMenuVisible,
@@ -79,7 +82,7 @@ export const MenuLinkWithPopup = ({
     triggerRef: clickMenuTriggerRef,
   } = usePopupMenu("click");
 
-  const popupItemsClickHandler = usePopupItemsClickHandler(type);
+  const popupItemsClickHandler = usePopupItemsClickHandler(id);
 
   return (
     <>
