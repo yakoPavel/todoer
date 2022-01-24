@@ -7,8 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import { UserContextProvider } from "@/context/UserContext";
+import { store } from "@/features/authorizedApp/store/store";
 import { queryClient } from "@/lib/react-query";
-import { store } from "@/store/store";
 import { chakraTheme } from "@/style/chakraTheme";
 import { GlobalDynamicStyles } from "@/style/globalDynamicStyles";
 import { initializeFirebase } from "@/utils/initializeFirebase";

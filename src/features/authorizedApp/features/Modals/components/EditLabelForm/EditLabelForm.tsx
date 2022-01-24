@@ -5,8 +5,8 @@ import React from "react";
 import { Form } from "../Form/Form";
 
 import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
+import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { actions as uiActions } from "@/store/slices/ui";
 
 type FormFieldsConfig = React.ComponentPropsWithoutRef<
   typeof Form

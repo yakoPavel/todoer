@@ -5,8 +5,8 @@ import { Dialog } from "../Dialog/Dialog";
 
 import { useDeleteLabel } from "@/features/authorizedApp/api/deleteLabel";
 import { useDeleteProject } from "@/features/authorizedApp/api/deleteProject";
+import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { actions as uiActions } from "@/store/slices/ui";
 
 type RemoveItemDialogProps = {
   /** A type of the item that needs to be removed. */

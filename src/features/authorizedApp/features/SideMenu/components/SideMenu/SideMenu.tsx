@@ -12,9 +12,9 @@ import { SIDE_MENU } from "@/config/localStorage";
 import { useLabels } from "@/features/authorizedApp/api/getLabels";
 import { useProjects } from "@/features/authorizedApp/api/getProjects";
 import { DragAndDrop } from "@/features/authorizedApp/features/DragAndDrop";
+import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
 import { Label, Project } from "@/features/authorizedApp/types";
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { actions as uiActions } from "@/store/slices/ui";
 import { EventWithProcessedField } from "@/types";
 import * as localStorage from "@/utils/localStorage";
 

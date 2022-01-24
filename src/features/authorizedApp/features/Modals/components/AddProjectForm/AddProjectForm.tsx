@@ -4,8 +4,8 @@ import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
 import { useCreateProject } from "@/features/authorizedApp/api/createProject";
+import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { actions as uiActions } from "@/store/slices/ui";
 
 const formFieldsConfig = [
   {

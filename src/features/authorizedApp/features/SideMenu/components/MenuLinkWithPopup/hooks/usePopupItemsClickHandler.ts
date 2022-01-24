@@ -1,5 +1,5 @@
+import { actions as uiActions } from "@/features/authorizedApp/store/slices/ui";
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { actions as uiActions } from "@/store/slices/ui";
 
 type ActionType =
   | "ADD_PROJECT_ABOVE"

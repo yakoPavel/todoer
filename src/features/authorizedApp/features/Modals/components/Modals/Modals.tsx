@@ -6,8 +6,8 @@ import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
 import { EditLabelForm } from "../EditLabelForm/EditLabelForm";
 import { EditProjectForm } from "../EditProjectForm/EditProjectForm";
 
+import { selectors } from "@/features/authorizedApp/store/slices/ui";
 import { useAppSelector } from "@/hooks/storeHooks";
-import { selectors } from "@/store/slices/ui";
 
 export const Modals = () => {
   const addProjectForm = useAppSelector(selectors.selectAddProjectFormState);
