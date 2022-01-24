@@ -10,10 +10,10 @@ import {
 import { Label, Project } from "@/features/authorizedApp/types";
 
 /**
- * This hook creates side menu items and passes them to the DnD establishing
- * mechanism.
+ * Generates side menu item components and wraps them in an object so that
+ * it conforms to the format expected by the `DragAndDrop`.
  */
-function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
+function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
   const favoriteItems: DragAndDropProps["draggables"] = [];
 
   const projectItems = projectsData.map(
@@ -47,6 +47,19 @@ function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
 
     return item;
   });
+
+  return { projectItems, labelItems, favoriteItems };
+}
+
+/**
+ * This hook creates side menu items and passes them to the DnD establishing
+ * mechanism.
+ */
+function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
+  const { projectItems, labelItems, favoriteItems } = React.useMemo(
+    () => generateItemsForDnD(projectsData, labelsData),
+    [projectsData, labelsData],
+  );
 
   const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
     useOnDragEnd(projectItems);
