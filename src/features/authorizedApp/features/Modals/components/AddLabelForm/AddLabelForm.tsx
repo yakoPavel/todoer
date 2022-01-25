@@ -5,6 +5,7 @@ import { Form } from "../Form/Form";
 
 import { useCreateLabel } from "@/features/authorizedApp/api/createLabel";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
+import { actions as sideMenuUiActions } from "@/features/authorizedApp/store/slices/sideMenuUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 const formFieldsConfig = [
@@ -34,6 +35,10 @@ export const AddLabelForm = () => {
   const onSubmit = (formValues: FormValues<typeof formFieldsConfig>) => {
     createLabelMutation.mutate(formValues);
     dispatch(modalsUiActions.addLabelFormDismissed());
+
+    // Open the side menu section if it is closed. Deffer it to the next tick
+    // so that the new project is already in the list.
+    setTimeout(() => dispatch(sideMenuUiActions.labelsSectionOpened()), 0);
   };
 
   const onDismiss = () => {
