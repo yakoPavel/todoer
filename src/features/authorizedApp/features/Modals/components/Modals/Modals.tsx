@@ -1,7 +1,7 @@
 import React from "react";
 
-import { AddLabelForm } from "../AddLabelForm/AddLabelForm";
-import { AddProjectForm } from "../AddProjectForm/AddProjectForm";
+import { AddLabelForm } from "../AddItemForms/AddLabelForm";
+import { AddProjectForm } from "../AddItemForms/AddProjectForm";
 import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
 import { EditLabelForm } from "../EditLabelForm/EditLabelForm";
 import { EditProjectForm } from "../EditProjectForm/EditProjectForm";
