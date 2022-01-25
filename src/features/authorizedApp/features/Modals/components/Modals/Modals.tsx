@@ -3,8 +3,10 @@ import React from "react";
 import { AddLabelForm } from "../AddItemForms/AddLabelForm";
 import { AddProjectForm } from "../AddItemForms/AddProjectForm";
 import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
-import { EditLabelForm } from "../EditLabelForm/EditLabelForm";
-import { EditProjectForm } from "../EditProjectForm/EditProjectForm";
+import { EditLabelForm } from "../EditItemForms/EditLabelForm";
+import { EditProjectForm } from "../EditItemForms/EditProjectForm";
+// import { EditLabelForm } from "../EditLabelForm/EditLabelForm";
+// import { EditProjectForm } from "../EditProjectForm/EditProjectForm";
 
 import { selectors } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppSelector } from "@/hooks/storeHooks";
