@@ -22,14 +22,13 @@ const Template: ComponentStory<typeof MenuSection> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  sectionTitle: "Section title",
+  sectionTitle: "Favorites",
   sectionContent: "content",
 };
 
 export const WithRightSlot = Template.bind({});
 WithRightSlot.args = {
-  sectionTitle: "Section title",
-  sectionContent: "content",
+  ...Default.args,
   rightSlot: <BsThreeDots />,
 };
 WithRightSlot.storyName = "With right slot";

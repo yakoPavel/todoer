@@ -11,13 +11,16 @@ import {
 import { useTheme } from "@emotion/react";
 import React from "react";
 
-import { SIDE_MENU } from "@/config/localStorage";
+import {
+  actions as sideMenuActions,
+  selectors,
+} from "@/features/authorizedApp/store/slices/sideMenuUi";
+import { useAppSelector, useAppDispatch } from "@/hooks/storeHooks";
 import { EventWithProcessedField } from "@/types";
-import * as localStorage from "@/utils/localStorage";
 
 type MenuSectionProps = {
   /** A title of this section. */
-  sectionTitle: string;
+  sectionTitle: "Favorites" | "Projects" | "Labels";
   /** Content of this section. */
   sectionContent: React.ReactNode;
   /** A component that will be placed on the right side of the section title. */
@@ -33,38 +36,19 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
   className,
 }) => {
   const theme = useTheme();
-  const [collapsed, setCollapsed] = React.useState(() =>
-    localStorage
-      .getFromLocalStorage(SIDE_MENU.COLLAPSED_SECTIONS, [] as string[])
-      .includes(sectionTitle),
+  const dispatch = useAppDispatch();
+  const isOpened = useAppSelector((state) =>
+    selectors.selectIsSectionOpened(sectionTitle, state),
   );
 
   const onToggle = (event: EventWithProcessedField<React.MouseEvent>) => {
     if (event.processed) return;
-    setCollapsed((prevState) => {
-      const newState = !prevState;
 
-      const collapsedSections = localStorage.getFromLocalStorage(
-        SIDE_MENU.COLLAPSED_SECTIONS,
-        [] as string[],
-      );
-      const thisSectionIndex = collapsedSections.findIndex(
-        (collapsedSection) => collapsedSection === sectionTitle,
-      );
-
-      if (thisSectionIndex === -1) {
-        collapsedSections.push(sectionTitle);
-      } else {
-        collapsedSections.splice(thisSectionIndex, 1);
-      }
-
-      localStorage.saveToLocalStorage(
-        SIDE_MENU.COLLAPSED_SECTIONS,
-        collapsedSections,
-      );
-
-      return newState;
-    });
+    if (isOpened) {
+      dispatch(sideMenuActions.sectionClosed(sectionTitle));
+    } else {
+      dispatch(sideMenuActions.sectionOpened(sectionTitle));
+    }
   };
 
   return (
@@ -72,7 +56,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
       allowToggle
       width="100%"
       className={className}
-      index={collapsed ? -1 : 0}
+      index={isOpened ? 0 : -1}
     >
       <AccordionItem border="none">
         <h3>
