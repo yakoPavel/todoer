@@ -6,10 +6,10 @@ import { UseMutationResult } from "react-query";
 import { FormValues } from "../../types";
 import { Form, FormFieldConfig } from "../Form/Form";
 
-import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 type AddItemFormProps<FieldsConfig extends FormFieldConfig[], Data> = {
+  formTitle: string;
   fieldsConfig: FieldsConfig;
   createItemMutation: UseMutationResult<Data, AxiosError, any>;
   closeModalAction: PayloadActionCreator;
@@ -17,6 +17,7 @@ type AddItemFormProps<FieldsConfig extends FormFieldConfig[], Data> = {
 };
 
 export const AddItemForm = <FieldsConfig extends FormFieldConfig[], Data>({
+  formTitle,
   fieldsConfig,
   createItemMutation,
   closeModalAction,
@@ -34,12 +35,12 @@ export const AddItemForm = <FieldsConfig extends FormFieldConfig[], Data>({
   };
 
   const onDismiss = () => {
-    dispatch(modalsUiActions.addLabelFormDismissed());
+    dispatch(closeModalAction());
   };
 
   return (
     <Form
-      title="Add label"
+      title={formTitle}
       formFieldsConfig={fieldsConfig}
       onSubmit={onSubmit}
       onDismiss={onDismiss}

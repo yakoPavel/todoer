@@ -31,6 +31,7 @@ export const AddLabelForm = () => {
 
   return (
     <AddItemForm
+      formTitle="Add label"
       closeModalAction={modalsUiActions.addLabelFormDismissed}
       openSectionAction={sideMenuUiActions.labelsSectionOpened}
       fieldsConfig={formFieldsConfig}

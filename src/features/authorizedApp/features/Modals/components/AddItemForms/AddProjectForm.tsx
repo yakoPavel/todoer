@@ -31,6 +31,7 @@ export const AddProjectForm = () => {
 
   return (
     <AddItemForm
+      formTitle="Add project"
       closeModalAction={modalsUiActions.addProjectFormDismissed}
       openSectionAction={sideMenuUiActions.projectsSectionOpened}
       fieldsConfig={formFieldsConfig}
