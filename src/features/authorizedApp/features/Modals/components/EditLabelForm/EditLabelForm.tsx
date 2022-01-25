@@ -1,57 +1,97 @@
-/* eslint-disable dot-notation */
-/* eslint-disable no-param-reassign */
 import React from "react";
 
+import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
 import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
+import { useLabels } from "@/features/authorizedApp/api/getLabels";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
-type FormFieldsConfig = React.ComponentPropsWithoutRef<
-  typeof Form
->["formFieldsConfig"];
-
-const formFieldsConfig: FormFieldsConfig = [
+type FormFieldConfigWithInitialValues = [
   {
-    label: "Label name" as const,
-    type: "text" as const,
-    name: "name" as const,
-    required: true,
+    label: "Label name";
+    type: "text";
+    name: "name";
+    required: true;
+    initialValue: string;
   },
   {
-    label: "Label color" as const,
-    type: "color" as const,
-    name: "color" as const,
-    required: true,
+    label: "Label color";
+    type: "color";
+    name: "color";
+    required: true;
+    initialValue: string;
   },
   {
-    label: "Add to favorites" as const,
-    type: "switch" as const,
-    name: "isFavorite" as const,
+    label: "Add to favorites";
+    type: "switch";
+    name: "isFavorite";
+    initialValue: boolean;
   },
 ];
+
+/**
+ * Returns config for the form fields with initial values
+ */
+function getFormFieldsConfigWithInitialValues(
+  currentData: FormValues<FormFieldConfigWithInitialValues>,
+): FormFieldConfigWithInitialValues {
+  return [
+    {
+      label: "Label name",
+      type: "text",
+      name: "name",
+      required: true,
+      initialValue: currentData.name,
+    },
+    {
+      label: "Label color",
+      type: "color",
+      name: "color",
+      required: true,
+      initialValue: currentData.color,
+    },
+    {
+      label: "Add to favorites",
+      type: "switch",
+      name: "isFavorite",
+      initialValue: currentData.isFavorite,
+    },
+  ];
+}
 
 type EditLabelFormProps = { labelId: string };
 
 export const EditLabelForm = ({ labelId }: EditLabelFormProps) => {
   const dispatch = useAppDispatch();
   const editLabelMutation = useEditLabel();
+  const labelsInfo = useLabels();
 
-  // We should get this data from the state for this concrete label
-  const dummyCurrentData = {
-    "Label name": "My label",
-    "Label color": "gold",
-    "Add to favorites": true,
-  } as Record<string, string | boolean>;
+  if (labelsInfo.isLoading) {
+    // Show spinner here
+    return null;
+  }
 
-  formFieldsConfig.forEach((staticConfig) => {
-    if (staticConfig.label in dummyCurrentData) {
-      staticConfig.initialValue = dummyCurrentData[staticConfig.label];
-    }
-  });
+  if (labelsInfo.isError) {
+    // Show retry button
+    return null;
+  }
 
-  const onSubmit = (formValues: Record<string, string | boolean>) => {
+  const currentData = labelsInfo.data?.find(
+    (labelInfo) => labelInfo.id === labelId,
+  );
+
+  if (!currentData) {
+    // Something is really wrong if we don't have data for this label
+    throw new Error(`We don't have data for the label with the ${labelId} id!`);
+  }
+
+  const formFieldsConfig = getFormFieldsConfigWithInitialValues(currentData);
+
+  const onSubmit = (
+    formValues: FormValues<FormFieldConfigWithInitialValues>,
+  ) => {
     editLabelMutation.mutate({ id: labelId, ...formValues });
     dispatch(modalsUiActions.editLabelFormDismissed());
   };
