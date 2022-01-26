@@ -1,6 +1,8 @@
 import { AxiosInstance } from "axios";
 import { useMutation } from "react-query";
 
+import { generateTempId } from "./utils/generateTempId";
+
 import { Label } from "@/features/authorizedApp/types";
 import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
@@ -33,7 +35,7 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
       queryClient.setQueryData<Label[]>(DATA_LABEL, [
         ...(previousProjectData ?? []),
         {
-          id: String(Date.now()),
+          id: generateTempId(),
           createdAt: Date.now(),
           isFavorite: newLabelData.isFavorite ?? false,
           ...newLabelData,

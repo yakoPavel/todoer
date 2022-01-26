@@ -1,6 +1,8 @@
 import { AxiosInstance } from "axios";
 import { useMutation } from "react-query";
 
+import { generateTempId } from "./utils/generateTempId";
+
 import { Project } from "@/features/authorizedApp/types";
 import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
@@ -34,7 +36,7 @@ export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
       queryClient.setQueryData(DATA_LABEL, [
         ...(previousProjectData ?? []),
         {
-          id: String(Date.now()),
+          id: generateTempId(),
           createdAt: Date.now(),
           taskIds: [],
           isFavorite: newProjectData.isFavorite ?? false,
