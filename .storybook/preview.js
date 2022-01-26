@@ -1,8 +1,8 @@
-import AppProviders from "../src/providers/app";
+import { AppProviders } from "../src/providers/app";
 import "../src/style/global.css";
 import { ThemeProvider } from "@emotion/react";
 import * as colorThemes from "../src/style/colors";
-import GlobalDynamicStyles from "../src/style/globalDynamicStyles";
+import { GlobalDynamicStyles } from "../src/style/globalDynamicStyles";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
