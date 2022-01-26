@@ -21,8 +21,16 @@ module.exports = {
           // We need this for emotion to work inside storybook
           "@emotion/core": toPath("node_modules/@emotion/react"),
           "@emotion/styled": toPath("node_modules/@emotion/styled"),
+          "@": path.resolve(__dirname, "../src/"),
         },
+        extensions: [...config.resolve.extensions, ".ts", ".tsx"],
       },
+      plugins: config.plugins.filter((plugin) => {
+        if (plugin.constructor.name === "ESLintWebpackPlugin") {
+          return false;
+        }
+        return true;
+      }),
     };
   },
 };
