@@ -2,6 +2,8 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { Spinner } from "@/features/authorizedApp/components/Spinner/Spinner";
+
 const List = styled.ul`
   position: fixed;
   list-style: none;
@@ -14,6 +16,7 @@ const List = styled.ul`
   border-radius: 3px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   z-index: 5000;
+  overflow: hidden;
 `;
 
 const IconWrapper = styled.span`
@@ -48,6 +51,8 @@ export type PopupMenuProps = {
   onClick: (clickedItemId: string) => void;
   /** Menu items setting. */
   menuItems: MenuItem[];
+  /** Whether the menu is disabled or not. */
+  disabled?: boolean;
 };
 
 function generateActionId(text: string) {
@@ -55,7 +60,7 @@ function generateActionId(text: string) {
 }
 
 export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
-  ({ onClick, menuItems }, ref) => {
+  ({ onClick, menuItems, disabled = false }, ref) => {
     const getMenuItems = () => {
       return menuItems.map(({ icon, text }) => (
         <ListItem
@@ -71,6 +76,7 @@ export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
 
     return ReactDOM.createPortal(
       <List role="menu" ref={ref}>
+        {disabled && <Spinner withColoredOverlay size="xl" />}
         {getMenuItems()}
       </List>,
       document.querySelector("#root") as Element,

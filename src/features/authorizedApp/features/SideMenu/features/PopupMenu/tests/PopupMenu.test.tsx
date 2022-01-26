@@ -12,12 +12,13 @@ import {
   within,
 } from "@/test/testUtils";
 
-function renderComponent(showOn: "click" | "contextmenu") {
+function renderComponent(showOn: "click" | "contextmenu", disabled = false) {
   const onClickHandler = jest.fn();
 
   const popupMenuConfig = {
     menuItems: dataMocks.menuItems,
     onClick: onClickHandler,
+    disabled,
   };
 
   render(
@@ -112,6 +113,24 @@ describe("Popup menu", () => {
       act(() => userEvent.click(screen.getAllByRole("menuitem")[0]));
 
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("The `disabled` prop", () => {
+    test("When it is true, shows a loading indicator", () => {
+      const { triggerElement } = renderComponent("click", true);
+
+      act(() => userEvent.click(triggerElement));
+
+      expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    });
+
+    test("When it is false, doesn't show a loading indicator", () => {
+      const { triggerElement } = renderComponent("click", false);
+
+      act(() => userEvent.click(triggerElement));
+
+      expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
     });
   });
 });
