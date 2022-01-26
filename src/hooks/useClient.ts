@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 import { useUserContext } from "@/context/UserContext";
 
@@ -6,22 +6,47 @@ import { useUserContext } from "@/context/UserContext";
  * Returns an Axios client instance with the current user's auth token
  * set as a 'Authentication' header.
  *
- * @throws Will throw and error if the user is not authenticated.
+ * @param options.throwIfNotAuthenticated - Whether or not the hook should
+ *   throw an error if the user is not authenticated. Defaults to true.
+ *
+ * @throws Will throw an error if the user is not authenticated.
+ *   This can be configured through options.
  */
-async function useClient() {
+function useClient(): Promise<AxiosInstance>;
+function useClient({
+  throwIfNotAuthenticated,
+}: {
+  throwIfNotAuthenticated?: true;
+}): Promise<AxiosInstance>;
+function useClient({
+  throwIfNotAuthenticated,
+}: {
+  throwIfNotAuthenticated: false;
+}): Promise<AxiosInstance> | null;
+function useClient({
+  throwIfNotAuthenticated = true,
+}: {
+  throwIfNotAuthenticated?: boolean;
+} = {}) {
   const user = useUserContext();
   if (!user) {
-    throw new Error("The user is not authenticated.");
+    if (throwIfNotAuthenticated) {
+      throw new Error("The user is not authenticated.");
+    } else {
+      return null;
+    }
   }
 
-  const authToken = await user.getIdToken();
-  const instance = axios.create({
-    headers: {
-      Authentication: authToken,
-    },
-  });
+  const generateAxiosInstance = async () => {
+    const authToken = await user.getIdToken();
+    return axios.create({
+      headers: {
+        Authentication: authToken,
+      },
+    });
+  };
 
-  return instance;
+  return generateAxiosInstance();
 }
 
 export { useClient };
