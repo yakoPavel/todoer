@@ -1,5 +1,7 @@
 import { actionIds } from "../../../config/popupMenuActionIds";
 
+import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
+import { useEditProject } from "@/features/authorizedApp/api/editProject";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
@@ -7,6 +9,8 @@ type ActionId = typeof actionIds[keyof typeof actionIds];
 
 function usePopupItemsClickHandler(triggerId: string) {
   const dispatch = useAppDispatch();
+  const editLabelMutation = useEditLabel();
+  const editProjectMutation = useEditProject();
 
   const popupItemsClickHandler = (actionId: string) => {
     switch (actionId as ActionId) {
@@ -70,6 +74,22 @@ function usePopupItemsClickHandler(triggerId: string) {
             itemId: triggerId,
           }),
         );
+        break;
+      }
+      case actionIds.ADD_LABEL_TO_FAVORITES: {
+        editLabelMutation.mutate({ id: triggerId, isFavorite: true });
+        break;
+      }
+      case actionIds.ADD_PROJECT_TO_FAVORITES: {
+        editProjectMutation.mutate({ id: triggerId, isFavorite: true });
+        break;
+      }
+      case actionIds.REMOVE_LABEL_FROM_FAVORITES: {
+        editLabelMutation.mutate({ id: triggerId, isFavorite: false });
+        break;
+      }
+      case actionIds.REMOVE_PROJECT_FROM_FAVORITES: {
+        editProjectMutation.mutate({ id: triggerId, isFavorite: false });
         break;
       }
       default: {
