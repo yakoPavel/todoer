@@ -102,7 +102,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^_/(.+)": "<rootDir>/src/$1"
+      "^@/(.+)": "<rootDir>/src/$1"
     }
   }
 }
