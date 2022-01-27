@@ -23,6 +23,7 @@ export type BaseEntry = {
 
 /* API DTOs below */
 export type CreateProjectBody = {
+  tempId: string;
   name: string;
   color: string;
   isFavorite?: boolean;
@@ -37,6 +38,7 @@ export type PatchProjectBody = {
 };
 
 export type CreateLabelBody = {
+  tempId: string;
   color: string;
   name: string;
   isFavorite?: boolean;
@@ -50,6 +52,7 @@ export type PatchLabelBody = {
 };
 
 export type CreateTaskBody = {
+  tempId: string;
   projectId: string;
   labelId?: string;
   name: string;

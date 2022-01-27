@@ -3,12 +3,12 @@ import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
-import { delayedResponse, getUser } from "../utils";
+import { delayedResponse, getUser, getFindByIdFilter } from "../utils";
 
 import { CreateProjectBody, PatchProjectBody } from "@/types";
 
 function stripData(project: Value<Models["project"], Models>) {
-  return omit(project, "userId");
+  return omit(project, ["userId", "tempId"]);
 }
 
 const projectHandlers = [
@@ -44,9 +44,7 @@ const projectHandlers = [
         userId: {
           equals: user.id,
         },
-        id: {
-          equals: projectToGetId,
-        },
+        ...getFindByIdFilter(projectToGetId),
       },
     });
 
@@ -89,12 +87,10 @@ const projectHandlers = [
 
     const result = db.project.update({
       where: {
-        id: {
-          equals: projectToPatchId,
-        },
         userId: {
           equals: user.id,
         },
+        ...getFindByIdFilter(projectToPatchId),
       },
       data: {
         taskIds(prevValue) {
@@ -125,12 +121,10 @@ const projectHandlers = [
 
     const result = db.project.delete({
       where: {
-        id: {
-          equals: projectToDeleteId,
-        },
         userId: {
           equals: user.id,
         },
+        ...getFindByIdFilter(projectToDeleteId),
       },
     });
 

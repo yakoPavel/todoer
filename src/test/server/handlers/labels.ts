@@ -3,12 +3,12 @@ import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
-import { delayedResponse, getUser } from "../utils";
+import { delayedResponse, getUser, getFindByIdFilter } from "../utils";
 
 import { CreateLabelBody, PatchLabelBody } from "@/types";
 
 function stripData(project: Value<Models["label"], Models>) {
-  return omit(project, "userId");
+  return omit(project, ["userId", "tempId"]);
 }
 
 const labelHandlers = [
@@ -44,9 +44,7 @@ const labelHandlers = [
         userId: {
           equals: user.id,
         },
-        id: {
-          equals: labelToGetId,
-        },
+        ...getFindByIdFilter(labelToGetId),
       },
     });
 
@@ -92,9 +90,7 @@ const labelHandlers = [
         userId: {
           equals: user.id,
         },
-        id: {
-          equals: labelToPatchId,
-        },
+        ...getFindByIdFilter(labelToPatchId),
       },
       data: otherData,
     });
@@ -121,9 +117,7 @@ const labelHandlers = [
         userId: {
           equals: user.id,
         },
-        id: {
-          equals: labelToDeleteId,
-        },
+        ...getFindByIdFilter(labelToDeleteId),
       },
     });
 

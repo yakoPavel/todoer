@@ -19,12 +19,19 @@ export async function createLabel(
   return (await client.post("/labels", projectData)).data;
 }
 
+type RequestBodyWithoutTempId = Omit<CreateLabelBody, "tempId">;
+
 type UseCreateProjectOptions = {
-  config?: MutationConfig<(projectData: CreateLabelBody) => Promise<Label>>;
+  config?: MutationConfig<
+    (projectData: RequestBodyWithoutTempId) => Promise<Label>
+  >;
 };
 
 export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
   const awaitedClient = useClient();
+  const tempId = generateTempId();
+  const mutationFn = (labelData: RequestBodyWithoutTempId) =>
+    createLabel(awaitedClient, { ...labelData, tempId });
 
   return useMutation({
     onMutate: async (newLabelData) => {
@@ -60,6 +67,6 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
       queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
-    mutationFn: createLabel.bind(null, awaitedClient),
+    mutationFn,
   });
 };

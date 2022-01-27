@@ -20,11 +20,16 @@ export async function createProject(
 }
 
 type UseCreateProjectOptions = {
-  config?: MutationConfig<(projectData: CreateProjectBody) => Promise<Project>>;
+  config?: MutationConfig<
+    (projectData: Omit<CreateProjectBody, "tempId">) => Promise<Project>
+  >;
 };
 
 export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
   const awaitedClient = useClient();
+  const tempId = generateTempId();
+  const mutationFn = (projectData: Omit<CreateProjectBody, "tempId">) =>
+    createProject(awaitedClient, { ...projectData, tempId });
 
   return useMutation({
     onMutate: async (newProjectData) => {
@@ -62,6 +67,6 @@ export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
       queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
-    mutationFn: createProject.bind(null, awaitedClient),
+    mutationFn,
   });
 };

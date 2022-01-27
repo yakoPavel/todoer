@@ -2,6 +2,8 @@ import { context, createResponseComposition, RestRequest } from "msw";
 
 import { db } from "./db";
 
+import { OPTIMISTIC_UPDATES_PREFIX } from "@/config/misc";
+
 const isTesting =
   process.env.NODE_ENV === "test" || ((window as any).Cypress as any);
 
@@ -32,3 +34,41 @@ export const getUser = (req: RestRequest) => {
 
   return user;
 };
+
+export function isTempId(idToCheck: string) {
+  return (
+    idToCheck.length > 21 && idToCheck.startsWith(OPTIMISTIC_UPDATES_PREFIX)
+  );
+}
+
+/**
+ * Returns a filter by the `id` field if the passed id is a permanent id,
+ * otherwise returns a filter by the `tempId` field.
+ *
+ * @param id - A permanent or a temp id of a resource.
+ *
+ * @example
+ * ```ts
+ * const id = getId(); // Can be permanent or temp
+ * const result = db.item.findFirst({
+ *     where: {
+ *       ...getFindByIdFilter(id)
+ *     }
+ *   }
+ * )
+ * ```
+ */
+export function getFindByIdFilter(id: string) {
+  if (isTempId(id)) {
+    return {
+      id: {
+        equals: id,
+      },
+    };
+  }
+  return {
+    tempId: {
+      equals: id,
+    },
+  };
+}

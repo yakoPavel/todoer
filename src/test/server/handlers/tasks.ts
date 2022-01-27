@@ -3,12 +3,12 @@ import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
-import { delayedResponse, getUser } from "../utils";
+import { delayedResponse, getUser, getFindByIdFilter } from "../utils";
 
 import { CreateTaskBody, PatchTaskBody } from "@/types";
 
 function stripData(task: Value<Models["task"], Models>) {
-  return omit(task, "userId");
+  return omit(task, ["userId", "tempId"]);
 }
 
 const taskHandlers = [
@@ -59,9 +59,7 @@ const taskHandlers = [
           projectId: {
             equals: projectId,
           },
-          id: {
-            equals: taskId,
-          },
+          ...getFindByIdFilter(taskId),
         },
       });
 
@@ -121,9 +119,7 @@ const taskHandlers = [
         userId: {
           equals: user.id,
         },
-        id: {
-          equals: taskToUpdateId,
-        },
+        ...getFindByIdFilter(taskToUpdateId),
       },
       data: otherData,
     });
@@ -150,9 +146,7 @@ const taskHandlers = [
         userId: {
           equals: user.id,
         },
-        id: {
-          equals: taskToDeleteId,
-        },
+        ...getFindByIdFilter(taskToDeleteId),
       },
     });
 

@@ -12,6 +12,8 @@ const models = {
   },
   project: {
     id: primaryKey(() => nanoid()),
+    // Assigns on the client for optimistic updates
+    tempId: String,
     userId: String,
     taskIds: () => [] as string[],
     createdAt: () => Date.now(),
@@ -21,6 +23,7 @@ const models = {
   },
   label: {
     id: primaryKey(() => nanoid()),
+    tempId: String,
     userId: String,
     createdAt: () => Date.now(),
     color: String,
@@ -29,6 +32,7 @@ const models = {
   },
   task: {
     id: primaryKey(() => nanoid()),
+    tempId: String,
     userId: String,
     projectId: String,
     labelId: nullable(String),
