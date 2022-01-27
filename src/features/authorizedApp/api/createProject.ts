@@ -58,7 +58,7 @@ export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
         "previousProjectData" in context
       ) {
         queryClient.setQueryData<Project[]>(
-          "project",
+          DATA_LABEL,
           context.previousProjectData,
         );
       }

@@ -44,7 +44,7 @@ export const useDeleteProject = ({ config }: UseDeleteProjectOptions = {}) => {
         "previousProjectData" in context
       ) {
         queryClient.setQueryData<Project[]>(
-          "project",
+          DATA_LABEL,
           context.previousProjectData,
         );
       }

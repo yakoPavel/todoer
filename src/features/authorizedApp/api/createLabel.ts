@@ -37,10 +37,10 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
     onMutate: async (newLabelData) => {
       await queryClient.cancelQueries(DATA_LABEL);
 
-      const previousProjectData = queryClient.getQueryData<Label[]>(DATA_LABEL);
+      const previousLabelData = queryClient.getQueryData<Label[]>(DATA_LABEL);
 
       queryClient.setQueryData<Label[]>(DATA_LABEL, [
-        ...(previousProjectData ?? []),
+        ...(previousLabelData ?? []),
         {
           id: generateTempId(),
           createdAt: Date.now(),
@@ -49,17 +49,17 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
         },
       ]);
 
-      return { previousProjectData };
+      return { previousLabelData };
     },
     onError: (_, __, context: any) => {
       if (
         context &&
         typeof context === "object" &&
-        "previousProjectData" in context
+        "previousLabelData" in context
       ) {
         queryClient.setQueryData<Label[]>(
-          "project",
-          context.previousProjectData,
+          DATA_LABEL,
+          context.previousLabelData,
         );
       }
     },

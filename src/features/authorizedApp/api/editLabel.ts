@@ -57,11 +57,11 @@ export const useEditLabel = ({ config }: UseEditLabelOptions = {}) => {
       if (
         context &&
         typeof context === "object" &&
-        "previousProjectData" in context
+        "previousLabelData" in context
       ) {
         queryClient.setQueryData<Label[]>(
           DATA_LABEL,
-          context.previousProjectData,
+          context.previousLabelData,
         );
       }
     },
