@@ -2,8 +2,6 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Spinner } from "@/features/authorizedApp/components/Spinner/Spinner";
-
 const List = styled.ul`
   position: fixed;
   list-style: none;
