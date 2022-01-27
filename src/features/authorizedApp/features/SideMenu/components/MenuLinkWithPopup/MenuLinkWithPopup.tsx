@@ -11,8 +11,6 @@ import { MenuLinkProps, StyledLink, MenuLink } from "../MenuLink/MenuLink";
 
 import { usePopupItemsClickHandler } from "./hooks/usePopupItemsClickHandler";
 
-import { OPTIMISTIC_UPDATES_PREFIX } from "@/config/misc";
-
 const PopupTriggerWrapper = styled.div`
   position: relative;
 `;
@@ -86,8 +84,6 @@ export const MenuLinkWithPopup = ({
 
   const popupItemsClickHandler = usePopupItemsClickHandler(id);
 
-  const isTemporaryItem = id.startsWith(OPTIMISTIC_UPDATES_PREFIX);
-
   return (
     <>
       <MenuLink
@@ -103,7 +99,6 @@ export const MenuLinkWithPopup = ({
       {(isContextMenuVisible || isClickMenuVisible) && (
         <>
           <PopupMenu
-            disabled={isTemporaryItem}
             menuItems={popupItemsConfig}
             onClick={popupItemsClickHandler}
             ref={(element) => {

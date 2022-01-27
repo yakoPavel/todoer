@@ -51,8 +51,6 @@ export type PopupMenuProps = {
   onClick: (clickedItemId: string) => void;
   /** Menu items setting. */
   menuItems: MenuItem[];
-  /** Whether the menu is disabled or not. */
-  disabled?: boolean;
 };
 
 function generateActionId(text: string) {
@@ -60,7 +58,7 @@ function generateActionId(text: string) {
 }
 
 export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
-  ({ onClick, menuItems, disabled = false }, ref) => {
+  ({ onClick, menuItems }, ref) => {
     const getMenuItems = () => {
       return menuItems.map(({ icon, text }) => (
         <ListItem
@@ -76,7 +74,6 @@ export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
 
     return ReactDOM.createPortal(
       <List role="menu" ref={ref}>
-        {disabled && <Spinner withColoredOverlay size="xl" />}
         {getMenuItems()}
       </List>,
       document.querySelector("#root") as Element,
