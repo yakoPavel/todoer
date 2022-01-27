@@ -1,24 +1,16 @@
+import { actionIds } from "../../../config/popupMenuActionIds";
+
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
-type ActionType =
-  | "ADD_PROJECT_ABOVE"
-  | "ADD_PROJECT_BELOW"
-  | "EDIT_PROJECT"
-  | "ADD_TO_FAVORITES"
-  | "DELETE_PROJECT"
-  | "ADD_LABEL_ABOVE"
-  | "ADD_LABEL_BELOW"
-  | "EDIT_LABEL"
-  | "DELETE_LABEL"
-  | "REMOVE_FROM_FAVORITES";
+type ActionId = typeof actionIds[keyof typeof actionIds];
 
 function usePopupItemsClickHandler(triggerId: string) {
   const dispatch = useAppDispatch();
 
-  const popupItemsClickHandler = (action: string) => {
-    switch (action as ActionType) {
-      case "ADD_LABEL_ABOVE": {
+  const popupItemsClickHandler = (actionId: string) => {
+    switch (actionId as ActionId) {
+      case actionIds.ADD_LABEL_ABOVE: {
         dispatch(
           modalsUiActions.addLabelFormAppeared({
             additionDirection: "above",
@@ -27,7 +19,7 @@ function usePopupItemsClickHandler(triggerId: string) {
         );
         break;
       }
-      case "ADD_LABEL_BELOW": {
+      case actionIds.ADD_LABEL_BELOW: {
         dispatch(
           modalsUiActions.addLabelFormAppeared({
             additionDirection: "below",
@@ -36,7 +28,7 @@ function usePopupItemsClickHandler(triggerId: string) {
         );
         break;
       }
-      case "ADD_PROJECT_ABOVE": {
+      case actionIds.ADD_PROJECT_ABOVE: {
         dispatch(
           modalsUiActions.addProjectFormAppeared({
             additionDirection: "above",
@@ -45,7 +37,7 @@ function usePopupItemsClickHandler(triggerId: string) {
         );
         break;
       }
-      case "ADD_PROJECT_BELOW": {
+      case actionIds.ADD_PROJECT_BELOW: {
         dispatch(
           modalsUiActions.addProjectFormAppeared({
             additionDirection: "below",
@@ -54,15 +46,15 @@ function usePopupItemsClickHandler(triggerId: string) {
         );
         break;
       }
-      case "EDIT_LABEL": {
+      case actionIds.EDIT_LABEL: {
         dispatch(modalsUiActions.editLabelFormAppeared({ triggerId }));
         break;
       }
-      case "EDIT_PROJECT": {
+      case actionIds.EDIT_PROJECT: {
         dispatch(modalsUiActions.editProjectFormAppeared({ triggerId }));
         break;
       }
-      case "DELETE_LABEL": {
+      case actionIds.DELETE_LABEL: {
         dispatch(
           modalsUiActions.deleteItemDialogAppeared({
             itemType: "label",
@@ -71,7 +63,7 @@ function usePopupItemsClickHandler(triggerId: string) {
         );
         break;
       }
-      case "DELETE_PROJECT": {
+      case actionIds.DELETE_PROJECT: {
         dispatch(
           modalsUiActions.deleteItemDialogAppeared({
             itemType: "project",
@@ -81,7 +73,7 @@ function usePopupItemsClickHandler(triggerId: string) {
         break;
       }
       default: {
-        throw new Error(`Can't process the unknown action: ${action}`);
+        throw new Error(`Can't process the unknown actionId: ${actionId}`);
       }
     }
   };

@@ -3,6 +3,7 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 import { MdLabel } from "react-icons/md";
 
+import { actionIds } from "../../config/popupMenuActionIds";
 import { MenuLinkWithPopup } from "../MenuLinkWithPopup/MenuLinkWithPopup";
 
 function getLabelsPopupMenuItems(
@@ -14,10 +15,12 @@ function getLabelsPopupMenuItems(
       {
         icon: <AiOutlineHeart />,
         text: "Remove from favorites" as const,
+        clickId: actionIds.REMOVE_LABEL_FROM_FAVORITES,
       },
       {
         icon: <AiOutlineEdit />,
         text: "Edit label" as const,
+        clickId: actionIds.EDIT_LABEL,
       },
     ];
   }
@@ -26,24 +29,31 @@ function getLabelsPopupMenuItems(
     {
       icon: <BsArrowBarUp />,
       text: "Add label above" as const,
+      clickId: actionIds.ADD_LABEL_ABOVE,
     },
     {
       icon: <BsArrowBarDown />,
       text: "Add label below" as const,
+      clickId: actionIds.ADD_LABEL_BELOW,
     },
     {
       icon: <AiOutlineEdit />,
       text: "Edit label" as const,
+      clickId: actionIds.EDIT_LABEL,
     },
     {
       icon: <AiOutlineHeart />,
       text: (isFavorite ? "Remove from favorites" : "Add to favorites") as
         | "Remove from favorites"
         | "Add to favorites",
+      clickId: isFavorite
+        ? actionIds.REMOVE_LABEL_FROM_FAVORITES
+        : actionIds.ADD_LABEL_TO_FAVORITES,
     },
     {
       icon: <AiOutlineDelete />,
       text: "Delete label" as const,
+      clickId: actionIds.DELETE_LABEL,
     },
   ];
 }
