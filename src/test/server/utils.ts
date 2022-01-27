@@ -61,13 +61,13 @@ export function isTempId(idToCheck: string) {
 export function getFindByIdFilter(id: string) {
   if (isTempId(id)) {
     return {
-      id: {
+      tempId: {
         equals: id,
       },
     };
   }
   return {
-    tempId: {
+    id: {
       equals: id,
     },
   };
