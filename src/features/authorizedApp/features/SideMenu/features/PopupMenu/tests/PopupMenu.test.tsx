@@ -93,7 +93,8 @@ describe("Popup menu", () => {
 
   describe("When a popup menu item is clicked", () => {
     test("Invokes the passed callback with the correct id", () => {
-      const { onClickHandler, triggerElement } = renderComponent("click");
+      const { onClickHandler, triggerElement, menuItemsData } =
+        renderComponent("click");
 
       act(() => userEvent.click(triggerElement));
       const menuItems = screen.getAllByRole("menuitem");
@@ -101,9 +102,8 @@ describe("Popup menu", () => {
       act(() => userEvent.click(firstMenuItem));
 
       expect(onClickHandler).toHaveBeenCalledTimes(1);
-      expect(onClickHandler).toHaveBeenCalledWith(
-        firstMenuItem.textContent?.replace(/\s+/g, "_").toUpperCase(),
-      );
+      const firstMenuItemClickId = menuItemsData[0].clickId;
+      expect(onClickHandler).toHaveBeenCalledWith(firstMenuItemClickId);
     });
 
     test("Hides the popup menu", () => {

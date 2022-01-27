@@ -44,6 +44,8 @@ type MenuItem = {
   icon: JSX.Element;
   /** Text of the menu item. */
   text: string;
+  /** An id of the menu item. Will be passed as an argument to the click handler. */
+  clickId: string;
 };
 
 export type PopupMenuProps = {
@@ -53,19 +55,11 @@ export type PopupMenuProps = {
   menuItems: MenuItem[];
 };
 
-function generateActionId(text: string) {
-  return text.replace(/\s+/g, "_").toUpperCase();
-}
-
 export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   ({ onClick, menuItems }, ref) => {
     const getMenuItems = () => {
-      return menuItems.map(({ icon, text }) => (
-        <ListItem
-          role="menuitem"
-          key={text}
-          onClick={() => onClick(generateActionId(text))}
-        >
+      return menuItems.map(({ icon, text, clickId }) => (
+        <ListItem role="menuitem" key={text} onClick={() => onClick(clickId)}>
           <IconWrapper>{icon}</IconWrapper>
           <span>{text}</span>
         </ListItem>
