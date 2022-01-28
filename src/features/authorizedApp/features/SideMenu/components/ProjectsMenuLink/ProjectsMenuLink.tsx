@@ -39,7 +39,7 @@ function getProjectsPopupMenuItems(
     {
       icon: <BsArrowBarDown />,
       text: "Add project below" as const,
-      clickId: actionIds.ADD_LABEL_BELOW,
+      clickId: actionIds.ADD_PROJECT_BELOW,
     },
     {
       icon: <AiOutlineEdit />,
