@@ -1,33 +1,31 @@
-import { SyntheticEvent } from "react";
-
-import { LABEL_COLORS } from "@/config/labelColors";
-
-export type { ThemeColors } from "@/style/colors";
-
-/**
- * A react event with the `processed` field. This field signals that the
- * event has been already handled.
- */
-export type EventWithProcessedField<EventType extends SyntheticEvent> =
-  EventType & { processed?: boolean };
-
-/**
- * A color value of a task label.
- */
-export type Color = typeof LABEL_COLORS[number]["value"];
-
 export type BaseEntry = {
   id: string;
   createdAt: number;
 };
 
 /* API DTOs below */
-export type CreateProjectBody = {
+type WithDirection = {
+  direction: "above" | "below";
+  triggerId: string;
+};
+
+type WithoutDirection = {
+  direction?: never;
+  triggerId?: never;
+};
+
+/* Project */
+
+type CreateProjectBodyBase = {
   tempId: string;
   name: string;
   color: string;
   isFavorite?: boolean;
 };
+
+export type CreateProjectBody =
+  | (CreateProjectBodyBase & WithDirection)
+  | (CreateProjectBodyBase & WithoutDirection);
 
 export type PatchProjectBody = {
   id: string;
@@ -37,12 +35,18 @@ export type PatchProjectBody = {
   taskIds?: string[];
 };
 
-export type CreateLabelBody = {
+/* Label */
+
+type CreateLabelBodyBase = {
   tempId: string;
   color: string;
   name: string;
   isFavorite?: boolean;
 };
+
+export type CreateLabelBody =
+  | (CreateLabelBodyBase & WithDirection)
+  | (CreateLabelBodyBase & WithoutDirection);
 
 export type PatchLabelBody = {
   id: string;
@@ -51,7 +55,9 @@ export type PatchLabelBody = {
   isFavorite?: boolean;
 };
 
-export type CreateTaskBody = {
+/* Task */
+
+type CreateTaskBodyBase = {
   tempId: string;
   projectId: string;
   labelId?: string;
@@ -59,6 +65,10 @@ export type CreateTaskBody = {
   description: string;
   done?: boolean;
 };
+
+export type CreateTaskBody =
+  | (CreateTaskBodyBase & WithDirection)
+  | (CreateTaskBodyBase & WithoutDirection);
 
 export type PatchTaskBody = {
   id: string;
