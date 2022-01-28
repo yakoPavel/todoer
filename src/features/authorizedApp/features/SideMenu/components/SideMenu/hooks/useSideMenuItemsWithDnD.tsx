@@ -3,6 +3,8 @@ import React from "react";
 import { LabelsMenuLink } from "../../LabelsMenuLink/LabelsMenuLink";
 import { ProjectsMenuLink } from "../../ProjectsMenuLink/ProjectsMenuLink";
 
+import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
+import { useEditProject } from "@/features/authorizedApp/api/editProject";
 import {
   useOnDragEnd,
   DragAndDropProps,
@@ -62,17 +64,38 @@ function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
  * mechanism.
  */
 function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
+  const editProjectMutation = useEditProject();
+  const editLabelMutation = useEditLabel();
+
   const { projectItems, labelItems, favoriteItems } = React.useMemo(
     () => generateItemsForDnD(projectsData, labelsData),
     [projectsData, labelsData],
   );
 
+  const saveDragPositionOnTheBackend = (
+    itemType: "project" | "label" | "favorite",
+    itemId: string,
+    newItemIndex: number,
+  ) => {
+    if (itemType === "project") {
+      editProjectMutation.mutate({ id: itemId, position: newItemIndex });
+    } else if (itemType === "label") {
+      editLabelMutation.mutate({ id: itemId, position: newItemIndex });
+    }
+  };
+
   const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
-    useOnDragEnd(projectItems);
+    useOnDragEnd(
+      projectItems,
+      saveDragPositionOnTheBackend.bind(null, "project"),
+    );
   const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
-    useOnDragEnd(labelItems);
+    useOnDragEnd(labelItems, saveDragPositionOnTheBackend.bind(null, "label"));
   const { draggables: favoriteDraggables, onDragEnd: onFavoritesDragEnd } =
-    useOnDragEnd(favoriteItems);
+    useOnDragEnd(
+      favoriteItems,
+      saveDragPositionOnTheBackend.bind(null, "favorite"),
+    );
 
   return {
     projectDraggables,

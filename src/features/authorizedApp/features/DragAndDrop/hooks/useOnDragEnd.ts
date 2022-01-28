@@ -8,9 +8,14 @@ import { DragAndDropProps } from "../components/DragAndDrop/DragAndDrop";
  * draggable is determined just by the user's actions, i.e. if a user drops
  * a draggable to a new position this position applied.
  *
- * @param draggablesData - Draggable items and their ids. For better performance should be memoized.
+ * @param draggablesData - Draggable items and their ids. Should be memoized.
+ * @param additionalCallback - A callback that will be called with an item id
+ *  and a new item index on a drag end.
  */
-function useOnDragEnd(draggablesData: DragAndDropProps["draggables"]) {
+function useOnDragEnd(
+  draggablesData: DragAndDropProps["draggables"],
+  additionalCallback?: (itemId: string, newIndex: number) => void,
+) {
   const [draggables, setDraggables] = React.useState(draggablesData);
 
   React.useEffect(() => {
@@ -31,6 +36,8 @@ function useOnDragEnd(draggablesData: DragAndDropProps["draggables"]) {
     newDraggablesState.splice(newIndex, 0, draggedItem);
 
     setDraggables(newDraggablesState);
+
+    additionalCallback?.(draggedItem.id, newIndex);
   };
 
   return {
