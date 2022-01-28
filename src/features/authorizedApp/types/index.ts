@@ -12,3 +12,11 @@ export type Label = {
   name: string;
   isFavorite: boolean;
 } & BaseEntry;
+
+export type Task = {
+  projectId: string;
+  labelId?: string;
+  name: string;
+  description: string;
+  done?: boolean;
+} & BaseEntry;
