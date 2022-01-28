@@ -26,8 +26,31 @@ const formFieldsConfig = [
   },
 ];
 
-export const AddProjectForm = () => {
+type AddProjectFormProps = {
+  direction?: "above" | "below";
+  triggerId?: string;
+};
+
+export const AddProjectForm = ({
+  direction,
+  triggerId,
+}: AddProjectFormProps) => {
   const createProjectMutation = useCreateProject();
+
+  /* We need this construction for the typescript type inference. */
+  if (direction !== undefined && triggerId !== undefined) {
+    return (
+      <AddItemForm
+        formTitle="Add project"
+        closeModalAction={modalsUiActions.addProjectFormDismissed}
+        openSectionAction={sideMenuUiActions.projectsSectionOpened}
+        fieldsConfig={formFieldsConfig}
+        createItemMutation={createProjectMutation}
+        direction={direction}
+        triggerId={triggerId}
+      />
+    );
+  }
 
   return (
     <AddItemForm

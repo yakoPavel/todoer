@@ -2,11 +2,13 @@ import { AxiosInstance } from "axios";
 import { useMutation } from "react-query";
 
 import { generateTempId } from "./utils/generateTempId";
+import { insertNewItem } from "./utils/insertNewItem";
 
 import { Label } from "@/features/authorizedApp/types";
 import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { CreateLabelBody } from "@/types";
+import { DistributiveOmit } from "@/types/utils";
 
 const DATA_LABEL = "labels";
 
@@ -19,7 +21,30 @@ export async function createLabel(
   return (await client.post("/labels", projectData)).data;
 }
 
-type RequestBodyWithoutTempId = Omit<CreateLabelBody, "tempId">;
+function optimisticallyUpdateData(
+  newItemData: CreateLabelBody,
+  prevData: Label[] | undefined,
+) {
+  const { direction, triggerId, tempId, ...otherNewData } = newItemData;
+
+  const newItem = {
+    id: tempId,
+    createdAt: Date.now(),
+    isFavorite: otherNewData.isFavorite ?? false,
+    ...otherNewData,
+  };
+
+  const newData = insertNewItem({
+    destination: prevData ?? [],
+    itemToInsert: newItem,
+    direction,
+    triggerId,
+  });
+
+  queryClient.setQueryData<Label[]>(DATA_LABEL, newData);
+}
+
+type RequestBodyWithoutTempId = DistributiveOmit<CreateLabelBody, "tempId">;
 
 type UseCreateProjectOptions = {
   config?: MutationConfig<
@@ -30,8 +55,9 @@ type UseCreateProjectOptions = {
 export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
   const awaitedClient = useClient();
   const tempId = generateTempId();
-  const mutationFn = (labelData: RequestBodyWithoutTempId) =>
-    createLabel(awaitedClient, { ...labelData, tempId });
+
+  const mutationFn = (newLabelData: RequestBodyWithoutTempId) =>
+    createLabel(awaitedClient, { ...newLabelData, tempId });
 
   return useMutation({
     onMutate: async (newLabelData) => {
@@ -39,15 +65,7 @@ export const useCreateLabel = ({ config }: UseCreateProjectOptions = {}) => {
 
       const previousLabelData = queryClient.getQueryData<Label[]>(DATA_LABEL);
 
-      queryClient.setQueryData<Label[]>(DATA_LABEL, [
-        ...(previousLabelData ?? []),
-        {
-          id: generateTempId(),
-          createdAt: Date.now(),
-          isFavorite: newLabelData.isFavorite ?? false,
-          ...newLabelData,
-        },
-      ]);
+      optimisticallyUpdateData({ ...newLabelData, tempId }, previousLabelData);
 
       return { previousLabelData };
     },

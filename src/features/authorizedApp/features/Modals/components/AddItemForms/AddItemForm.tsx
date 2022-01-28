@@ -8,7 +8,7 @@ import { Form, FormFieldConfig } from "../Form/Form";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
 
-type AddItemFormProps<FieldsConfig extends FormFieldConfig[], Data> = {
+type BaseAddItemFormProps<FieldsConfig extends FormFieldConfig[], Data> = {
   formTitle: string;
   fieldsConfig: FieldsConfig;
   createItemMutation: UseMutationResult<Data, AxiosError, any>;
@@ -16,17 +16,34 @@ type AddItemFormProps<FieldsConfig extends FormFieldConfig[], Data> = {
   openSectionAction: PayloadActionCreator;
 };
 
+type AddItemFormPropsWithDirection = {
+  direction: "above" | "below";
+  triggerId: string;
+};
+
+type AddItemFromPropsWithoutDirection = {
+  direction?: undefined;
+  triggerId?: undefined;
+};
+
+type AddItemFormProps<FieldsConfig extends FormFieldConfig[], Data> =
+  | (BaseAddItemFormProps<FieldsConfig, Data> & AddItemFormPropsWithDirection)
+  | (BaseAddItemFormProps<FieldsConfig, Data> &
+      AddItemFromPropsWithoutDirection);
+
 export const AddItemForm = <FieldsConfig extends FormFieldConfig[], Data>({
   formTitle,
   fieldsConfig,
   createItemMutation,
   closeModalAction,
   openSectionAction,
+  direction,
+  triggerId,
 }: AddItemFormProps<FieldsConfig, Data>) => {
   const dispatch = useAppDispatch();
 
   const onSubmit = (formValues: FormValues<FieldsConfig>) => {
-    createItemMutation.mutate(formValues);
+    createItemMutation.mutate({ ...formValues, direction, triggerId });
     dispatch(closeModalAction());
 
     // Open the side menu section if it is closed. Defer it to the next tick

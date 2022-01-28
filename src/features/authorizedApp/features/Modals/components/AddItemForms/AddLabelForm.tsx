@@ -26,8 +26,27 @@ const formFieldsConfig = [
   },
 ];
 
-export const AddLabelForm = () => {
+type AddLabelFormProps = {
+  direction?: "above" | "below";
+  triggerId?: string;
+};
+
+export const AddLabelForm = ({ direction, triggerId }: AddLabelFormProps) => {
   const createLabelMutation = useCreateLabel();
+
+  if (direction !== undefined && triggerId !== undefined) {
+    return (
+      <AddItemForm
+        formTitle="Add label"
+        closeModalAction={modalsUiActions.addLabelFormDismissed}
+        openSectionAction={sideMenuUiActions.labelsSectionOpened}
+        fieldsConfig={formFieldsConfig}
+        createItemMutation={createLabelMutation}
+        direction={direction}
+        triggerId={triggerId}
+      />
+    );
+  }
 
   return (
     <AddItemForm

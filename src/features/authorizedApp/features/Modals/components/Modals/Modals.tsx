@@ -21,13 +21,23 @@ export const Modals = () => {
   );
 
   if (addProjectForm.visible) {
-    return <AddProjectForm />;
+    return (
+      <AddProjectForm
+        direction={addProjectForm.additionDirection}
+        triggerId={addProjectForm.triggerId}
+      />
+    );
   }
   if (editProjectForm.visible) {
     return <EditProjectForm projectId={editProjectForm.triggerId} />;
   }
   if (addLabelForm.visible) {
-    return <AddLabelForm />;
+    return (
+      <AddLabelForm
+        direction={addLabelForm.additionDirection}
+        triggerId={addLabelForm.triggerId}
+      />
+    );
   }
   if (editLabelForm.visible) {
     return <EditLabelForm labelId={editLabelForm.triggerId} />;

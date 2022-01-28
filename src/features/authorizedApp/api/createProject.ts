@@ -2,11 +2,13 @@ import { AxiosInstance } from "axios";
 import { useMutation } from "react-query";
 
 import { generateTempId } from "./utils/generateTempId";
+import { insertNewItem } from "./utils/insertNewItem";
 
 import { Project } from "@/features/authorizedApp/types";
 import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { CreateProjectBody } from "@/types";
+import { DistributiveOmit } from "@/types/utils";
 
 const DATA_LABEL = "projects";
 
@@ -19,6 +21,32 @@ export async function createProject(
   return (await client.post("/projects", projectData)).data;
 }
 
+function optimisticallyUpdateData(
+  newItemData: CreateProjectBody,
+  prevData: Project[] | undefined,
+) {
+  const { direction, triggerId, tempId, ...otherNewData } = newItemData;
+
+  const newItem = {
+    id: tempId,
+    createdAt: Date.now(),
+    isFavorite: otherNewData.isFavorite ?? false,
+    taskIds: [],
+    ...otherNewData,
+  };
+
+  const newData = insertNewItem({
+    destination: prevData ?? [],
+    itemToInsert: newItem,
+    direction,
+    triggerId,
+  });
+
+  queryClient.setQueryData<Project[]>(DATA_LABEL, newData);
+}
+
+type RequestBodyWithoutTempId = DistributiveOmit<CreateProjectBody, "tempId">;
+
 type UseCreateProjectOptions = {
   config?: MutationConfig<
     (projectData: Omit<CreateProjectBody, "tempId">) => Promise<Project>
@@ -28,7 +56,7 @@ type UseCreateProjectOptions = {
 export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
   const awaitedClient = useClient();
   const tempId = generateTempId();
-  const mutationFn = (projectData: Omit<CreateProjectBody, "tempId">) =>
+  const mutationFn = (projectData: RequestBodyWithoutTempId) =>
     createProject(awaitedClient, { ...projectData, tempId });
 
   return useMutation({
@@ -38,16 +66,10 @@ export const useCreateProject = ({ config }: UseCreateProjectOptions = {}) => {
       const previousProjectData =
         queryClient.getQueryData<Project[]>(DATA_LABEL);
 
-      queryClient.setQueryData(DATA_LABEL, [
-        ...(previousProjectData ?? []),
-        {
-          id: generateTempId(),
-          createdAt: Date.now(),
-          taskIds: [],
-          isFavorite: newProjectData.isFavorite ?? false,
-          ...newProjectData,
-        },
-      ]);
+      optimisticallyUpdateData(
+        { ...newProjectData, tempId },
+        previousProjectData,
+      );
 
       return { previousProjectData };
     },

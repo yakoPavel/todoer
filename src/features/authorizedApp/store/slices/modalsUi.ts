@@ -17,9 +17,9 @@ type AddNewFormVisibleState = {
   /** Whether or not the form is visible. */
   visible: true;
   /** Where to add a new item relatively to the trigger item. */
-  additionDirection: "below" | "above" | null;
+  additionDirection?: "below" | "above";
   /** An id of the element that triggered visibility of this form. */
-  triggerId: string | null;
+  triggerId?: string;
 };
 type AddNewFormNotVisibleState = {
   /** Whether or not the form is visible. */
@@ -81,7 +81,7 @@ const modalsUiSlice = createSlice({
     ) {
       state.addProject = {
         visible: true,
-        ...(action.payload ?? { additionDirection: null, triggerId: null }),
+        ...action.payload,
       };
     },
 
@@ -94,7 +94,7 @@ const modalsUiSlice = createSlice({
     ) {
       state.addLabel = {
         visible: true,
-        ...(action.payload ?? { additionDirection: null, triggerId: null }),
+        ...action.payload,
       };
     },
 
