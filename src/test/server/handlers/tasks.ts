@@ -7,7 +7,9 @@ import {
   delayedResponse,
   getUser,
   getFindByIdFilter,
-  shiftElementsPosition,
+  shiftElementsPositionRelative,
+  correctElementsPosition,
+  correctPosition,
 } from "../utils";
 
 import { CreateTaskBody, PatchTaskBody } from "@/types";
@@ -92,7 +94,7 @@ const taskHandlers = [
 
     if (direction && triggerId) {
       try {
-        position = shiftElementsPosition({
+        position = shiftElementsPositionRelative({
           insertionDirection: direction,
           itemType: "task",
           triggerId,
@@ -141,7 +143,16 @@ const taskHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { id: taskToUpdateId, ...otherData } = req.body;
+    const { id: taskToUpdateId, position, ...otherData } = req.body;
+
+    if (position !== undefined) {
+      correctElementsPosition({
+        userId: user.id,
+        newPosition: position,
+        itemId: taskToUpdateId,
+        itemType: "task",
+      });
+    }
 
     const result = db.task.update({
       where: {
@@ -150,7 +161,13 @@ const taskHandlers = [
         },
         ...getFindByIdFilter(taskToUpdateId),
       },
-      data: otherData,
+      data: {
+        ...(otherData as any),
+        position: (prevValue: number) =>
+          position !== undefined
+            ? correctPosition("task", position)
+            : prevValue,
+      },
     });
 
     if (!result) {

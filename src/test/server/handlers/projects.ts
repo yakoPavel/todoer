@@ -7,7 +7,9 @@ import {
   delayedResponse,
   getUser,
   getFindByIdFilter,
-  shiftElementsPosition,
+  shiftElementsPositionRelative,
+  correctElementsPosition,
+  correctPosition,
 } from "../utils";
 
 import { CreateProjectBody, PatchProjectBody } from "@/types";
@@ -75,7 +77,7 @@ const projectHandlers = [
 
     if (direction && triggerId) {
       try {
-        position = shiftElementsPosition({
+        position = shiftElementsPositionRelative({
           insertionDirection: direction,
           itemType: "project",
           triggerId,
@@ -113,7 +115,21 @@ const projectHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { id: projectToPatchId, taskIds = [], ...otherData } = req.body;
+    const {
+      id: projectToPatchId,
+      taskIds = [],
+      position,
+      ...otherData
+    } = req.body;
+
+    if (position !== undefined) {
+      correctElementsPosition({
+        userId: user.id,
+        itemType: "project",
+        itemId: projectToPatchId,
+        newPosition: position,
+      });
+    }
 
     const result = db.project.update({
       where: {
@@ -123,12 +139,17 @@ const projectHandlers = [
         ...getFindByIdFilter(projectToPatchId),
       },
       data: {
-        taskIds(prevValue) {
-          return [...prevValue, ...taskIds];
-        },
         // For some reason the type of the data object doesn't accept an
         // updater function and regular properties together.
         ...(otherData as any),
+        taskIds(prevValue) {
+          return [...prevValue, ...taskIds];
+        },
+        position(prevValue) {
+          return position !== undefined
+            ? correctPosition("project", position)
+            : prevValue;
+        },
       },
     });
 

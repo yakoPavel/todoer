@@ -33,6 +33,7 @@ export type PatchProjectBody = {
   color?: string;
   isFavorite?: boolean;
   taskIds?: string[];
+  position?: number;
 };
 
 /* Label */
@@ -53,6 +54,7 @@ export type PatchLabelBody = {
   color?: string;
   name?: string;
   isFavorite?: boolean;
+  position?: number;
 };
 
 /* Task */
@@ -77,4 +79,5 @@ export type PatchTaskBody = {
   name?: string;
   description?: string;
   done?: boolean;
+  position?: number;
 };

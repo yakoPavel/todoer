@@ -73,7 +73,7 @@ export function getFindByIdFilter(id: string) {
   };
 }
 
-type ShiftElementPositionOptions = {
+type ShiftElementsPositionRelativeOptions = {
   /**
    * Where a new element will be inserted relative to the element with the
    * `triggerId` id.
@@ -96,12 +96,12 @@ type ShiftElementPositionOptions = {
  *
  * @returns The position of a new element.
  */
-export function shiftElementsPosition({
+export function shiftElementsPositionRelative({
   insertionDirection,
   userId,
   triggerId,
   itemType,
-}: ShiftElementPositionOptions) {
+}: ShiftElementsPositionRelativeOptions) {
   const triggerItem = db[itemType].findFirst({
     where: {
       userId: {
@@ -139,4 +139,84 @@ export function shiftElementsPosition({
   return insertionDirection === "above"
     ? triggerItemPosition
     : triggerItemPosition + 1;
+}
+
+type CorrectElementsPositionOptions = {
+  /** An id of the user. */
+  userId: string;
+  /** An id of the item whose position is changed. */
+  itemId: string;
+  /** A new position of the item. */
+  newPosition: number;
+  /** A type of the item under update. */
+  itemType: "project" | "label" | "task";
+};
+/**
+ * Corrects the positions of the elements after one element's position has changed.
+ * This function must be called before the new element's position was saved in the db.
+ *
+ * @throws Throws an error if the element with the `itemId` id wasn't found.
+ */
+export function correctElementsPosition({
+  userId,
+  itemId,
+  newPosition,
+  itemType,
+}: CorrectElementsPositionOptions) {
+  const changedItem = db[itemType].findFirst({
+    where: {
+      userId: {
+        equals: userId,
+      },
+      ...getFindByIdFilter(itemId),
+    },
+  });
+
+  if (!changedItem) {
+    throw new Error(`The item with the ${itemId} id wasn't found.`);
+  }
+
+  const oldPosition = changedItem.position;
+
+  if (newPosition > oldPosition) {
+    db[itemType].updateMany({
+      where: {
+        userId: {
+          equals: userId,
+        },
+        position: {
+          gt: oldPosition,
+          lte: newPosition,
+        },
+      },
+      data: {
+        position: (prevPosition: number) => prevPosition - 1,
+      },
+    });
+  } else if (newPosition < oldPosition) {
+    db[itemType].updateMany({
+      where: {
+        userId: {
+          equals: userId,
+        },
+        position: {
+          lt: oldPosition,
+          gte: newPosition,
+        },
+      },
+      data: {
+        position: (prevPosition: number) => prevPosition + 1,
+      },
+    });
+  }
+}
+
+/**
+ * Corrects the position of the item if necessary.
+ */
+export function correctPosition(
+  itemType: "project" | "label" | "task",
+  position: number,
+) {
+  return Math.min(position, db[itemType].count() + 1);
 }

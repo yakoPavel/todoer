@@ -7,7 +7,9 @@ import {
   delayedResponse,
   getUser,
   getFindByIdFilter,
-  shiftElementsPosition,
+  shiftElementsPositionRelative,
+  correctElementsPosition,
+  correctPosition,
 } from "../utils";
 
 import { CreateLabelBody, PatchLabelBody } from "@/types";
@@ -75,7 +77,7 @@ const labelHandlers = [
 
     if (direction && triggerId) {
       try {
-        position = shiftElementsPosition({
+        position = shiftElementsPositionRelative({
           insertionDirection: direction,
           itemType: "label",
           triggerId,
@@ -112,7 +114,16 @@ const labelHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { id: labelToPatchId, ...otherData } = req.body;
+    const { id: labelToPatchId, position, ...otherData } = req.body;
+
+    if (position !== undefined) {
+      correctElementsPosition({
+        itemType: "label",
+        newPosition: position,
+        itemId: labelToPatchId,
+        userId: user.id,
+      });
+    }
 
     const result = db.label.update({
       where: {
@@ -121,7 +132,13 @@ const labelHandlers = [
         },
         ...getFindByIdFilter(labelToPatchId),
       },
-      data: otherData,
+      data: {
+        ...(otherData as any),
+        position: (prevData) =>
+          position !== undefined
+            ? correctPosition("label", position)
+            : prevData,
+      },
     });
 
     if (!result) {
