@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { omit } from "lodash";
 import { useMutation } from "react-query";
 
 import { Project } from "@/features/authorizedApp/types";
@@ -22,7 +23,10 @@ function optimisticallyUpdateData(newProjectData: PatchProjectBody) {
   const newData = prevData.slice();
   const projectToEdit = prevData[projectToEditIndex];
 
-  newData[projectToEditIndex] = { ...projectToEdit, ...newProjectData };
+  newData[projectToEditIndex] = {
+    ...projectToEdit,
+    ...omit(newProjectData, "position"),
+  };
 
   queryClient.setQueryData<Project[]>(DATA_LABEL, newData);
 }

@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { omit } from "lodash";
 import { useMutation } from "react-query";
 
 import { Label } from "@/features/authorizedApp/types";
@@ -22,7 +23,10 @@ function optimisticallyUpdateData(newLabelData: PatchLabelBody) {
   const newData = prevData.slice();
   const labelToEdit = prevData[labelToEditIndex];
 
-  newData[labelToEditIndex] = { ...labelToEdit, ...newLabelData };
+  newData[labelToEditIndex] = {
+    ...labelToEdit,
+    ...omit(newLabelData, "position"),
+  };
 
   queryClient.setQueryData<Label[]>(DATA_LABEL, newData);
 }
