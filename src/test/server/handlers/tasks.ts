@@ -3,7 +3,12 @@ import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
-import { delayedResponse, getUser, getFindByIdFilter } from "../utils";
+import {
+  delayedResponse,
+  getUser,
+  getFindByIdFilter,
+  shiftElementsPosition,
+} from "../utils";
 
 import { CreateTaskBody, PatchTaskBody } from "@/types";
 
@@ -32,6 +37,9 @@ const taskHandlers = [
             projectId: {
               equals: projectId,
             },
+          },
+          orderBy: {
+            position: "asc",
           },
         })
         .map(stripData);
@@ -78,11 +86,32 @@ const taskHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { done = false, ...otherData } = req.body;
+    const { done = false, direction, triggerId, ...otherData } = req.body;
+
+    let position = db.task.count();
+
+    if (direction && triggerId) {
+      try {
+        position = shiftElementsPosition({
+          insertionDirection: direction,
+          itemType: "task",
+          triggerId,
+          userId: user.id,
+        });
+      } catch (_) {
+        return delayedResponse(
+          ctx.status(201),
+          ctx.json({
+            message: `Can't insert a new task ${direction} this one. It wasn't found.`,
+          }),
+        );
+      }
+    }
 
     const result = db.task.create({
       done,
       userId: user.id,
+      position,
       ...otherData,
     });
 

@@ -3,7 +3,12 @@ import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
-import { delayedResponse, getUser, getFindByIdFilter } from "../utils";
+import {
+  delayedResponse,
+  getUser,
+  getFindByIdFilter,
+  shiftElementsPosition,
+} from "../utils";
 
 import { CreateLabelBody, PatchLabelBody } from "@/types";
 
@@ -24,6 +29,9 @@ const labelHandlers = [
           userId: {
             equals: user.id,
           },
+        },
+        orderBy: {
+          position: "asc",
         },
       })
       .map(stripData);
@@ -61,10 +69,31 @@ const labelHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { isFavorite = false, ...otherData } = req.body;
+    const { isFavorite = false, direction, triggerId, ...otherData } = req.body;
+
+    let position = db.label.count();
+
+    if (direction && triggerId) {
+      try {
+        position = shiftElementsPosition({
+          insertionDirection: direction,
+          itemType: "label",
+          triggerId,
+          userId: user.id,
+        });
+      } catch (_) {
+        return delayedResponse(
+          ctx.status(201),
+          ctx.json({
+            message: `Can't insert a new label ${direction} this one. It wasn't found.`,
+          }),
+        );
+      }
+    }
 
     const result = db.label.create({
       userId: user.id,
+      position,
       isFavorite,
       ...otherData,
     });

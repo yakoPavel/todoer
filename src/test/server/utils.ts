@@ -72,3 +72,71 @@ export function getFindByIdFilter(id: string) {
     },
   };
 }
+
+type ShiftElementPositionOptions = {
+  /**
+   * Where a new element will be inserted relative to the element with the
+   * `triggerId` id.
+   */
+  insertionDirection: "above" | "below";
+  /** An id of the user. */
+  userId: string;
+  /** An id of the element relative to which will be inserted a new one. */
+  triggerId: string;
+  /** A type of the item under update. */
+  itemType: "project" | "label" | "task";
+};
+/**
+ * Shifts the position of elements in the database based on the insertion
+ * direction.
+ *
+ * @param options - An object with options.
+ *
+ * @throws Throws an error if the element with the `triggerId` id wasn't found.
+ *
+ * @returns The position of a new element.
+ */
+export function shiftElementsPosition({
+  insertionDirection,
+  userId,
+  triggerId,
+  itemType,
+}: ShiftElementPositionOptions) {
+  const triggerItem = db[itemType].findFirst({
+    where: {
+      userId: {
+        equals: userId,
+      },
+      ...getFindByIdFilter(triggerId),
+    },
+  });
+
+  if (!triggerItem) {
+    throw new Error(`The item with the ${triggerId} id wasn't found.`);
+  }
+
+  const triggerItemPosition = triggerItem.position;
+
+  db[itemType].updateMany({
+    where: {
+      userId: {
+        equals: userId,
+      },
+      position:
+        insertionDirection === "above"
+          ? {
+              gte: triggerItemPosition,
+            }
+          : {
+              gt: triggerItemPosition,
+            },
+    },
+    data: {
+      position: (prevValue: number) => prevValue + 1,
+    },
+  });
+
+  return insertionDirection === "above"
+    ? triggerItemPosition
+    : triggerItemPosition + 1;
+}

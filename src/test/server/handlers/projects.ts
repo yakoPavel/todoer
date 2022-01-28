@@ -3,7 +3,12 @@ import { omit } from "lodash";
 import { rest } from "msw";
 
 import { db, Models, persistDb } from "../db";
-import { delayedResponse, getUser, getFindByIdFilter } from "../utils";
+import {
+  delayedResponse,
+  getUser,
+  getFindByIdFilter,
+  shiftElementsPosition,
+} from "../utils";
 
 import { CreateProjectBody, PatchProjectBody } from "@/types";
 
@@ -24,6 +29,9 @@ const projectHandlers = [
           userId: {
             equals: user.id,
           },
+        },
+        orderBy: {
+          position: "asc",
         },
       })
       .map(stripData);
@@ -61,11 +69,33 @@ const projectHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { color, name, isFavorite = false } = req.body;
+    const { color, name, isFavorite = false, direction, triggerId } = req.body;
+
+    let position = db.project.count();
+
+    if (direction && triggerId) {
+      try {
+        position = shiftElementsPosition({
+          insertionDirection: direction,
+          itemType: "project",
+          triggerId,
+          userId: user.id,
+        });
+      } catch (_) {
+        return delayedResponse(
+          ctx.status(201),
+          ctx.json({
+            message: `Can't insert a new project ${direction} this one. It wasn't found.`,
+          }),
+        );
+      }
+    }
+
     const result = db.project.create({
       name,
       color,
       isFavorite,
+      position,
       userId: user.id,
     });
 
