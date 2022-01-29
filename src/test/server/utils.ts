@@ -11,24 +11,25 @@ export const delayedResponse = createResponseComposition(undefined, [
   context.delay(isTesting ? 0 : 1000),
 ]);
 
-// We are using an auth token as a user id in this test server.
-// In the real server it is necessary to validate this token and to
-// extract a user id from it.
+// We don't validate the auth token here and use a hardcoded USER_ID for
+// simplicity. On the real backend we do all validations.
 export const getUser = (req: RestRequest) => {
   const token = req.headers.get("Authentication");
   if (!token) return null;
 
+  const USER_ID = "SOME_USER_ID";
+
   let user = db.user.findFirst({
     where: {
       id: {
-        equals: token,
+        equals: USER_ID,
       },
     },
   });
 
   if (!user) {
     user = db.user.create({
-      id: token,
+      id: USER_ID,
     });
   }
 
