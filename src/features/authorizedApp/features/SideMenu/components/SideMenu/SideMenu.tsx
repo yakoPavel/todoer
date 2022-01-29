@@ -1,6 +1,5 @@
 import { Slide, VisuallyHidden } from "@chakra-ui/react";
 import React from "react";
-import { DragDropContext } from "react-beautiful-dnd";
 import { IoAddOutline } from "react-icons/io5";
 
 import { useResize } from "../../hooks/useResize";
@@ -64,52 +63,50 @@ const SideMenuContent = ({
   };
 
   return (
-    <DragDropContext onDragEnd={onProjectDragEnd}>
-      <Styled.MenuWrapper id="sideMenu">
-        <Styled.StyledMenuSection
-          sectionTitle="Favorites"
-          sectionContent={
-            <DragAndDrop
-              mainId="favorites"
-              draggables={favoriteDraggables}
-              onDragEnd={onFavoritesDragEnd}
-            />
-          }
-        />
-        <Styled.StyledMenuSection
-          sectionTitle="Projects"
-          sectionContent={
-            <DragAndDrop
-              mainId="projects"
-              draggables={projectDraggables}
-              onDragEnd={onProjectDragEnd}
-            />
-          }
-          rightSlot={
-            <AddNewButton
-              label="Add new project"
-              onClick={(event) => onAddNew("project", event)}
-            />
-          }
-        />
-        <Styled.StyledMenuSection
-          sectionTitle="Labels"
-          sectionContent={
-            <DragAndDrop
-              mainId="labels"
-              draggables={labelDraggables}
-              onDragEnd={onLabelDragEnd}
-            />
-          }
-          rightSlot={
-            <AddNewButton
-              label="Add new label"
-              onClick={(event) => onAddNew("label", event)}
-            />
-          }
-        />
-      </Styled.MenuWrapper>
-    </DragDropContext>
+    <Styled.MenuWrapper id="sideMenu">
+      <Styled.StyledMenuSection
+        sectionTitle="Favorites"
+        sectionContent={
+          <DragAndDrop
+            mainId="favorites"
+            draggables={favoriteDraggables}
+            onDragEnd={onFavoritesDragEnd}
+          />
+        }
+      />
+      <Styled.StyledMenuSection
+        sectionTitle="Projects"
+        sectionContent={
+          <DragAndDrop
+            mainId="projects"
+            draggables={projectDraggables}
+            onDragEnd={onProjectDragEnd}
+          />
+        }
+        rightSlot={
+          <AddNewButton
+            label="Add new project"
+            onClick={(event) => onAddNew("project", event)}
+          />
+        }
+      />
+      <Styled.StyledMenuSection
+        sectionTitle="Labels"
+        sectionContent={
+          <DragAndDrop
+            mainId="labels"
+            draggables={labelDraggables}
+            onDragEnd={onLabelDragEnd}
+          />
+        }
+        rightSlot={
+          <AddNewButton
+            label="Add new label"
+            onClick={(event) => onAddNew("label", event)}
+          />
+        }
+      />
+    </Styled.MenuWrapper>
   );
 };
 
