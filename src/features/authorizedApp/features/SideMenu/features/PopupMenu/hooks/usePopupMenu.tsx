@@ -32,14 +32,14 @@ function usePopupMenu(showOn: "click" | "contextmenu") {
 
   // Places the popup at the right spot on the screen
   React.useLayoutEffect(() => {
-    if (popupElement === null || triggerElement === null) return;
+    if (!showPopup || popupElement === null || triggerElement === null) return;
     fixPopupPosition({
       showOn,
       triggerElement,
       popupElement,
       triggerEventCoords,
     });
-  }, [popupElement, triggerElement, triggerEventCoords, showOn]);
+  }, [popupElement, triggerElement, triggerEventCoords, showOn, showPopup]);
 
   // Hides the popup on click
   React.useEffect(() => {
