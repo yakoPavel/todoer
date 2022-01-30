@@ -3,13 +3,12 @@ import React from "react";
 import { IoAddOutline } from "react-icons/io5";
 
 import { useResize } from "./hooks/useResize";
-import { useSideMenuItemsWithDnD } from "./hooks/useSideMenuItemsWithDnD";
+import { useSideMenuItems } from "./hooks/useSideMenuItems";
 import * as Styled from "./styles";
 
 import { SIDE_MENU } from "@/config/localStorage";
 import { useLabels } from "@/features/authorizedApp/api/getLabels";
 import { useProjects } from "@/features/authorizedApp/api/getProjects";
-import { DragAndDrop } from "@/features/authorizedApp/features/DragAndDrop";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { Label, Project } from "@/features/authorizedApp/types";
 import { useAppDispatch } from "@/hooks/storeHooks";
@@ -36,14 +35,10 @@ const SideMenuContent = ({
   labelsData,
   projectsData,
 }: SideMenuContentProps) => {
-  const {
-    projectDraggables,
-    labelDraggables,
-    favoriteDraggables,
-    onProjectDragEnd,
-    onLabelDragEnd,
-    onFavoritesDragEnd,
-  } = useSideMenuItemsWithDnD(projectsData, labelsData);
+  const { projectItems, labelItems, favoriteItems } = useSideMenuItems(
+    projectsData,
+    labelsData,
+  );
 
   const dispatch = useAppDispatch();
 
@@ -65,23 +60,11 @@ const SideMenuContent = ({
     <Styled.MenuWrapper id="sideMenu">
       <Styled.StyledMenuSection
         sectionTitle="Favorites"
-        sectionContent={
-          <DragAndDrop
-            mainId="favorites"
-            draggables={favoriteDraggables}
-            onDragEnd={onFavoritesDragEnd}
-          />
-        }
+        sectionContent={favoriteItems}
       />
       <Styled.StyledMenuSection
         sectionTitle="Projects"
-        sectionContent={
-          <DragAndDrop
-            mainId="projects"
-            draggables={projectDraggables}
-            onDragEnd={onProjectDragEnd}
-          />
-        }
+        sectionContent={projectItems}
         rightSlot={
           <AddNewButton
             label="Add new project"
@@ -91,13 +74,7 @@ const SideMenuContent = ({
       />
       <Styled.StyledMenuSection
         sectionTitle="Labels"
-        sectionContent={
-          <DragAndDrop
-            mainId="labels"
-            draggables={labelDraggables}
-            onDragEnd={onLabelDragEnd}
-          />
-        }
+        sectionContent={labelItems}
         rightSlot={
           <AddNewButton
             label="Add new label"

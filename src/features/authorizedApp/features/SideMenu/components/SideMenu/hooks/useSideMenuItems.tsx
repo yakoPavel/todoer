@@ -8,17 +8,25 @@ import { useEditProject } from "@/features/authorizedApp/api/editProject";
 import {
   useOnDragEnd,
   DragAndDropProps,
+  DragAndDrop,
 } from "@/features/authorizedApp/features/DragAndDrop";
 import { Label, Project } from "@/features/authorizedApp/types";
+
+type DraggablesConfig = DragAndDropProps["draggables"];
 
 /**
  * Generates side menu item components and wraps them in an object so that
  * it conforms to the format expected by the `DragAndDrop`.
+ *
+ * Additionally, accumulates favorite items in an array.
+ *
+ * @returns An object with labels and projects in the form that conforms
+ * to the format expected by the `DragAndDrop` and favorite items (just components).
  */
-function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
-  const favoriteItems: DragAndDropProps["draggables"] = [];
+function generateItems(projectsData: Project[], labelsData: Label[]) {
+  const favoriteItems: React.ReactNode[] = [];
 
-  const projectItems = projectsData.map(
+  const projectItemsForDnD = projectsData.map(
     ({ name, color, id, isFavorite, taskIds }) => {
       const item = {
         component: (
@@ -27,18 +35,19 @@ function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
             name={name}
             numberOfTasks={taskIds.length}
             id={id}
+            key={id}
           />
         ),
         id,
       };
 
-      if (isFavorite) favoriteItems.push(item);
+      if (isFavorite) favoriteItems.push(item.component);
 
       return item;
     },
   );
 
-  const labelItems = labelsData.map(({ name, color, id, isFavorite }) => {
+  const labelItemsForDnD = labelsData.map(({ name, color, id, isFavorite }) => {
     const item = {
       component: (
         <LabelsMenuLink
@@ -46,34 +55,29 @@ function generateItemsForDnD(projectsData: Project[], labelsData: Label[]) {
           name={name}
           color={color}
           id={id}
+          key={id}
         />
       ),
       id,
     };
 
-    if (isFavorite) favoriteItems.push(item);
+    if (isFavorite) favoriteItems.push(item.component);
 
     return item;
   });
 
-  return { projectItems, labelItems, favoriteItems };
+  return { projectItemsForDnD, labelItemsForDnD, favoriteItems };
 }
 
-/**
- * This hook creates side menu items and passes them to the DnD establishing
- * mechanism.
- */
-function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
+function useDndComponents(
+  projectsConfig: DraggablesConfig,
+  labelConfig: DraggablesConfig,
+) {
   const editProjectMutation = useEditProject();
   const editLabelMutation = useEditLabel();
 
-  const { projectItems, labelItems, favoriteItems } = React.useMemo(
-    () => generateItemsForDnD(projectsData, labelsData),
-    [projectsData, labelsData],
-  );
-
   const saveDragPositionOnTheBackend = (
-    itemType: "project" | "label" | "favorite",
+    itemType: "project" | "label",
     itemId: string,
     newItemIndex: number,
   ) => {
@@ -86,25 +90,49 @@ function useSideMenuItemsWithDnD(projectsData: Project[], labelsData: Label[]) {
 
   const { draggables: projectDraggables, onDragEnd: onProjectDragEnd } =
     useOnDragEnd(
-      projectItems,
+      projectsConfig,
       saveDragPositionOnTheBackend.bind(null, "project"),
     );
   const { draggables: labelDraggables, onDragEnd: onLabelDragEnd } =
-    useOnDragEnd(labelItems, saveDragPositionOnTheBackend.bind(null, "label"));
-  const { draggables: favoriteDraggables, onDragEnd: onFavoritesDragEnd } =
-    useOnDragEnd(
-      favoriteItems,
-      saveDragPositionOnTheBackend.bind(null, "favorite"),
-    );
+    useOnDragEnd(labelConfig, saveDragPositionOnTheBackend.bind(null, "label"));
 
   return {
-    projectDraggables,
-    labelDraggables,
-    favoriteDraggables,
-    onProjectDragEnd,
-    onLabelDragEnd,
-    onFavoritesDragEnd,
+    projectItems: (
+      <DragAndDrop
+        draggables={projectDraggables}
+        mainId="projects"
+        onDragEnd={onProjectDragEnd}
+      />
+    ),
+    labelItems: (
+      <DragAndDrop
+        draggables={labelDraggables}
+        mainId="labels"
+        onDragEnd={onLabelDragEnd}
+      />
+    ),
   };
 }
 
-export { useSideMenuItemsWithDnD };
+/**
+ * This hook creates side menu items (projects, labels, favorites).
+ */
+function useSideMenuItems(projectsData: Project[], labelsData: Label[]) {
+  const { projectItemsForDnD, labelItemsForDnD, favoriteItems } = React.useMemo(
+    () => generateItems(projectsData, labelsData),
+    [projectsData, labelsData],
+  );
+
+  const { projectItems, labelItems } = useDndComponents(
+    projectItemsForDnD,
+    labelItemsForDnD,
+  );
+
+  return {
+    projectItems,
+    labelItems,
+    favoriteItems,
+  };
+}
+
+export { useSideMenuItems };
