@@ -41,7 +41,17 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
         id,
       };
 
-      if (isFavorite) favoriteItems.push(item.component);
+      if (isFavorite)
+        favoriteItems.push(
+          <ProjectsMenuLink
+            isFavorite={isFavorite}
+            name={name}
+            numberOfTasks={taskIds.length}
+            id={id}
+            key={id}
+            isFavoritesSection={true}
+          />,
+        );
 
       return item;
     },
@@ -61,7 +71,17 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
       id,
     };
 
-    if (isFavorite) favoriteItems.push(item.component);
+    if (isFavorite)
+      favoriteItems.push(
+        <LabelsMenuLink
+          isFavorite={isFavorite}
+          name={name}
+          color={color}
+          id={id}
+          key={id}
+          isFavoritesSection={true}
+        />,
+      );
 
     return item;
   });
