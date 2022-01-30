@@ -2,8 +2,7 @@ import { Slide, VisuallyHidden } from "@chakra-ui/react";
 import React from "react";
 import { IoAddOutline } from "react-icons/io5";
 
-import { useResize } from "../../hooks/useResize";
-
+import { useResize } from "./hooks/useResize";
 import { useSideMenuItemsWithDnD } from "./hooks/useSideMenuItemsWithDnD";
 import * as Styled from "./styles";
 
