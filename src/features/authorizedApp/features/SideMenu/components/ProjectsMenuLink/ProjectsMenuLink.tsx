@@ -3,6 +3,7 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
+import { GoPrimitiveDot } from "react-icons/go";
 
 import { actionIds } from "../../config/popupMenuActionIds";
 import { MenuLinkWithPopup } from "../MenuLinkWithPopup/MenuLinkWithPopup";
@@ -65,7 +66,7 @@ function getProjectsPopupMenuItems(
 
 type ProjectsMenuLinkProps = {
   /**
-   * An id of the link. Will be passed as a payload when the user clicks
+   * An id of the project. Will be passed as a payload when the user clicks
    * on a popup menu item.
    */
   id: string;
@@ -73,6 +74,8 @@ type ProjectsMenuLinkProps = {
   name: string;
   /** A number of tasks in this project. */
   numberOfTasks: number;
+  /** A color associated with this project. */
+  color: string;
   /** Whether or not this project in the 'favorites' list. */
   isFavorite: boolean;
   /** Whether or not this link will be rendered in the 'favorites' section. */
@@ -83,6 +86,7 @@ export const ProjectsMenuLink = ({
   id,
   name,
   numberOfTasks,
+  color,
   isFavorite,
   isFavoritesSection = false,
 }: ProjectsMenuLinkProps) => {
@@ -95,6 +99,7 @@ export const ProjectsMenuLink = ({
     <MenuLinkWithPopup
       id={id}
       text={name}
+      leftSlot={<GoPrimitiveDot size="2rem" color={color} />}
       rightSlot={
         numberOfTasks > 0 ? (
           <NumberOfTasks>{numberOfTasks}</NumberOfTasks>

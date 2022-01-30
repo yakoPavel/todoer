@@ -33,6 +33,7 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
           <ProjectsMenuLink
             isFavorite={isFavorite}
             name={name}
+            color={color}
             numberOfTasks={taskIds.length}
             id={id}
             key={id}
@@ -46,6 +47,7 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
           <ProjectsMenuLink
             isFavorite={isFavorite}
             name={name}
+            color={color}
             numberOfTasks={taskIds.length}
             id={id}
             key={id}
