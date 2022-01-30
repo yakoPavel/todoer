@@ -119,20 +119,22 @@ function useDndComponents(
     useOnDragEnd(labelConfig, saveDragPositionOnTheBackend.bind(null, "label"));
 
   return {
-    projectItems: (
-      <DragAndDrop
-        draggables={projectDraggables}
-        mainId="projects"
-        onDragEnd={onProjectDragEnd}
-      />
-    ),
-    labelItems: (
-      <DragAndDrop
-        draggables={labelDraggables}
-        mainId="labels"
-        onDragEnd={onLabelDragEnd}
-      />
-    ),
+    projectItems:
+      projectDraggables.length > 0 ? (
+        <DragAndDrop
+          draggables={projectDraggables}
+          mainId="projects"
+          onDragEnd={onProjectDragEnd}
+        />
+      ) : null,
+    labelItems:
+      labelDraggables.length > 0 ? (
+        <DragAndDrop
+          draggables={labelDraggables}
+          mainId="labels"
+          onDragEnd={onLabelDragEnd}
+        />
+      ) : null,
   };
 }
 

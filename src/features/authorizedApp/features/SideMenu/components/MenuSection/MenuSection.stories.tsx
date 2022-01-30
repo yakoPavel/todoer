@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 
-import { MenuSection } from "./MenuSection";
+import { MenuSectionWithLocalState as MenuSection } from "./MenuSection";
 
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
@@ -32,3 +32,10 @@ WithRightSlot.args = {
   rightSlot: <BsThreeDots />,
 };
 WithRightSlot.storyName = "With right slot";
+
+export const WithoutContent = Template.bind({});
+WithoutContent.args = {
+  ...Default.args,
+  sectionContent: [],
+};
+WithoutContent.storyName = "Without content";

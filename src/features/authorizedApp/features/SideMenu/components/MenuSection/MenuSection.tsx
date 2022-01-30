@@ -29,27 +29,20 @@ type MenuSectionProps = {
   className?: string;
 };
 
-export const MenuSection: React.FC<MenuSectionProps> = ({
+type MenuSectionImplProps = MenuSectionProps & {
+  isOpened: boolean;
+  onToggle: (e: EventWithProcessedField<React.MouseEvent>) => void;
+};
+
+const MenuSectionImpl = ({
   rightSlot,
   sectionTitle,
   sectionContent,
+  onToggle,
+  isOpened,
   className,
-}) => {
+}: MenuSectionImplProps) => {
   const theme = useTheme();
-  const dispatch = useAppDispatch();
-  const isOpened = useAppSelector((state) =>
-    selectors.selectIsSectionOpened(sectionTitle, state),
-  );
-
-  const onToggle = (event: EventWithProcessedField<React.MouseEvent>) => {
-    if (event.processed) return;
-
-    if (isOpened) {
-      dispatch(sideMenuActions.sectionClosed(sectionTitle));
-    } else {
-      dispatch(sideMenuActions.sectionOpened(sectionTitle));
-    }
-  };
 
   return (
     <Accordion
@@ -103,8 +96,88 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
             </Box>
           </Flex>
         </h3>
-        <AccordionPanel>{sectionContent}</AccordionPanel>
+        <AccordionPanel>
+          <Content content={sectionContent} />
+        </AccordionPanel>
       </AccordionItem>
     </Accordion>
   );
 };
+
+type ContentProps = {
+  content: React.ReactNode;
+};
+const Content = ({ content }: ContentProps) => {
+  const theme = useTheme();
+
+  if (content && !Array.isArray(content)) return <>{content}</>;
+  if (content && Array.isArray(content) && content.length > 0)
+    return <>{content}</>;
+
+  return (
+    <Flex justifyContent="center">
+      <Text color={theme.text}>Nothing is there for now 😮</Text>
+    </Flex>
+  );
+};
+
+const MenuSectionWithReduxState: React.FC<MenuSectionProps> = ({
+  rightSlot,
+  sectionTitle,
+  sectionContent,
+  className,
+}) => {
+  const dispatch = useAppDispatch();
+  const isOpened = useAppSelector((state) =>
+    selectors.selectIsSectionOpened(sectionTitle, state),
+  );
+
+  const onToggle = (event: EventWithProcessedField<React.MouseEvent>) => {
+    if (event.processed) return;
+
+    if (isOpened) {
+      dispatch(sideMenuActions.sectionClosed(sectionTitle));
+    } else {
+      dispatch(sideMenuActions.sectionOpened(sectionTitle));
+    }
+  };
+
+  return (
+    <MenuSectionImpl
+      rightSlot={rightSlot}
+      sectionTitle={sectionTitle}
+      sectionContent={sectionContent}
+      className={className}
+      isOpened={isOpened}
+      onToggle={onToggle}
+    />
+  );
+};
+
+const MenuSectionWithLocalState: React.FC<MenuSectionProps> = ({
+  rightSlot,
+  sectionTitle,
+  sectionContent,
+  className,
+}) => {
+  const [isOpened, setIsOpened] = React.useState(false);
+
+  const onToggle = (event: EventWithProcessedField<React.MouseEvent>) => {
+    if (event.processed) return;
+
+    setIsOpened((prevState) => !prevState);
+  };
+
+  return (
+    <MenuSectionImpl
+      rightSlot={rightSlot}
+      sectionTitle={sectionTitle}
+      sectionContent={sectionContent}
+      className={className}
+      isOpened={isOpened}
+      onToggle={onToggle}
+    />
+  );
+};
+
+export { MenuSectionWithReduxState as MenuSection, MenuSectionWithLocalState };
