@@ -84,11 +84,11 @@ const MenuSectionImpl = ({
             </AccordionButton>
             <Box
               marginLeft="auto"
-              visibility="hidden"
               width="15%"
+              opacity="0"
               css={{
                 "#sideMenu:hover &": {
-                  visibility: "visible",
+                  opacity: "1",
                 },
               }}
             >
