@@ -95,7 +95,11 @@ export const ProjectsMenuLink = ({
     <MenuLinkWithPopup
       id={id}
       text={name}
-      rightSlot={<NumberOfTasks>{numberOfTasks}</NumberOfTasks>}
+      rightSlot={
+        numberOfTasks > 0 ? (
+          <NumberOfTasks>{numberOfTasks}</NumberOfTasks>
+        ) : null
+      }
       popupItemsConfig={projectsPopupMenuItems}
     />
   );
