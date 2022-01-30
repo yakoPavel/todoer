@@ -10,6 +10,7 @@ import {
   shiftElementsPositionRelative,
   correctElementsPosition,
   correctPosition,
+  correctElementsPositionAfterDeletion,
 } from "../utils";
 
 import { CreateProjectBody, PatchProjectBody } from "@/types";
@@ -182,6 +183,12 @@ const projectHandlers = [
     if (!result) {
       return delayedResponse(ctx.status(404));
     }
+
+    correctElementsPositionAfterDeletion({
+      userId: user.id,
+      deletedItemPosition: result.position,
+      itemType: "project",
+    });
 
     db.task.deleteMany({
       where: {

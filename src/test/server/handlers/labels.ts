@@ -10,6 +10,7 @@ import {
   shiftElementsPositionRelative,
   correctElementsPosition,
   correctPosition,
+  correctElementsPositionAfterDeletion,
 } from "../utils";
 
 import { CreateLabelBody, PatchLabelBody } from "@/types";
@@ -170,6 +171,12 @@ const labelHandlers = [
     if (!result) {
       return delayedResponse(ctx.status(404));
     }
+
+    correctElementsPositionAfterDeletion({
+      userId: user.id,
+      deletedItemPosition: result.position,
+      itemType: "label",
+    });
 
     db.task.updateMany({
       where: {

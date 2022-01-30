@@ -212,6 +212,37 @@ export function correctElementsPosition({
   }
 }
 
+type CorrectElementsPositionAfterDeletionOptions = {
+  /** An id of the user. */
+  userId: string;
+  /** A position of the deleted item. */
+  deletedItemPosition: number;
+  /** A type of the item under update. */
+  itemType: "project" | "label" | "task";
+};
+/**
+ * Corrects the position of the elements after one of them has been deleted.
+ */
+export function correctElementsPositionAfterDeletion({
+  userId,
+  deletedItemPosition,
+  itemType,
+}: CorrectElementsPositionAfterDeletionOptions) {
+  db[itemType].updateMany({
+    where: {
+      userId: {
+        equals: userId,
+      },
+      position: {
+        gt: deletedItemPosition,
+      },
+    },
+    data: {
+      position: (prevPosition: number) => prevPosition - 1,
+    },
+  });
+}
+
 /**
  * Corrects the position of the item if necessary.
  */
