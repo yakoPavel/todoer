@@ -4,6 +4,7 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
+import { LinkProps } from "react-router-dom";
 
 import { actionIds } from "../../config/popupMenuActionIds";
 import { MenuLinkWithPopup } from "../MenuLinkWithPopup/MenuLinkWithPopup";
@@ -80,7 +81,7 @@ type ProjectsMenuLinkProps = {
   isFavorite: boolean;
   /** Whether or not this link will be rendered in the 'favorites' section. */
   isFavoritesSection?: boolean;
-};
+} & LinkProps;
 
 export const ProjectsMenuLink = ({
   id,
@@ -89,6 +90,7 @@ export const ProjectsMenuLink = ({
   color,
   isFavorite,
   isFavoritesSection = false,
+  ...otherProps
 }: ProjectsMenuLinkProps) => {
   const projectsPopupMenuItems = getProjectsPopupMenuItems(
     isFavorite,
@@ -106,6 +108,7 @@ export const ProjectsMenuLink = ({
         ) : null
       }
       popupItemsConfig={projectsPopupMenuItems}
+      {...otherProps}
     />
   );
 };

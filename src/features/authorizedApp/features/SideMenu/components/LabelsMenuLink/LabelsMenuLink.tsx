@@ -2,6 +2,7 @@ import React from "react";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineHeart } from "react-icons/ai";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 import { MdLabel } from "react-icons/md";
+import { LinkProps } from "react-router-dom";
 
 import { actionIds } from "../../config/popupMenuActionIds";
 import { MenuLinkWithPopup } from "../MenuLinkWithPopup/MenuLinkWithPopup";
@@ -72,7 +73,7 @@ type LabelsMenuLinkProps = {
   isFavorite: boolean;
   /** Whether or not this link will be rendered in the 'favorites' section. */
   isFavoritesSection?: boolean;
-};
+} & LinkProps;
 
 export const LabelsMenuLink = ({
   id,
@@ -80,6 +81,7 @@ export const LabelsMenuLink = ({
   color,
   isFavorite,
   isFavoritesSection = false,
+  ...otherProps
 }: LabelsMenuLinkProps) => {
   const labelsPopupMenuItems = getLabelsPopupMenuItems(
     isFavorite,
@@ -92,6 +94,7 @@ export const LabelsMenuLink = ({
       text={name}
       leftSlot={<MdLabel color={color} />}
       popupItemsConfig={labelsPopupMenuItems}
+      {...otherProps}
     />
   );
 };

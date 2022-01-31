@@ -1,6 +1,7 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
+import { LinkProps } from "react-router-dom";
 
 import {
   PopupMenu,
@@ -62,7 +63,7 @@ type MenuLinkWithPopupProps = MenuLinkProps & {
    * on a popup menu item.
    */
   id: string;
-};
+} & LinkProps;
 
 export const MenuLinkWithPopup = ({
   leftSlot,
@@ -70,6 +71,7 @@ export const MenuLinkWithPopup = ({
   text,
   popupItemsConfig,
   id,
+  ...otherProps
 }: MenuLinkWithPopupProps) => {
   const {
     isPopupVisible: isContextMenuVisible,
@@ -95,6 +97,7 @@ export const MenuLinkWithPopup = ({
           </ClickPopupTrigger>
         }
         ref={contextMenuTriggerRef}
+        {...otherProps}
       />
       {(isContextMenuVisible || isClickMenuVisible) && (
         <>

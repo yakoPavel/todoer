@@ -37,6 +37,7 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
             numberOfTasks={taskIds.length}
             id={id}
             key={id}
+            to={`/projects/${id}`}
           />
         ),
         id,
@@ -52,6 +53,7 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
             id={id}
             key={id}
             isFavoritesSection={true}
+            to={`/projects/${id}`}
           />,
         );
 
@@ -68,6 +70,7 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
           color={color}
           id={id}
           key={id}
+          to={`/labels/${id}`}
         />
       ),
       id,
@@ -82,6 +85,7 @@ function generateItems(projectsData: Project[], labelsData: Label[]) {
           id={id}
           key={id}
           isFavoritesSection={true}
+          to={`/labels/${id}`}
         />,
       );
 

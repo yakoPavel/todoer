@@ -1,8 +1,9 @@
 import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import React from "react";
+import { Link, LinkProps } from "react-router-dom";
 
-export const StyledLink = styled.a`
+export const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   font-size: 1.4rem;
@@ -49,7 +50,7 @@ export type MenuLinkProps = Omit<
   leftSlot?: React.ReactNode;
   /** A component that will be placed on the right. */
   rightSlot?: React.ReactNode;
-};
+} & LinkProps;
 
 export const MenuLink = React.forwardRef<HTMLAnchorElement, MenuLinkProps>(
   ({ rightSlot, leftSlot, text, ...otherProps }, ref) => {
