@@ -3,7 +3,7 @@ import styled from "@emotion/styled/macro";
 import React from "react";
 import { Link, LinkProps } from "react-router-dom";
 
-export const StyledLink = styled(Link)`
+export const MenuLinkWrapper = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.4rem;
@@ -36,7 +36,7 @@ const RightSlotWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-const LinkText = styled(Text)`
+const StyledLink = styled(Link)`
   flex-grow: 6.5;
 `;
 
@@ -52,14 +52,16 @@ export type MenuLinkProps = Omit<
   rightSlot?: React.ReactNode;
 } & LinkProps;
 
-export const MenuLink = React.forwardRef<HTMLAnchorElement, MenuLinkProps>(
+export const MenuLink = React.forwardRef<HTMLDivElement, MenuLinkProps>(
   ({ rightSlot, leftSlot, text, ...otherProps }, ref) => {
     return (
-      <StyledLink {...otherProps} ref={ref}>
+      <MenuLinkWrapper ref={ref} data-testid="menuLinkWrapper">
         <LeftSlotWrapper>{leftSlot}</LeftSlotWrapper>
-        <LinkText>{text}</LinkText>
+        <StyledLink {...otherProps}>
+          <Text>{text}</Text>
+        </StyledLink>
         <RightSlotWrapper>{rightSlot}</RightSlotWrapper>
-      </StyledLink>
+      </MenuLinkWrapper>
     );
   },
 );

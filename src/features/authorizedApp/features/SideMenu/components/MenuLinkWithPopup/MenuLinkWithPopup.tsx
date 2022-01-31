@@ -1,3 +1,4 @@
+import { VisuallyHidden } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
@@ -8,7 +9,7 @@ import {
   PopupMenuProps,
   usePopupMenu,
 } from "../../features/PopupMenu";
-import { MenuLinkProps, StyledLink, MenuLink } from "../MenuLink/MenuLink";
+import { MenuLinkProps, MenuLinkWrapper, MenuLink } from "../MenuLink/MenuLink";
 
 import { usePopupItemsClickHandler } from "./hooks/usePopupItemsClickHandler";
 
@@ -16,17 +17,17 @@ const PopupTriggerWrapper = styled.div`
   position: relative;
 `;
 
-const PopupTrigger = styled.div`
+const PopupTrigger = styled.button`
   position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  visibility: hidden;
+  opacity: 0;
   color: ${({ theme }) => theme.textSecondary};
   font-size: 2rem;
 
-  ${StyledLink}:hover & {
-    visibility: visible;
+  ${MenuLinkWrapper}:hover & {
+    opacity: 1;
   }
 
   &:hover {
@@ -35,20 +36,21 @@ const PopupTrigger = styled.div`
 `;
 
 const PopupTriggerContentWrapper = styled.div`
-  ${StyledLink}:hover & {
+  ${MenuLinkWrapper}:hover & {
     visibility: hidden;
   }
 `;
 
 const ClickPopupTrigger = React.forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   { children?: React.ReactNode }
 >(({ children }, ref) => {
   return (
     <PopupTriggerWrapper>
       <PopupTriggerContentWrapper>{children}</PopupTriggerContentWrapper>
       <PopupTrigger ref={ref}>
-        <BsThreeDots />
+        <BsThreeDots aria-hidden="true" />
+        <VisuallyHidden>Open the menu</VisuallyHidden>
       </PopupTrigger>
     </PopupTriggerWrapper>
   );
