@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import React from "react";
 import { UseMutationResult } from "react-query";
 
-import { FormValues } from "../../types";
+import { FormValues, DivProps } from "../../types";
 import { Form, FormFieldConfig } from "../Form/Form";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
@@ -39,7 +39,8 @@ export const AddItemForm = <FieldsConfig extends FormFieldConfig[], Data>({
   openSectionAction,
   direction,
   triggerId,
-}: AddItemFormProps<FieldsConfig, Data>) => {
+  ...otherProps
+}: DivProps & AddItemFormProps<FieldsConfig, Data>) => {
   const dispatch = useAppDispatch();
 
   const onSubmit = (formValues: FormValues<FieldsConfig>) => {
@@ -61,6 +62,7 @@ export const AddItemForm = <FieldsConfig extends FormFieldConfig[], Data>({
       formFieldsConfig={fieldsConfig}
       onSubmit={onSubmit}
       onDismiss={onDismiss}
+      {...otherProps}
     />
   );
 };

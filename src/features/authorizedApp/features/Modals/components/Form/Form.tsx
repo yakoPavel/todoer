@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import React from "react";
 
-import { FormValues } from "../../types";
+import { FormValues, DivProps } from "../../types";
 
 import { useFormState } from "./hooks/useFormState";
 import * as Styled from "./styles";
@@ -34,7 +34,7 @@ export type FormFieldConfig =
   | (BaseFormFieldConfig & TextBasedFieldConfig)
   | (BaseFormFieldConfig & SwitchFieldConfig);
 
-export type FormProps<Config extends FormFieldConfig[]> = {
+export type FormProps<Config extends FormFieldConfig[]> = DivProps & {
   /** A title of the Card. */
   title: string;
   /** A config based on which the form field will be rendered. */
@@ -56,6 +56,7 @@ export const Form = <Config extends FormFieldConfig[]>({
   formFieldsConfig,
   submitButtonTitle = "Submit",
   cancelButtonTitle = "Cancel",
+  ...otherProps
 }: FormProps<Config>) => {
   const { formFields, formState } = useFormState(formFieldsConfig);
 
@@ -66,7 +67,7 @@ export const Form = <Config extends FormFieldConfig[]>({
 
   return (
     <Overlay data-testid="modalForm">
-      <Styled.Card>
+      <Styled.Card {...otherProps}>
         <Styled.TitleContainer>
           <Heading as="h3" size="md">
             {title}

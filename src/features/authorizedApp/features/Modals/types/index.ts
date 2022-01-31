@@ -19,3 +19,5 @@ export type FormState<Data extends FormFieldConfig[]> = {
 
 export type FormValues<Data extends FormFieldConfig[]> =
   FormState<Data>["values"];
+
+export type DivProps = Omit<React.ComponentPropsWithoutRef<"div">, "onSubmit">;

@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import React from "react";
 import { UseMutationResult, UseQueryResult } from "react-query";
 
-import { FormValues } from "../../types";
+import { FormValues, DivProps } from "../../types";
 import { Form, FormFieldConfig } from "../Form/Form";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
@@ -47,7 +47,8 @@ export const EditItemForm = <
   editItemMutation,
   itemsInfo,
   closeModalAction,
-}: EditItemFormProps<FieldsConfig, Data>) => {
+  ...otherProps
+}: DivProps & EditItemFormProps<FieldsConfig, Data>) => {
   const dispatch = useAppDispatch();
 
   if (itemsInfo.isLoading) {
@@ -91,6 +92,7 @@ export const EditItemForm = <
       formFieldsConfig={formFieldsConfig}
       onSubmit={onSubmit}
       onDismiss={onDismiss}
+      {...otherProps}
     />
   );
 };
