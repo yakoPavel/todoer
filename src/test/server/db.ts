@@ -1,4 +1,4 @@
-import { factory, nullable, primaryKey } from "@mswjs/data";
+import { factory, nullable, primaryKey, drop } from "@mswjs/data";
 import { nanoid } from "nanoid";
 
 const DB_KEY = "msw-db";
@@ -78,6 +78,7 @@ export const initializeDb = () => {
 
 export const resetDb = () => {
   window.localStorage.clear();
+  drop(db);
 };
 
 initializeDb();
