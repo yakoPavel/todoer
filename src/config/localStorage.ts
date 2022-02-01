@@ -3,4 +3,6 @@ const SIDE_MENU = {
   VISIBILITY: "SIDE_MENU_VISIBILITY_STATE",
 };
 
-export { SIDE_MENU };
+const THEME = "APP_THEME";
+
+export { SIDE_MENU, THEME };

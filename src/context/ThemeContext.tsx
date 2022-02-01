@@ -5,20 +5,31 @@ import * as colorThemes from "../style/colors";
 
 import { createContext } from "./createContext";
 
+import { THEME } from "@/config/localStorage";
 import { ThemeName } from "@/types";
+import * as localStorage from "@/utils/localStorage";
 
 const [useCurrentThemeSetter, CurrentThemeSetterProvider] =
-  createContext<React.Dispatch<React.SetStateAction<ThemeName>>>();
+  createContext<(theme: ThemeName) => void>();
 const [useCurrentThemeName, CurrentThemeNameProvider] =
   createContext<ThemeName>();
 
 export const ThemeContextProvider: React.FC = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = React.useState<ThemeName>("light");
+  const [currentTheme, originalSetCurrentTheme] = React.useState<ThemeName>(
+    () => {
+      return localStorage.getFromLocalStorage(THEME, "light" as ThemeName);
+    },
+  );
 
-  const themeValue = React.useMemo(
+  const themeValue = React.useCallback(
     () => colorThemes[`${currentTheme}Theme`],
     [currentTheme],
   );
+
+  const setCurrentTheme = React.useCallback((theme: ThemeName) => {
+    originalSetCurrentTheme(theme);
+    localStorage.saveToLocalStorage(THEME, theme);
+  }, []);
 
   return (
     <EmotionThemeProvider theme={themeValue}>
