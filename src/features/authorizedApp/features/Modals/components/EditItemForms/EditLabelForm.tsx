@@ -40,6 +40,7 @@ export const EditLabelForm = ({ labelId }: EditLabelFormProps) => {
       editItemMutation={editLabelMutation}
       fieldsConfig={formFieldsConfig}
       itemsInfo={labelsInfo}
+      data-testid="editLabelForm"
     />
   );
 };

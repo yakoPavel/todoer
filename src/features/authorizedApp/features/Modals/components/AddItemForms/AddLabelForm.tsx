@@ -55,6 +55,7 @@ export const AddLabelForm = ({ direction, triggerId }: AddLabelFormProps) => {
       openSectionAction={sideMenuUiActions.labelsSectionOpened}
       fieldsConfig={formFieldsConfig}
       createItemMutation={createLabelMutation}
+      data-testid="addLabelForm"
     />
   );
 };

@@ -59,6 +59,7 @@ export const AddProjectForm = ({
       openSectionAction={sideMenuUiActions.projectsSectionOpened}
       fieldsConfig={formFieldsConfig}
       createItemMutation={createProjectMutation}
+      data-testid="addProjectForm"
     />
   );
 };

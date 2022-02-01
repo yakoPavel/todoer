@@ -61,8 +61,6 @@ export const EditItemForm = <
     return null;
   }
 
-  console.log(itemsInfo.data);
-
   const currentData = itemsInfo.data?.find(
     (itemInfo) => itemInfo.id === itemId,
   );

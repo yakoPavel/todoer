@@ -57,7 +57,7 @@ const SideMenuContent = ({
   };
 
   return (
-    <Styled.MenuWrapper id="sideMenu">
+    <Styled.MenuWrapper id="sideMenu" data-testid="sideMenuContent">
       <Styled.StyledMenuSection
         sectionTitle="Favorites"
         sectionContent={favoriteItems}

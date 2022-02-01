@@ -40,6 +40,7 @@ export const EditProjectForm = ({ projectId }: EditProjectFormProps) => {
       editItemMutation={editProjectMutation}
       fieldsConfig={formFieldsConfig}
       itemsInfo={projectsInfo}
+      data-testid="editProjectForm"
     />
   );
 };
