@@ -49,6 +49,7 @@ export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
       onConfirm={onConfirm}
       confirmButtonTitle="Delete"
       cancelButtonTitle="Cancel"
+      withButtons
     />
   );
 };

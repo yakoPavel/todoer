@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Dialog } from "../Dialog/Dialog";
+import { Dialog, DialogProps } from "../Dialog/Dialog";
 
 import { render, screen, userEvent } from "@/test/testUtils";
 import { UniqueChance } from "@/test/UniqueChance";
@@ -8,13 +8,16 @@ import { UniqueChance } from "@/test/UniqueChance";
 const SEED = 12345;
 const chance = new UniqueChance(SEED);
 
-function renderComponent() {
+function renderComponent(override?: DialogProps) {
   const props = {
     dialogContent: chance.sentence(),
     onConfirm: jest.fn(),
     onCancel: jest.fn(),
+    withButtons: true,
+    dialogTitle: chance.word(),
     cancelButtonTitle: chance.word(),
     confirmButtonTitle: chance.word(),
+    ...override,
   };
 
   render(<Dialog {...props} />);
@@ -24,9 +27,12 @@ function renderComponent() {
     screen.getByRole("button", { name: props.cancelButtonTitle });
   const getConfirmButtonElement = () =>
     screen.getByRole("button", { name: props.confirmButtonTitle });
-  const getDialogContentElement = () => screen.getByText(props.dialogContent);
+  const getDialogContentElement = () =>
+    screen.getByText(props.dialogContent as string);
   const getCloseButtonElement = () =>
     screen.getByRole("button", { name: /close/i });
+  const getDialogTitleElement = () =>
+    screen.getByRole("heading", { name: props.dialogTitle });
 
   return {
     ...props,
@@ -35,6 +41,7 @@ function renderComponent() {
     getCancelButtonElement,
     getConfirmButtonElement,
     getCloseButtonElement,
+    getDialogTitleElement,
   };
 }
 
@@ -64,6 +71,12 @@ describe("The `Dialog` component", () => {
       const { getCloseButtonElement } = renderComponent();
 
       expect(getCloseButtonElement()).toBeInTheDocument();
+    });
+
+    test("Render a dialog title", () => {
+      const { getDialogTitleElement } = renderComponent();
+
+      expect(getDialogTitleElement()).toBeInTheDocument();
     });
   });
 

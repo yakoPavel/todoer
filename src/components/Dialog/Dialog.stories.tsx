@@ -20,6 +20,18 @@ Default.args = {
   dialogContent: "Content of the dialog",
 };
 
+export const WithButtons = Template.bind({});
+WithButtons.args = {
+  ...Default.args,
+  withButtons: true,
+};
+
+export const WithTitle = Template.bind({});
+WithTitle.args = {
+  ...Default.args,
+  dialogTitle: "Title",
+};
+
 export const WithWideContent = Template.bind({});
 WithWideContent.args = {
   dialogContent:

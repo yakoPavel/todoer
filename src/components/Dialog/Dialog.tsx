@@ -1,90 +1,106 @@
-import styled from "@emotion/styled/macro";
+import { Heading } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-import { Button } from "@/components/Button/Button";
+import * as Styled from "./styles";
+
 import { Overlay } from "@/components/Overlay/Overlay";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 
-const Container = styled.div`
-  position: relative;
-  background: ${({ theme }) => theme.background};
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  overflow: hidden;
-  color: ${({ theme }) => theme.text};
-  padding: 1rem;
-  max-width: 98%;
-  min-width: min(98%, 25rem);
-`;
+type ControlsProps = {
+  onConfirm: () => void;
+  onCancel: () => void;
+  confirmButtonTitle?: string;
+  cancelButtonTitle?: string;
+};
+const Controls = ({
+  onConfirm,
+  onCancel,
+  confirmButtonTitle = "Ok",
+  cancelButtonTitle = "Cancel",
+}: ControlsProps) => {
+  return (
+    <Styled.ControlsWrapper>
+      <Styled.ControlButton
+        variant="secondary"
+        type="button"
+        onClick={onCancel}
+      >
+        {cancelButtonTitle}
+      </Styled.ControlButton>
+      <Styled.ControlButtonWithLeftMargin type="button" onClick={onConfirm}>
+        {confirmButtonTitle}
+      </Styled.ControlButtonWithLeftMargin>
+    </Styled.ControlsWrapper>
+  );
+};
 
-const ContentWrapper = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-`;
+type CloseModalButtonProps = {
+  onClick: () => void;
+};
+const CloseModalButton = ({ onClick }: CloseModalButtonProps) => {
+  return (
+    <Tooltip tooltipText="Close modal">
+      <Styled.CloseButton type="button" aria-label="Close" onClick={onClick}>
+        <AiOutlineClose size="1.8rem" aria-hidden />
+      </Styled.CloseButton>
+    </Tooltip>
+  );
+};
 
-const ControlsWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const ControlButton = styled(Button)`
-  padding: 0.5rem 1.5rem;
-`;
-
-const ControlButtonWithLeftMargin = styled(ControlButton)`
-  margin-left: 1.5rem;
-`;
-
-const CloseButton = styled.button`
-  padding: 0.5rem;
-  border-radius: 5px;
-  margin-left: auto;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.backgroundTertiary};
-  }
-`;
-
-export type DialogProps = {
+type BaseProps = {
   /** Content of the dialog. */
   dialogContent: React.ReactNode;
+  /** A title of the dialog. */
+  dialogTitle?: string;
+  /** A callback that will be called when the dialog is cancelled. */
+  onCancel: () => void;
+};
+
+type WithButtons = {
+  /** Whether to show control buttons or not. */
+  withButtons: true;
   /** A callback that will be called when the confirm button is clicked. */
   onConfirm: () => void;
-  /** A callback that will be called when the cancel button is clicked. */
-  onCancel: () => void;
   /** A title of the confirm button. */
   confirmButtonTitle?: string;
   /** A title of the cancel button. */
   cancelButtonTitle?: string;
 };
 
-export const Dialog: React.FC<DialogProps> = ({
-  dialogContent,
-  onCancel,
-  onConfirm,
-  confirmButtonTitle = "Ok",
-  cancelButtonTitle = "Cancel",
-}) => {
+type WithoutButtons = {
+  /** Whether to show control buttons or not. */
+  withButtons?: false;
+};
+
+export type DialogProps =
+  | (BaseProps & WithButtons)
+  | (BaseProps & WithoutButtons);
+
+export const Dialog: React.FC<DialogProps> = (props) => {
+  const { dialogContent, dialogTitle, onCancel } = props;
+
   return (
     <Overlay>
-      <Container role="dialog">
-        <Tooltip tooltipText="Close modal">
-          <CloseButton type="button" aria-label="Close" onClick={onCancel}>
-            <AiOutlineClose size="1.8rem" aria-hidden />
-          </CloseButton>
-        </Tooltip>
-        <ContentWrapper>{dialogContent}</ContentWrapper>
-        <ControlsWrapper>
-          <ControlButton variant="secondary" type="button" onClick={onCancel}>
-            {cancelButtonTitle}
-          </ControlButton>
-          <ControlButtonWithLeftMargin type="button" onClick={onConfirm}>
-            {confirmButtonTitle}
-          </ControlButtonWithLeftMargin>
-        </ControlsWrapper>
-      </Container>
+      <Styled.Container role="dialog">
+        <Styled.DialogHeader>
+          {dialogTitle && (
+            <Heading as="h3" size="md">
+              {dialogTitle}
+            </Heading>
+          )}
+          <CloseModalButton onClick={onCancel} />
+        </Styled.DialogHeader>
+        <Styled.ContentWrapper>{dialogContent}</Styled.ContentWrapper>
+        {props.withButtons && (
+          <Controls
+            onCancel={props.onCancel}
+            onConfirm={props.onConfirm}
+            cancelButtonTitle={props.cancelButtonTitle}
+            confirmButtonTitle={props.confirmButtonTitle}
+          />
+        )}
+      </Styled.Container>
     </Overlay>
   );
 };
