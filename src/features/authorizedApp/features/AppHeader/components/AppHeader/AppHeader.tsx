@@ -14,6 +14,8 @@ import * as Styled from "./styles";
 
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import * as keyboardShortcuts from "@/config/keyboardShortcuts";
+import { actions as modalActions } from "@/features/authorizedApp/store/slices/modalsUi";
+import { useAppDispatch } from "@/hooks/storeHooks";
 
 type HeaderButtonProps = Omit<
   React.ComponentPropsWithoutRef<"button">,
@@ -45,16 +47,15 @@ type AppHeaderProps = {
   onMenuToggle?: () => void;
   onGoHome?: () => void;
   onQuickAdd?: () => void;
-  onThemeChange?: () => void;
   menuState: "opened" | "closed";
 };
 export const AppHeader = ({
   onMenuToggle,
   onGoHome,
   onQuickAdd,
-  onThemeChange,
   menuState,
 }: AppHeaderProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const menuButtonLabel =
     menuState === "closed" ? "Open the menu" : "Close the menu";
 
@@ -65,6 +66,10 @@ export const AppHeader = ({
       "--header-height",
       `${header.offsetHeight}px`,
     );
+  };
+
+  const onThemeChange = () => {
+    dispatch(modalActions.themeSwitcherDialogAppeared());
   };
 
   return (

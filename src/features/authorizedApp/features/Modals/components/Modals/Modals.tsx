@@ -5,9 +5,8 @@ import { AddProjectForm } from "../AddItemForms/AddProjectForm";
 import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
 import { EditLabelForm } from "../EditItemForms/EditLabelForm";
 import { EditProjectForm } from "../EditItemForms/EditProjectForm";
-// import { EditLabelForm } from "../EditLabelForm/EditLabelForm";
-// import { EditProjectForm } from "../EditProjectForm/EditProjectForm";
 
+import { ThemeSwitcher } from "@/features/authorizedApp/features/ThemeSwitcher";
 import { selectors } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppSelector } from "@/hooks/storeHooks";
 
@@ -18,6 +17,9 @@ export const Modals = () => {
   const editLabelForm = useAppSelector(selectors.selectEditLabelFormState);
   const deleteItemDialog = useAppSelector(
     selectors.selectDeleteItemDialogState,
+  );
+  const themeSwitcherDialog = useAppSelector(
+    selectors.selectThemeSwitcherDialogState,
   );
 
   if (addProjectForm.visible) {
@@ -49,6 +51,9 @@ export const Modals = () => {
         itemType={deleteItemDialog.itemType}
       />
     );
+  }
+  if (themeSwitcherDialog.visible) {
+    return <ThemeSwitcher />;
   }
 
   return null;

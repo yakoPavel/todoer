@@ -37,6 +37,10 @@ type DeleteItemDialogNotVisibleState = {
   /** Whether or not the dialog is visible. */
   visible: false;
 };
+type ThemeSwitcherDialogState = {
+  /** Whether or not the dialog is visible. */
+  visible: boolean;
+};
 
 type ModalsUiState = {
   addProject: AddNewFormNotVisibleState | AddNewFormVisibleState;
@@ -44,6 +48,7 @@ type ModalsUiState = {
   addLabel: AddNewFormNotVisibleState | AddNewFormVisibleState;
   editLabel: EditFormNotVisibleState | EditFormVisibleState;
   deleteItem: DeleteItemDialogNotVisibleState | DeleteItemDialogVisibleState;
+  themeSwitcher: ThemeSwitcherDialogState;
 };
 
 const initialState: ModalsUiState = {
@@ -52,6 +57,7 @@ const initialState: ModalsUiState = {
   addLabel: { visible: false },
   editLabel: { visible: false },
   deleteItem: { visible: false },
+  themeSwitcher: { visible: false },
 };
 
 /* Action payload types */
@@ -136,6 +142,13 @@ const modalsUiSlice = createSlice({
         ...action.payload,
       };
     },
+
+    themeSwitcherDialogDismissed(state) {
+      state.themeSwitcher.visible = false;
+    },
+    themeSwitcherDialogAppeared(state) {
+      state.themeSwitcher.visible = true;
+    },
   },
 });
 
@@ -149,6 +162,8 @@ export const selectors = {
   selectEditProjectFormState: (state: RootState) => state.modalsUi.editProject,
   selectEditLabelFormState: (state: RootState) => state.modalsUi.editLabel,
   selectDeleteItemDialogState: (state: RootState) => state.modalsUi.deleteItem,
+  selectThemeSwitcherDialogState: (state: RootState) =>
+    state.modalsUi.themeSwitcher,
 };
 
 export default modalsUiSlice.reducer;

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="210mm" height="152mm" version="1.1" viewBox="0 0 210 152" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <clipPath id="clipPath910">
+   <use width="100%" height="100%" xlink:href="#g906"/>
+  </clipPath>
+  <clipPath id="clipPath1098">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1102">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1106">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1110">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1114">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1118">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1122">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1126">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1130">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1134">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1138">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1142">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1146">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1150">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1154">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1158">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1162">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1166">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1170">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1174">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1178">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+  <clipPath id="clipPath1360">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </clipPath>
+ </defs>
+ <rect class="background" x="71.443" y="26.876" width="138.56" height="125.87" fill-rule="evenodd" stroke-width=".2637"/>
+ <rect class="header" transform="matrix(.99882 0 0 1.0127 0 -.34041)" y=".34021" width="210.25" height="26.536" clip-path="url(#clipPath1178)"/>
+ <rect class="sideMenu" y="26.876" width="71.443" height="270.12" clip-path="url(#clipPath1360)"/>
+ <rect class="text" x="82.67" y="39.124" width="113.63" height="1.701" clip-path="url(#clipPath1174)"/>
+ <rect class="text" x="82.67" y="44.48" width="113.63" height="1.701" clip-path="url(#clipPath1170)"/>
+ <rect class="text" x="82.67" y="49.837" width="113.63" height="1.701" clip-path="url(#clipPath1166)"/>
+ <rect class="text" x="82.67" y="55.194" width="113.63" height="1.701" clip-path="url(#clipPath1162)"/>
+ <rect class="text" x="82.67" y="65.907" width="113.63" height="1.701" clip-path="url(#clipPath1158)"/>
+ <rect class="text" x="82.67" y="60.55" width="113.63" height="1.701" clip-path="url(#clipPath1154)"/>
+ <rect class="text" x="82.67" y="71.264" width="113.63" height="1.701" clip-path="url(#clipPath1150)"/>
+ <rect class="text" x="82.67" y="76.62" width="113.63" height="1.701" clip-path="url(#clipPath1146)"/>
+ <rect class="text" x="82.67" y="81.977" width="113.63" height="1.701" clip-path="url(#clipPath1142)"/>
+ <rect class="text" x="82.67" y="87.334" width="113.63" height="1.701" clip-path="url(#clipPath1138)"/>
+ <rect class="text" x="82.67" y="92.69" width="113.63" height="1.701" clip-path="url(#clipPath1134)"/>
+ <rect class="text" x="82.67" y="98.047" width="113.63" height="1.701" clip-path="url(#clipPath1130)"/>
+ <rect class="text" x="82.67" y="108.76" width="113.63" height="1.701" clip-path="url(#clipPath1126)"/>
+ <rect class="text" x="82.67" y="103.4" width="113.63" height="1.701" clip-path="url(#clipPath1122)"/>
+ <rect class="text" x="82.67" y="114.12" width="113.63" height="1.701" clip-path="url(#clipPath1118)"/>
+ <rect class="text" x="82.67" y="119.47" width="113.63" height="1.701" clip-path="url(#clipPath1114)"/>
+ <rect class="button" x="154.45" y="130.98" width="41.845" height="10.887" clip-path="url(#clipPath1110)"/>
+ <g fill="none" stroke-width=".26458">
+  <rect y=".34021" width="208.21" height="145.95" clip-path="url(#clipPath1106)"/>
+  <rect y=".34021" width="208.21" height="145.95" clip-path="url(#clipPath1102)"/>
+  <rect y=".34021" width="210.93" height="152.41" clip-path="url(#clipPath1098)"/>
+ </g>
+ <g clip-path="url(#clipPath910)">
+  <g id="g906">
+   <rect y=".34021" width="210.93" height="152.41" fill="none" stroke-width=".26458"/>
+  </g>
+ </g>
+</svg>
