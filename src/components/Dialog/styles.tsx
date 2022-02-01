@@ -12,12 +12,14 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.text};
   max-width: 98%;
   min-width: min(98%, 25rem);
+  max-height: 90vh;
 `;
 
 export const ContentWrapper = styled.div`
   padding: 0 2rem 1rem 2rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
+  overflow-y: auto;
 `;
 
 export const ControlsWrapper = styled.div`
