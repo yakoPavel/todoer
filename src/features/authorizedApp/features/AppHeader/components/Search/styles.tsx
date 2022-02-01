@@ -80,6 +80,7 @@ export const Input = styled.input`
   padding: 0.6rem ${INPUT_HORIZONTAL_PADDING}rem;
   border-radius: 3px;
   transition: background-color 0.1s linear;
+  width: 100%;
 
   &::placeholder {
     color: transparent;
