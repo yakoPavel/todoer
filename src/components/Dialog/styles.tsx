@@ -15,13 +15,13 @@ export const Container = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 2rem 1rem 2rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
 `;
 
 export const ControlsWrapper = styled.div`
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 2rem 1rem 2rem;
   display: flex;
   justify-content: flex-end;
 `;
@@ -35,7 +35,7 @@ export const ControlButtonWithLeftMargin = styled(ControlButton)`
 `;
 
 export const DialogHeader = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.separators};
