@@ -70,3 +70,48 @@ export const createLabel = (labelProps?: Overrides) => {
   const label = generateLabel(labelProps);
   return db.label.create(label);
 };
+
+export type PopulateDbOptions = {
+  numberOfProjects: number;
+  numberOfLabels: number;
+  numberOfFavoriteProjects?: number;
+  numberOfFavoriteLabels?: number;
+};
+export const populateDb = ({
+  numberOfProjects,
+  numberOfFavoriteProjects,
+  numberOfLabels,
+  numberOfFavoriteLabels,
+}: PopulateDbOptions) => {
+  const user = createUser({
+    id: "SOME_USER_ID",
+  });
+
+  const projects = Array.from({ length: numberOfProjects }, (_, index) => {
+    const projectSettings: Record<string, unknown> = {
+      userId: user.id,
+      position: index,
+    };
+
+    if (numberOfFavoriteProjects !== undefined) {
+      projectSettings.isFavorite = index < numberOfFavoriteProjects;
+    }
+
+    return createProject(projectSettings);
+  });
+
+  const labels = Array.from({ length: numberOfLabels }, (_, index) => {
+    const labelSettings: Record<string, unknown> = {
+      userId: user.id,
+      position: index,
+    };
+
+    if (numberOfFavoriteLabels !== undefined) {
+      labelSettings.isFavorite = index < numberOfFavoriteLabels;
+    }
+
+    return createLabel(labelSettings);
+  });
+
+  return { user, projects, labels };
+};
