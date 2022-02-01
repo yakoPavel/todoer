@@ -1,6 +1,7 @@
 import styled from "@emotion/styled/macro";
 
 import { Button } from "@/components/Button/Button";
+import * as mediaQueries from "@/style/mediaQueries";
 
 export const Container = styled.div`
   position: relative;
@@ -16,16 +17,24 @@ export const Container = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 0 2rem 1rem 2rem;
+  padding: 0 1rem 1rem 1rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
   overflow-y: auto;
+
+  ${mediaQueries.sm} {
+    padding: 0 2rem 1rem 2rem;
+  }
 `;
 
 export const ControlsWrapper = styled.div`
-  padding: 0 2rem 1rem 2rem;
+  padding: 0 1rem 1rem 1rem;
   display: flex;
   justify-content: flex-end;
+
+  ${mediaQueries.sm} {
+    padding: 0 2rem 1rem 2rem;
+  }
 `;
 
 export const ControlButton = styled(Button)`
