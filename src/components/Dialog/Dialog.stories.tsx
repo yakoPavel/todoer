@@ -6,7 +6,7 @@ import { Dialog } from "./Dialog";
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 export default {
-  title: "Authorized app/Modals/Dialog",
+  title: "Authorized app/UI/Dialog",
   component: Dialog,
   argTypes: {
     ...themeSwitcherArgType,
