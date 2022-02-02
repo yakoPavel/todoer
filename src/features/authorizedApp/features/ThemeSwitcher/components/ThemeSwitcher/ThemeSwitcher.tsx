@@ -27,7 +27,7 @@ type ContentProps = {
 
 const Content = ({ onClick }: ContentProps) => {
   return (
-    <ContentContainer>
+    <ContentContainer role="radiogroup">
       <PreviewButton themeName="light" onClick={onClick} />
       <PreviewButton themeName="dark" onClick={onClick} />
       <PreviewButton themeName="noir" onClick={onClick} />

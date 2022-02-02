@@ -76,9 +76,16 @@ export const PreviewButton: React.FC<PreviewProps> = ({
   const colors = themes[`${themeName}Theme`];
 
   return (
-    <Container onClick={() => onClick(themeName)}>
+    <Container
+      role="radio"
+      aria-checked={isCurrentTheme}
+      aria-label={themeName}
+      onClick={() => onClick(themeName)}
+    >
       <PreviewImg colors={colors} />
-      {isCurrentTheme && <CurrentThemeCheckmark size="20%" />}
+      {isCurrentTheme && (
+        <CurrentThemeCheckmark size="20%" data-testid="checkmark" />
+      )}
     </Container>
   );
 };
