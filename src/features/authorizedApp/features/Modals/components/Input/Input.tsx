@@ -6,6 +6,8 @@ import { FormFieldConfig } from "../Form/Form";
 
 import * as Styled from "./styles";
 
+import { InputField } from "@/components/InputField/InputField";
+
 /* Props types */
 type BaseInputProps = Omit<FormFieldConfig, "required"> & {
   /** A callback that will be called on change. */
@@ -61,7 +63,7 @@ export const Input = (props: InputProps) => {
         {label}
       </Styled.InputLabel>
       {props.type === "text" && (
-        <Styled.Input
+        <InputField
           name={props.label}
           value={props.value}
           onChange={changeHandler}

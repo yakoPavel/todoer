@@ -10,10 +10,9 @@ import {
 } from "@reach/listbox";
 import React from "react";
 
-import { Input as StyledInput } from "../Input/styles";
-
 import { positionPopover } from "./utils";
 
+import { InputField } from "@/components/InputField/InputField";
 import { LABEL_COLORS } from "@/config/labelColors";
 
 const itemStyles = css`
@@ -32,7 +31,7 @@ const itemStyles = css`
     margin-left: 1rem;
   }
 `;
-const StyledListboxButton = styled(StyledInput.withComponent(ListboxButton))<{
+const StyledListboxButton = styled(InputField.withComponent(ListboxButton))<{
   value: string;
 }>`
   ${itemStyles}
@@ -58,7 +57,7 @@ const StyledListboxOption = styled(ListboxOption)`
   ${itemStyles}
 `;
 
-const StyledListboxList = styled(StyledInput.withComponent(ListboxList))`
+const StyledListboxList = styled(InputField.withComponent(ListboxList))`
   position: relative;
   background: ${({ theme }) => theme.background};
   overflow-y: scroll;
