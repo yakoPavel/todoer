@@ -85,10 +85,12 @@ const MenuSectionImpl = ({
             <Box
               marginLeft="auto"
               width="15%"
-              opacity="0"
               css={{
-                "#sideMenu:hover &": {
-                  opacity: "1",
+                "@media (hover: hover)": {
+                  opacity: 0,
+                  "#sideMenu:hover &": {
+                    opacity: "1",
+                  },
                 },
               }}
             >
