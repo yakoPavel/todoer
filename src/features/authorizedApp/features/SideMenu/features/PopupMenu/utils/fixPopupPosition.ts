@@ -21,6 +21,30 @@ function getTriggerElementCenterAlignedCoords(
   return { x, y };
 }
 
+/**
+ * Returns potentially corrected coordinates of the element so that it
+ * doesn't cross the boundaries of the window.
+ */
+function correctIfOutsideOfTheScreen(
+  x: number,
+  y: number,
+  element: HTMLElement,
+) {
+  const { offsetWidth: elementWidth } = element;
+  const { clientWidth: windowWidth } = document.documentElement;
+
+  const { offsetHeight: elementHeight } = element;
+  const { clientHeight: windowHeight } = document.documentElement;
+
+  if (x < 0) x = 0;
+  if (x + elementWidth > windowWidth) x = windowWidth - elementWidth;
+
+  if (y < 0) y = 0;
+  if (y + elementHeight > windowHeight) y = windowHeight - elementHeight;
+
+  return { x, y };
+}
+
 /** Sets the `popupElement`'s coordinates. */
 function setPopupCoordinates(popupElement: HTMLElement, x: number, y: number) {
   // eslint-disable-next-line no-param-reassign
@@ -47,19 +71,21 @@ function fixPopupPosition({
   popupElement,
   triggerEventCoords,
 }: Options) {
+  let x: number;
+  let y: number;
+
   if (showOn === "click") {
-    const { x, y } = getTriggerElementCenterAlignedCoords(
+    ({ x, y } = getTriggerElementCenterAlignedCoords(
       triggerElement,
       popupElement,
-    );
-    setPopupCoordinates(popupElement, x, y);
+    ));
   } else {
-    setPopupCoordinates(
-      popupElement,
-      triggerEventCoords.x,
-      triggerEventCoords.y,
-    );
+    ({ x, y } = triggerEventCoords);
   }
+
+  ({ x, y } = correctIfOutsideOfTheScreen(x, y, popupElement));
+
+  setPopupCoordinates(popupElement, x, y);
 }
 
 export { fixPopupPosition };
