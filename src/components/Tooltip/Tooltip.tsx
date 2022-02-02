@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Kbd, Text, Tooltip as ChakraTooltip } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { Children } from "react";
+
+import { useMedia } from "@/hooks/useMedia";
 
 const StyledKbd = styled(Kbd)`
   background-color: ${({ theme }) => theme.tooltipBackground};
@@ -26,12 +28,19 @@ export type TooltipProps = React.ComponentProps<typeof ChakraTooltip> & {
 /**
  * It is a component that represents a tooltip with text content and optionally
  * a keyboard shortcut.
+ *
+ * When the user's device can't hover, this component returns its children
+ * without the tooltip functionality.
  */
 export const Tooltip = ({
   tooltipText,
   shortcut,
   ...otherProps
 }: TooltipProps) => {
+  const cantHover = useMedia("(hover: none)");
+
+  if (cantHover) return <>{otherProps.children}</>;
+
   function formLabel() {
     if (!shortcut) return <Text>{tooltipText}</Text>;
 
