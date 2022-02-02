@@ -31,8 +31,15 @@ const Content = ({ onClick }: ContentProps) => {
       <PreviewButton themeName="light" onClick={onClick} />
       <PreviewButton themeName="dark" onClick={onClick} />
       <PreviewButton themeName="noir" onClick={onClick} />
-      <PreviewButton themeName="neutral" onClick={onClick} />
       <PreviewButton themeName="orange" onClick={onClick} />
+      <PreviewButton themeName="sunflower" onClick={onClick} />
+      <PreviewButton themeName="clover" onClick={onClick} />
+      <PreviewButton themeName="blueberry" onClick={onClick} />
+      <PreviewButton themeName="royalBlue" onClick={onClick} />
+      <PreviewButton themeName="sky" onClick={onClick} />
+      <PreviewButton themeName="amethyst" onClick={onClick} />
+      <PreviewButton themeName="pink" onClick={onClick} />
+      <PreviewButton themeName="graphite" onClick={onClick} />
     </ContentContainer>
   );
 };

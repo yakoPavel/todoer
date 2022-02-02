@@ -53,10 +53,52 @@ export const noirTheme: ThemeColors = {
   header: "#3d3d3d",
 };
 
-export const neutralTheme: ThemeColors = {
+export const sunflowerTheme: ThemeColors = {
   ...lightTheme,
-  main: "#db4c3f",
-  header: "#f7f7f7",
+  main: "#fecf05",
+  header: "#fecf05",
+};
+
+export const blueberryTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#316fea",
+  header: "#316fea",
+};
+
+export const cloverTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#3c9b0d",
+  header: "#3c9b0d",
+};
+
+export const royalBlueTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#175bc2",
+  header: "#175bc2",
+};
+
+export const skyTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#4dc1e6",
+  header: "#4dc1e6",
+};
+
+export const amethystTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#8e24aa",
+  header: "#8e24aa",
+};
+
+export const pinkTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#eb96c8",
+  header: "#eb96c8",
+};
+
+export const graphiteTheme: ThemeColors = {
+  ...lightTheme,
+  main: "#506578",
+  header: "#506578",
 };
 
 export const orangeTheme: ThemeColors = {

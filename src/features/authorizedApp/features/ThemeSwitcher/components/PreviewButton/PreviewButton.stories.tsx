@@ -29,10 +29,45 @@ Noir.args = {
 
 export const Neutral = Template.bind({});
 Neutral.args = {
-  themeName: "neutral",
+  themeName: "sunflower",
 };
 
 export const Orange = Template.bind({});
 Orange.args = {
   themeName: "orange",
+};
+
+export const Clover = Template.bind({});
+Clover.args = {
+  themeName: "clover",
+};
+
+export const Amethyst = Template.bind({});
+Amethyst.args = {
+  themeName: "amethyst",
+};
+
+export const Blueberry = Template.bind({});
+Blueberry.args = {
+  themeName: "blueberry",
+};
+
+export const Graphite = Template.bind({});
+Graphite.args = {
+  themeName: "graphite",
+};
+
+export const Pink = Template.bind({});
+Pink.args = {
+  themeName: "pink",
+};
+
+export const RoyalBlue = Template.bind({});
+RoyalBlue.args = {
+  themeName: "royalBlue",
+};
+
+export const Sky = Template.bind({});
+Sky.args = {
+  themeName: "sky",
 };
