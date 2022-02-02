@@ -108,7 +108,11 @@ export const SideMenu = ({ isOpen }: SideMenuProps) => {
     <Slide
       direction="left"
       in={isOpen}
-      style={{ width: `${initialWidth}px`, top: "var(--header-height, 0)" }}
+      style={{
+        width: `${initialWidth}px`,
+        top: "var(--header-height, 0)",
+        maxWidth: "100%",
+      }}
       ref={resizableElementRef}
     >
       {projectsInfo.isSuccess && labelsInfo.isSuccess && (
