@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Kbd, Text, Tooltip as ChakraTooltip } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import React, { Children } from "react";
+import React from "react";
 
 import { useMedia } from "@/hooks/useMedia";
 
