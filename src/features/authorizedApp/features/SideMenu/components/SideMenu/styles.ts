@@ -2,13 +2,20 @@ import styled from "@emotion/styled/macro";
 
 import { MenuSection } from "../MenuSection/MenuSection";
 
+import * as mediaQueries from "@/style/mediaQueries";
+
 export const MenuWrapper = styled.section`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.backgroundSecondary};
   width: 100%;
   height: calc(100vh - var(--header-height, 0px));
   padding-top: 3rem;
-  padding-left: 3.5rem;
+  padding-left: 2rem;
+
+  ${mediaQueries.sm} {
+    padding-top: 3rem;
+    padding-left: 3.5rem;
+  }
 `;
 
 export const StyledMenuSection = styled(MenuSection)`
