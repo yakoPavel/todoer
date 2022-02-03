@@ -37,4 +37,5 @@ export const SaveButton = styled(Button)`
 export const InputField = styled(OriginalInputField)`
   font-size: 2.2rem;
   font-weight: 700;
+  width: 100%;
 `;
