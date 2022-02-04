@@ -1,7 +1,7 @@
 import Chance from "chance";
 import React from "react";
 
-import { Tooltip } from "../Tooltip/Tooltip";
+import { Tooltip } from "../Tooltip";
 
 import { render, screen } from "@/test/testUtils";
 

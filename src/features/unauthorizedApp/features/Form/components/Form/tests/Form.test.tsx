@@ -2,8 +2,8 @@
 import Chance from "chance";
 import React from "react";
 
-import { FormikAuthInput } from "../AuthInput/AuthInput";
-import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
+import { FormikAuthInput } from "../../AuthInput/AuthInput";
+import { FormikAuthPasswordInput } from "../../AuthPasswordInput/AuthPasswordInput";
 import { Form } from "../Form";
 
 import * as LoadingStateContext from "@/context/LoadingContext";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Default as AuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput.stories";
+import { Default as AuthPasswordInput } from "../AuthPasswordInput.stories";
 
 import { render, screen, userEvent } from "@/test/testUtils";
 

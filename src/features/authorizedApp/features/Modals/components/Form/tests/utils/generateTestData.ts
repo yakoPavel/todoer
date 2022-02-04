@@ -1,4 +1,4 @@
-import { FormFieldConfig, FormProps } from "../../Form/Form";
+import { FormFieldConfig, FormProps } from "../../Form";
 
 import { LABEL_COLORS } from "@/config/labelColors";
 import { UniqueChance } from "@/test/UniqueChance";

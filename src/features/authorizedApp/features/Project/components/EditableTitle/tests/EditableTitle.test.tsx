@@ -1,7 +1,7 @@
 import Chance from "chance";
 import React from "react";
 
-import { EditableTitle } from "../EditableTitle/EditableTitle";
+import { EditableTitle } from "../EditableTitle";
 
 import { render, screen, userEvent } from "@/test/testUtils";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
+import { ThemeSwitcher } from "../ThemeSwitcher";
 
 import * as themes from "@/style/colors";
 import { render, screen, userEvent, within } from "@/test/testUtils";

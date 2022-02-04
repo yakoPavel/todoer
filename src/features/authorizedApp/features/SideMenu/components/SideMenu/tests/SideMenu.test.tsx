@@ -5,7 +5,7 @@
 import { capitalize } from "lodash";
 import React from "react";
 
-import { SideMenu } from "../components/SideMenu/SideMenu";
+import { SideMenu } from "../SideMenu";
 
 import { Modals } from "@/features/authorizedApp/features/Modals";
 import { populateDb, PopulateDbOptions } from "@/test/dataGenerators";

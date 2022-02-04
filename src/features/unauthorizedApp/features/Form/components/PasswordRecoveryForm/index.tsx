@@ -1,7 +1,7 @@
 import React from "react";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
-import { Form } from "../Form";
+import { Form } from "../Form/Form";
 
 import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
 import { sendPasswordResetEmail } from "@/utils/authentication";

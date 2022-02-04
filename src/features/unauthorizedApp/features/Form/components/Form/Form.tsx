@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { ObjectShape, OptionalObjectSchema } from "yup/lib/object";
 
-import { ConfirmButton } from "./ConfirmButton/ConfirmButton";
+import { ConfirmButton } from "../ConfirmButton/ConfirmButton";
 
 import { useLoadingState } from "@/context/LoadingContext";
 import { useAsyncTask } from "@/hooks/useAsyncTask";

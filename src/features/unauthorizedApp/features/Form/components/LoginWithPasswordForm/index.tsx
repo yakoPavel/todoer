@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormikAuthInput } from "../AuthInput/AuthInput";
 import { FormikAuthPasswordInput } from "../AuthPasswordInput/AuthPasswordInput";
-import { Form } from "../Form";
+import { Form } from "../Form/Form";
 
 import { createValidationSchema } from "@/features/unauthorizedApp/utils/createValidationSchema";
 import { signInWithPassword } from "@/utils/authentication";

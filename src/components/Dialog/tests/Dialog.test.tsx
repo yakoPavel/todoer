@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Dialog, DialogProps } from "../Dialog/Dialog";
+import { Dialog, DialogProps } from "../Dialog";
 
 import { render, screen, userEvent } from "@/test/testUtils";
 import { UniqueChance } from "@/test/UniqueChance";
