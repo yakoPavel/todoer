@@ -4,14 +4,15 @@ import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { LinkProps } from "react-router-dom";
 
+import { MenuLinkProps, MenuLinkWrapper, MenuLink } from "../MenuLink/MenuLink";
+
+import { usePopupItemsClickHandler } from "./hooks/usePopupItemsClickHandler";
+
 import {
   PopupMenu,
   PopupMenuProps,
   usePopupMenu,
-} from "../../features/PopupMenu";
-import { MenuLinkProps, MenuLinkWrapper, MenuLink } from "../MenuLink/MenuLink";
-
-import { usePopupItemsClickHandler } from "./hooks/usePopupItemsClickHandler";
+} from "@/features/authorizedApp/features/PopupMenu";
 
 const PopupTriggerWrapper = styled.div`
   position: relative;
