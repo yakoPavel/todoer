@@ -3,10 +3,10 @@ import React from "react";
 import { IconType } from "react-icons";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
-import { BackgroundButton } from "../BackgroundButton/BackgroundButton";
 import { EditableTitle } from "../EditableTitle/EditableTitle";
 
 import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { BackgroundButton } from "@/features/authorizedApp/components/BackgroundButton/BackgroundButton";
 
 const StyledHeader = styled.header`
   width: 100%;
