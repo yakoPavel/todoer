@@ -3,6 +3,18 @@ import "../src/style/global.css";
 import { ThemeProvider } from "@emotion/react";
 import * as colorThemes from "../src/style/colors";
 import { GlobalDynamicStyles } from "../src/style/globalDynamicStyles";
+import { initMocks } from "../src/test/server";
+import { populateDb } from "../src/test/dataGenerators";
+import { resetDb } from "../src/test/server/db";
+
+initMocks();
+resetDb();
+populateDb({
+  numberOfProjects: 5,
+  numberOfLabels: 5,
+  numberOfFavoriteLabels: 2,
+  numberOfFavoriteProjects: 2,
+});
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

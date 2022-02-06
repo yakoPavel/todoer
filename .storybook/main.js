@@ -21,6 +21,12 @@ module.exports = {
           // We need this for emotion to work inside storybook
           "@emotion/core": toPath("node_modules/@emotion/react"),
           "@emotion/styled": toPath("node_modules/@emotion/styled"),
+
+          "@/context/UserContext": path.resolve(
+            __dirname,
+            "../src/context/__mocks__/UserContext",
+          ),
+
           "@": path.resolve(__dirname, "../src/"),
         },
         extensions: [...config.resolve.extensions, ".ts", ".tsx"],
