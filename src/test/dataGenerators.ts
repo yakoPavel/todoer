@@ -72,16 +72,24 @@ export const createLabel = (labelProps?: Overrides) => {
 };
 
 export type PopulateDbOptions = {
-  numberOfProjects: number;
-  numberOfLabels: number;
+  numberOfProjects?: number;
   numberOfFavoriteProjects?: number;
+
+  numberOfLabels?: number;
   numberOfFavoriteLabels?: number;
+
+  numberOfTasks?: number;
+  numberOfTasksWithLabels?: number;
 };
 export const populateDb = ({
-  numberOfProjects,
-  numberOfFavoriteProjects,
-  numberOfLabels,
-  numberOfFavoriteLabels,
+  numberOfProjects = 5,
+  numberOfFavoriteProjects = 3,
+
+  numberOfTasks = 12,
+  numberOfTasksWithLabels = 5,
+
+  numberOfLabels = 3,
+  numberOfFavoriteLabels = 3,
 }: PopulateDbOptions) => {
   const user = createUser({
     id: "SOME_USER_ID",
@@ -113,5 +121,23 @@ export const populateDb = ({
     return createLabel(labelSettings);
   });
 
-  return { user, projects, labels };
+  const tasks = Array.from({ length: numberOfTasks }, (_, index) => {
+    const projectTaskBelongsTo = projects[index % projects.length];
+    if (!projectTaskBelongsTo) {
+      throw new Error("There must be at least one project to add tasks to.");
+    }
+    const taskLabel =
+      index < numberOfTasksWithLabels
+        ? labels[index % labels.length]
+        : undefined;
+
+    return createTask({
+      userId: user.id,
+      position: index,
+      projectId: projectTaskBelongsTo.id,
+      labelId: taskLabel?.id,
+    });
+  });
+
+  return { user, projects, labels, tasks };
 };
