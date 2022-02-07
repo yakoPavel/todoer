@@ -19,4 +19,4 @@ function useTasks() {
   return useQuery(DATA_LABEL, () => getTasks(client));
 }
 
-export { getTasks, useTasks as useProjects };
+export { getTasks, useTasks };
