@@ -10,10 +10,11 @@ import { resetDb } from "../src/test/server/db";
 initMocks();
 resetDb();
 populateDb({
-  numberOfProjects: 5,
-  numberOfLabels: 5,
-  numberOfFavoriteLabels: 2,
-  numberOfFavoriteProjects: 2,
+  numberOfProjects: 12,
+  numberOfLabels: 25,
+  numberOfFavoriteLabels: 5,
+  numberOfFavoriteProjects: 3,
+  numberOfTasks: 100,
 });
 
 export const parameters = {
