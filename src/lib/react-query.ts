@@ -13,6 +13,7 @@ const queryConfig: DefaultOptions = {
     retry: false,
     cacheTime: Infinity,
     staleTime: 5000,
+    useErrorBoundary: true,
   },
 };
 
