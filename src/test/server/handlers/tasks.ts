@@ -19,55 +19,44 @@ function stripData(task: Value<Models["task"], Models>) {
 }
 
 const taskHandlers = [
-  // Returns all tasks for the specified project
-  rest.get<never, { projectId: string }>(
-    "/tasks/:projectId/",
-    (req, res, ctx) => {
-      const user = getUser(req);
-      if (!user) {
-        return delayedResponse(ctx.status(401));
-      }
+  // Returns all tasks
+  rest.get("/tasks", (req, res, ctx) => {
+    const user = getUser(req);
+    if (!user) {
+      return delayedResponse(ctx.status(401));
+    }
 
-      const { projectId } = req.params;
-
-      const result = db.task
-        .findMany({
-          where: {
-            userId: {
-              equals: user.id,
-            },
-            projectId: {
-              equals: projectId,
-            },
+    const result = db.task
+      .findMany({
+        where: {
+          userId: {
+            equals: user.id,
           },
-          orderBy: {
-            position: "asc",
-          },
-        })
-        .map(stripData);
+        },
+        orderBy: {
+          position: "asc",
+        },
+      })
+      .map(stripData);
 
-      return delayedResponse(ctx.json(result));
-    },
-  ),
+    return delayedResponse(ctx.json(result));
+  }),
 
-  // Returns a concrete task for the specified project
+  // Returns a concrete task
   rest.get<never, { projectId: string; taskId: string }>(
-    "/tasks/:projectId/:taskId",
+    "/tasks/:taskId",
     (req, res, ctx) => {
       const user = getUser(req);
       if (!user) {
         return delayedResponse(ctx.status(401));
       }
 
-      const { projectId, taskId } = req.params;
+      const { taskId } = req.params;
 
       const result = db.task.findFirst({
         where: {
           userId: {
             equals: user.id,
-          },
-          projectId: {
-            equals: projectId,
           },
           ...getFindByIdFilter(taskId),
         },
