@@ -75,7 +75,7 @@ export type CreateTaskBody =
 export type PatchTaskBody = {
   id: string;
   projectId?: string;
-  labelId?: string;
+  labelId?: string | null;
   name?: string;
   description?: string;
   done?: boolean;
