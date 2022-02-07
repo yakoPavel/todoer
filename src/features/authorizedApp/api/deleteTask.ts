@@ -7,7 +7,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 const DATA_LABEL = "tasks";
 
-export async function deleteProject(
+export async function deleteTask(
   instance: Promise<AxiosInstance>,
   taskId: string,
 ): Promise<Task> {
@@ -49,6 +49,6 @@ export const useDeleteProject = ({ config }: UseDeleteTaskOptions = {}) => {
       queryClient.invalidateQueries(DATA_LABEL);
     },
     ...config,
-    mutationFn: deleteProject.bind(null, awaitedClient),
+    mutationFn: deleteTask.bind(null, awaitedClient),
   });
 };
