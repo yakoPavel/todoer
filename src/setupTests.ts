@@ -3,6 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
+import { setLogger } from "react-query";
 
 import { queryClient } from "@/lib/react-query";
 import { resetDb } from "@/test/server/db";
@@ -15,6 +16,15 @@ afterEach(() => server.resetHandlers());
 afterEach(async () => {
   queryClient.clear();
   resetDb();
+});
+
+beforeAll(() => {
+  setLogger({
+    log: console.log,
+    warn: console.warn,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    error: () => {},
+  });
 });
 
 beforeAll(() => {
