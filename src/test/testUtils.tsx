@@ -1,7 +1,12 @@
 /* eslint-disable import/export */
-import { render as rtlRender, RenderOptions } from "@testing-library/react";
+import {
+  render as rtlRender,
+  RenderOptions,
+  waitFor,
+} from "@testing-library/react";
 import React from "react";
 
+import { queryClient } from "@/lib/react-query";
 import { AppProviders } from "@/providers/app";
 
 export type Renderer = (
@@ -50,6 +55,16 @@ function isMockFunction(fn: (...args: any[]) => any): asserts fn is jest.Mock {
   }
 }
 
+/**
+ * Waits until all API calls through the `use-query` are finished.
+ */
+async function waitForApiCallsFinish() {
+  await waitFor(() => {
+    if (queryClient.isFetching() !== 0 || queryClient.isMutating() !== 0)
+      throw new Error();
+  });
+}
+
 export * from "@testing-library/react";
-export { getControlledPromise, isMockFunction, render };
+export { getControlledPromise, isMockFunction, waitForApiCallsFinish, render };
 export { default as userEvent } from "@testing-library/user-event";
