@@ -2,10 +2,11 @@ import { Text } from "@chakra-ui/react";
 import isPropValid from "@emotion/is-prop-valid";
 import styled from "@emotion/styled/macro";
 import React from "react";
-import { MdLabel } from "react-icons/md";
-
-import { ReactComponent as CheckedCheckboxIcon } from "../../assets/checkboxChecked.svg";
-import { ReactComponent as UncheckedCheckboxIcon } from "../../assets/checkboxUnchecked.svg";
+import {
+  MdLabel,
+  MdRadioButtonChecked,
+  MdRadioButtonUnchecked,
+} from "react-icons/md";
 
 const Container = styled.li`
   display: flex;
@@ -68,7 +69,11 @@ export const LabelItem = ({
       </IconContainer>
       <Title>{title}</Title>
       <CheckboxContainer aria-hidden={true} data-testid="checkboxIcon">
-        {isChecked ? <CheckedCheckboxIcon /> : <UncheckedCheckboxIcon />}
+        {isChecked ? (
+          <MdRadioButtonChecked size="1.8rem" />
+        ) : (
+          <MdRadioButtonUnchecked size="1.8rem" />
+        )}
       </CheckboxContainer>
     </Container>
   );
