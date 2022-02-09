@@ -23,8 +23,14 @@ function optimisticallyUpdateData(newTaskData: PatchTaskBody) {
 
   newData[taskToEditIndex] = {
     ...taskToEdit,
-    ...omit(newTaskData, "position"),
+    ...omit(newTaskData, ["position", "labelId"]),
   };
+
+  // The label id from the request can be `null`, but on the client it is stored
+  // only as a string.
+  if (newTaskData.labelId) {
+    newData[taskToEditIndex].labelId = newTaskData.labelId;
+  }
 
   queryClient.setQueryData<Task[]>(DATA_LABEL, newData);
 }
