@@ -90,7 +90,7 @@ export const populateDb = ({
 
   numberOfLabels = 3,
   numberOfFavoriteLabels = 3,
-}: PopulateDbOptions) => {
+}: PopulateDbOptions = {}) => {
   const user = createUser({
     id: "SOME_USER_ID",
   });
