@@ -86,7 +86,7 @@ export const LabelsList = ({ taskId }: LabelsListProps) => {
   };
 
   return (
-    <Styled.Container>
+    <Styled.Container data-testid="labelsList">
       {labelsData.data && (
         <LabelsListContent
           labels={labelsData.data}
