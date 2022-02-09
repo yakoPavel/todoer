@@ -6,14 +6,13 @@ import { useResize } from "./hooks/useResize";
 import { useSideMenuItems } from "./hooks/useSideMenuItems";
 import * as Styled from "./styles";
 
-import { SIDE_MENU } from "@/config/localStorage";
 import { useLabels } from "@/features/authorizedApp/api/getLabels";
 import { useProjects } from "@/features/authorizedApp/api/getProjects";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
+import { selectors as sideMenuUiSelectors } from "@/features/authorizedApp/store/slices/sideMenuUi";
 import { Label, Project } from "@/features/authorizedApp/types";
-import { useAppDispatch } from "@/hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { EventWithProcessedField } from "@/types";
-import * as localStorage from "@/utils/localStorage";
 
 type AddNewButtonProps = React.ComponentPropsWithRef<"button"> & {
   label: string;
@@ -99,10 +98,7 @@ export const SideMenu = ({ isOpen }: SideMenuProps) => {
     minWidth: 250,
   });
 
-  const initialWidth = React.useMemo(
-    () => localStorage.getFromLocalStorage(SIDE_MENU.WIDTH, 305),
-    [],
-  );
+  const initialWidth = useAppSelector(sideMenuUiSelectors.selectWidth);
 
   return (
     <Slide

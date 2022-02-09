@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { debounce } from "lodash";
 
 import { RootState } from "../store";
 
@@ -11,6 +12,7 @@ type SideMenuUiState = {
   favoritesSectionOpened: boolean;
   projectsSectionOpened: boolean;
   labelsSectionOpened: boolean;
+  width: number;
 };
 
 type SectionTypes =
@@ -21,15 +23,19 @@ type SectionTypes =
   | "Labels"
   | "labels";
 
-const initialState: SideMenuUiState = getFromLocalStorage(
-  SIDE_MENU.VISIBILITY,
-  {
+const initialState: SideMenuUiState = {
+  ...getFromLocalStorage(SIDE_MENU.VISIBILITY, {
     opened: false,
     favoritesSectionOpened: false,
     projectsSectionOpened: false,
     labelsSectionOpened: false,
-  },
-);
+  }),
+  width: getFromLocalStorage(SIDE_MENU.WIDTH, 305),
+};
+
+const saveWidthToLocalStorage = debounce((newWidth: number) => {
+  saveToLocalStorage(SIDE_MENU.WIDTH, newWidth);
+}, 500);
 
 /* Slice */
 const sideMenuUiSlice = createSlice({
@@ -67,6 +73,10 @@ const sideMenuUiSlice = createSlice({
     closed(state) {
       state.opened = false;
       saveToLocalStorage(SIDE_MENU.VISIBILITY, state);
+    },
+    widthChanged(state, action: PayloadAction<number>) {
+      state.width = action.payload;
+      saveWidthToLocalStorage(action.payload);
     },
   },
 });
@@ -112,6 +122,7 @@ export const selectors = {
     }
     return state.sideMenuUi.projectsSectionOpened;
   },
+  selectWidth: (state: RootState) => state.sideMenuUi.width,
 };
 
 export default sideMenuUiSlice.reducer;

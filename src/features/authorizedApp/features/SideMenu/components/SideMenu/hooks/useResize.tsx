@@ -1,8 +1,8 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-import { SIDE_MENU } from "@/config/localStorage";
-import * as localStorage from "@/utils/localStorage";
+import { actions as sideMenuUiActions } from "@/features/authorizedApp/store/slices/sideMenuUi";
+import { useAppDispatch } from "@/hooks/storeHooks";
 
 const ResizeHandle = styled.div<{ resizing: boolean }>`
   width: 0.5rem;
@@ -46,6 +46,8 @@ type UseResizeReturn = {
  * A hook that manages resizing of the specified element.
  */
 function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
+  const dispatch = useAppDispatch();
+
   const [resizableElement, setResizableElement] =
     React.useState<HTMLElement | null>(null);
   const [resizeHandle, setResizeHandle] = React.useState<HTMLElement | null>(
@@ -95,7 +97,7 @@ function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
         );
         setResizing(false);
 
-        localStorage.saveToLocalStorage(SIDE_MENU.WIDTH, newWidth);
+        dispatch(sideMenuUiActions.widthChanged(newWidth));
       };
 
       document.documentElement.addEventListener("mousemove", updateWidth);
@@ -110,7 +112,7 @@ function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
     resizeHandle.addEventListener("mousedown", startResizing);
 
     return () => resizeHandle.removeEventListener("mousedown", startResizing);
-  }, [resizeHandle, resizableElement, maxWidth, minWidth]);
+  }, [resizeHandle, resizableElement, maxWidth, minWidth, dispatch]);
 
   return {
     resizableElementRef: setResizableElement,
