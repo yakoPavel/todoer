@@ -46,7 +46,6 @@ const StyledButton = styled(PopoverTrigger, {
     labelColor ? labelColor : theme.textSecondaryActive};
 
   cursor: pointer;
-  padding: 0.5rem;
   border-radius: 5px;
 
   @media screen and (hover: hover) {
