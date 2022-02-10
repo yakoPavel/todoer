@@ -2,8 +2,7 @@ import React from "react";
 
 import { EditItemForm } from "./EditItemForm";
 
-import { useEditProject } from "@/features/authorizedApp/api/editProject";
-import { useProjects } from "@/features/authorizedApp/api/getProjects";
+import { useEditProject, useProjects } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 
 const formFieldsConfig = [

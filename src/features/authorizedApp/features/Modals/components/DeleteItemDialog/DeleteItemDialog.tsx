@@ -2,8 +2,7 @@ import { Text } from "@chakra-ui/react";
 import React from "react";
 
 import { Dialog } from "@/components/Dialog/Dialog";
-import { useDeleteLabel } from "@/features/authorizedApp/api/deleteLabel";
-import { useDeleteProject } from "@/features/authorizedApp/api/deleteProject";
+import { useDeleteLabel, useDeleteProject } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 

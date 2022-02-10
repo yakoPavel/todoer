@@ -6,8 +6,7 @@ import { useResize } from "./hooks/useResize";
 import { useSideMenuItems } from "./hooks/useSideMenuItems";
 import * as Styled from "./styles";
 
-import { useLabels } from "@/features/authorizedApp/api/getLabels";
-import { useProjects } from "@/features/authorizedApp/api/getProjects";
+import { useLabels, useProjects } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { selectors as sideMenuUiSelectors } from "@/features/authorizedApp/store/slices/sideMenuUi";
 import { Label, Project } from "@/features/authorizedApp/types";

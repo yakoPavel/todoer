@@ -3,8 +3,7 @@ import React from "react";
 import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
-import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
-import { useLabels } from "@/features/authorizedApp/api/getLabels";
+import { useEditLabel, useLabels } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 

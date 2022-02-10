@@ -5,9 +5,7 @@ import { LabelItem } from "../LabelItem/LabelItem";
 import { useFilteredLabels } from "./hooks/useFilteredLabels";
 import * as Styled from "./styles";
 
-import { useEditTask } from "@/features/authorizedApp/api/editTask";
-import { useLabels } from "@/features/authorizedApp/api/getLabels";
-import { useTasks } from "@/features/authorizedApp/api/getTasks";
+import { useLabels, useEditTask, useTasks } from "@/features/authorizedApp/api";
 import { ErrorScreen } from "@/features/authorizedApp/components/ErrorScreen/ErrorScreen";
 import { Spinner } from "@/features/authorizedApp/components/Spinner/Spinner";
 import { Label } from "@/features/authorizedApp/types";

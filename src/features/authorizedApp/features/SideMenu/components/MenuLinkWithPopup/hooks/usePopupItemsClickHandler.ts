@@ -1,7 +1,6 @@
 import { actionIds } from "../../../config/popupMenuActionIds";
 
-import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
-import { useEditProject } from "@/features/authorizedApp/api/editProject";
+import { useEditLabel, useEditProject } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 

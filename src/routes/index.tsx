@@ -6,8 +6,7 @@ import { UnauthorizedAppRoutes as AuthorizedAppRoutes } from "./AuthorizedAppRou
 import { UnauthorizedAppRoutes } from "./UnauthorizedAppRoutes";
 
 import { Loading } from "@/components/Loading/Loading";
-import { getLabels } from "@/features/authorizedApp/api/getLabels";
-import { getProjects } from "@/features/authorizedApp/api/getProjects";
+import { getLabels, getProjects } from "@/features/authorizedApp/api";
 import { useClient } from "@/hooks/useClient";
 import { queryClient } from "@/lib/react-query";
 import { waitForInitialAuthChecking } from "@/utils/authentication";

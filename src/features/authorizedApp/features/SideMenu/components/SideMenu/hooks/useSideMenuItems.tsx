@@ -3,8 +3,7 @@ import React from "react";
 import { LabelsMenuLink } from "../../LabelsMenuLink/LabelsMenuLink";
 import { ProjectsMenuLink } from "../../ProjectsMenuLink/ProjectsMenuLink";
 
-import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
-import { useEditProject } from "@/features/authorizedApp/api/editProject";
+import { useEditLabel, useEditProject } from "@/features/authorizedApp/api";
 import {
   useOnDragEnd,
   DragAndDropProps,

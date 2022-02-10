@@ -2,8 +2,7 @@ import React from "react";
 
 import { EditItemForm } from "./EditItemForm";
 
-import { useEditLabel } from "@/features/authorizedApp/api/editLabel";
-import { useLabels } from "@/features/authorizedApp/api/getLabels";
+import { useEditLabel, useLabels } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 
 const formFieldsConfig = [

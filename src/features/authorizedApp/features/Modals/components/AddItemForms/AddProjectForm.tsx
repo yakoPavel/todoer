@@ -2,7 +2,7 @@ import React from "react";
 
 import { AddItemForm } from "./AddItemForm";
 
-import { useCreateProject } from "@/features/authorizedApp/api/createProject";
+import { useCreateProject } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { actions as sideMenuUiActions } from "@/features/authorizedApp/store/slices/sideMenuUi";
 

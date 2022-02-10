@@ -10,8 +10,7 @@ import { MdLabel, MdLabelOutline } from "react-icons/md";
 
 import { LabelsList } from "../../features/LabelsList";
 
-import { useLabels } from "@/features/authorizedApp/api/getLabels";
-import { useTasks } from "@/features/authorizedApp/api/getTasks";
+import { useLabels, useTasks } from "@/features/authorizedApp/api";
 import { Label, Task } from "@/features/authorizedApp/types";
 
 type GetLabelColorParams = {

@@ -5,7 +5,7 @@ import React from "react";
 import { FormValues } from "../../types";
 import { Form } from "../Form/Form";
 
-import { useEditProject } from "@/features/authorizedApp/api/editProject";
+import { useEditProject } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
