@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 import { Task, Label, Project } from "@/features/authorizedApp/types";
 import { useClient } from "@/hooks/useClient";
-import { queryClient } from "@/lib/react-query";
+import { queryClient, QueryConfig } from "@/lib/react-query";
 
 type ItemData = Task | Label | Project;
 
@@ -59,20 +59,22 @@ export function generateGetItemQuery<I extends ItemData = ItemData>({
   ): Promise<I> {
     const client = await instance;
 
-    return (await client.get(`/${endpoint}/${itemId}`)).data;
+    return (await client.get(`${endpoint}/${itemId}`)).data;
   }
 
   type UseItemParams = {
     itemId: string;
+    config?: QueryConfig<() => Promise<I>>;
   };
 
-  function useItem({ itemId }: UseItemParams) {
+  function useItem({ itemId, config }: UseItemParams) {
     const awaitedClient = useClient();
 
     return useQuery({
+      ...config,
       queryKey: [dataLabel, itemId],
       queryFn: () => getItem(awaitedClient, itemId),
-    });
+    } as unknown as QueryConfig<() => Promise<I>>);
   }
 
   return {
