@@ -1,12 +1,14 @@
 import { AxiosInstance } from "axios";
 import { MutationFunction, useMutation } from "react-query";
 
+import { generateTempId } from "./generateTempId";
 import { insertNewItem } from "./insertNewItem";
 
 import { Task, Label, Project } from "@/features/authorizedApp/types";
 import { useClient } from "@/hooks/useClient";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { CreateLabelBody, CreateProjectBody, CreateTaskBody } from "@/types";
+import { DistributiveOmit } from "@/types/utils";
 
 type CreateItemBody = CreateLabelBody | CreateProjectBody | CreateTaskBody;
 
@@ -80,12 +82,18 @@ export function generateCreateMutation<
     return (await client.post(endpoint, data)).data;
   };
 
+  type CreateItemBodyWithoutTempId = DistributiveOmit<C, "tempId">;
+
   type UseCreateItemOptions = {
-    config?: MutationConfig<(data: C) => Promise<I>>;
+    config?: MutationConfig<(data: CreateItemBodyWithoutTempId) => Promise<I>>;
   };
 
   const useCreateItem = ({ config }: UseCreateItemOptions = {}) => {
     const awaitedClient = useClient();
+    const tempId = generateTempId();
+
+    const mutationFn = (data: CreateItemBodyWithoutTempId) =>
+      createItem(awaitedClient, { ...data, tempId } as unknown as C);
 
     return useMutation({
       onMutate: async (newItemData) => {
@@ -94,7 +102,7 @@ export function generateCreateMutation<
         const prevData = queryClient.getQueryData<I[]>(dataLabel);
 
         optimisticallyUpdateData({
-          createItemData: newItemData,
+          createItemData: { ...newItemData, tempId } as unknown as C,
           dataLabel,
           getNewItemForOptimisticUpdate,
           prevData,
@@ -102,19 +110,19 @@ export function generateCreateMutation<
 
         return { prevData };
       },
-      onError: (_, newItemData, context: any) => {
+      onError: (_, __, context: any) => {
         if (context && typeof context === "object" && "prevData" in context) {
           queryClient.setQueryData<I[]>(dataLabel, context.prevData);
-          queryClient.removeQueries([dataLabel, newItemData.tempId]);
+          queryClient.removeQueries([dataLabel, tempId]);
         }
       },
       onSettled: () => {
         queryClient.invalidateQueries(dataLabel);
       },
       ...config,
-      mutationFn: createItem.bind(null, awaitedClient) as MutationFunction<
+      mutationFn: mutationFn as MutationFunction<
         Awaited<I>,
-        C
+        CreateItemBodyWithoutTempId
       >,
     });
   };
