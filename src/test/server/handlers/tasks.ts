@@ -26,12 +26,21 @@ const taskHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
+    const projectId = req.url.searchParams.get("projectId");
+
     const result = db.task
       .findMany({
         where: {
           userId: {
             equals: user.id,
           },
+          ...(projectId
+            ? {
+                projectId: {
+                  equals: projectId,
+                },
+              }
+            : {}),
         },
         orderBy: {
           position: "asc",
@@ -43,32 +52,29 @@ const taskHandlers = [
   }),
 
   // Returns a concrete task
-  rest.get<never, { projectId: string; taskId: string }>(
-    "/tasks/:taskId",
-    (req, res, ctx) => {
-      const user = getUser(req);
-      if (!user) {
-        return delayedResponse(ctx.status(401));
-      }
+  rest.get<never, { taskId: string }>("/tasks/:taskId", (req, res, ctx) => {
+    const user = getUser(req);
+    if (!user) {
+      return delayedResponse(ctx.status(401));
+    }
 
-      const { taskId } = req.params;
+    const { taskId } = req.params;
 
-      const result = db.task.findFirst({
-        where: {
-          userId: {
-            equals: user.id,
-          },
-          ...getFindByIdFilter(taskId),
+    const result = db.task.findFirst({
+      where: {
+        userId: {
+          equals: user.id,
         },
-      });
+        ...getFindByIdFilter(taskId),
+      },
+    });
 
-      if (!result) {
-        return delayedResponse(ctx.status(404));
-      }
+    if (!result) {
+      return delayedResponse(ctx.status(404));
+    }
 
-      return delayedResponse(ctx.json(stripData(result)));
-    },
-  ),
+    return delayedResponse(ctx.json(stripData(result)));
+  }),
 
   // Creates a new task
   rest.post<CreateTaskBody>("/tasks", (req, res, ctx) => {
