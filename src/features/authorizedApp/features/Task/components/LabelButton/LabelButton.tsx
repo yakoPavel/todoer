@@ -10,31 +10,7 @@ import { MdLabel, MdLabelOutline } from "react-icons/md";
 
 import { LabelsList } from "../../features/LabelsList";
 
-import { useLabels, useTasks } from "@/features/authorizedApp/api";
-import { Label, Task } from "@/features/authorizedApp/types";
-
-type GetLabelColorParams = {
-  tasks: Task[];
-  labels: Label[];
-  taskId: string;
-};
-function getLabelColor({ taskId, tasks, labels }: GetLabelColorParams) {
-  const task = tasks.find((currTask) => currTask.id === taskId);
-  if (!task) {
-    throw new Error(`There is no task with the ${taskId} id`);
-  }
-
-  if (!task.labelId) return null;
-
-  const label = labels.find((currLabel) => currLabel.id === task.labelId);
-  if (!label) {
-    throw new Error(
-      `There is no label with the ${taskId} id. This id was specified in the 'taskData.labelId' property.`,
-    );
-  }
-
-  return label.color;
-}
+import { useLabel, useTask } from "@/features/authorizedApp/api";
 
 const StyledButton = styled(PopoverTrigger, {
   shouldForwardProp: isPropValid,
@@ -64,16 +40,20 @@ type LabelButtonProps = {
 export const LabelButton: React.FC<LabelButtonProps> = ({
   taskId,
 }: LabelButtonProps) => {
-  const tasksData = useTasks();
-  const labelsData = useLabels();
+  const taskData = useTask({ itemId: taskId });
 
-  if (!tasksData.data || !labelsData.data) return null;
+  const taskHasLabel = Boolean(taskData.data && taskData.data.labelId);
 
-  const labelColor = getLabelColor({
-    labels: labelsData.data,
-    tasks: tasksData.data,
-    taskId,
+  const labelData = useLabel({
+    itemId: taskData.data?.labelId as string,
+    config: {
+      enabled: taskHasLabel,
+    },
   });
+
+  if (!taskData.data || (taskHasLabel && !labelData.data)) return null;
+
+  const labelColor = labelData.data?.color ?? null;
 
   return (
     <Popover>

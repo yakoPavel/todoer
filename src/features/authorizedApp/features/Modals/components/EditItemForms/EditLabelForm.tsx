@@ -2,7 +2,7 @@ import React from "react";
 
 import { EditItemForm } from "./EditItemForm";
 
-import { useEditLabel, useLabels } from "@/features/authorizedApp/api";
+import { useEditLabel, useLabel } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 
 const formFieldsConfig = [
@@ -29,7 +29,7 @@ type EditLabelFormProps = { labelId: string };
 
 export const EditLabelForm = ({ labelId }: EditLabelFormProps) => {
   const editLabelMutation = useEditLabel();
-  const labelsInfo = useLabels();
+  const labelInfo = useLabel({ itemId: labelId });
 
   return (
     <EditItemForm
@@ -38,7 +38,7 @@ export const EditLabelForm = ({ labelId }: EditLabelFormProps) => {
       closeModalAction={modalsUiActions.editLabelFormDismissed}
       editItemMutation={editLabelMutation}
       fieldsConfig={formFieldsConfig}
-      itemsInfo={labelsInfo}
+      itemInfo={labelInfo}
       data-testid="editLabelForm"
     />
   );

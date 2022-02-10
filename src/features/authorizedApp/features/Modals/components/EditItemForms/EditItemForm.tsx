@@ -6,6 +6,9 @@ import { UseMutationResult, UseQueryResult } from "react-query";
 import { FormValues, DivProps } from "../../types";
 import { Form, FormFieldConfig } from "../Form/Form";
 
+import { ErrorScreen } from "@/features/authorizedApp/components/ErrorScreen/ErrorScreen";
+import { Spinner } from "@/features/authorizedApp/components/Spinner/Spinner";
+import { Project, Label } from "@/features/authorizedApp/types";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 /**
@@ -27,52 +30,41 @@ function getFormFieldsConfigWithInitialValues<
 
 type EditItemFormProps<
   FieldsConfig extends FormFieldConfig[],
-  Data extends { id: string },
+  Data extends Project | Label,
 > = {
   formTitle: string;
   itemId: string;
   fieldsConfig: FieldsConfig;
-  itemsInfo: UseQueryResult<Data[]>;
+  itemInfo: UseQueryResult<Data>;
   editItemMutation: UseMutationResult<Data, AxiosError, any>;
   closeModalAction: PayloadActionCreator;
 };
 
 export const EditItemForm = <
   FieldsConfig extends FormFieldConfig[],
-  Data extends { id: string },
+  Data extends Project | Label,
 >({
   formTitle,
   itemId,
   fieldsConfig,
   editItemMutation,
-  itemsInfo,
+  itemInfo,
   closeModalAction,
   ...otherProps
 }: DivProps & EditItemFormProps<FieldsConfig, Data>) => {
   const dispatch = useAppDispatch();
 
-  if (itemsInfo.isLoading) {
-    // Show spinner here
-    return null;
+  if (itemInfo.isError) {
+    return <ErrorScreen />;
   }
 
-  if (itemsInfo.isError) {
-    // Show retry button
-    return null;
-  }
-
-  const currentData = itemsInfo.data?.find(
-    (itemInfo) => itemInfo.id === itemId,
-  );
-
-  if (!currentData) {
-    // Something is really wrong if we don't have data for this item
-    throw new Error(`We don't have data for the item with the ${itemId} id!`);
+  if (!itemInfo.data) {
+    return <Spinner size="xl" />;
   }
 
   const formFieldsConfig = getFormFieldsConfigWithInitialValues(
     fieldsConfig,
-    currentData,
+    itemInfo.data,
   ) as FieldsConfig;
 
   const onSubmit = (formValues: FormValues<FieldsConfig>) => {

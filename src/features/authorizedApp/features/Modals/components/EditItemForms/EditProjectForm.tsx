@@ -2,7 +2,7 @@ import React from "react";
 
 import { EditItemForm } from "./EditItemForm";
 
-import { useEditProject, useProjects } from "@/features/authorizedApp/api";
+import { useEditProject, useProject } from "@/features/authorizedApp/api";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 
 const formFieldsConfig = [
@@ -29,7 +29,7 @@ type EditProjectFormProps = { projectId: string };
 
 export const EditProjectForm = ({ projectId }: EditProjectFormProps) => {
   const editProjectMutation = useEditProject();
-  const projectsInfo = useProjects();
+  const projectInfo = useProject({ itemId: projectId });
 
   return (
     <EditItemForm
@@ -38,7 +38,7 @@ export const EditProjectForm = ({ projectId }: EditProjectFormProps) => {
       closeModalAction={modalsUiActions.editProjectFormDismissed}
       editItemMutation={editProjectMutation}
       fieldsConfig={formFieldsConfig}
-      itemsInfo={projectsInfo}
+      itemInfo={projectInfo}
       data-testid="editProjectForm"
     />
   );

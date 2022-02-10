@@ -62,7 +62,7 @@ async function renderComponent(override?: Partial<TaskProps>) {
     screen.getByRole("button", { name: /change or set label/i });
   const queryLabelSelectionButton = () =>
     screen.queryByRole("button", { name: /change or set label/i });
-  const getLabelsList = () => screen.getByTestId("labelsList");
+  const findLabelsList = () => screen.findByTestId("labelsList");
   const getPopupMenu = () => screen.getByRole("menu");
 
   await waitForApiCallsFinish();
@@ -76,7 +76,7 @@ async function renderComponent(override?: Partial<TaskProps>) {
     getPopupTriggerButton,
     getLabelSelectionButton,
     queryLabelSelectionButton,
-    getLabelsList,
+    findLabelsList,
     getPopupMenu,
   };
 }
@@ -130,12 +130,12 @@ describe("The `Task` component", () => {
 
   describe("When the label selection button is clicked", () => {
     test("Shows the label selection list", async () => {
-      const { getLabelSelectionButton, getLabelsList } =
+      const { getLabelSelectionButton, findLabelsList } =
         await renderComponent();
 
       userEvent.click(getLabelSelectionButton());
 
-      expect(getLabelsList()).toBeInTheDocument();
+      expect(await findLabelsList()).toBeInTheDocument();
     });
   });
 
