@@ -71,7 +71,7 @@ export function generateGetItemQuery<I extends ItemData = ItemData>({
 
     return useQuery({
       queryKey: [dataLabel, itemId],
-      queryFn: (() => getItem(awaitedClient, itemId)) as any,
+      queryFn: () => getItem(awaitedClient, itemId),
     });
   }
 
