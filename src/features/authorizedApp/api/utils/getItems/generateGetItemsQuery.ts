@@ -9,7 +9,7 @@ type ItemData = Task | Label | Project;
 
 type CreateQueryOptions = {
   /** A label for the data in react-query. */
-  dataLabel: string;
+  dataLabel: string | string[];
   /** An endpoint get data from. */
   endpoint: string;
 };
