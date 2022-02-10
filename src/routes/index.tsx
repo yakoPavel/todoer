@@ -6,10 +6,9 @@ import { UnauthorizedAppRoutes as AuthorizedAppRoutes } from "./AuthorizedAppRou
 import { UnauthorizedAppRoutes } from "./UnauthorizedAppRoutes";
 
 import { Loading } from "@/components/Loading/Loading";
-import { getLabels, getProjects } from "@/features/authorizedApp/api";
 import { useClient } from "@/hooks/useClient";
-import { queryClient } from "@/lib/react-query";
 import { waitForInitialAuthChecking } from "@/utils/authentication";
+import { prefetchData } from "@/utils/prefetchData";
 
 function usePrefetchData() {
   const [isDataPrefetched, setIsDataPrefetched] = React.useState(false);
@@ -19,14 +18,7 @@ function usePrefetchData() {
   React.useEffect(() => {
     if (!client) return;
 
-    Promise.all([
-      queryClient.fetchQuery("projects", () => getProjects(client)),
-      queryClient.fetchQuery("labels", () => getLabels(client)),
-    ])
-      .then(() => setIsDataPrefetched(true))
-      .catch(() => {
-        /* TODO: Remove this catch and let the error boundary to catch the error */
-      });
+    prefetchData(client).then(() => setIsDataPrefetched(true));
   }, [client]);
 
   return isDataPrefetched;
