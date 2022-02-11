@@ -46,14 +46,34 @@ type MenuItem = {
   clickId: string;
 };
 
-export type PopupMenuProps = {
-  /** A click handler that will be invoked when the menu items get clicked. */
-  onClick: (clickedItemId: string, popupId?: string) => void;
+type OnClickHandlerWithPopupId = (
+  clickedItemId: string,
+  popupId: string,
+) => void;
+type OnClickHandlerWithoutPopupId = (clickedItemId: string) => void;
+
+type PopupMenuBaseProps = {
   /** Menu items setting. */
   menuItems: MenuItem[];
-  /** An id that helps to distinguish the element the popup menu is associated with. */
-  popupId?: string;
 };
+
+type PopupMenuPropsWithPopupId = {
+  /** A click handler that will be invoked when the menu items get clicked. */
+  onClick: OnClickHandlerWithPopupId;
+  /** An id that helps to distinguish the element the popup menu is associated with. */
+  popupId: string;
+};
+
+type PopupMenuPropsWithoutPopupId = {
+  /** A click handler that will be invoked when the menu items get clicked. */
+  onClick: OnClickHandlerWithoutPopupId;
+  /** An id that helps to distinguish the element the popup menu is associated with. */
+  popupId?: never;
+};
+
+export type PopupMenuProps =
+  | (PopupMenuBaseProps & PopupMenuPropsWithPopupId)
+  | (PopupMenuBaseProps & PopupMenuPropsWithoutPopupId);
 
 export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   ({ onClick, menuItems, popupId }, ref) => {
@@ -62,7 +82,11 @@ export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
         <ListItem
           role="menuitem"
           key={text}
-          onClick={() => onClick(clickId, popupId)}
+          onClick={() =>
+            popupId
+              ? onClick(clickId, popupId)
+              : (onClick as OnClickHandlerWithoutPopupId)(clickId)
+          }
         >
           <IconWrapper>{icon}</IconWrapper>
           <span>{text}</span>

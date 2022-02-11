@@ -41,7 +41,7 @@ const finishedTaskMenuItems = [
 ];
 
 type UseTaskPopupOptions = {
-  clickHandler: (taskId: string) => void;
+  clickHandler: (taskId: string, popupId: string) => void;
   isTaskDone: boolean;
   taskId: string;
 };
