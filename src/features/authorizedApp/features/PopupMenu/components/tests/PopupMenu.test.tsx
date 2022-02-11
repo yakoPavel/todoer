@@ -1,7 +1,11 @@
 /* eslint-disable jest/expect-expect */
+import Chance from "chance";
 import React from "react";
 
 import * as dataMocks from "./utils/dataMocks";
+
+const SEED = 12345;
+const chance = new Chance(SEED);
 
 import {
   act,
@@ -12,13 +16,11 @@ import {
   within,
 } from "@/test/testUtils";
 
-function renderComponent(showOn: "click" | "contextmenu", disabled = false) {
-  const onClickHandler = jest.fn();
-
+function renderComponent(showOn: "click" | "contextmenu") {
   const popupMenuConfig = {
     menuItems: dataMocks.menuItems,
-    onClick: onClickHandler,
-    disabled,
+    onClick: jest.fn(),
+    popupId: chance.word(),
   };
 
   render(
@@ -33,7 +35,8 @@ function renderComponent(showOn: "click" | "contextmenu", disabled = false) {
   return {
     triggerElement: screen.getByText(/trigger/i),
     menuItemsData: dataMocks.menuItems,
-    onClickHandler,
+    onClickHandler: popupMenuConfig.onClick,
+    popupId: popupMenuConfig.popupId,
   };
 }
 
@@ -93,7 +96,7 @@ describe("Popup menu", () => {
 
   describe("When a popup menu item is clicked", () => {
     test("Invokes the passed callback with the correct id", () => {
-      const { onClickHandler, triggerElement, menuItemsData } =
+      const { onClickHandler, triggerElement, menuItemsData, popupId } =
         renderComponent("click");
 
       act(() => userEvent.click(triggerElement));
@@ -103,7 +106,10 @@ describe("Popup menu", () => {
 
       expect(onClickHandler).toHaveBeenCalledTimes(1);
       const firstMenuItemClickId = menuItemsData[0].clickId;
-      expect(onClickHandler).toHaveBeenCalledWith(firstMenuItemClickId);
+      expect(onClickHandler).toHaveBeenCalledWith(
+        firstMenuItemClickId,
+        popupId,
+      );
     });
 
     test("Hides the popup menu", () => {
