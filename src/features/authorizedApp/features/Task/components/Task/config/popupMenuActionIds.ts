@@ -1,0 +1,6 @@
+export const actionIds = {
+  ADD_TASK_ABOVE: "ADD_TASK_ABOVE",
+  ADD_TASK_BELOW: "ADD_TASK_BELOW",
+  EDIT_TASK: "EDIT_TASK",
+  DELETE_TASK: "DELETE_TASK",
+} as const;
