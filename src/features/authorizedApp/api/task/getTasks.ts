@@ -8,7 +8,7 @@ export const useTasksForProject = (projectId: string) => {
   const params = new URLSearchParams();
   params.set("projectId", projectId);
 
-  const { useItems } = generateGetItemsQuery({
+  const { useItems } = generateGetItemsQuery<Task>({
     dataLabel: ["tasks", `for project: ${projectId}`],
     endpoint: "/tasks",
   });
