@@ -5,7 +5,7 @@ import { LabelItem } from "../LabelItem/LabelItem";
 import { useFilteredLabels } from "./hooks/useFilteredLabels";
 import * as Styled from "./styles";
 
-import { useLabels, useEditTask, useTasks } from "@/features/authorizedApp/api";
+import { useLabels, useEditTask, useTask } from "@/features/authorizedApp/api";
 import { ErrorScreen } from "@/features/authorizedApp/components/ErrorScreen/ErrorScreen";
 import { Spinner } from "@/features/authorizedApp/components/Spinner/Spinner";
 import { Label } from "@/features/authorizedApp/types";
@@ -51,11 +51,11 @@ type LabelsListProps = {
 
 export const LabelsList = ({ taskId }: LabelsListProps) => {
   const labelsData = useLabels();
-  const tasksData = useTasks();
+  const taskData = useTask({ itemId: taskId });
 
   const editTaskMutation = useEditTask();
 
-  if (labelsData.isError || tasksData.isError) {
+  if (labelsData.isError || taskData.isError) {
     return (
       <Styled.Container>
         <ErrorScreen />
@@ -63,17 +63,12 @@ export const LabelsList = ({ taskId }: LabelsListProps) => {
     );
   }
 
-  if (!labelsData.isSuccess || !tasksData.isSuccess) {
+  if (!labelsData.data || !taskData.data) {
     return (
       <Styled.Container>
         <Spinner />
       </Styled.Container>
     );
-  }
-
-  const taskData = tasksData.data.find((task) => task.id === taskId);
-  if (!taskData) {
-    throw new Error(`The task with ${taskId} id wasn't found!`);
   }
 
   const onCheckedStateChange = (labelId: string, isChecked: boolean) => {
@@ -85,13 +80,11 @@ export const LabelsList = ({ taskId }: LabelsListProps) => {
 
   return (
     <Styled.Container data-testid="labelsList">
-      {labelsData.data && (
-        <LabelsListContent
-          labels={labelsData.data}
-          checkedLabelId={taskData.labelId}
-          onCheckedStateChange={onCheckedStateChange}
-        />
-      )}
+      <LabelsListContent
+        labels={labelsData.data}
+        checkedLabelId={taskData.data.labelId}
+        onCheckedStateChange={onCheckedStateChange}
+      />
     </Styled.Container>
   );
 };

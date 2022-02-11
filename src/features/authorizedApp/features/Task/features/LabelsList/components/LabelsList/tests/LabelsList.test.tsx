@@ -141,7 +141,7 @@ describe("The `LabelsList` component", () => {
   describe("When a network error happens", () => {
     beforeEach(() => {
       server.use(
-        rest.get("/tasks", (req, res, ctx) => {
+        rest.get("/tasks/*", (req, res, ctx) => {
           return res(ctx.status(404));
         }),
       );
