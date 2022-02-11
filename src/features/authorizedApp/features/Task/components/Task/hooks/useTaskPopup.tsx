@@ -43,11 +43,13 @@ const finishedTaskMenuItems = [
 type UseTaskPopupOptions = {
   clickHandler: (taskId: string) => void;
   isTaskDone: boolean;
+  taskId: string;
 };
 
 export function useTaskPopup({
   clickHandler,
   isTaskDone,
+  taskId,
 }: UseTaskPopupOptions) {
   const {
     isPopupVisible: isContextMenuPopupVisible,
@@ -71,6 +73,7 @@ export function useTaskPopup({
         contextMenuPopupRef(element);
         clickPopupRef(element);
       }}
+      popupId={taskId}
     />
   );
 

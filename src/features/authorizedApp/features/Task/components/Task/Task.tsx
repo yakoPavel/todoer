@@ -26,7 +26,7 @@ export type TaskProps = {
   /** A callback that will be called when the user marks/unmarks the task as done. */
   onDoneStatusChange: (checked: boolean) => void;
   /** A click handler for the popup menu. */
-  popupClickHandler: (clickedItemId: string) => void;
+  popupClickHandler: (clickedItemId: string, popupId: string) => void;
   /** Whether the task is done or not. */
   isDone: boolean;
   /** An id of the task. */
@@ -42,7 +42,11 @@ export const Task = ({
   id,
 }: TaskProps) => {
   const { Popup, clickTriggerRef, contextMenuTriggerRef, isPopupVisible } =
-    useTaskPopup({ clickHandler: popupClickHandler, isTaskDone: isDone });
+    useTaskPopup({
+      clickHandler: popupClickHandler,
+      isTaskDone: isDone,
+      taskId: id,
+    });
 
   return (
     <>
