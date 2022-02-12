@@ -1,16 +1,16 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import { EditTask } from "./EditTask";
+import { TaskForm } from "./TaskForm";
 
 export default {
-  title: "Authorized app/Task/EditTask",
-  component: EditTask,
-} as ComponentMeta<typeof EditTask>;
+  title: "Authorized app/Task/TaskForm",
+  component: TaskForm,
+} as ComponentMeta<typeof TaskForm>;
 
-const Template: ComponentStory<typeof EditTask> = (args) => (
+const Template: ComponentStory<typeof TaskForm> = (args) => (
   <div style={{ width: "50%" }}>
-    <EditTask {...args} />
+    <TaskForm {...args} />
   </div>
 );
 

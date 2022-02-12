@@ -1,6 +1,6 @@
 import React from "react";
 
-import { EditTask, EditTaskProps } from "../EditTask";
+import { TaskForm, TaskFormProps } from "../TaskForm";
 
 import { screen, render, userEvent } from "@/test/testUtils";
 import { UniqueChance } from "@/test/UniqueChance";
@@ -8,8 +8,8 @@ import { UniqueChance } from "@/test/UniqueChance";
 const SEED = 12345;
 const chance = new UniqueChance(SEED);
 
-function renderComponent(override?: Partial<EditTaskProps>) {
-  const props: EditTaskProps = {
+function renderComponent(override?: Partial<TaskFormProps>) {
+  const props: TaskFormProps = {
     initialTitle: chance.word(),
     initialDescription: chance.sentence(),
     onSubmit: jest.fn(),
@@ -26,7 +26,7 @@ function renderComponent(override?: Partial<EditTaskProps>) {
     screen.getByRole("button", { name: props.submitButtonName });
   const getCancelButton = () => screen.getByRole("button", { name: /cancel/i });
 
-  render(<EditTask {...props} />);
+  render(<TaskForm {...props} />);
 
   return {
     props,
@@ -37,7 +37,7 @@ function renderComponent(override?: Partial<EditTaskProps>) {
   };
 }
 
-describe("The `EditTask` component", () => {
+describe("The `TaskForm` component", () => {
   describe("Rendering", () => {
     test("Renders the title field", () => {
       const { getTitleField } = renderComponent();

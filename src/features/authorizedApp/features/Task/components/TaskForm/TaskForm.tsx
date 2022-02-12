@@ -12,7 +12,7 @@ const MAX_TEXT_AREA_HEIGHT = 250;
 export type TitleElement = HTMLInputElement | null;
 export type DescriptionElement = HTMLTextAreaElement | null;
 
-export type EditTaskProps = {
+export type TaskFormProps = {
   /** An initial title of the task. */
   initialTitle: string;
   /** An initial description of the task. */
@@ -25,13 +25,13 @@ export type EditTaskProps = {
   submitButtonName?: string;
 };
 
-export const EditTask: React.FC<EditTaskProps> = ({
+export const TaskForm: React.FC<TaskFormProps> = ({
   initialDescription,
   initialTitle,
   onSubmit,
   onCancel,
   submitButtonName = "Save",
-}: EditTaskProps) => {
+}: TaskFormProps) => {
   const [titleElement, setTitleElement] = React.useState<TitleElement>(null);
   const [descriptionElement, setDescriptionElement] =
     React.useState<DescriptionElement>(null);

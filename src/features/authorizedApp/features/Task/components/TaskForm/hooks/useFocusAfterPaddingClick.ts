@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TitleElement, DescriptionElement } from "../EditTask";
+import { TitleElement, DescriptionElement } from "../TaskForm";
 
 function getClosestToClickField(
   clickY: number,

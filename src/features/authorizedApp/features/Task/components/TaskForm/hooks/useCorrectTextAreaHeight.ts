@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DescriptionElement } from "../EditTask";
+import { DescriptionElement } from "../TaskForm";
 
 export function useCorrectDescriptionHeight(
   maxHeight: number,
