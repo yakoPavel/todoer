@@ -1,5 +1,4 @@
-import { EditTask } from "./components/EditTask/EditTask";
-import { actionIds } from "./components/Task/config/popupMenuActionIds";
-import { Task } from "./components/Task/Task";
-
-export { Task, EditTask, actionIds as taskPopupActionIds };
+export { AddTask } from "./components/AddTask/AddTask";
+export { EditTask } from "./components/EditTask/EditTask";
+export { actionIds as taskPopupActionIds } from "./components/Task/config/popupMenuActionIds";
+export { Task } from "./components/Task/Task";
