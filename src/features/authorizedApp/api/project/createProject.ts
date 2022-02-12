@@ -7,7 +7,7 @@ import { CreateProjectBody } from "@/types";
 
 export const { createItem: createProject, useCreateItem: useCreateProject } =
   generateCreateMutation({
-    dataLabel: "projects",
+    dataLabel: ["projects"],
     endpoint: "/projects",
     getNewItemForOptimisticUpdate: (data: CreateProjectBody): Project => {
       return {

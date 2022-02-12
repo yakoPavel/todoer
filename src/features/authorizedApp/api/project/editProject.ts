@@ -7,7 +7,7 @@ import { PatchProjectBody } from "@/types";
 
 export const { editItem: editProject, useEdit: useEditProject } =
   generateEditMutation({
-    dataLabel: "projects",
+    dataLabel: ["projects"],
     endpoint: "/projects",
     getOptimisticUpdate: (data: PatchProjectBody): Partial<Project> => {
       return omit(data, "position") as Partial<Project>;

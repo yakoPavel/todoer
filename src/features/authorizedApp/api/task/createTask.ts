@@ -7,7 +7,7 @@ import { CreateTaskBody } from "@/types";
 
 export const { createItem: createTask, useCreateItem: useCreateTask } =
   generateCreateMutation({
-    dataLabel: "tasks",
+    dataLabel: ["tasks"],
     endpoint: "/tasks",
     getNewItemForOptimisticUpdate: (newItemData: CreateTaskBody): Task => {
       const { tempId } = newItemData;

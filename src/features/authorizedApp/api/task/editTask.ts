@@ -7,7 +7,7 @@ import { PatchTaskBody } from "@/types";
 
 export const { editItem: editTask, useEdit: useEditTask } =
   generateEditMutation({
-    dataLabel: "tasks",
+    dataLabel: ["tasks"],
     endpoint: "/tasks",
     getOptimisticUpdate: (newData: PatchTaskBody): Partial<Task> => {
       const update: Partial<Task> = {

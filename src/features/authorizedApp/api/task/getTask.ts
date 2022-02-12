@@ -3,6 +3,6 @@ import { generateGetItemQuery } from "../utils/getItems/generateGetItemsQuery";
 
 export const { getItem: getTask, useItem: useTask } =
   generateGetItemQuery<Task>({
-    dataLabel: "tasks",
+    dataLabel: ["tasks"],
     endpoint: "/tasks",
   });

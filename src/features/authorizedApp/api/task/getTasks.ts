@@ -2,7 +2,7 @@ import { Task } from "../../types";
 import { generateGetItemsQuery } from "../utils/getItems/generateGetItemsQuery";
 
 export const { getItems: getTasks, useItems: useTasks } =
-  generateGetItemsQuery<Task>({ dataLabel: "tasks", endpoint: "/tasks" });
+  generateGetItemsQuery<Task>({ dataLabel: ["tasks"], endpoint: "/tasks" });
 
 export const useTasksForProject = (projectId: string) => {
   const params = new URLSearchParams();
@@ -10,6 +10,7 @@ export const useTasksForProject = (projectId: string) => {
 
   const { useItems } = generateGetItemsQuery<Task>({
     dataLabel: ["tasks", `for project: ${projectId}`],
+    dataLabelForItem: ["tasks"],
     endpoint: "/tasks",
   });
 

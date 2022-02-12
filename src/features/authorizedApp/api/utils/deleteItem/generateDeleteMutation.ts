@@ -9,7 +9,7 @@ type ItemData = Task | Label | Project;
 
 type CreateMutationOptions = {
   /** A label for the data in react-query. */
-  dataLabel: string;
+  dataLabel: unknown[];
   /** An endpoint for the update. */
   endpoint: string;
 };
@@ -49,14 +49,14 @@ export function generateDeleteMutation<I extends ItemData = ItemData>({
           dataLabel,
           previousData?.filter(({ id }) => id !== itemToDeleteId),
         );
-        queryClient.removeQueries([dataLabel, itemToDeleteId]);
+        queryClient.removeQueries([...dataLabel, itemToDeleteId]);
 
         return { previousData, itemToDelete };
       },
       onError: (_, itemToDeleteId, context: any) => {
         queryClient.setQueryData<I[]>(dataLabel, context.previousData);
         queryClient.setQueryData<I>(
-          [dataLabel, itemToDeleteId],
+          [...dataLabel, itemToDeleteId],
           context.itemToDelete,
         );
       },

@@ -7,7 +7,7 @@ import { CreateLabelBody } from "@/types";
 
 export const { createItem: createLabel, useCreateItem: useCreateLabel } =
   generateCreateMutation({
-    dataLabel: "labels",
+    dataLabel: ["labels"],
     endpoint: "/labels",
     getNewItemForOptimisticUpdate: (data: CreateLabelBody): Label => {
       const { tempId, isFavorite } = data;

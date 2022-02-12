@@ -21,7 +21,7 @@ type GetNewItemForOptimisticUpdate<
 
 type CreateMutationOptions<C extends CreateItemBody, I extends ItemData> = {
   /** A label for the data in react-query. */
-  dataLabel: string;
+  dataLabel: unknown[];
   /** An endpoint for the update. */
   endpoint: string;
   /**
@@ -36,7 +36,7 @@ type OptimisticallyUpdateDataParams<
   I extends ItemData,
 > = {
   createItemData: C;
-  dataLabel: string;
+  dataLabel: unknown[];
   getNewItemForOptimisticUpdate: GetNewItemForOptimisticUpdate<C, I>;
   prevData: I[] | undefined;
 };
@@ -62,7 +62,7 @@ function optimisticallyUpdateData<
   });
 
   queryClient.setQueryData<I[]>(dataLabel, newData);
-  queryClient.setQueryData<I>([dataLabel, createItemData.tempId], newItem);
+  queryClient.setQueryData<I>([...dataLabel, createItemData.tempId], newItem);
 }
 
 export function generateCreateMutation<
@@ -113,7 +113,7 @@ export function generateCreateMutation<
       onError: (_, __, context: any) => {
         if (context && typeof context === "object" && "prevData" in context) {
           queryClient.setQueryData<I[]>(dataLabel, context.prevData);
-          queryClient.removeQueries([dataLabel, tempId]);
+          queryClient.removeQueries([...dataLabel, tempId]);
         }
       },
       onSettled: () => {

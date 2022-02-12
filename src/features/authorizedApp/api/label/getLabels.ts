@@ -3,6 +3,6 @@ import { generateGetItemsQuery } from "../utils/getItems/generateGetItemsQuery";
 
 export const { getItems: getLabels, useItems: useLabels } =
   generateGetItemsQuery<Label>({
-    dataLabel: "labels",
+    dataLabel: ["labels"],
     endpoint: "/labels",
   });

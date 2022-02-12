@@ -9,13 +9,16 @@ type ItemData = Task | Label | Project;
 
 type CreateQueryOptions = {
   /** A label for the data in react-query. */
-  dataLabel: string | string[];
+  dataLabel: unknown[];
+  /** A label for an individual item. Defaults to the `dataLabel`. */
+  dataLabelForItem?: unknown[];
   /** An endpoint get data from. */
   endpoint: string;
 };
 
 export function generateGetItemsQuery<I extends ItemData = ItemData>({
   dataLabel,
+  dataLabelForItem = dataLabel,
   endpoint,
 }: CreateQueryOptions) {
   async function getItems(
@@ -37,7 +40,7 @@ export function generateGetItemsQuery<I extends ItemData = ItemData>({
       queryFn: () => getItems(client, params),
       onSuccess: (data) => {
         data.forEach((item) => {
-          queryClient.setQueryData([dataLabel, item.id], item);
+          queryClient.setQueryData([...dataLabelForItem, item.id], item);
         });
       },
     });
@@ -72,7 +75,7 @@ export function generateGetItemQuery<I extends ItemData = ItemData>({
 
     return useQuery({
       ...config,
-      queryKey: [dataLabel, itemId],
+      queryKey: [...dataLabel, itemId],
       queryFn: () => getItem(awaitedClient, itemId),
     } as unknown as QueryConfig<() => Promise<I>>);
   }

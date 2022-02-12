@@ -16,7 +16,7 @@ type GetOptimisticUpdate<P extends PatchBody, I extends ItemData> = (
 
 type CreateMutationOptions<P extends PatchBody, I extends ItemData> = {
   /** A label for the data in react-query. */
-  dataLabel: string;
+  dataLabel: unknown[];
   /** An endpoint for the update. */
   endpoint: string;
   /**
@@ -28,7 +28,7 @@ type CreateMutationOptions<P extends PatchBody, I extends ItemData> = {
 
 function optimisticallyUpdateData<P extends PatchBody, I extends ItemData>(
   patchData: P,
-  dataLabel: string,
+  dataLabel: unknown[],
   getOptimisticUpdate: GetOptimisticUpdate<P, I>,
 ) {
   const prevData = queryClient.getQueryData<I[]>(dataLabel);
@@ -52,7 +52,7 @@ function optimisticallyUpdateData<P extends PatchBody, I extends ItemData>(
 
   // Set data for an individual item
   queryClient.setQueryData<I>(
-    [dataLabel, patchData.id],
+    [...dataLabel, patchData.id],
     newData[itemToEditIndex],
   );
 }

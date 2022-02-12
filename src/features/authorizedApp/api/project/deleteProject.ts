@@ -3,6 +3,6 @@ import { generateDeleteMutation } from "../utils/deleteItem/generateDeleteMutati
 
 export const { deleteItem: deleteProject, useDelete: useDeleteProject } =
   generateDeleteMutation<Project>({
-    dataLabel: "projects",
+    dataLabel: ["projects"],
     endpoint: "/projects",
   });
