@@ -44,13 +44,13 @@ export const AddTask = (props: AddTaskProps) => {
         direction,
         triggerId,
       });
+    } else {
+      createTaskMutation.mutate({
+        name: title,
+        description,
+        projectId,
+      });
     }
-
-    createTaskMutation.mutate({
-      name: title,
-      description,
-      projectId,
-    });
   };
 
   return (
