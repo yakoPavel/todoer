@@ -18,7 +18,7 @@ function setTasksForProjects<T extends { projectId: string }>(tasksData: T[]) {
   Object.entries(tasksGroupedByProjects).forEach(
     ([projectId, tasksForTheProject]) => {
       queryClient.setQueryData(
-        ["tasks", `for project: ${projectId}`],
+        ["tasks", { project: projectId }],
         tasksForTheProject,
       );
     },
