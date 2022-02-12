@@ -29,7 +29,7 @@ type DeleteItemDialogVisibleState = {
   /** Whether or not the dialog is visible. */
   visible: true;
   /** A type of the item that needs to be removed. */
-  itemType: "project" | "label";
+  itemType: "project" | "label" | "task";
   /** An id of the item that needs to be removed. */
   itemId: string;
 };
