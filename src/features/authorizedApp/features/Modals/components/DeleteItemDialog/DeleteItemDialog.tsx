@@ -1,44 +1,56 @@
-import { Text } from "@chakra-ui/react";
+import { Spinner, Text } from "@chakra-ui/react";
 import React from "react";
 
 import { Dialog } from "@/components/Dialog/Dialog";
-import { useDeleteLabel, useDeleteProject } from "@/features/authorizedApp/api";
+import { UseDeleteMutation, UseItemQuery } from "@/features/authorizedApp/api";
+import { ErrorScreen } from "@/features/authorizedApp/components/ErrorScreen/ErrorScreen";
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
 type RemoveItemDialogProps = {
-  /** A type of the item that needs to be removed. */
-  itemType: "project" | "label";
+  /**
+   * A react query hook that brings information about the item that needs to
+   * be deleted.
+   */
+  useItemQuery: UseItemQuery;
+  /**
+   * A react query mutation that the component should use to delete the item.
+   */
+  useDeleteMutation: UseDeleteMutation;
   /** An id of the item that needs to be removed. */
   itemId: string;
 };
 
 export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
-  itemType,
+  useItemQuery,
+  useDeleteMutation,
   itemId,
 }) => {
   const dispatch = useAppDispatch();
-  const deleteProjectMutation = useDeleteProject();
-  const deleteLabelMutation = useDeleteLabel();
-  const dummyItemToDelete = { name: "Do my homework" };
+  const itemInfoQuery = useItemQuery({ itemId });
+  const deleteItemMutation = useDeleteMutation();
+
+  if (itemInfoQuery.isError) {
+    return <ErrorScreen />;
+  }
+
+  if (!itemInfoQuery.data) {
+    return <Spinner size="xl" />;
+  }
 
   const onCancel = () => {
     dispatch(modalsUiActions.deleteItemDialogDismissed());
   };
 
   const onConfirm = () => {
-    if (itemType === "project") {
-      deleteProjectMutation.mutate(itemId);
-    } else {
-      deleteLabelMutation.mutate(itemId);
-    }
+    deleteItemMutation.mutate(itemId);
 
     dispatch(modalsUiActions.deleteItemDialogDismissed());
   };
 
   const dialogContent = (
     <Text>
-      Are you sure you want to delete <b>{dummyItemToDelete.name}</b>?
+      Are you sure you want to delete <b>{itemInfoQuery.data.name}</b>?
     </Text>
   );
   return (

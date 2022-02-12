@@ -6,6 +6,16 @@ import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
 import { EditLabelForm } from "../EditItemForms/EditLabelForm";
 import { EditProjectForm } from "../EditItemForms/EditProjectForm";
 
+import {
+  useLabel,
+  useProject,
+  useTask,
+  useDeleteLabel,
+  useDeleteProject,
+  useDeleteTask,
+  UseDeleteMutation,
+  UseItemQuery,
+} from "@/features/authorizedApp/api";
 import { ThemeSwitcher } from "@/features/authorizedApp/features/ThemeSwitcher";
 import { selectors } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppSelector } from "@/hooks/storeHooks";
@@ -45,10 +55,25 @@ export const Modals = () => {
     return <EditLabelForm labelId={editLabelForm.triggerId} />;
   }
   if (deleteItemDialog.visible) {
+    const { itemType, itemId } = deleteItemDialog;
+
+    const deleteMutations = {
+      label: useDeleteLabel,
+      project: useDeleteProject,
+      task: useDeleteTask,
+    };
+
+    const itemQueries = {
+      label: useLabel,
+      project: useProject,
+      task: useTask,
+    };
+
     return (
       <DeleteItemDialog
-        itemId={deleteItemDialog.itemId}
-        itemType={deleteItemDialog.itemType}
+        itemId={itemId}
+        useDeleteMutation={deleteMutations[itemType] as UseDeleteMutation}
+        useItemQuery={itemQueries[itemType] as UseItemQuery}
       />
     );
   }
