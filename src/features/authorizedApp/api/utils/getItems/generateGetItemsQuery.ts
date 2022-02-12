@@ -85,3 +85,8 @@ export function generateGetItemQuery<I extends ItemData = ItemData>({
     useItem,
   };
 }
+
+export type UseItemQuery = ReturnType<typeof generateGetItemQuery>["useItem"];
+export type UseItemsQuery = ReturnType<
+  typeof generateGetItemsQuery
+>["useItems"];

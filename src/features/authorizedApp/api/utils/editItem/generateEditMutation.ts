@@ -115,3 +115,7 @@ export function generateEditMutation<P extends PatchBody, I extends ItemData>({
     useEdit,
   };
 }
+
+export type UseEditMutation = ReturnType<
+  typeof generateEditMutation
+>["useEdit"];

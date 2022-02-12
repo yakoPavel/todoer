@@ -132,3 +132,7 @@ export function generateCreateMutation<
     useCreateItem,
   };
 }
+
+export type UseCreateMutation = ReturnType<
+  typeof generateCreateMutation
+>["useCreateItem"];

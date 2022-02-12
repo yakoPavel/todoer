@@ -75,3 +75,7 @@ export function generateDeleteMutation<I extends ItemData = ItemData>({
     useDelete,
   };
 }
+
+export type UseDeleteMutation = ReturnType<
+  typeof generateDeleteMutation
+>["useDelete"];

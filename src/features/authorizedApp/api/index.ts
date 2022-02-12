@@ -13,3 +13,11 @@ export * from "./task/deleteTask";
 export * from "./task/editTask";
 export * from "./task/getTask";
 export * from "./task/getTasks";
+
+export type {
+  UseItemQuery,
+  UseItemsQuery,
+} from "./utils/getItems/generateGetItemsQuery";
+export type { UseCreateMutation } from "./utils/createItem/generateCreateMutation";
+export type { UseEditMutation } from "./utils/editItem/generateEditMutation";
+export type { UseDeleteMutation } from "./utils/deleteItem/generateDeleteMutation";
