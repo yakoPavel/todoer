@@ -21,6 +21,11 @@ export type TaskFormProps = {
   onSubmit: (title: string, description: string) => void;
   /** A callback that will be called when the user cancel changes. */
   onCancel: () => void;
+  /**
+   * A callback that will be called when the form should be closed.
+   * If it is not specified, the `onCancel` prop will be used.
+   * */
+  onCloseForm?: () => void;
   /** A name of the submit button. */
   submitButtonName?: string;
 };
@@ -30,6 +35,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   initialTitle,
   onSubmit,
   onCancel,
+  onCloseForm = onCancel,
   submitButtonName = "Save",
 }: TaskFormProps) => {
   const [titleElement, setTitleElement] = React.useState<TitleElement>(null);
@@ -55,6 +61,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
     event.preventDefault();
 
     onSubmit(titleValue, descriptionValue);
+    onCloseForm();
   };
 
   return (
