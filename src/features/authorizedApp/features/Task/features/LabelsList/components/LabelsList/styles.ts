@@ -12,6 +12,7 @@ export const Container = styled.div`
   border-radius: 5px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px;
+  background-color: ${({ theme }) => theme.background};
 `;
 
 export const SearchField = styled.input`
