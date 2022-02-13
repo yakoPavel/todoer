@@ -10,6 +10,7 @@ export const Container = styled.li`
   width: 100%;
   border-bottom: 1px solid ${({ theme }) => theme.separators};
   padding: 0.8rem 0;
+  background-color: ${({ theme }) => theme.background};
 `;
 
 export const CheckboxContainer = styled.div`
