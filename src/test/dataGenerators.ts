@@ -122,10 +122,13 @@ export const populateDb = ({
   });
 
   const tasks = Array.from({ length: numberOfTasks }, (_, index) => {
-    const projectTaskBelongsTo = projects[index % projects.length];
+    const numberOfTasksInOneProject = numberOfTasks / numberOfProjects;
+    const projectTaskBelongsTo =
+      projects[Math.floor(index / numberOfTasksInOneProject)];
     if (!projectTaskBelongsTo) {
       throw new Error("There must be at least one project to add tasks to.");
     }
+
     const taskLabel =
       index < numberOfTasksWithLabels
         ? labels[index % labels.length]
@@ -136,6 +139,7 @@ export const populateDb = ({
       position: index,
       projectId: projectTaskBelongsTo.id,
       labelId: taskLabel?.id,
+      done: false,
     });
   });
 
