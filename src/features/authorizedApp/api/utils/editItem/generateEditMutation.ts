@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { cloneDeep } from "lodash";
 import { MutationFunction, useMutation } from "react-query";
 
 import { Task, Label, Project } from "@/features/authorizedApp/types";
@@ -14,6 +15,15 @@ type GetOptimisticUpdate<P extends PatchBody, I extends ItemData> = (
   data: P,
 ) => Partial<I>;
 
+type CorrectDataAfterOptimisticUpdate<I extends ItemData> = (params: {
+  suggestedEditedItem: I;
+  suggestedAllItems: I[];
+  itemBeforeChanges: I;
+}) => {
+  editedItem: I;
+  allItems: I[];
+};
+
 type CreateMutationOptions<P extends PatchBody, I extends ItemData> = {
   /** A label for the data in react-query. */
   dataLabel: unknown[];
@@ -22,15 +32,30 @@ type CreateMutationOptions<P extends PatchBody, I extends ItemData> = {
   /**
    * A getter for the data that should be merged with the current item data for
    * the optimistic update.
-   * */
+   */
   getOptimisticUpdate: GetOptimisticUpdate<P, I>;
+  /**
+   * If exists, this function should return an object that contains an edited
+   * item and an array with all items. This data will be saved in the query
+   * cache. The function will be called with the suggested changes and the
+   * item before changes.
+   */
+  correctDataAfterOptimisticUpdate?: CorrectDataAfterOptimisticUpdate<I>;
 };
 
-function optimisticallyUpdateData<P extends PatchBody, I extends ItemData>(
-  patchData: P,
-  dataLabel: unknown[],
-  getOptimisticUpdate: GetOptimisticUpdate<P, I>,
-) {
+type OptimisticallyUpdateDataParams<P extends PatchBody, I extends ItemData> = {
+  patchData: P;
+  dataLabel: unknown[];
+  getOptimisticUpdate: GetOptimisticUpdate<P, I>;
+  correctDataAfterOptimisticUpdate?: CorrectDataAfterOptimisticUpdate<I>;
+};
+
+function optimisticallyUpdateData<P extends PatchBody, I extends ItemData>({
+  dataLabel,
+  getOptimisticUpdate,
+  patchData,
+  correctDataAfterOptimisticUpdate,
+}: OptimisticallyUpdateDataParams<P, I>) {
   const prevData = queryClient.getQueryData<I[]>(dataLabel);
 
   if (!prevData) return;
@@ -40,17 +65,28 @@ function optimisticallyUpdateData<P extends PatchBody, I extends ItemData>(
   if (itemToEditIndex === -1) return;
 
   const newData = prevData.slice();
-  const taskToEdit = newData[itemToEditIndex];
+  const itemToEdit = newData[itemToEditIndex];
+  const itemToEditBeforeChanges = cloneDeep(itemToEdit);
 
   newData[itemToEditIndex] = {
-    ...taskToEdit,
+    ...itemToEdit,
     ...getOptimisticUpdate(patchData),
   };
 
-  // Set data for all items
-  queryClient.setQueryData<I[]>(dataLabel, newData);
+  if (correctDataAfterOptimisticUpdate) {
+    const { allItems, editedItem } = correctDataAfterOptimisticUpdate({
+      itemBeforeChanges: itemToEditBeforeChanges,
+      suggestedAllItems: newData,
+      suggestedEditedItem: newData[itemToEditIndex],
+    });
 
-  // Set data for an individual item
+    queryClient.setQueryData<I[]>(dataLabel, allItems);
+    queryClient.setQueryData<I>([...dataLabel, patchData.id], editedItem);
+
+    return;
+  }
+
+  queryClient.setQueryData<I[]>(dataLabel, newData);
   queryClient.setQueryData<I>(
     [...dataLabel, patchData.id],
     newData[itemToEditIndex],
@@ -61,6 +97,7 @@ export function generateEditMutation<P extends PatchBody, I extends ItemData>({
   dataLabel,
   getOptimisticUpdate,
   endpoint,
+  correctDataAfterOptimisticUpdate,
 }: CreateMutationOptions<P, I>) {
   const editItem = async (
     instance: Promise<AxiosInstance>,
@@ -88,7 +125,12 @@ export function generateEditMutation<P extends PatchBody, I extends ItemData>({
           newData.id,
         ]);
 
-        optimisticallyUpdateData(newData, dataLabel, getOptimisticUpdate);
+        optimisticallyUpdateData({
+          dataLabel,
+          getOptimisticUpdate,
+          patchData: newData,
+          correctDataAfterOptimisticUpdate,
+        });
 
         return { prevData, itemBeforeUpdate };
       },

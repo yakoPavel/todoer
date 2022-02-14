@@ -18,7 +18,24 @@ export const { editItem: editTask, useEdit: useEditTask } =
       if (newData.labelId) {
         update.labelId = newData.labelId;
       }
-
       return update;
+    },
+    correctDataAfterOptimisticUpdate: ({
+      suggestedEditedItem,
+      suggestedAllItems,
+      itemBeforeChanges,
+    }) => {
+      if (itemBeforeChanges.done !== suggestedEditedItem.done) {
+        suggestedAllItems.sort((a, b) => {
+          if (suggestedEditedItem.id === a.id) return 1;
+          if (suggestedEditedItem.id === b.id) return -1;
+          return 0;
+        });
+      }
+
+      return {
+        editedItem: suggestedEditedItem,
+        allItems: suggestedAllItems,
+      };
     },
   });
