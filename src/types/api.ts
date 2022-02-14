@@ -65,7 +65,6 @@ type CreateTaskBodyBase = {
   labelId?: string;
   name: string;
   description: string;
-  done?: boolean;
 };
 
 export type CreateTaskBody =
