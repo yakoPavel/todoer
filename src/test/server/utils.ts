@@ -86,6 +86,8 @@ type ShiftElementsPositionRelativeOptions = {
   triggerId: string;
   /** A type of the item under update. */
   itemType: "project" | "label" | "task";
+  /** Additional filters for items under update. */
+  additionalFilters?: Record<string, unknown>;
 };
 /**
  * Shifts the position of elements in the database based on the insertion
@@ -102,6 +104,7 @@ export function shiftElementsPositionRelative({
   userId,
   triggerId,
   itemType,
+  additionalFilters,
 }: ShiftElementsPositionRelativeOptions) {
   const triggerItem = db[itemType].findFirst({
     where: {
@@ -131,6 +134,7 @@ export function shiftElementsPositionRelative({
           : {
               gt: triggerItemPosition,
             },
+      ...additionalFilters,
     },
     data: {
       position: (prevValue: number) => prevValue + 1,
@@ -151,6 +155,8 @@ type CorrectElementsPositionOptions = {
   newPosition: number;
   /** A type of the item under update. */
   itemType: "project" | "label" | "task";
+  /** Additional filters for items under update. */
+  additionalFilters?: Record<string, unknown>;
 };
 /**
  * Corrects the positions of the elements after one element's position has changed.
@@ -163,6 +169,7 @@ export function correctElementsPosition({
   itemId,
   newPosition,
   itemType,
+  additionalFilters,
 }: CorrectElementsPositionOptions) {
   const changedItem = db[itemType].findFirst({
     where: {
@@ -189,6 +196,7 @@ export function correctElementsPosition({
           gt: oldPosition,
           lte: newPosition,
         },
+        ...additionalFilters,
       },
       data: {
         position: (prevPosition: number) => prevPosition - 1,
@@ -204,6 +212,7 @@ export function correctElementsPosition({
           lt: oldPosition,
           gte: newPosition,
         },
+        ...additionalFilters,
       },
       data: {
         position: (prevPosition: number) => prevPosition + 1,
@@ -219,6 +228,8 @@ type CorrectElementsPositionAfterDeletionOptions = {
   deletedItemPosition: number;
   /** A type of the item under update. */
   itemType: "project" | "label" | "task";
+  /** Additional filters for items under update. */
+  additionalFilters?: Record<string, unknown>;
 };
 /**
  * Corrects the position of the elements after one of them has been deleted.
@@ -227,6 +238,7 @@ export function correctElementsPositionAfterDeletion({
   userId,
   deletedItemPosition,
   itemType,
+  additionalFilters,
 }: CorrectElementsPositionAfterDeletionOptions) {
   db[itemType].updateMany({
     where: {
@@ -236,6 +248,7 @@ export function correctElementsPositionAfterDeletion({
       position: {
         gt: deletedItemPosition,
       },
+      ...additionalFilters,
     },
     data: {
       position: (prevPosition: number) => prevPosition - 1,

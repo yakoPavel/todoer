@@ -85,7 +85,16 @@ const taskHandlers = [
 
     const { done = false, direction, triggerId, ...otherData } = req.body;
 
-    let position = db.task.count();
+    let position = db.task.findMany({
+      where: {
+        userId: {
+          equals: user.id,
+        },
+        projectId: {
+          equals: otherData.projectId,
+        },
+      },
+    }).length;
 
     if (direction && triggerId) {
       try {
