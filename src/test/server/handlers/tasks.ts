@@ -10,6 +10,7 @@ import {
   shiftElementsPositionRelative,
   correctElementsPosition,
   correctPosition,
+  correctElementsPositionAfterDeletion,
 } from "../utils";
 
 import { CreateTaskBody, PatchTaskBody } from "@/types";
@@ -83,7 +84,7 @@ const taskHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { done = false, direction, triggerId, ...otherData } = req.body;
+    const { direction, triggerId, ...otherData } = req.body;
 
     let position = db.task.findMany({
       where: {
@@ -93,6 +94,7 @@ const taskHandlers = [
         projectId: {
           equals: otherData.projectId,
         },
+        done: { equals: false },
       },
     }).length;
 
@@ -103,6 +105,10 @@ const taskHandlers = [
           itemType: "task",
           triggerId,
           userId: user.id,
+          additionalFilters: {
+            done: { equals: false },
+            projectId: { equals: otherData.projectId },
+          },
         });
       } catch (_) {
         return delayedResponse(
@@ -115,7 +121,7 @@ const taskHandlers = [
     }
 
     const result = db.task.create({
-      done,
+      done: false,
       userId: user.id,
       position,
       ...otherData,
@@ -147,7 +153,18 @@ const taskHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { id: taskToUpdateId, position, ...otherData } = req.body;
+    const { id: taskToUpdateId, position, done, ...otherData } = req.body;
+
+    const taskUnderUpdate = db.task.findFirst({
+      where: {
+        userId: { equals: user.id },
+        id: { equals: taskToUpdateId },
+      },
+    });
+
+    if (!taskUnderUpdate) {
+      return delayedResponse(ctx.status(404));
+    }
 
     if (position !== undefined) {
       correctElementsPosition({
@@ -156,6 +173,23 @@ const taskHandlers = [
         itemId: taskToUpdateId,
         itemType: "task",
       });
+    }
+
+    // If the task moves to another list (from not done to done or vice versa),
+    // we need to update position of the items from the list where the task
+    // was before.
+    let taskMovedToAnotherList = false;
+    if (done !== undefined && done !== taskUnderUpdate.done) {
+      correctElementsPositionAfterDeletion({
+        userId: user.id,
+        deletedItemPosition: taskUnderUpdate.position,
+        itemType: "task",
+        additionalFilters: {
+          done: { equals: taskUnderUpdate.done },
+          projectId: { equals: taskUnderUpdate.projectId },
+        },
+      });
+      taskMovedToAnotherList = true;
     }
 
     const result = db.task.update({
@@ -167,10 +201,24 @@ const taskHandlers = [
       },
       data: {
         ...(otherData as any),
-        position: (prevValue: number) =>
-          position !== undefined
-            ? correctPosition("task", position)
-            : prevValue,
+        done,
+        position: (prevValue: number) => {
+          if (position !== undefined) {
+            return correctPosition("task", position);
+          }
+          // Place it at the end of the corresponding list
+          if (taskMovedToAnotherList) {
+            return db.task.findMany({
+              where: {
+                userId: { equals: user.id },
+                projectId: { equals: taskUnderUpdate.projectId },
+                done: { equals: done },
+              },
+            }).length;
+          }
+
+          return prevValue;
+        },
       },
     });
 
@@ -203,6 +251,13 @@ const taskHandlers = [
     if (!result) {
       return delayedResponse(ctx.status(404));
     }
+
+    correctElementsPositionAfterDeletion({
+      userId: user.id,
+      deletedItemPosition: result.position,
+      itemType: "task",
+      additionalFilters: { done: { equals: result.done } },
+    });
 
     db.project.update({
       where: {
