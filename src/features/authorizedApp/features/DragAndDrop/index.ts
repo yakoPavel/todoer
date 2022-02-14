@@ -2,7 +2,7 @@ import {
   DragAndDrop,
   DragAndDropProps,
 } from "./components/DragAndDrop/DragAndDrop";
-import { useOnDragEnd } from "./hooks/useOnDragEnd";
+import { useDraggablesState } from "./hooks/useDraggablesState";
 
 export type { DragAndDropProps };
-export { DragAndDrop, useOnDragEnd };
+export { DragAndDrop, useDraggablesState };

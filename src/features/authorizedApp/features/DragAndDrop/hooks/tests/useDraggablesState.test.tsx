@@ -1,30 +1,7 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { DropResult } from "react-beautiful-dnd";
 
-import { useOnDragEnd } from "../useOnDragEnd";
-
-const initialDraggables = [
-  {
-    component: null,
-    id: "COMPONENT_0",
-  },
-  {
-    component: null,
-    id: "COMPONENT_1",
-  },
-  {
-    component: null,
-    id: "COMPONENT_2",
-  },
-  {
-    component: null,
-    id: "COMPONENT_3",
-  },
-  {
-    component: null,
-    id: "COMPONENT_4",
-  },
-];
+import { useDraggablesState } from "../useDraggablesState";
 
 function getDropResult(fromIndex: number, toIndex: number) {
   return {
@@ -34,7 +11,14 @@ function getDropResult(fromIndex: number, toIndex: number) {
 }
 
 test("correctly changes the order of draggables", () => {
-  const { result } = renderHook(() => useOnDragEnd(initialDraggables));
+  const { result } = renderHook(() =>
+    useDraggablesState({
+      componentGenerator: () => null,
+      data: Array.from({ length: 5 }, (_, index) => ({
+        id: `COMPONENT_${index}`,
+      })),
+    }),
+  );
 
   const secondArgumentMock = {} as any;
 

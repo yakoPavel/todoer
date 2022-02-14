@@ -3,7 +3,7 @@ import { css } from "@emotion/react/macro";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import { useOnDragEnd } from "../../hooks/useOnDragEnd";
+import { useDraggablesState } from "../../hooks/useDraggablesState";
 
 import { DragAndDrop } from "./DragAndDrop";
 
@@ -17,7 +17,7 @@ export default {
   },
 } as ComponentMeta<typeof DragAndDrop>;
 
-const ComponentToDrag = ({ id }: { id: number }) => (
+const ComponentToDrag = ({ id }: { id: string }) => (
   <div
     css={css`
       border: 1px solid lightgray;
@@ -29,31 +29,11 @@ const ComponentToDrag = ({ id }: { id: number }) => (
   </div>
 );
 
-const initialDraggables = [
-  {
-    component: <ComponentToDrag id={1} />,
-    id: "COMPONENT_1",
-  },
-  {
-    component: <ComponentToDrag id={2} />,
-    id: "COMPONENT_2",
-  },
-  {
-    component: <ComponentToDrag id={3} />,
-    id: "COMPONENT_3",
-  },
-  {
-    component: <ComponentToDrag id={4} />,
-    id: "COMPONENT_4",
-  },
-  {
-    component: <ComponentToDrag id={5} />,
-    id: "COMPONENT_5",
-  },
-];
-
 const Template: ComponentStory<typeof DragAndDrop> = (args) => {
-  const { draggables, onDragEnd } = useOnDragEnd(initialDraggables);
+  const { draggables, onDragEnd } = useDraggablesState({
+    componentGenerator: ({ id }) => <ComponentToDrag id={id} />,
+    data: Array.from({ length: 5 }, (_, index) => ({ id: index.toString() })),
+  });
 
   return (
     <DragAndDrop {...args} onDragEnd={onDragEnd} draggables={draggables} />
