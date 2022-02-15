@@ -4,6 +4,7 @@
 
 import { capitalize } from "lodash";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { SideMenu } from "../SideMenu";
 
@@ -40,13 +41,13 @@ async function prepareTestData({
   });
 
   render(
-    <>
+    <MemoryRouter>
       {/* The popup menu renders here */}
       <div id="root" />
       {/* We need this component, because modals render outside the SideMenu component */}
       <Modals />
       <SideMenu isOpen={true} />
-    </>,
+    </MemoryRouter>,
   );
 
   if (waitForDataLoading) {

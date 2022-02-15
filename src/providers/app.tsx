@@ -23,7 +23,7 @@ export const AppProviders: React.FC = ({ children }) => {
         <ChakraProvider theme={chakraTheme}>
           <UserContextProvider>
             <QueryClientProvider client={queryClient}>
-              {process.env.NODE_ENV !== "test" && <ReactQueryDevtools />}
+              <ReactQueryDevtools />
               <ReduxProvider store={store}>{children}</ReduxProvider>
             </QueryClientProvider>
           </UserContextProvider>

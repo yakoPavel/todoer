@@ -1,5 +1,6 @@
 import Chance from "chance";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { StyledLink } from "@/components/StyledLink/StyledLink";
 import { render, screen } from "@/test/testUtils";
@@ -19,7 +20,9 @@ describe("The `StyledLink` component", () => {
   });
 
   test("Can render a link when the `to` prop is passed", () => {
-    render(<StyledLink to={to}>{linkText}</StyledLink>);
+    render(<StyledLink to={to}>{linkText}</StyledLink>, {
+      wrapper: MemoryRouter,
+    });
 
     expect(screen.getByRole("link", { name: linkText })).toBeInTheDocument();
   });

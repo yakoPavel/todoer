@@ -7,7 +7,7 @@ import {
 import React from "react";
 
 import { queryClient } from "@/lib/react-query";
-import { AppProviders } from "@/providers/app";
+import { TestingProviders } from "@/providers/testing";
 
 export type Renderer = (
   ui: React.ReactElement,
@@ -23,7 +23,7 @@ export type Renderer = (
  */
 const render: Renderer = (ui, options = {}) => {
   const Wrapper: React.FC = ({ children }) => (
-    <AppProviders>{children}</AppProviders>
+    <TestingProviders>{children}</TestingProviders>
   );
   return rtlRender(ui, { wrapper: Wrapper, ...options });
 };
