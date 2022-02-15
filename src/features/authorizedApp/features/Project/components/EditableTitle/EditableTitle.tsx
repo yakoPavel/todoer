@@ -69,7 +69,10 @@ export const EditableTitle = ({ title, onEditEnd }: EditableTitleProps) => {
   return (
     <Form
       onCancel={() => setEditing(false)}
-      onSubmit={onEditEnd}
+      onSubmit={(newTitle) => {
+        setEditing(false);
+        onEditEnd(newTitle);
+      }}
       initialValue={title}
     />
   );
