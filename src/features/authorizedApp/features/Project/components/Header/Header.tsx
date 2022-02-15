@@ -23,7 +23,7 @@ const ButtonsContainer = styled.div`
   flex-shrink: 0;
   margin-left: 1rem;
 
-  & > *:not(:first-child) {
+  & > *:not(:first-of-type) {
     margin-left: 1rem;
   }
 `;
