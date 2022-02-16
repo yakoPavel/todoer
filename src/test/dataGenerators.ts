@@ -77,6 +77,7 @@ export type PopulateDbOptions = {
 
   numberOfLabels?: number;
   numberOfFavoriteLabels?: number;
+  numberOfCompletedTasks?: number;
 
   numberOfTasks?: number;
   numberOfTasksWithLabels?: number;
@@ -87,6 +88,7 @@ export const populateDb = ({
 
   numberOfTasks = 12,
   numberOfTasksWithLabels = 5,
+  numberOfCompletedTasks = 0,
 
   numberOfLabels = 3,
   numberOfFavoriteLabels = 3,
@@ -139,7 +141,7 @@ export const populateDb = ({
       position: index,
       projectId: projectTaskBelongsTo.id,
       labelId: taskLabel?.id,
-      done: false,
+      done: index < numberOfCompletedTasks,
     });
   });
 

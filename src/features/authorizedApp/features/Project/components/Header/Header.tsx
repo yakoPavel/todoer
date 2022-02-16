@@ -28,7 +28,7 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-type HeaderButtonProps = {
+type HeaderButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   onClick: () => void;
   tooltipText: string;
   IconComponent: IconType;
@@ -38,10 +38,11 @@ const HeaderButton = ({
   onClick,
   tooltipText,
   IconComponent,
+  ...otherProps
 }: HeaderButtonProps) => {
   return (
     <Tooltip tooltipText={tooltipText}>
-      <BackgroundButton type="button" onClick={onClick}>
+      <BackgroundButton {...otherProps} type="button" onClick={onClick}>
         <IconComponent size="3rem" />
       </BackgroundButton>
     </Tooltip>
@@ -74,11 +75,13 @@ export const Header = ({
             IconComponent={AiOutlineEdit}
             onClick={onEditProject}
             tooltipText="Edit the project"
+            aria-label="Edit the project"
           />
           <HeaderButton
             IconComponent={AiOutlineDelete}
             onClick={onDeleteProject}
             tooltipText="Delete the project"
+            aria-label="Delete the project"
           />
         </ButtonsContainer>
       </Content>

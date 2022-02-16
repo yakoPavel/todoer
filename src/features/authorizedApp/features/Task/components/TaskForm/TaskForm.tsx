@@ -12,7 +12,9 @@ const MAX_TEXT_AREA_HEIGHT = 250;
 export type TitleElement = HTMLInputElement | null;
 export type DescriptionElement = HTMLTextAreaElement | null;
 
-export type TaskFormProps = {
+type FormProps = React.ComponentPropsWithRef<"form">;
+
+export type TaskFormProps = Omit<FormProps, "onSubmit"> & {
   /** An initial title of the task. */
   initialTitle: string;
   /** An initial description of the task. */
@@ -37,6 +39,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   onCancel,
   onCloseForm = onCancel,
   submitButtonName = "Save",
+  ...otherProps
 }: TaskFormProps) => {
   const [titleElement, setTitleElement] = React.useState<TitleElement>(null);
   const [descriptionElement, setDescriptionElement] =
@@ -65,7 +68,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   };
 
   return (
-    <Styled.Form onSubmit={onFormSubmit}>
+    <Styled.Form {...otherProps} onSubmit={onFormSubmit}>
       <Styled.EditingAreaWrapper onClick={onEditingAreaClick} data-editing-area>
         <Styled.TitleField
           value={titleValue}

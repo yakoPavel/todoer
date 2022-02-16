@@ -42,6 +42,7 @@ export const EditTask = ({
       onCancel={onCancel}
       submitButtonName="Save"
       onSubmit={onSubmit.bind(null, id)}
+      data-testid="editTaskForm"
     />
   );
 };

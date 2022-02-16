@@ -59,7 +59,9 @@ export const Task = ({
         </Styled.CheckboxContainer>
         <Styled.TaskContentContainer>
           <Styled.TitleContainer>
-            <Styled.Title isDone={isDone}>{title}</Styled.Title>
+            <Styled.Title as="h3" isDone={isDone}>
+              {title}
+            </Styled.Title>
             {!isDone && (
               <Styled.LabelButtonContainer>
                 <LabelButton taskId={id} />

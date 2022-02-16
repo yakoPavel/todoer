@@ -60,6 +60,7 @@ export const AddTask = (props: AddTaskProps) => {
       onCancel={onCancel}
       submitButtonName="Add"
       onSubmit={onSubmit}
+      data-testid="addTaskForm"
     />
   );
 };
