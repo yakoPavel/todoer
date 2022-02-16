@@ -72,7 +72,14 @@ const projectHandlers = [
       return delayedResponse(ctx.status(401));
     }
 
-    const { color, name, isFavorite = false, direction, triggerId } = req.body;
+    const {
+      color,
+      name,
+      isFavorite = false,
+      direction,
+      triggerId,
+      ...otherData
+    } = req.body;
 
     let position = db.project.count();
 
@@ -100,6 +107,7 @@ const projectHandlers = [
       isFavorite,
       position,
       userId: user.id,
+      ...otherData,
     });
 
     user.projectIds.push(result.id);
