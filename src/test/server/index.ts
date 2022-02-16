@@ -7,7 +7,7 @@ export const initMocks = () => {
       server.listen();
     } else {
       const { worker } = require("./browser");
-      worker.start();
+      worker.start({ quiet: true, onUnhandledRequest: "bypass" });
     }
   }
 };
