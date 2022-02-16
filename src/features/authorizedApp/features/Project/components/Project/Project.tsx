@@ -7,7 +7,7 @@ import { Header } from "../Header/Header";
 import { OngoingTasks } from "../OngoingTasks/OngoingTasks";
 
 import { useEditProjectHandlers } from "./hooks/useEditProjectHandlers";
-import { useMarginLeft } from "./hooks/useMarginLeft";
+import { useTranslatePosition } from "./hooks/useTranslatePosition";
 import * as Styled from "./styles";
 
 import { useProject, useTasks } from "@/features/authorizedApp/api";
@@ -25,7 +25,7 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
   const { onDeleteProject, onEditProject, onProjectTitleEdited } =
     useEditProjectHandlers(projectId);
 
-  const leftMargin = useMarginLeft();
+  const translatePositionStyle = useTranslatePosition();
 
   if (projectQuery.isError || allTasksQuery.isError) {
     return <ErrorScreen />;
@@ -44,19 +44,21 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
   );
 
   return (
-    <Styled.Container style={{ marginLeft: leftMargin }}>
-      <Header
-        onDeleteProject={onDeleteProject}
-        onEditProject={onEditProject}
-        onProjectTitleEdited={onProjectTitleEdited}
-        projectTitle={projectQuery.data.name}
-      />
-      {Boolean(ongoingTasks?.length) && (
-        <OngoingTasks tasks={ongoingTasks} projectId={projectId} />
-      )}
-      {Boolean(completedTasks?.length) && (
-        <CompletedTasks tasks={completedTasks} />
-      )}
+    <Styled.Container>
+      <Styled.ContentContainer style={{ transform: translatePositionStyle }}>
+        <Header
+          onDeleteProject={onDeleteProject}
+          onEditProject={onEditProject}
+          onProjectTitleEdited={onProjectTitleEdited}
+          projectTitle={projectQuery.data.name}
+        />
+        {Boolean(ongoingTasks?.length) && (
+          <OngoingTasks tasks={ongoingTasks} projectId={projectId} />
+        )}
+        {Boolean(completedTasks?.length) && (
+          <CompletedTasks tasks={completedTasks} />
+        )}
+      </Styled.ContentContainer>
     </Styled.Container>
   );
 };
