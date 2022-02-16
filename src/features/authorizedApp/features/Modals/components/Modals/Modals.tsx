@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { AddLabelForm } from "../AddItemForms/AddLabelForm";
 import { AddProjectForm } from "../AddItemForms/AddProjectForm";
@@ -31,6 +32,8 @@ export const Modals = () => {
   const themeSwitcherDialog = useAppSelector(
     selectors.selectThemeSwitcherDialogState,
   );
+
+  const navigate = useNavigate();
 
   if (addProjectForm.visible) {
     return (
@@ -69,11 +72,18 @@ export const Modals = () => {
       task: useTask,
     };
 
+    const onConfirmActions = {
+      label: undefined,
+      task: undefined,
+      project: () => navigate("/", { replace: true }),
+    };
+
     return (
       <DeleteItemDialog
         itemId={itemId}
         useDeleteMutation={deleteMutations[itemType] as UseDeleteMutation}
         useItemQuery={itemQueries[itemType] as UseItemQuery}
+        onConfirmAction={onConfirmActions[itemType]}
       />
     );
   }

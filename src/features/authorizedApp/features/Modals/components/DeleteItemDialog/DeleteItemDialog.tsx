@@ -19,12 +19,15 @@ type RemoveItemDialogProps = {
   useDeleteMutation: UseDeleteMutation;
   /** An id of the item that needs to be removed. */
   itemId: string;
+  /** A function that will be called when the user confirms the deletion. */
+  onConfirmAction?: () => void;
 };
 
 export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
   useItemQuery,
   useDeleteMutation,
   itemId,
+  onConfirmAction,
 }) => {
   const dispatch = useAppDispatch();
   const itemInfoQuery = useItemQuery({ itemId });
@@ -46,6 +49,7 @@ export const DeleteItemDialog: React.FC<RemoveItemDialogProps> = ({
     deleteItemMutation.mutate(itemId);
 
     dispatch(modalsUiActions.deleteItemDialogDismissed());
+    onConfirmAction?.();
   };
 
   const dialogContent = (
