@@ -5,6 +5,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
 `;
 
 export const ContentContainer = styled.main`
