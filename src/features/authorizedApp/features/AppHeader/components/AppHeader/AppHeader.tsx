@@ -47,17 +47,16 @@ type AppHeaderProps = {
   onMenuToggle?: () => void;
   onGoHome?: () => void;
   onQuickAdd?: () => void;
-  menuState: "opened" | "closed";
+  isSideMenuOpened: boolean;
 };
 export const AppHeader = ({
   onMenuToggle,
   onGoHome,
   onQuickAdd,
-  menuState,
+  isSideMenuOpened: isOpened,
 }: AppHeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
-  const menuButtonLabel =
-    menuState === "closed" ? "Open the menu" : "Close the menu";
+  const menuButtonLabel = isOpened ? "Close the menu" : "Open the menu";
 
   const saveHeaderHeight = (header: HTMLElement | null) => {
     if (header === null) return;
