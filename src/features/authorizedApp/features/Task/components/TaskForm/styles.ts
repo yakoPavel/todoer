@@ -31,6 +31,7 @@ export const DescriptionField = styled.textarea`
   resize: none;
   outline: none;
   background: ${({ theme }) => theme.background};
+  min-height: 5rem;
 
   &::placeholder {
     color: ${({ theme }) => theme.textSecondary};
