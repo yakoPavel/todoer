@@ -12,7 +12,7 @@ import {
 } from "@/test/testUtils";
 
 jest.mock("@/context/UserContext");
-jest.mock("../hooks/useCorrectLocation");
+jest.mock("@/features/authorizedApp/features/Page/hooks/useCorrectLocation");
 jest.setTimeout(10_000);
 
 const { renderComponent, componentGetters } = utils;

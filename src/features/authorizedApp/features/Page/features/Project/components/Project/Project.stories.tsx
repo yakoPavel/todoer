@@ -9,7 +9,7 @@ import { db } from "@/test/server/db";
 const projectId = db.project.getAll()[0].id;
 
 export default {
-  title: "Authorized app/Project",
+  title: "Authorized app/Page/Project",
   component: Project,
 } as ComponentMeta<typeof Project>;
 

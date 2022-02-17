@@ -4,7 +4,7 @@ import React from "react";
 import { EditableTitle } from "./EditableTitle";
 
 export default {
-  title: "Authorized app/UI/EditableTitle",
+  title: "Authorized app/Page/EditableTitle",
   component: EditableTitle,
 } as ComponentMeta<typeof EditableTitle>;
 

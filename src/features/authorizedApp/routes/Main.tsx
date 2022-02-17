@@ -4,11 +4,11 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Outlet } from "react-router-dom";
 
 import { ErrorFallback } from "../components/ErrorFallback/ErrorFallback";
-import { PageContentContainer } from "../components/PageContentContainer/PageContentContainer";
 import { AppHeader } from "../features/AppHeader";
 import { Modals } from "../features/Modals";
 import { SideMenu } from "../features/SideMenu";
 
+import { PageContentContainer } from "@/features/authorizedApp/features/Page";
 import {
   selectors as sideMenuUiSelectors,
   actions as sideMenuUiActions,
