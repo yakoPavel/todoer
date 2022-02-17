@@ -49,39 +49,42 @@ const HeaderButton = ({
   );
 };
 
-type HeaderProps = {
-  /** A title of the project. */
-  projectTitle: string;
-  /** A callback that will be called when the 'edit project' button is pressed. */
-  onEditProject: () => void;
-  /** A callback that will be called when the 'delete project' button is pressed. */
-  onDeleteProject: () => void;
+type PageHeaderProps = {
+  /** A title of the page. */
+  title: string;
+  /** A callback that will be called when the 'edit item' button is pressed. */
+  onEdit: () => void;
+  /** A callback that will be called when the 'delete item' button is pressed. */
+  onDelete: () => void;
   /** A callback that will be called with a new title when the old one gets edited. */
-  onProjectTitleEdited: (newTitle: string) => void;
+  onTitleEdited: (newTitle: string) => void;
+  /** A name of the item page belongs to. It will be substitute to the tooltips. */
+  itemName: string;
 };
 
-export const Header = ({
-  projectTitle,
-  onEditProject,
-  onDeleteProject,
-  onProjectTitleEdited,
-}: HeaderProps) => {
+export const PageHeader = ({
+  title,
+  onEdit,
+  onDelete,
+  onTitleEdited,
+  itemName,
+}: PageHeaderProps) => {
   return (
     <StyledHeader>
       <Content>
-        <EditableTitle title={projectTitle} onEditEnd={onProjectTitleEdited} />
+        <EditableTitle title={title} onEditEnd={onTitleEdited} />
         <ButtonsContainer>
           <HeaderButton
             IconComponent={AiOutlineEdit}
-            onClick={onEditProject}
-            tooltipText="Edit the project"
-            aria-label="Edit the project"
+            onClick={onEdit}
+            tooltipText={`Edit the ${itemName}`}
+            aria-label={`Edit the ${itemName}`}
           />
           <HeaderButton
             IconComponent={AiOutlineDelete}
-            onClick={onDeleteProject}
-            tooltipText="Delete the project"
-            aria-label="Delete the project"
+            onClick={onDelete}
+            tooltipText={`Delete the ${itemName}`}
+            aria-label={`Delete the ${itemName}`}
           />
         </ButtonsContainer>
       </Content>

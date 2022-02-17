@@ -3,7 +3,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { CompletedTasks } from "../CompletedTasks/CompletedTasks";
-import { Header } from "../Header/Header";
 import { OngoingTasks } from "../OngoingTasks/OngoingTasks";
 
 import { useCorrectLocation } from "./hooks/useCorrectLocation";
@@ -12,6 +11,7 @@ import * as Styled from "./styles";
 
 import { useProject, useTasks } from "@/features/authorizedApp/api";
 import { ErrorScreen } from "@/features/authorizedApp/components/ErrorScreen/ErrorScreen";
+import { PageHeader } from "@/features/authorizedApp/components/PageHeader/PageHeader";
 import { Spinner } from "@/features/authorizedApp/components/Spinner/Spinner";
 
 type ProjectImplProps = {
@@ -47,11 +47,12 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
   return (
     <Styled.Container>
       <Styled.ContentContainer>
-        <Header
-          onDeleteProject={onDeleteProject}
-          onEditProject={onEditProject}
-          onProjectTitleEdited={onProjectTitleEdited}
-          projectTitle={projectQuery.data.name}
+        <PageHeader
+          onDelete={onDeleteProject}
+          onEdit={onEditProject}
+          onTitleEdited={onProjectTitleEdited}
+          title={projectQuery.data.name}
+          itemName="project"
         />
         <OngoingTasks tasks={ongoingTasks} projectId={projectId} />
         <CompletedTasks tasks={completedTasks} />
