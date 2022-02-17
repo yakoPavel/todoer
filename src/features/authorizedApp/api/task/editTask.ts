@@ -9,6 +9,7 @@ export const { editItem: editTask, useEdit: useEditTask } =
   generateEditMutation({
     dataLabel: ["tasks"],
     endpoint: "/tasks",
+    invalidateDataLabels: [["tasks"], ["projects"]],
     getOptimisticUpdate: (newData: PatchTaskBody): Partial<Task> => {
       const update: Partial<Task> = {
         ...omit(newData, ["position", "labelId"]),

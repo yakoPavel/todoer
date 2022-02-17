@@ -9,6 +9,7 @@ export const { createItem: createTask, useCreateItem: useCreateTask } =
   generateCreateMutation({
     dataLabel: ["tasks"],
     endpoint: "/tasks",
+    invalidateDataLabels: [["tasks"], ["projects"]],
     getNewItemForOptimisticUpdate: (newItemData: CreateTaskBody): Task => {
       const { tempId } = newItemData;
 

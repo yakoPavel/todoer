@@ -6,4 +6,5 @@ export const { deleteItem: deleteTask, useDelete: useDeleteTask } =
   generateDeleteMutation<Task>({
     dataLabel: ["tasks"],
     endpoint: "/tasks",
+    invalidateDataLabels: [["tasks"], ["projects"]],
   });
