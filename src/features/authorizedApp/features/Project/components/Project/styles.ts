@@ -2,18 +2,16 @@ import styled from "@emotion/styled/macro";
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.text};
 `;
 
 export const ContentContainer = styled.main`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - var(--header-height, 0) - 1px);
   width: 100%;
   max-width: 80rem;
   overflow-y: auto;

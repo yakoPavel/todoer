@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
+import { PageContentContainer } from "../components/PageContentContainer/PageContentContainer";
 import { AppHeader } from "../features/AppHeader";
 import { Modals } from "../features/Modals";
 import { SideMenu } from "../features/SideMenu";
@@ -38,7 +39,9 @@ export const Main = () => {
         onMenuToggle={toggleSideMenu}
       />
       <SideMenu isOpen={isSideMenuOpened} />
-      <Outlet />
+      <PageContentContainer>
+        <Outlet />
+      </PageContentContainer>
       <Modals />
     </>
   );
