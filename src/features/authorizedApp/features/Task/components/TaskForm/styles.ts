@@ -20,6 +20,7 @@ export const EditingAreaWrapper = styled.div`
 export const TitleField = styled.input`
   outline: none;
   font-weight: 700;
+  background: ${({ theme }) => theme.background};
 
   &::placeholder {
     color: ${({ theme }) => theme.textSecondary};
@@ -29,6 +30,7 @@ export const TitleField = styled.input`
 export const DescriptionField = styled.textarea`
   resize: none;
   outline: none;
+  background: ${({ theme }) => theme.background};
 
   &::placeholder {
     color: ${({ theme }) => theme.textSecondary};
