@@ -41,6 +41,11 @@ type CreateMutationOptions<P extends PatchBody, I extends ItemData> = {
    * item before changes.
    */
   correctDataAfterOptimisticUpdate?: CorrectDataAfterOptimisticUpdate<I>;
+  /**
+   * Data with what labels should be invalidated after settling this mutation.
+   * Defaults ot the `dataLabel`.
+   */
+  invalidateDataLabels?: unknown[][];
 };
 
 type OptimisticallyUpdateDataParams<P extends PatchBody, I extends ItemData> = {
@@ -98,6 +103,7 @@ export function generateEditMutation<P extends PatchBody, I extends ItemData>({
   getOptimisticUpdate,
   endpoint,
   correctDataAfterOptimisticUpdate,
+  invalidateDataLabels = [dataLabel],
 }: CreateMutationOptions<P, I>) {
   const editItem = async (
     instance: Promise<AxiosInstance>,
@@ -142,7 +148,9 @@ export function generateEditMutation<P extends PatchBody, I extends ItemData>({
         );
       },
       onSettled: () => {
-        queryClient.invalidateQueries(dataLabel);
+        invalidateDataLabels.forEach((label) =>
+          queryClient.invalidateQueries(label),
+        );
       },
       ...config,
       mutationFn: editItem.bind(null, awaitedClient) as MutationFunction<

@@ -29,6 +29,11 @@ type CreateMutationOptions<C extends CreateItemBody, I extends ItemData> = {
    * optimistic update.
    * */
   getNewItemForOptimisticUpdate: GetNewItemForOptimisticUpdate<C, I>;
+  /**
+   * Data with what labels should be invalidated after settling this mutation.
+   * Defaults ot the `dataLabel`.
+   */
+  invalidateDataLabels?: unknown[][];
 };
 
 type OptimisticallyUpdateDataParams<
@@ -72,6 +77,7 @@ export function generateCreateMutation<
   dataLabel,
   getNewItemForOptimisticUpdate,
   endpoint,
+  invalidateDataLabels = [dataLabel],
 }: CreateMutationOptions<C, I>) {
   const createItem = async (
     instance: Promise<AxiosInstance>,
@@ -117,7 +123,9 @@ export function generateCreateMutation<
         }
       },
       onSettled: () => {
-        queryClient.invalidateQueries(dataLabel);
+        invalidateDataLabels.forEach((label) =>
+          queryClient.invalidateQueries(label),
+        );
       },
       ...config,
       mutationFn: mutationFn as MutationFunction<

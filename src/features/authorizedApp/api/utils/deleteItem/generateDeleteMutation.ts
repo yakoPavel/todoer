@@ -12,11 +12,17 @@ type CreateMutationOptions = {
   dataLabel: unknown[];
   /** An endpoint for the update. */
   endpoint: string;
+  /**
+   * Data with what labels should be invalidated after settling this mutation.
+   * Defaults ot the `dataLabel`.
+   */
+  invalidateDataLabels?: unknown[][];
 };
 
 export function generateDeleteMutation<I extends ItemData = ItemData>({
   dataLabel,
   endpoint,
+  invalidateDataLabels = [dataLabel],
 }: CreateMutationOptions) {
   const deleteItem = async (
     instance: Promise<AxiosInstance>,
@@ -61,7 +67,9 @@ export function generateDeleteMutation<I extends ItemData = ItemData>({
         );
       },
       onSettled: () => {
-        queryClient.invalidateQueries(dataLabel);
+        invalidateDataLabels.forEach((label) =>
+          queryClient.invalidateQueries(label),
+        );
       },
       ...config,
       mutationFn: deleteItem.bind(null, awaitedClient) as MutationFunction<
