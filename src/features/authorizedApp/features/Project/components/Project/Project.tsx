@@ -6,6 +6,7 @@ import { CompletedTasks } from "../CompletedTasks/CompletedTasks";
 import { Header } from "../Header/Header";
 import { OngoingTasks } from "../OngoingTasks/OngoingTasks";
 
+import { useCorrectLocation } from "./hooks/useCorrectLocation";
 import { useEditProjectHandlers } from "./hooks/useEditProjectHandlers";
 import { useTranslatePosition } from "./hooks/useTranslatePosition";
 import * as Styled from "./styles";
@@ -21,6 +22,8 @@ type ProjectImplProps = {
 export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
   const projectQuery = useProject({ itemId: projectId });
   const allTasksQuery = useTasks();
+
+  useCorrectLocation(projectQuery);
 
   const { onDeleteProject, onEditProject, onProjectTitleEdited } =
     useEditProjectHandlers(projectId);
