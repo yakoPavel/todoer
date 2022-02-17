@@ -1,6 +1,8 @@
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Outlet } from "react-router-dom";
 
+import { ErrorFallback } from "../components/ErrorFallback/ErrorFallback";
 import { PageContentContainer } from "../components/PageContentContainer/PageContentContainer";
 import { AppHeader } from "../features/AppHeader";
 import { Modals } from "../features/Modals";
@@ -40,7 +42,9 @@ export const Main = () => {
       />
       <SideMenu isOpen={isSideMenuOpened} />
       <PageContentContainer>
-        <Outlet />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Outlet />
+        </ErrorBoundary>
       </PageContentContainer>
       <Modals />
     </>

@@ -4,11 +4,15 @@ import React from "react";
 import { BiError } from "react-icons/bi";
 import { HiStatusOffline } from "react-icons/hi";
 
+import { Button } from "@/components/Button/Button";
+
 const Container = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
@@ -25,21 +29,44 @@ const Message = styled(Text)`
   font-size: 1.7rem;
 `;
 
-export type ErrorScreenProps = {
+const TryAgainButton = styled(Button)`
+  margin-top: 1.5rem;
+  font-weight: 700;
+  font-size: 1.4rem;
+`;
+
+type ErrorScreenBaseProps = {
   /**
    * If true and there is no connection right now, the component will show a
    * corresponding message.
    */
   detectOffline?: boolean;
-  /**
-   * A message the component will show.
-   */
+  /** A message the component will show. */
   message?: string;
 };
+
+type ErrorScreenWithTryAgainButtonProps = {
+  /** Whether or not to show the 'Try again' button. */
+  tryAgainButton: true;
+  /** A function that will be called when the 'Try again' button is clicked. */
+  onTryAgainClick: () => void;
+};
+
+type ErrorScreenWithoutTryAgainButtonProps = {
+  /** Whether or not to show the 'Try again' button. */
+  tryAgainButton?: false;
+  /** A function that will be called when the 'Try again' button is clicked. */
+  onTryAgainClick?: undefined;
+};
+
+export type ErrorScreenProps =
+  | (ErrorScreenBaseProps & ErrorScreenWithTryAgainButtonProps)
+  | (ErrorScreenBaseProps & ErrorScreenWithoutTryAgainButtonProps);
 
 export const ErrorScreen = ({
   detectOffline = true,
   message = "Oops, something went wrong",
+  ...otherProps
 }: ErrorScreenProps) => {
   const showOfflineMessage = detectOffline && !navigator.onLine;
 
@@ -56,6 +83,11 @@ export const ErrorScreen = ({
         </Message>
       )}
       {!showOfflineMessage && <Message>{message}</Message>}
+      {otherProps.tryAgainButton && (
+        <TryAgainButton onClick={otherProps.onTryAgainClick}>
+          Try Again
+        </TryAgainButton>
+      )}
     </Container>
   );
 };
