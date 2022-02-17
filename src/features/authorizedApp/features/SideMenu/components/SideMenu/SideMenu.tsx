@@ -107,6 +107,7 @@ export const SideMenu = ({ isOpen }: SideMenuProps) => {
         width: `${initialWidth}px`,
         top: "var(--header-height, 0)",
         maxWidth: "100%",
+        zIndex: 5,
       }}
       ref={resizableElementRef}
     >

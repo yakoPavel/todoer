@@ -1,3 +1,4 @@
+import styled from "@emotion/styled/macro";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Outlet } from "react-router-dom";
@@ -31,11 +32,15 @@ function useSideMenuState() {
   };
 }
 
+const Container = styled.div`
+  background-color: ${({ theme }) => theme.background};
+`;
+
 export const Main = () => {
   const { isSideMenuOpened, toggleSideMenu } = useSideMenuState();
 
   return (
-    <>
+    <Container>
       <AppHeader
         isSideMenuOpened={isSideMenuOpened}
         onMenuToggle={toggleSideMenu}
@@ -47,6 +52,6 @@ export const Main = () => {
         </ErrorBoundary>
       </PageContentContainer>
       <Modals />
-    </>
+    </Container>
   );
 };

@@ -1,3 +1,1 @@
-import { Main } from "./routes/Main";
-
-export { Main };
+export { Main } from "./routes/Main";

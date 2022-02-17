@@ -15,5 +15,4 @@ export const ContentContainer = styled.main`
   width: 100%;
   max-width: 80rem;
   overflow-y: auto;
-  transition: transform 0.3s;
 `;

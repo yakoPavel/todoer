@@ -8,7 +8,6 @@ import { OngoingTasks } from "../OngoingTasks/OngoingTasks";
 
 import { useCorrectLocation } from "./hooks/useCorrectLocation";
 import { useEditProjectHandlers } from "./hooks/useEditProjectHandlers";
-import { useTranslatePosition } from "./hooks/useTranslatePosition";
 import * as Styled from "./styles";
 
 import { useProject, useTasks } from "@/features/authorizedApp/api";
@@ -27,8 +26,6 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
 
   const { onDeleteProject, onEditProject, onProjectTitleEdited } =
     useEditProjectHandlers(projectId);
-
-  const translatePositionStyle = useTranslatePosition();
 
   if (projectQuery.isError || allTasksQuery.isError) {
     return <ErrorScreen />;
@@ -49,7 +46,7 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
 
   return (
     <Styled.Container>
-      <Styled.ContentContainer style={{ transform: translatePositionStyle }}>
+      <Styled.ContentContainer>
         <Header
           onDeleteProject={onDeleteProject}
           onEditProject={onEditProject}
