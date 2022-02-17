@@ -42,8 +42,9 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
     (task) => task.projectId === projectId,
   );
 
-  const { completedTasks, ongoingTasks } = groupBy(tasksData, (taskData) =>
-    taskData.done ? "completedTasks" : "ongoingTasks",
+  const { completedTasks = [], ongoingTasks = [] } = groupBy(
+    tasksData,
+    (taskData) => (taskData.done ? "completedTasks" : "ongoingTasks"),
   );
 
   return (
@@ -55,12 +56,8 @@ export const ProjectImpl = ({ projectId }: ProjectImplProps) => {
           onProjectTitleEdited={onProjectTitleEdited}
           projectTitle={projectQuery.data.name}
         />
-        {Boolean(ongoingTasks?.length) && (
-          <OngoingTasks tasks={ongoingTasks} projectId={projectId} />
-        )}
-        {Boolean(completedTasks?.length) && (
-          <CompletedTasks tasks={completedTasks} />
-        )}
+        <OngoingTasks tasks={ongoingTasks} projectId={projectId} />
+        <CompletedTasks tasks={completedTasks} />
       </Styled.ContentContainer>
     </Styled.Container>
   );

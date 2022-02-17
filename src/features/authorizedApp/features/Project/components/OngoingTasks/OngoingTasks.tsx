@@ -30,22 +30,24 @@ export const OngoingTasks = ({ tasks, projectId }: OngoingTasksProps) => {
 
   return (
     <>
-      <Container data-testid="ongoingTasks">
-        {inAdditionOrEditingMode ? (
-          <TaskItemsWithoutDnD
-            dispatchUiState={dispatchUiState}
-            popupItemsClickHandler={popupItemsClickHandler}
-            projectId={projectId}
-            tasks={tasks}
-            uiState={uiState}
-          />
-        ) : (
-          <TaskItemsWithDnD
-            popupItemsClickHandler={popupItemsClickHandler}
-            tasks={tasks}
-          />
-        )}
-      </Container>
+      {tasks.length > 0 && (
+        <Container data-testid="ongoingTasks">
+          {inAdditionOrEditingMode ? (
+            <TaskItemsWithoutDnD
+              dispatchUiState={dispatchUiState}
+              popupItemsClickHandler={popupItemsClickHandler}
+              projectId={projectId}
+              tasks={tasks}
+              uiState={uiState}
+            />
+          ) : (
+            <TaskItemsWithDnD
+              popupItemsClickHandler={popupItemsClickHandler}
+              tasks={tasks}
+            />
+          )}
+        </Container>
+      )}
       <AddNewTask
         dispatchUiState={dispatchUiState}
         projectId={projectId}
