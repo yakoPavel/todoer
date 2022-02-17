@@ -75,7 +75,11 @@ export const Modals = () => {
     const onConfirmActions = {
       label: undefined,
       task: undefined,
-      project: () => navigate("/", { replace: true }),
+      project: () => {
+        if (location.pathname.endsWith(itemId)) {
+          navigate("/", { replace: true });
+        }
+      },
     };
 
     return (
