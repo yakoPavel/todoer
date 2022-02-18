@@ -1,12 +1,11 @@
 import React from "react";
 
-import { useOnDoneStatusChange } from "../../hooks/useOnDoneStatusChange";
-
 import { useEditTask } from "@/features/authorizedApp/api";
 import {
   DragAndDrop,
   useDraggablesState,
 } from "@/features/authorizedApp/features/DragAndDrop";
+import { useOnDoneStatusChange } from "@/features/authorizedApp/features/Page";
 import { Task } from "@/features/authorizedApp/features/Task";
 import { Task as TaskData } from "@/features/authorizedApp/types";
 

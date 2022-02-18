@@ -1,9 +1,10 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-import { useOnDoneStatusChange } from "../../hooks/useOnDoneStatusChange";
-import { usePopupItemsClickHandler } from "../../hooks/usePopupItemsClickHandler";
-
+import {
+  useOnDoneStatusChange,
+  usePopupItemsClickHandler,
+} from "@/features/authorizedApp/features/Page";
 import { Task } from "@/features/authorizedApp/features/Task";
 import { Task as TaskData } from "@/features/authorizedApp/types";
 

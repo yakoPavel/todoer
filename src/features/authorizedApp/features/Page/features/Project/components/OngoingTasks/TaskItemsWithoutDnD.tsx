@@ -1,8 +1,10 @@
 import React from "react";
 
-import { useOnDoneStatusChange } from "../../hooks/useOnDoneStatusChange";
-import { State, StateAction } from "../../hooks/usePopupItemsClickHandler";
-
+import {
+  useOnDoneStatusChange,
+  State,
+  StateAction,
+} from "@/features/authorizedApp/features/Page";
 import {
   Task,
   AddTask,

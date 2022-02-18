@@ -1,12 +1,12 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-import { usePopupItemsClickHandler } from "../../hooks/usePopupItemsClickHandler";
 import { AddNewTask } from "../AddNewTask/AddNewTask";
 
 import { TaskItemsWithDnD } from "./TaskItemsWithDnD";
 import { TaskItemsWithoutDnD } from "./TaskItemsWithoutDnD";
 
+import { usePopupItemsClickHandler } from "@/features/authorizedApp/features/Page";
 import { Task as TaskData } from "@/features/authorizedApp/types";
 
 const Container = styled.ul`

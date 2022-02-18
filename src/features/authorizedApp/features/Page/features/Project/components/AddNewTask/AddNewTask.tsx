@@ -1,9 +1,9 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
 
-import { State, StateAction } from "../../hooks/usePopupItemsClickHandler";
 import { AddNewItemButton } from "../AddNewItemButton/AddNewItemButton";
 
+import { State, StateAction } from "@/features/authorizedApp/features/Page";
 import { AddTask as AddTaskForm } from "@/features/authorizedApp/features/Task";
 
 const FormContainer = styled.div`
