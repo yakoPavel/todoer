@@ -27,6 +27,11 @@ module.exports = {
             "../src/context/__mocks__/UserContext",
           ),
 
+          "./hooks/useCorrectLocation": path.resolve(
+            __dirname,
+            "../src/features/authorizedApp/features/Page/hooks/__mocks__/useCorrectLocation",
+          ),
+
           "@": path.resolve(__dirname, "../src/"),
         },
         extensions: [...config.resolve.extensions, ".ts", ".tsx"],
