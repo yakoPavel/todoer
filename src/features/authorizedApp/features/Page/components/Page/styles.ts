@@ -13,6 +13,7 @@ export const ContentContainer = styled.main`
   align-items: center;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   max-width: 80rem;
   overflow-y: auto;
 `;

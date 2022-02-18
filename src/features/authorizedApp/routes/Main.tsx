@@ -34,6 +34,7 @@ function useSideMenuState() {
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.background};
+  height: 100vh;
 `;
 
 export const Main = () => {
