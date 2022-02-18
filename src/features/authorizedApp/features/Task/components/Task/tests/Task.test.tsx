@@ -40,6 +40,7 @@ async function renderComponent(override?: Partial<TaskProps>) {
     isDone: false,
     onDoneStatusChange: jest.fn(),
     popupClickHandler: jest.fn(),
+    popupMenuItemsConfig: [],
     ...override,
   };
 
@@ -168,19 +169,6 @@ describe("The `Task` component", () => {
       });
 
       expect(queryLabelSelectionButton()).not.toBeInTheDocument();
-    });
-
-    test("The popup menu contains only the 'Delete' option", async () => {
-      const { getPopupTriggerButton, getPopupMenu } = await renderComponent({
-        isDone: true,
-      });
-
-      act(() => userEvent.click(getPopupTriggerButton()));
-
-      const popupMenu = getPopupMenu();
-      const menuItem = within(popupMenu).getByRole("menuitem");
-
-      expect(menuItem).toHaveTextContent(/delete/i);
     });
   });
 });

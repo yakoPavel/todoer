@@ -4,6 +4,7 @@ import React from "react";
 import {
   useOnDoneStatusChange,
   usePopupItemsClickHandler,
+  taskMenuItemsPoor,
 } from "@/features/authorizedApp/features/Page";
 import { Task } from "@/features/authorizedApp/features/Task";
 import { Task as TaskData } from "@/features/authorizedApp/types";
@@ -32,6 +33,7 @@ export const CompletedTasks = ({ tasks }: CompletedTasksProps) => {
           onDoneStatusChange={onDoneStatusChange.bind(null, id)}
           popupClickHandler={popupItemsClickHandler}
           key={id}
+          popupMenuItemsConfig={taskMenuItemsPoor}
         />
       ))}
     </Container>

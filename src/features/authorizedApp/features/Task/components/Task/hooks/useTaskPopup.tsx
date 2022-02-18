@@ -1,54 +1,20 @@
 import React from "react";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
-
-import { actionIds } from "../config/popupMenuActionIds";
 
 import {
   usePopupMenu,
   PopupMenu,
+  PopupMenuProps,
 } from "@/features/authorizedApp/features/PopupMenu";
-
-const ongoingTaskMenuItems = [
-  {
-    icon: <BsArrowBarUp />,
-    text: "Add task above" as const,
-    clickId: actionIds.ADD_TASK_ABOVE,
-  },
-  {
-    icon: <BsArrowBarDown />,
-    text: "Add task below" as const,
-    clickId: actionIds.ADD_TASK_BELOW,
-  },
-  {
-    icon: <AiOutlineEdit />,
-    text: "Edit task" as const,
-    clickId: actionIds.EDIT_TASK,
-  },
-  {
-    icon: <AiOutlineDelete />,
-    text: "Delete task" as const,
-    clickId: actionIds.DELETE_TASK,
-  },
-];
-
-const finishedTaskMenuItems = [
-  {
-    icon: <AiOutlineDelete />,
-    text: "Delete task" as const,
-    clickId: actionIds.DELETE_TASK,
-  },
-];
 
 type UseTaskPopupOptions = {
   clickHandler: (taskId: string, popupId: string) => void;
-  isTaskDone: boolean;
   taskId: string;
+  menuItemsConfig: PopupMenuProps["menuItems"];
 };
 
 export function useTaskPopup({
   clickHandler,
-  isTaskDone,
+  menuItemsConfig,
   taskId,
 }: UseTaskPopupOptions) {
   const {
@@ -63,11 +29,9 @@ export function useTaskPopup({
     triggerRef: clickTriggerRef,
   } = usePopupMenu("click");
 
-  const menuItems = isTaskDone ? finishedTaskMenuItems : ongoingTaskMenuItems;
-
   const Popup = (
     <PopupMenu
-      menuItems={menuItems}
+      menuItems={menuItemsConfig}
       onClick={clickHandler}
       ref={(element) => {
         contextMenuPopupRef(element);

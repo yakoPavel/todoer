@@ -5,7 +5,10 @@ import {
   DragAndDrop,
   useDraggablesState,
 } from "@/features/authorizedApp/features/DragAndDrop";
-import { useOnDoneStatusChange } from "@/features/authorizedApp/features/Page";
+import {
+  useOnDoneStatusChange,
+  taskMenuItemsFull,
+} from "@/features/authorizedApp/features/Page";
 import { Task } from "@/features/authorizedApp/features/Task";
 import { Task as TaskData } from "@/features/authorizedApp/types";
 
@@ -43,6 +46,7 @@ export const TaskItemsWithDnD = ({
         description={description}
         popupClickHandler={popupItemsClickHandler}
         onDoneStatusChange={onDoneStatusChange.bind(null, id)}
+        popupMenuItemsConfig={taskMenuItemsFull}
       />
     ),
   });

@@ -4,6 +4,7 @@ import {
   useOnDoneStatusChange,
   State,
   StateAction,
+  taskMenuItemsFull,
 } from "@/features/authorizedApp/features/Page";
 import {
   Task,
@@ -69,6 +70,7 @@ export const TaskItemsWithoutDnD = ({
               description={description}
               popupClickHandler={popupItemsClickHandler}
               onDoneStatusChange={onDoneStatusChange.bind(null, id)}
+              popupMenuItemsConfig={taskMenuItemsFull}
             />
             {uiState.addTaskBelowId === id && (
               <AddTask

@@ -1,10 +1,11 @@
 import React from "react";
 
-import { taskPopupActionIds } from "@/features/authorizedApp/features/Task";
+import { actionIds } from "../config/popupMenuActionIds";
+
 import { actions as modalsUiActions } from "@/features/authorizedApp/store/slices/modalsUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
-type PopupActionId = typeof taskPopupActionIds[keyof typeof taskPopupActionIds];
+type PopupActionId = typeof actionIds[keyof typeof actionIds];
 
 export type State = {
   /** An id of the task in the edit mode. */
@@ -73,19 +74,19 @@ function usePopupItemsClickHandler() {
   const popupItemsClickHandler = React.useCallback(
     (actionId: string, taskId: string) => {
       switch (actionId as PopupActionId) {
-        case taskPopupActionIds.ADD_TASK_ABOVE: {
+        case actionIds.ADD_TASK_ABOVE: {
           dispatchUiState({ type: "ADD_TASK_ABOVE_ID", payload: taskId });
           break;
         }
-        case taskPopupActionIds.ADD_TASK_BELOW: {
+        case actionIds.ADD_TASK_BELOW: {
           dispatchUiState({ type: "ADD_TASK_BELOW_ID", payload: taskId });
           break;
         }
-        case taskPopupActionIds.EDIT_TASK: {
+        case actionIds.EDIT_TASK: {
           dispatchUiState({ type: "EDIT_MODE_ID", payload: taskId });
           break;
         }
-        case taskPopupActionIds.DELETE_TASK: {
+        case actionIds.DELETE_TASK: {
           globalStoreDispatch(
             modalsUiActions.deleteItemDialogAppeared({
               itemId: taskId,

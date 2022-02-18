@@ -8,6 +8,8 @@ import { LabelButton } from "../LabelButton/LabelButton";
 import { useTaskPopup } from "./hooks/useTaskPopup";
 import * as Styled from "./styles";
 
+import { PopupMenuProps } from "@/features/authorizedApp/features/PopupMenu";
+
 const ClickPopupTrigger = React.forwardRef<HTMLButtonElement>((_, ref) => {
   return (
     <Styled.ClickPopupTriggerContainer ref={ref}>
@@ -27,6 +29,8 @@ export type TaskProps = {
   onDoneStatusChange: (checked: boolean) => void;
   /** A click handler for the popup menu. */
   popupClickHandler: (clickedItemId: string, popupId: string) => void;
+  /** A config for popup menu items. */
+  popupMenuItemsConfig: PopupMenuProps["menuItems"];
   /** Whether the task is done or not. */
   isDone: boolean;
   /** An id of the task. */
@@ -39,12 +43,13 @@ export const Task = ({
   isDone,
   onDoneStatusChange,
   popupClickHandler,
+  popupMenuItemsConfig,
   id,
 }: TaskProps) => {
   const { Popup, clickTriggerRef, contextMenuTriggerRef, isPopupVisible } =
     useTaskPopup({
       clickHandler: popupClickHandler,
-      isTaskDone: isDone,
+      menuItemsConfig: popupMenuItemsConfig,
       taskId: id,
     });
 
