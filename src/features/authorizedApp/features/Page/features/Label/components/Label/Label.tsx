@@ -3,6 +3,8 @@ import { groupBy } from "lodash";
 import React from "react";
 import { useParams } from "react-router-dom";
 
+import { NoTasks } from "../NoTasks/NoTasks";
+
 import { useEditLabelHandlers } from "./hooks/useEditLabelHandlers";
 
 import { useLabel, useTasks } from "@/features/authorizedApp/api";
@@ -91,6 +93,7 @@ export const LabelImpl = ({ labelId }: LabelImplProps) => {
       />
       <TaskList tasks={ongoingTasks} data-testid="ongoingTasks" />
       <TaskList tasks={completedTasks} data-testid="completedTasks" />
+      {tasksData.length === 0 && <NoTasks />}
     </Page>
   );
 };
