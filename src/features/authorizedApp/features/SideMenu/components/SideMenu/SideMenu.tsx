@@ -12,6 +12,7 @@ import { selectors as sideMenuUiSelectors } from "@/features/authorizedApp/store
 import { Label, Project } from "@/features/authorizedApp/types";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { EventWithProcessedField } from "@/types";
+import { getFromLocalStorage } from "@/utils/localStorage";
 
 type AddNewButtonProps = React.ComponentPropsWithRef<"button"> & {
   label: string;
@@ -92,7 +93,12 @@ export const SideMenu = ({ isOpen }: SideMenuProps) => {
   const projectsInfo = useProjects();
   const labelsInfo = useLabels();
 
-  const { ResizeHandle, resizableElementRef, resizeHandleProps } = useResize({
+  const {
+    ResizeHandle,
+    innerResizableElemRef,
+    outerResizableElemRef,
+    resizeHandleProps,
+  } = useResize({
     maxWidth: 350,
     minWidth: 250,
   });
@@ -109,15 +115,21 @@ export const SideMenu = ({ isOpen }: SideMenuProps) => {
         maxWidth: "100%",
         zIndex: 5,
       }}
-      ref={resizableElementRef}
+      ref={outerResizableElemRef}
     >
-      {projectsInfo.isSuccess && labelsInfo.isSuccess && (
-        <SideMenuContent
-          projectsData={projectsInfo.data}
-          labelsData={labelsInfo.data}
-        />
-      )}
-      <ResizeHandle {...resizeHandleProps} />
+      <Styled.MenuWrapper>
+        <Styled.MenuContentWrapperOuter>
+          <Styled.MenuContentWrapperInner ref={innerResizableElemRef}>
+            {projectsInfo.isSuccess && labelsInfo.isSuccess && (
+              <SideMenuContent
+                projectsData={projectsInfo.data}
+                labelsData={labelsInfo.data}
+              />
+            )}
+          </Styled.MenuContentWrapperInner>
+        </Styled.MenuContentWrapperOuter>
+        <ResizeHandle {...resizeHandleProps} />
+      </Styled.MenuWrapper>
     </Slide>
   );
 };

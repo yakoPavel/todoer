@@ -4,8 +4,10 @@ import React from "react";
 import { actions as sideMenuUiActions } from "@/features/authorizedApp/store/slices/sideMenuUi";
 import { useAppDispatch } from "@/hooks/storeHooks";
 
+const RESIZE_HANDLE_WIDTH = "0.5rem";
+
 const ResizeHandle = styled.div<{ resizing: boolean }>`
-  width: 0.5rem;
+  width: ${RESIZE_HANDLE_WIDTH};
   height: 100%;
   cursor: ${({ resizing }) => (resizing ? "unset" : "col-resize")};
   position: absolute;
@@ -19,6 +21,8 @@ const ResizeHandle = styled.div<{ resizing: boolean }>`
   }
 `;
 
+type ElementOrNull = HTMLElement | null;
+
 type UseResizeOptions = {
   /** A minimal width of the element in pixels. */
   minWidth: number;
@@ -27,8 +31,10 @@ type UseResizeOptions = {
 };
 
 type UseResizeReturn = {
-  /** A ref for the element that should be resizable. */
-  resizableElementRef: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+  /** A ref setter for the outer resizable element. */
+  outerResizableElemRef: React.Dispatch<React.SetStateAction<ElementOrNull>>;
+  /** A ref setter for the inner resizable element. */
+  innerResizableElemRef: React.Dispatch<React.SetStateAction<ElementOrNull>>;
   /** A resizing handle element. */
   ResizeHandle: typeof ResizeHandle;
 
@@ -43,16 +49,16 @@ type UseResizeReturn = {
 };
 
 /**
- * A hook that manages resizing of the specified element.
+ * A hook that manages resizing.
  */
 function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
   const dispatch = useAppDispatch();
 
-  const [resizableElement, setResizableElement] =
-    React.useState<HTMLElement | null>(null);
-  const [resizeHandle, setResizeHandle] = React.useState<HTMLElement | null>(
-    null,
-  );
+  const [outerResizableElem, setOuterResizableElem] =
+    React.useState<ElementOrNull>(null);
+  const [innerResizableElem, setInnerResizableElem] =
+    React.useState<ElementOrNull>(null);
+  const [resizeHandle, setResizeHandle] = React.useState<ElementOrNull>(null);
   const [resizing, setResizing] = React.useState(false);
 
   React.useLayoutEffect(() => {
@@ -66,7 +72,9 @@ function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
   }, [resizing]);
 
   React.useLayoutEffect(() => {
-    if (resizeHandle === null || resizableElement === null) return;
+    if (resizeHandle === null) return;
+    if (outerResizableElem === null) return;
+    if (innerResizableElem === null) return;
 
     const startResizing = () => {
       setResizing(true);
@@ -78,7 +86,8 @@ function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
           return;
         }
         newWidth = moveEvent.clientX;
-        resizableElement.style.width = `${newWidth}px`;
+        outerResizableElem.style.width = `${newWidth}px`;
+        innerResizableElem.style.width = `calc(${newWidth}px - ${RESIZE_HANDLE_WIDTH})`;
       };
 
       const preventDragging = (event: DragEvent) => event.preventDefault();
@@ -112,10 +121,18 @@ function useResize({ minWidth, maxWidth }: UseResizeOptions): UseResizeReturn {
     resizeHandle.addEventListener("mousedown", startResizing);
 
     return () => resizeHandle.removeEventListener("mousedown", startResizing);
-  }, [resizeHandle, resizableElement, maxWidth, minWidth, dispatch]);
+  }, [
+    resizeHandle,
+    outerResizableElem,
+    maxWidth,
+    minWidth,
+    dispatch,
+    innerResizableElem,
+  ]);
 
   return {
-    resizableElementRef: setResizableElement,
+    outerResizableElemRef: setOuterResizableElem,
+    innerResizableElemRef: setInnerResizableElem,
     ResizeHandle,
     resizeHandleProps: {
       ref: setResizeHandle,
