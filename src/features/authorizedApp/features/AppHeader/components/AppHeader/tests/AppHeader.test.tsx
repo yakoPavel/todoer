@@ -4,8 +4,10 @@ import { AppHeader } from "../AppHeader";
 
 import { render, screen } from "@/test/testUtils";
 
+jest.mock("@/context/UserContext");
+
 test("renders all the header content", () => {
-  render(<AppHeader menuState="closed" />);
+  render(<AppHeader isSideMenuOpened={false} />);
 
   expect(
     screen.getByRole("button", { name: /open the menu/i }),

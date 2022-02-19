@@ -1,36 +1,18 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Chance from "chance"; // TODO: remove it later
 import { useCombobox } from "downshift";
-import { debounce } from "lodash";
 import React from "react";
 
+import { useCorrectInputMaxWidth } from "./hooks/useCorrectFieldWidth";
+import { useItemsData, ItemsData } from "./hooks/useItemsData";
 import * as Styled from "./styles";
 
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import * as keyboardShortcuts from "@/config/keyboardShortcuts";
 
-const chance = new Chance();
-
-const items = [
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-  chance.sentence(),
-];
-
-function getFilteredItems(inputValue?: string) {
+function getFilteredItems(inputValue: string, items: ItemsData): ItemsData {
   if (!inputValue) return items;
 
-  return items.filter((item) =>
-    item
+  return items.filter(({ name }) =>
+    name
       .toLowerCase()
       .split(/\s+/)
       .some((word) => word.startsWith(inputValue.toLowerCase())),
@@ -39,7 +21,9 @@ function getFilteredItems(inputValue?: string) {
 
 export const Search = (): JSX.Element => {
   const inputFieldRef = React.useRef<HTMLInputElement>(null);
-  const [inputItems, setInputItems] = React.useState(items);
+  const itemsDataInfo = useItemsData();
+  const [inputItems, setInputItems] = React.useState<ItemsData>([]);
+  const [searchQuery, setSearchQuery] = React.useState("");
   const {
     isOpen,
     getMenuProps,
@@ -50,7 +34,7 @@ export const Search = (): JSX.Element => {
   } = useCombobox({
     items: inputItems,
     onInputValueChange: ({ inputValue }) => {
-      setInputItems(getFilteredItems(inputValue));
+      setSearchQuery(inputValue ?? "");
     },
     stateReducer: (_, actionAndChanges) => {
       const { changes } = actionAndChanges;
@@ -63,35 +47,18 @@ export const Search = (): JSX.Element => {
     },
   });
 
+  useCorrectInputMaxWidth(inputFieldRef);
+
+  React.useEffect(() => {
+    setInputItems(getFilteredItems(searchQuery, itemsDataInfo.data));
+  }, [itemsDataInfo.data, searchQuery]);
+
   const onClearClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setInputValue("");
   };
 
   const onInputBlur = () => setInputValue("");
-
-  // Sets the input field max-width initially and whenever the window
-  // width changes.
-  React.useLayoutEffect(() => {
-    if (!inputFieldRef.current) return;
-
-    const { current: inputFiled } = inputFieldRef;
-
-    const setInputFieldMaxWidth = debounce(() => {
-      const { x: inputXCoord } = inputFiled.getBoundingClientRect();
-      const windowWidth = document.documentElement.clientWidth;
-
-      const MIN_PADDING_FROM_THE_BORDER = 16;
-
-      const maxWidth = windowWidth - inputXCoord - MIN_PADDING_FROM_THE_BORDER;
-      inputFiled.style.maxWidth = `${maxWidth}px`;
-    }, 300);
-
-    setInputFieldMaxWidth();
-    window.addEventListener("resize", setInputFieldMaxWidth);
-
-    return () => window.removeEventListener("resize", setInputFieldMaxWidth);
-  }, [inputFieldRef]);
 
   return (
     <Styled.SearchContainer>
@@ -113,8 +80,8 @@ export const Search = (): JSX.Element => {
       <Styled.Menu {...getMenuProps()}>
         {isOpen &&
           inputItems.map((item, index) => (
-            <Styled.Item {...getItemProps({ item, index })} key={item}>
-              {item}
+            <Styled.Item {...getItemProps({ item, index })} key={item.id}>
+              {item.name}
             </Styled.Item>
           ))}
       </Styled.Menu>
