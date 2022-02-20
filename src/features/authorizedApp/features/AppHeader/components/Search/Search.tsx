@@ -35,6 +35,7 @@ export const Search = (): JSX.Element => {
     items: inputItems,
     onInputValueChange: ({ inputValue }) => {
       setSearchQuery(inputValue ?? "");
+      setInputItems(getFilteredItems(searchQuery, itemsDataInfo.data));
     },
     stateReducer: (_, actionAndChanges) => {
       const { changes } = actionAndChanges;
@@ -49,9 +50,12 @@ export const Search = (): JSX.Element => {
 
   useCorrectInputMaxWidth(inputFieldRef);
 
+  // It only updates the data when the new one appears as a result of outer
+  // actions (the user adds/deletes data items etc.).
   React.useEffect(() => {
     setInputItems(getFilteredItems(searchQuery, itemsDataInfo.data));
-  }, [itemsDataInfo.data, searchQuery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemsDataInfo.data]);
 
   const onClearClick = (event: React.MouseEvent) => {
     event.preventDefault();
