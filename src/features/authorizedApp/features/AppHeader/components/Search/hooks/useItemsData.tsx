@@ -13,8 +13,6 @@ export function useItemsData() {
   const data = React.useMemo(() => {
     if (!isDataReady) return [];
 
-    console.log("memo");
-
     const projectsData = projectsQuery.data.map((project) => ({
       ...project,
       type: "project" as const,
