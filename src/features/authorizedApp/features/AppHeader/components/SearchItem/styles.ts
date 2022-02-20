@@ -43,3 +43,8 @@ export const NameContainer = styled.span`
   color: ${({ theme }) => theme.text};
   font-size: 1.5rem;
 `;
+
+export const MarkedText = styled.mark`
+  background-color: unset;
+  font-weight: 700;
+`;

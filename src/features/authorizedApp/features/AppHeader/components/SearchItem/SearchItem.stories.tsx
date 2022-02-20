@@ -29,10 +29,12 @@ const taskData = {
 export const OngoingTask = Template.bind({});
 OngoingTask.args = {
   data: taskData,
+  searchQuery: "na",
 };
 
 export const FinishedTask = Template.bind({});
 FinishedTask.args = {
+  ...OngoingTask.args,
   data: {
     ...taskData,
     done: true,
@@ -50,6 +52,7 @@ Project.args = {
     isFavorite: false,
     taskIds: [],
   },
+  searchQuery: "na",
 };
 
 export const Label = Template.bind({});
@@ -62,4 +65,5 @@ Label.args = {
     id: chance.word(),
     isFavorite: false,
   },
+  searchQuery: "na",
 };

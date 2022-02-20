@@ -7,6 +7,8 @@ import { MdLabel } from "react-icons/md";
 import { ItemsData } from "../Search";
 
 import * as Styled from "./styles";
+import { generateLinkPath } from "./utils/generateLinkPath";
+import { wrapIntoMarkTag } from "./utils/wrapIntoMarkTag";
 
 type ProjectOrLabelIconProps = {
   color: string;
@@ -35,22 +37,17 @@ const TaskIcon = ({ isDone }: TaskIconProps) => {
   );
 };
 
-function generateLinkPath(type: "project" | "task" | "label", id: string) {
-  switch (type) {
-    case "project":
-    case "task":
-      return `/projects/${id}`;
-    case "label":
-      return `/labels/${id}`;
-  }
-}
-
 type SearchItemProps = {
   /** Item data. */
   data: ItemsData[number];
+  /**
+   * A search query. Will be used to wrap a matching part of the item name into
+   * a `<mark>` tag.
+   * */
+  searchQuery: string;
 };
 export const SearchItem = React.forwardRef<HTMLLIElement, SearchItemProps>(
-  ({ data }, ref) => {
+  ({ data, searchQuery }, ref) => {
     const linkPath = generateLinkPath(
       data.type,
       data.type === "task" ? data.projectId : data.id,
@@ -65,7 +62,7 @@ export const SearchItem = React.forwardRef<HTMLLIElement, SearchItemProps>(
             <ProjectOrLabelIcon type={data.type} color={data.color} />
           )}
           <Styled.NameContainer>
-            <Text>{data.name}</Text>
+            <Text>{wrapIntoMarkTag(data.name, searchQuery)}</Text>
           </Styled.NameContainer>
         </Styled.Link>
       </Styled.Container>

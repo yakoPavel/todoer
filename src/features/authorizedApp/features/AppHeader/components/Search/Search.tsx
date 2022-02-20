@@ -14,10 +14,7 @@ function getFilteredItems(inputValue: string, items: ItemsData): ItemsData {
   if (!inputValue) return items;
 
   return items.filter(({ name }) =>
-    name
-      .toLowerCase()
-      .split(/\s+/)
-      .some((word) => word.startsWith(inputValue.toLowerCase())),
+    name.toLowerCase().includes(inputValue.toLowerCase()),
   );
 }
 
@@ -85,13 +82,16 @@ export const Search = (): JSX.Element => {
       </Styled.Combobox>
       <Styled.Menu {...getMenuProps()}>
         {isOpen &&
-          inputItems.map((itemData, index) => (
-            <SearchItem
-              {...getItemProps({ item: itemData, index })}
-              data={itemData}
-              key={itemData.id}
-            />
-          ))}
+          inputItems.map((itemData, index) => {
+            return (
+              <SearchItem
+                {...getItemProps({ item: itemData, index })}
+                data={itemData}
+                searchQuery={searchQuery}
+                key={itemData.id}
+              />
+            );
+          })}
       </Styled.Menu>
     </Styled.SearchContainer>
   );
