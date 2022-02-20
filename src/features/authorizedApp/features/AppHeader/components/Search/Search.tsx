@@ -1,3 +1,4 @@
+import { VisuallyHidden } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import React from "react";
 
@@ -73,7 +74,8 @@ export const Search = (): JSX.Element => {
           role="search"
         />
         <Styled.ClearButton onMouseDown={onClearClick}>
-          <Styled.ClearIcon />
+          <Styled.ClearIcon aria-hidden />
+          <VisuallyHidden>Clear input</VisuallyHidden>
         </Styled.ClearButton>
         <Styled.SearchIcon />
         <Tooltip tooltipText="Search" shortcut={keyboardShortcuts.SEARCH}>
