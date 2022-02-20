@@ -51,14 +51,14 @@ type SearchItemProps = {
 };
 export const SearchItem = React.forwardRef<HTMLLIElement, SearchItemProps>(
   ({ data }, ref) => {
+    const linkPath = generateLinkPath(
+      data.type,
+      data.type === "task" ? data.projectId : data.id,
+    );
+
     return (
-      <Styled.Container ref={ref}>
-        <Styled.Link
-          to={generateLinkPath(
-            data.type,
-            data.type === "task" ? data.projectId : data.id,
-          )}
-        >
+      <Styled.Container ref={ref} onMouseDown={(e) => e.preventDefault()}>
+        <Styled.Link to={linkPath} data-search-link>
           {data.type === "task" ? (
             <TaskIcon isDone={Boolean(data.done)} />
           ) : (
