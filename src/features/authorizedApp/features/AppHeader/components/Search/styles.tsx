@@ -174,12 +174,3 @@ export const Menu = styled.ul`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.05),
     0 20px 25px -5px rgba(0, 0, 0, 0.05);
 `;
-
-export const Item = styled.li`
-  padding: 1rem;
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.backgroundTertiary};
-  }
-`;

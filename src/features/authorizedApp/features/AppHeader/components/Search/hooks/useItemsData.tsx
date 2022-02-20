@@ -17,15 +17,15 @@ export function useItemsData() {
 
     const projectsData = projectsQuery.data.map((project) => ({
       ...project,
-      type: "project",
+      type: "project" as const,
     }));
     const labelsData = labelsQuery.data.map((label) => ({
       ...label,
-      type: "label",
+      type: "label" as const,
     }));
     const tasksData = tasksQuery.data.map((task) => ({
       ...task,
-      type: "task",
+      type: "task" as const,
     }));
 
     return [...projectsData, ...labelsData, ...tasksData];

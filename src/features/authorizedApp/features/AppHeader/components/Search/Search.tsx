@@ -1,6 +1,8 @@
 import { useCombobox } from "downshift";
 import React from "react";
 
+import { SearchItem } from "../SearchItem/SearchItem";
+
 import { useCorrectInputMaxWidth } from "./hooks/useCorrectFieldWidth";
 import { useItemsData, ItemsData } from "./hooks/useItemsData";
 import * as Styled from "./styles";
@@ -33,9 +35,9 @@ export const Search = (): JSX.Element => {
     setInputValue,
   } = useCombobox({
     items: inputItems,
-    onInputValueChange: ({ inputValue }) => {
-      setSearchQuery(inputValue ?? "");
-      setInputItems(getFilteredItems(searchQuery, itemsDataInfo.data));
+    onInputValueChange: ({ inputValue = "" }) => {
+      setSearchQuery(inputValue);
+      setInputItems(getFilteredItems(inputValue, itemsDataInfo.data));
     },
     stateReducer: (_, actionAndChanges) => {
       const { changes } = actionAndChanges;
@@ -83,10 +85,12 @@ export const Search = (): JSX.Element => {
       </Styled.Combobox>
       <Styled.Menu {...getMenuProps()}>
         {isOpen &&
-          inputItems.map((item, index) => (
-            <Styled.Item {...getItemProps({ item, index })} key={item.id}>
-              {item.name}
-            </Styled.Item>
+          inputItems.map((itemData, index) => (
+            <SearchItem
+              {...getItemProps({ item: itemData, index })}
+              data={itemData}
+              key={itemData.id}
+            />
           ))}
       </Styled.Menu>
     </Styled.SearchContainer>
