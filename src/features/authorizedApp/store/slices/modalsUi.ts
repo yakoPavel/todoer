@@ -41,6 +41,10 @@ type ThemeSwitcherDialogState = {
   /** Whether or not the dialog is visible. */
   visible: boolean;
 };
+type LogoutDialog = {
+  /** Whether or not the dialog is visible. */
+  visible: boolean;
+};
 
 type ModalsUiState = {
   addProject: AddNewFormNotVisibleState | AddNewFormVisibleState;
@@ -49,6 +53,7 @@ type ModalsUiState = {
   editLabel: EditFormNotVisibleState | EditFormVisibleState;
   deleteItem: DeleteItemDialogNotVisibleState | DeleteItemDialogVisibleState;
   themeSwitcher: ThemeSwitcherDialogState;
+  logout: LogoutDialog;
 };
 
 const initialState: ModalsUiState = {
@@ -58,6 +63,7 @@ const initialState: ModalsUiState = {
   editLabel: { visible: false },
   deleteItem: { visible: false },
   themeSwitcher: { visible: false },
+  logout: { visible: false },
 };
 
 /* Action payload types */
@@ -150,6 +156,13 @@ const modalsUiSlice = createSlice({
       state.themeSwitcher.visible = true;
     },
 
+    logoutDialogDismissed(state) {
+      state.logout.visible = false;
+    },
+    logoutDialogAppeared(state) {
+      state.logout.visible = true;
+    },
+
     reset() {
       return initialState;
     },
@@ -168,6 +181,7 @@ export const selectors = {
   selectDeleteItemDialogState: (state: RootState) => state.modalsUi.deleteItem,
   selectThemeSwitcherDialogState: (state: RootState) =>
     state.modalsUi.themeSwitcher,
+  selectLogoutDialogState: (state: RootState) => state.modalsUi.logout,
 };
 
 export default modalsUiSlice.reducer;

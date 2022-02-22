@@ -6,6 +6,7 @@ import { AddProjectForm } from "../AddItemForms/AddProjectForm";
 import { DeleteItemDialog } from "../DeleteItemDialog/DeleteItemDialog";
 import { EditLabelForm } from "../EditItemForms/EditLabelForm";
 import { EditProjectForm } from "../EditItemForms/EditProjectForm";
+import { LogoutDialog } from "../LogoutDialog/LogoutDialog";
 
 import {
   useLabel,
@@ -32,6 +33,7 @@ export const Modals = () => {
   const themeSwitcherDialog = useAppSelector(
     selectors.selectThemeSwitcherDialogState,
   );
+  const logoutDialog = useAppSelector(selectors.selectLogoutDialogState);
 
   const navigate = useNavigate();
 
@@ -56,6 +58,9 @@ export const Modals = () => {
   }
   if (editLabelForm.visible) {
     return <EditLabelForm labelId={editLabelForm.triggerId} />;
+  }
+  if (logoutDialog.visible) {
+    return <LogoutDialog />;
   }
   if (deleteItemDialog.visible) {
     const { itemType, itemId } = deleteItemDialog;
