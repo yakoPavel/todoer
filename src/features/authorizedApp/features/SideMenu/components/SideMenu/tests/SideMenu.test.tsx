@@ -21,6 +21,7 @@ import {
 } from "@/test/testUtils";
 
 jest.mock("@/context/UserContext");
+jest.setTimeout(10_000);
 
 type PrepareTestDataOptions = Partial<PopulateDbOptions> & {
   waitForDataLoading?: boolean;
