@@ -18,13 +18,17 @@ function stripKeyName(keyName: string) {
   return keyName.replace(/key|left|right/i, "").toLowerCase();
 }
 
+function isEditableElement(element: Element) {
+  return element.tagName === "INPUT" || element.tagName === "TEXTAREA";
+}
+
 export function useProcessShortcuts() {
   const { onGoHome, onLogout, onThemeChange, onToggleSideMenu } =
     useEventHandlers();
   const currentlyPressedKeysRef = React.useRef<Set<string>>(new Set());
 
   React.useEffect(() => {
-    const invokeAction = (shortcutName: ShortcutNames) => {
+    const invokeAction = (shortcutName?: ShortcutNames) => {
       if (shortcutName === "GO_HOME") return onGoHome();
       if (shortcutName === "LOGOUT") return onLogout();
       if (shortcutName === "THEME") return onThemeChange();
@@ -32,6 +36,9 @@ export function useProcessShortcuts() {
     };
 
     const listenToKeyDown = (event: KeyboardEvent) => {
+      const { activeElement } = document;
+      if (activeElement && isEditableElement(activeElement)) return;
+
       const pressedKey = stripKeyName(event.code);
       currentlyPressedKeysRef.current.add(pressedKey);
 
@@ -39,10 +46,13 @@ export function useProcessShortcuts() {
         currentlyPressedKeysRef.current,
       );
 
-      if (matchingShortcutName) invokeAction(matchingShortcutName);
+      invokeAction(matchingShortcutName);
     };
 
     const listenToKeyUp = (event: KeyboardEvent) => {
+      const { activeElement } = document;
+      if (activeElement && isEditableElement(activeElement)) return;
+
       const pressedKey = stripKeyName(event.code);
       currentlyPressedKeysRef.current.delete(pressedKey);
     };
