@@ -6,6 +6,7 @@ import { SearchItem } from "../SearchItem/SearchItem";
 
 import { useCorrectInputMaxWidth } from "./hooks/useCorrectFieldWidth";
 import { useItemsData, ItemsData } from "./hooks/useItemsData";
+import { useKeyboardFocus } from "./hooks/useKeyboardFocus";
 import * as Styled from "./styles";
 
 import { Tooltip } from "@/components/Tooltip/Tooltip";
@@ -49,6 +50,7 @@ export const Search = (): JSX.Element => {
   });
 
   useCorrectInputMaxWidth(inputFieldRef);
+  useKeyboardFocus(inputFieldRef);
 
   // It only updates the data when the new one appears as a result of outer
   // actions (the user adds/deletes data items etc.).
