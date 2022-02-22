@@ -9,6 +9,7 @@ import { Modals } from "../features/Modals";
 import { SideMenu } from "../features/SideMenu";
 
 import { useEventHandlers } from "./hooks/useEventHandlers";
+import { useProcessShortcuts } from "./hooks/useProcessShortcuts";
 
 import { PageContentContainer } from "@/features/authorizedApp/features/Page";
 import { selectors as sideMenuUiSelectors } from "@/features/authorizedApp/store/slices/sideMenuUi";
@@ -23,6 +24,8 @@ export const Main = () => {
   const { onThemeChange, onToggleSideMenu, onGoHome, onLogout } =
     useEventHandlers();
   const isSideMenuOpened = useAppSelector(sideMenuUiSelectors.selectIsOpened);
+
+  useProcessShortcuts();
 
   return (
     <Container>
