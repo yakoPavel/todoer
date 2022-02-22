@@ -33,7 +33,8 @@ const cloudAnimationDelay = Array.from(
 );
 
 export const DayImageContainer = styled.div`
-  width: 50%;
+  width: max(50%, 28rem);
+  max-width: 98%;
 
   #Background {
     fill: ${({ theme }) => theme.main};
@@ -74,7 +75,8 @@ const starAnimation = keyframes`
 `;
 
 export const NightImageContainer = styled.div`
-  width: 50%;
+  width: max(50%, 28rem);
+  max-width: 98%;
 
   #Background {
     fill: ${({ theme }) => theme.main};
