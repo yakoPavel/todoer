@@ -8,29 +8,11 @@ import { AppHeader } from "../features/AppHeader";
 import { Modals } from "../features/Modals";
 import { SideMenu } from "../features/SideMenu";
 
+import { useEventHandlers } from "./hooks/useEventHandlers";
+
 import { PageContentContainer } from "@/features/authorizedApp/features/Page";
-import {
-  selectors as sideMenuUiSelectors,
-  actions as sideMenuUiActions,
-} from "@/features/authorizedApp/store/slices/sideMenuUi";
-import { useAppSelector, useAppDispatch } from "@/hooks/storeHooks";
-
-function useSideMenuState() {
-  const dispatch = useAppDispatch();
-  const isSideMenuOpened = useAppSelector(sideMenuUiSelectors.selectIsOpened);
-
-  const toggleSideMenu = () => {
-    if (isSideMenuOpened) {
-      return dispatch(sideMenuUiActions.closed());
-    }
-    dispatch(sideMenuUiActions.opened());
-  };
-
-  return {
-    isSideMenuOpened,
-    toggleSideMenu,
-  };
-}
+import { selectors as sideMenuUiSelectors } from "@/features/authorizedApp/store/slices/sideMenuUi";
+import { useAppSelector } from "@/hooks/storeHooks";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.background};
@@ -38,13 +20,18 @@ const Container = styled.div`
 `;
 
 export const Main = () => {
-  const { isSideMenuOpened, toggleSideMenu } = useSideMenuState();
+  const { onThemeChange, onToggleSideMenu, onGoHome, onLogout } =
+    useEventHandlers();
+  const isSideMenuOpened = useAppSelector(sideMenuUiSelectors.selectIsOpened);
 
   return (
     <Container>
       <AppHeader
         isSideMenuOpened={isSideMenuOpened}
-        onMenuToggle={toggleSideMenu}
+        onMenuToggle={onToggleSideMenu}
+        onThemeChange={onThemeChange}
+        onGoHome={onGoHome}
+        onLogout={onLogout}
       />
       <SideMenu isOpen={isSideMenuOpened} />
       <PageContentContainer>

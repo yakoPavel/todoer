@@ -7,14 +7,20 @@ import { render, screen } from "@/test/testUtils";
 jest.mock("@/context/UserContext");
 
 function renderComponent() {
-  render(<AppHeader isSideMenuOpened={false} />);
+  render(
+    <AppHeader
+      isSideMenuOpened={false}
+      onGoHome={jest.fn()}
+      onLogout={jest.fn()}
+      onMenuToggle={jest.fn()}
+      onThemeChange={jest.fn()}
+    />,
+  );
 
   const getToggleMenuButton = () =>
     screen.getByRole("button", { name: /open the menu/i });
   const getGoHomeButton = () =>
     screen.getByRole("button", { name: /open the menu/i });
-  const getQuickAddButton = () =>
-    screen.getByRole("button", { name: /quick add/i });
   const getChangeThemeButton = () =>
     screen.getByRole("button", { name: /change the theme/i });
   const getLogoutButton = () => screen.getByRole("button", { name: /logout/i });
@@ -23,7 +29,6 @@ function renderComponent() {
   return {
     getToggleMenuButton,
     getGoHomeButton,
-    getQuickAddButton,
     getChangeThemeButton,
     getLogoutButton,
     getSearch,
@@ -42,12 +47,6 @@ describe("The `AppHeader` component", () => {
       const { getGoHomeButton } = renderComponent();
 
       expect(getGoHomeButton()).toBeInTheDocument();
-    });
-
-    test("Renders the 'Quick add' button", () => {
-      const { getQuickAddButton } = renderComponent();
-
-      expect(getQuickAddButton()).toBeInTheDocument();
     });
 
     test("Renders the 'Change theme' button", () => {

@@ -2,11 +2,7 @@ import { useTheme } from "@emotion/react";
 import React from "react";
 import { IconType } from "react-icons";
 import { AiOutlineHome, AiOutlineMenu } from "react-icons/ai";
-import {
-  IoAddOutline,
-  IoColorPaletteOutline,
-  IoLogOutOutline,
-} from "react-icons/io5";
+import { IoColorPaletteOutline, IoLogOutOutline } from "react-icons/io5";
 
 import { Search } from "../Search/Search";
 
@@ -14,8 +10,6 @@ import * as Styled from "./styles";
 
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import * as keyboardShortcuts from "@/config/keyboardShortcuts";
-import { actions as modalActions } from "@/features/authorizedApp/store/slices/modalsUi";
-import { useAppDispatch } from "@/hooks/storeHooks";
 
 type HeaderButtonProps = Omit<
   React.ComponentPropsWithoutRef<"button">,
@@ -44,18 +38,19 @@ const HeaderButton = ({
 };
 
 type AppHeaderProps = {
-  onMenuToggle?: () => void;
-  onGoHome?: () => void;
-  onQuickAdd?: () => void;
+  onMenuToggle: () => void;
+  onGoHome: () => void;
+  onThemeChange: () => void;
+  onLogout: () => void;
   isSideMenuOpened: boolean;
 };
 export const AppHeader = ({
   onMenuToggle,
   onGoHome,
-  onQuickAdd,
+  onThemeChange,
+  onLogout,
   isSideMenuOpened: isOpened,
 }: AppHeaderProps): JSX.Element => {
-  const dispatch = useAppDispatch();
   const menuButtonLabel = isOpened ? "Close the menu" : "Open the menu";
 
   const saveHeaderHeight = (header: HTMLElement | null) => {
@@ -65,10 +60,6 @@ export const AppHeader = ({
       "--header-height",
       `${header.offsetHeight}px`,
     );
-  };
-
-  const onThemeChange = () => {
-    dispatch(modalActions.themeSwitcherDialogAppeared());
   };
 
   return (
@@ -93,13 +84,6 @@ export const AppHeader = ({
 
       <Styled.SectionWrapper>
         <HeaderButton
-          tooltipText="Quick add"
-          shortcut={keyboardShortcuts.QUICK_ADD}
-          aria-label="Quick add"
-          onClick={onQuickAdd}
-          ButtonIcon={IoAddOutline}
-        />
-        <HeaderButton
           tooltipText="Change the theme"
           shortcut={keyboardShortcuts.THEME}
           aria-label="Change the theme"
@@ -110,7 +94,7 @@ export const AppHeader = ({
           tooltipText="Logout"
           shortcut={keyboardShortcuts.LOGOUT}
           aria-label="Logout"
-          onClick={onThemeChange}
+          onClick={onLogout}
           ButtonIcon={IoLogOutOutline}
         />
       </Styled.SectionWrapper>
