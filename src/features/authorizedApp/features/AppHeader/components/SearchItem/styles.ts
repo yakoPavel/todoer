@@ -45,6 +45,8 @@ export const NameContainer = styled.span`
 `;
 
 export const MarkedText = styled.mark`
+  color: currentColor;
+  font-size: inherit;
   background-color: unset;
   font-weight: 700;
 `;
