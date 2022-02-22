@@ -14,14 +14,20 @@ type HomeImageProps = {
 export const HomeImage = ({ type, className }: HomeImageProps) => {
   if (type === "day") {
     return (
-      <Styled.DayImageContainer className={className}>
+      <Styled.DayImageContainer
+        className={className}
+        data-testid="homeImageDay"
+      >
         <DayImage />
       </Styled.DayImageContainer>
     );
   }
 
   return (
-    <Styled.NightImageContainer className={className}>
+    <Styled.NightImageContainer
+      className={className}
+      data-testid="homeImageNight"
+    >
       <NightImage />
     </Styled.NightImageContainer>
   );
