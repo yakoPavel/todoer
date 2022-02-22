@@ -1,6 +1,11 @@
 import React from "react";
 
-import { TaskForm, TaskFormProps } from "../TaskForm";
+import {
+  TaskForm,
+  TaskFormProps,
+  TaskFormButtons,
+  TaskFormEditingArea,
+} from "../TaskForm";
 
 import { screen, render, userEvent } from "@/test/testUtils";
 import { UniqueChance } from "@/test/UniqueChance";
@@ -14,7 +19,6 @@ function renderComponent(override?: Partial<TaskFormProps>) {
     initialDescription: chance.sentence(),
     onSubmit: jest.fn(),
     onCancel: jest.fn(),
-    submitButtonName: "Save",
     ...override,
   };
 
@@ -22,11 +26,15 @@ function renderComponent(override?: Partial<TaskFormProps>) {
     screen.getByRole("textbox", { name: /task name/i });
   const getDescriptionField = () =>
     screen.getByRole("textbox", { name: /description/i });
-  const getSubmitButton = () =>
-    screen.getByRole("button", { name: props.submitButtonName });
+  const getSubmitButton = () => screen.getByRole("button", { name: /save/i });
   const getCancelButton = () => screen.getByRole("button", { name: /cancel/i });
 
-  render(<TaskForm {...props} />);
+  render(
+    <TaskForm {...props}>
+      <TaskFormEditingArea />
+      <TaskFormButtons />
+    </TaskForm>,
+  );
 
   return {
     props,

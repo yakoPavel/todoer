@@ -1,6 +1,10 @@
 import React from "react";
 
-import { TaskForm } from "../TaskForm/TaskForm";
+import {
+  TaskForm,
+  TaskFormButtons,
+  TaskFormEditingArea,
+} from "../TaskForm/TaskForm";
 
 import { useCreateTask } from "@/features/authorizedApp/api";
 
@@ -58,9 +62,11 @@ export const AddTask = (props: AddTaskProps) => {
       initialDescription=""
       initialTitle=""
       onCancel={onCancel}
-      submitButtonName="Add"
       onSubmit={onSubmit}
       data-testid="addTaskForm"
-    />
+    >
+      <TaskFormEditingArea />
+      <TaskFormButtons submitButtonName="Add" />
+    </TaskForm>
   );
 };

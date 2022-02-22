@@ -1,6 +1,10 @@
 import React from "react";
 
-import { TaskForm } from "../TaskForm/TaskForm";
+import {
+  TaskForm,
+  TaskFormButtons,
+  TaskFormEditingArea,
+} from "../TaskForm/TaskForm";
 
 import { useEditTask } from "@/features/authorizedApp/api";
 
@@ -40,9 +44,11 @@ export const EditTask = ({
       initialDescription={initialDescription}
       initialTitle={initialTitle}
       onCancel={onCancel}
-      submitButtonName="Save"
       onSubmit={onSubmit.bind(null, id)}
       data-testid="editTaskForm"
-    />
+    >
+      <TaskFormEditingArea />
+      <TaskFormButtons submitButtonName="Save" />
+    </TaskForm>
   );
 };

@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 
-import { TaskForm } from "./TaskForm";
+import { TaskForm, TaskFormEditingArea, TaskFormButtons } from "./TaskForm";
 
 export default {
   title: "Authorized app/Task/TaskForm",
@@ -10,7 +10,10 @@ export default {
 
 const Template: ComponentStory<typeof TaskForm> = (args) => (
   <div style={{ width: "50%" }}>
-    <TaskForm {...args} />
+    <TaskForm {...args}>
+      <TaskFormEditingArea />
+      <TaskFormButtons />
+    </TaskForm>
   </div>
 );
 
