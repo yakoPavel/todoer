@@ -149,6 +149,10 @@ const modalsUiSlice = createSlice({
     themeSwitcherDialogAppeared(state) {
       state.themeSwitcher.visible = true;
     },
+
+    reset() {
+      return initialState;
+    },
   },
 });
 
