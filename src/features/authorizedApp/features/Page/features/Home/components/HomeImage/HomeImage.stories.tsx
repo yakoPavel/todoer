@@ -6,7 +6,7 @@ import { HomeImage } from "./HomeImage";
 import { themeSwitcherArgType } from "@/storybook/commonArgTypes";
 
 export default {
-  title: "Authorized app/Home/HomeImage",
+  title: "Authorized app/Page/Home/HomeImage",
   component: HomeImage,
   argTypes: {
     ...themeSwitcherArgType,
