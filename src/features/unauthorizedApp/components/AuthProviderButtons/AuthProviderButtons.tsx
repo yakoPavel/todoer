@@ -6,15 +6,18 @@ import { AuthProviderButton } from "../AuthProviderButton/AuthProviderButton";
 
 import { useLoadingState } from "@/context/LoadingContext";
 import { useAsyncTask } from "@/hooks/useAsyncTask";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 export const AuthProviderButtons = () => {
   const navigate = useNavigate();
   const { isScreenLoading, setIsScreenLoading } = useLoadingState();
   const { isSuccess, isLoading, run } = useAsyncTask(signInThroughProvider);
+  const checkIfMounted = useIsMounted();
 
   if (isSuccess) navigate("/", { replace: true });
 
   React.useEffect(() => {
+    if (!checkIfMounted()) return;
     setIsScreenLoading(isLoading);
   });
 
