@@ -74,7 +74,7 @@ export const AppHeader = ({
         />
         <HeaderButton
           tooltipText="Go to home"
-          shortcut={keyboardShortcuts.TOGGLE_MENU}
+          shortcut={keyboardShortcuts.GO_HOME}
           aria-label="Go to home"
           onClick={onGoHome}
           ButtonIcon={AiOutlineHome}
