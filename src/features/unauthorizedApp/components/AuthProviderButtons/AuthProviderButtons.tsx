@@ -17,8 +17,9 @@ export const AuthProviderButtons = () => {
   if (isSuccess) navigate("/", { replace: true });
 
   React.useEffect(() => {
-    if (!checkIfMounted()) return;
-    setIsScreenLoading(isLoading);
+    setIsScreenLoading((prevState) =>
+      checkIfMounted() ? isLoading : prevState,
+    );
   });
 
   return (
