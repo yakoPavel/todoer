@@ -15,8 +15,10 @@ const Container = styled.li`
   color: ${({ theme }) => theme.text};
   cursor: pointer;
   width: 100%;
+  outline: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${({ theme }) => theme.backgroundTertiary};
   }
 `;
@@ -57,12 +59,20 @@ export const LabelItem = ({
     onChange(!isChecked);
   };
 
+  const onItemKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key !== "Enter") return;
+
+    onItemClick();
+  };
+
   return (
     <Container
       role="option"
       aria-selected={isChecked}
       aria-checked={isChecked}
       onClick={onItemClick}
+      onKeyDown={onItemKeyDown}
+      tabIndex={0}
     >
       <IconContainer color={color} data-testid="labelIcon">
         <MdLabel size="1.8rem" />

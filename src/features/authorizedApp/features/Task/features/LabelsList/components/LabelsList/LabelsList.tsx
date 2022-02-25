@@ -1,4 +1,5 @@
 import React from "react";
+import FocusLock from "react-focus-lock";
 
 import { LabelItem } from "../LabelItem/LabelItem";
 
@@ -23,7 +24,7 @@ const LabelsListContent = ({
   const { filteredLabels, onFilterValueChange } = useFilteredLabels(labels);
 
   return (
-    <>
+    <FocusLock>
       <Styled.SearchField
         onChange={onFilterValueChange}
         placeholder="Type a label"
@@ -40,7 +41,7 @@ const LabelsListContent = ({
           />
         ))}
       </Styled.ListContainer>
-    </>
+    </FocusLock>
   );
 };
 
