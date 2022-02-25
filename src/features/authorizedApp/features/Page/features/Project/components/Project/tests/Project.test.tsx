@@ -13,7 +13,7 @@ import {
 
 jest.mock("@/context/UserContext");
 jest.mock("@/features/authorizedApp/features/Page/hooks/useCorrectLocation");
-jest.setTimeout(10_000);
+jest.setTimeout(30_000);
 
 const { renderComponent, componentGetters } = utils;
 
@@ -22,6 +22,8 @@ afterEach(async () => {
 });
 
 beforeEach(() => {
+  drop(db);
+
   populateDb({
     numberOfProjects: 1,
     numberOfLabels: 10,
