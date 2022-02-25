@@ -1,5 +1,9 @@
 import React from "react";
 
+function isEditableElement(element: Element) {
+  return element.tagName === "INPUT" || element.tagName === "TEXTAREA";
+}
+
 export function useKeyboardFocus(
   inputFieldRef: React.RefObject<HTMLInputElement>,
 ) {
@@ -8,7 +12,9 @@ export function useKeyboardFocus(
     if (!inputFieldElement) return;
 
     const handleKeyUp = (event: KeyboardEvent) => {
-      if (document.activeElement === inputFieldElement) return;
+      if (document.activeElement && isEditableElement(document.activeElement)) {
+        return;
+      }
       if (event.code === "KeyF") inputFieldElement.focus();
     };
 
