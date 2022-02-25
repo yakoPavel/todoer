@@ -27,7 +27,8 @@ const PopupTrigger = styled.button`
   color: ${({ theme }) => theme.textSecondary};
   font-size: 2rem;
 
-  ${MenuLinkWrapper}:hover & {
+  ${MenuLinkWrapper}:hover &,
+  ${MenuLinkWrapper}:focus-within & {
     opacity: 1;
   }
 
