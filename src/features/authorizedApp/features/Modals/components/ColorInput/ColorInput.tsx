@@ -46,7 +46,8 @@ const StyledListboxOption = styled(ListboxOption)`
   padding: 0.5rem;
   color: ${({ theme }) => theme.text};
 
-  &:hover {
+  &:hover,
+  &[aria-selected="true"] {
     background-color: ${({ theme }) => theme.backgroundTertiary};
   }
 
