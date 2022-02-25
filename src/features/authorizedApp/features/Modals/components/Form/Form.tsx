@@ -1,5 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 import React from "react";
+import FocusLock from "react-focus-lock";
 
 import { FormValues, DivProps } from "../../types";
 
@@ -67,30 +68,35 @@ export const Form = <Config extends FormFieldConfig[]>({
 
   return (
     <Overlay data-testid="modalForm">
-      <Styled.Card {...otherProps}>
-        <Styled.TitleContainer>
-          <Heading as="h3" size="md">
-            {title}
-          </Heading>
-        </Styled.TitleContainer>
-        <Styled.FormContainer>
-          <Styled.Form onSubmit={handleSubmission}>
-            {formFields}
-            <Styled.ControlsContainer>
-              <Styled.ControlButton
-                type="button"
-                onClick={onDismiss}
-                variant="secondary"
-              >
-                {cancelButtonTitle}
-              </Styled.ControlButton>
-              <Styled.ControlButton type="submit" disabled={!formState.isValid}>
-                {submitButtonTitle}
-              </Styled.ControlButton>
-            </Styled.ControlsContainer>
-          </Styled.Form>
-        </Styled.FormContainer>
-      </Styled.Card>
+      <FocusLock>
+        <Styled.Card {...otherProps}>
+          <Styled.TitleContainer>
+            <Heading as="h3" size="md">
+              {title}
+            </Heading>
+          </Styled.TitleContainer>
+          <Styled.FormContainer>
+            <Styled.Form onSubmit={handleSubmission}>
+              {formFields}
+              <Styled.ControlsContainer>
+                <Styled.ControlButton
+                  type="button"
+                  onClick={onDismiss}
+                  variant="secondary"
+                >
+                  {cancelButtonTitle}
+                </Styled.ControlButton>
+                <Styled.ControlButton
+                  type="submit"
+                  disabled={!formState.isValid}
+                >
+                  {submitButtonTitle}
+                </Styled.ControlButton>
+              </Styled.ControlsContainer>
+            </Styled.Form>
+          </Styled.FormContainer>
+        </Styled.Card>
+      </FocusLock>
     </Overlay>
   );
 };
