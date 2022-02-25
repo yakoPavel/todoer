@@ -28,4 +28,7 @@ export const Switch = styled(ChakraSwitch)`
   & [class*="thumb"] {
     background-color: ${({ theme }) => theme.switchThumb};
   }
+  & [data-focus] {
+    outline: 1px solid ${({ theme }) => theme.focus};
+  }
 `;
