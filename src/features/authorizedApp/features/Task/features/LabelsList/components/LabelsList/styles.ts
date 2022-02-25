@@ -20,6 +20,8 @@ export const SearchField = styled.input`
   background-color: ${({ theme }) => theme.background};
   padding: 0.5rem 1rem;
   outline: none;
+  color: ${({ theme }) => theme.text};
+  width: 100%;
 
   &::placeholder {
     color: ${({ theme }) => theme.textSecondary};
