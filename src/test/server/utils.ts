@@ -14,7 +14,7 @@ export const delayedResponse = createResponseComposition(undefined, [
 // We don't validate the auth token here and use a hardcoded USER_ID for
 // simplicity. On the real backend we do all validations.
 export const getUser = (req: RestRequest) => {
-  const token = req.headers.get("Authentication");
+  const token = req.headers.get("Authorization");
   if (!token) return null;
 
   const USER_ID = "SOME_USER_ID";

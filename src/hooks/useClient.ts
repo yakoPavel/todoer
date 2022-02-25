@@ -4,7 +4,7 @@ import { useUserContext } from "@/context/UserContext";
 
 /**
  * Returns an Axios client instance with the current user's auth token
- * set as a 'Authentication' header.
+ * set as a 'Authorization' header.
  *
  * @param options.throwIfNotAuthenticated - Whether or not the hook should
  *   throw an error if the user is not authenticated. Defaults to true.
@@ -41,7 +41,7 @@ function useClient({
     const authToken = await user.getIdToken();
     return axios.create({
       headers: {
-        Authentication: authToken,
+        Authorization: `bearer ${authToken}`,
       },
     });
   };
