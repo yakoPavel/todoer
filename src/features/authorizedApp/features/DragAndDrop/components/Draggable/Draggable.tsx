@@ -53,7 +53,11 @@ const Content: React.FC<ContentProps> = ({ provided, snapshot, children }) => {
       ref={provided.innerRef}
       isDragging={snapshot.isDragging}
     >
-      <DragHandle {...provided.dragHandleProps} style={{ cursor: "move" }}>
+      <DragHandle
+        {...provided.dragHandleProps}
+        style={{ cursor: "move" }}
+        tabIndex={-1}
+      >
         <MdDragIndicator size="2rem" />
       </DragHandle>
       {children}
