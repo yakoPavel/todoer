@@ -1,6 +1,7 @@
 import styled from "@emotion/styled/macro";
 import React from "react";
 import ReactDOM from "react-dom";
+import FocusLock from "react-focus-lock";
 
 const List = styled.ul`
   position: fixed;
@@ -29,8 +30,10 @@ const ListItem = styled.li`
   border-left: none;
   border-right: none;
   cursor: pointer;
+  outline: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${({ theme }) => theme.backgroundTertiary};
     border-color: ${({ theme }) => theme.separators};
   }
@@ -77,16 +80,25 @@ export type PopupMenuProps =
 
 export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   ({ onClick, menuItems, popupId }, ref) => {
+    const onSubmitChoice = (clickId: string) => {
+      console.log("here");
+      if (popupId) onClick(clickId, popupId);
+      else (onClick as OnClickHandlerWithoutPopupId)(clickId);
+    };
+
     const getMenuItems = () => {
       return menuItems.map(({ icon, text, clickId }) => (
         <ListItem
           role="menuitem"
           key={text}
-          onClick={() =>
-            popupId
-              ? onClick(clickId, popupId)
-              : (onClick as OnClickHandlerWithoutPopupId)(clickId)
-          }
+          onClick={() => onSubmitChoice(clickId)}
+          onKeyDown={(e) => {
+            if (e.code === "Space" || e.code === "Enter") {
+              e.preventDefault();
+              onSubmitChoice(clickId);
+            }
+          }}
+          tabIndex={0}
         >
           <IconWrapper>{icon}</IconWrapper>
           <span>{text}</span>
@@ -95,9 +107,11 @@ export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
     };
 
     return ReactDOM.createPortal(
-      <List role="menu" ref={ref}>
-        {getMenuItems()}
-      </List>,
+      <FocusLock>
+        <List role="menu" ref={ref}>
+          {getMenuItems()}
+        </List>
+      </FocusLock>,
       document.querySelector("#root") as Element,
     );
   },

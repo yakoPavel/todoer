@@ -61,6 +61,22 @@ function usePopupMenu(showOn: "click" | "contextmenu") {
     };
   }, [popupElement, triggerElement, showOn]);
 
+  React.useEffect(() => {
+    if (popupElement === null || triggerElement === null) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (["Escape", "Space", "Enter"].includes(event.code)) {
+        setShowPopup(false);
+      }
+    };
+
+    document.documentElement.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.documentElement.removeEventListener("keydown", onKeyDown);
+    };
+  }, [popupElement, triggerElement]);
+
   return {
     isPopupVisible: showPopup,
     triggerRef: setTriggerElement,
