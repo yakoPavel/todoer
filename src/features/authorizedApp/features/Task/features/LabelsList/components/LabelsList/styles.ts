@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import styled from "@emotion/styled/macro";
 
 export const Container = styled.div`
@@ -30,4 +31,10 @@ export const SearchField = styled.input`
 
 export const ListContainer = styled.ul`
   overflow-y: auto;
+`;
+
+export const NotFoundText = styled(Text)`
+  color: ${({ theme }) => theme.textSecondary};
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
 `;

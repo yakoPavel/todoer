@@ -40,6 +40,9 @@ const LabelsListContent = ({
             key={id}
           />
         ))}
+        {filteredLabels.length === 0 && (
+          <Styled.NotFoundText>Label not found</Styled.NotFoundText>
+        )}
       </Styled.ListContainer>
     </FocusLock>
   );
