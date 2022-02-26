@@ -38,7 +38,8 @@ const PopupTrigger = styled.button`
 `;
 
 const PopupTriggerContentWrapper = styled.div`
-  ${MenuLinkWrapper}:hover & {
+  ${MenuLinkWrapper}:hover &,
+  ${MenuLinkWrapper}:focus-within & {
     visibility: hidden;
   }
 `;

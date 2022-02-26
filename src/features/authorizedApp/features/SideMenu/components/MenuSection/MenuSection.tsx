@@ -60,7 +60,8 @@ const MenuSectionImpl = ({
                 boxShadow: "unset",
               }}
               _focusVisible={{
-                border: `2px solid ${theme.focus}`,
+                outline: `2px solid ${theme.focus}`,
+                borderRadius: "5px",
               }}
               fontSize="md"
               display="inline-block"
@@ -88,7 +89,7 @@ const MenuSectionImpl = ({
               css={{
                 "@media (hover: hover)": {
                   opacity: 0,
-                  "#sideMenu:hover &": {
+                  "#sideMenu:hover &, #sideMenu:focus-within &": {
                     opacity: "1",
                   },
                 },
