@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 import React from "react";
-import FocusLock from "react-focus-lock";
+import FocusLock, { AutoFocusInside } from "react-focus-lock";
 import { AiOutlineClose } from "react-icons/ai";
 
 import * as Styled from "./styles";
@@ -81,11 +81,15 @@ export type DialogProps =
 export const Dialog: React.FC<DialogProps> = (props) => {
   const { dialogContent, dialogTitle, onCancel } = props;
 
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    console.log("here");
+    if (event.code === "Escape") onCancel();
+  };
+
   return (
     <Overlay>
-      {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
-      <FocusLock autoFocus={false}>
-        <Styled.Container role="dialog">
+      <FocusLock>
+        <Styled.Container role="dialog" onKeyDown={onKeyDown}>
           <Styled.DialogHeader>
             {dialogTitle && (
               <Heading as="h3" size="md">
@@ -94,14 +98,18 @@ export const Dialog: React.FC<DialogProps> = (props) => {
             )}
             <CloseModalButton onClick={onCancel} />
           </Styled.DialogHeader>
-          <Styled.ContentWrapper>{dialogContent}</Styled.ContentWrapper>
+          <Styled.ContentWrapper>
+            <AutoFocusInside>{dialogContent}</AutoFocusInside>
+          </Styled.ContentWrapper>
           {props.withButtons && (
-            <Controls
-              onCancel={props.onCancel}
-              onConfirm={props.onConfirm}
-              cancelButtonTitle={props.cancelButtonTitle}
-              confirmButtonTitle={props.confirmButtonTitle}
-            />
+            <AutoFocusInside>
+              <Controls
+                onCancel={props.onCancel}
+                onConfirm={props.onConfirm}
+                cancelButtonTitle={props.cancelButtonTitle}
+                confirmButtonTitle={props.confirmButtonTitle}
+              />
+            </AutoFocusInside>
           )}
         </Styled.Container>
       </FocusLock>

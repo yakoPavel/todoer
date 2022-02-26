@@ -66,10 +66,14 @@ export const Form = <Config extends FormFieldConfig[]>({
     onSubmit(formState.values as FormValues<Config>);
   };
 
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.code === "Escape") onDismiss();
+  };
+
   return (
     <Overlay data-testid="modalForm">
       <FocusLock>
-        <Styled.Card {...otherProps}>
+        <Styled.Card {...otherProps} onKeyDown={onKeyDown}>
           <Styled.TitleContainer>
             <Heading as="h3" size="md">
               {title}
