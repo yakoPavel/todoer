@@ -1,4 +1,5 @@
 import React from "react";
+import FocusLock from "react-focus-lock";
 
 import { useCorrectDescriptionHeight } from "./hooks/useCorrectTextAreaHeight";
 import { useFocusAfterPaddingClick } from "./hooks/useFocusAfterPaddingClick";
@@ -168,7 +169,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           onCancel,
         }}
       >
-        {children}
+        <FocusLock>{children}</FocusLock>
       </TaskFormContextProvider>
     </Styled.Form>
   );
