@@ -9,6 +9,13 @@ const Button = styled.button`
   cursor: pointer;
   padding: 0.5rem 1.75rem;
   width: 100%;
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.focus};
+    outline-offset: -2px;
+    border-radius: 5px;
+    z-index: 2;
+  }
 `;
 
 const ButtonText = styled(Text)`

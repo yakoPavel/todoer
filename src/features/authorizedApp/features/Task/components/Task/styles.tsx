@@ -61,7 +61,8 @@ export const ClickPopupTriggerContainer = styled(BackgroundButton)`
   @media (hover: hover) {
     opacity: 0;
 
-    ${Container}:hover & {
+    ${Container}:hover &,
+    ${Container}:focus-within & {
       opacity: 1;
     }
   }
