@@ -29,20 +29,22 @@ export const Main = () => {
 
   return (
     <Container>
-      <AppHeader
-        isSideMenuOpened={isSideMenuOpened}
-        onMenuToggle={onToggleSideMenu}
-        onThemeChange={onThemeChange}
-        onGoHome={onGoHome}
-        onLogout={onLogout}
-      />
-      <SideMenu isOpen={isSideMenuOpened} />
-      <PageContentContainer>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Outlet />
-        </ErrorBoundary>
-      </PageContentContainer>
-      <Modals />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <AppHeader
+          isSideMenuOpened={isSideMenuOpened}
+          onMenuToggle={onToggleSideMenu}
+          onThemeChange={onThemeChange}
+          onGoHome={onGoHome}
+          onLogout={onLogout}
+        />
+        <SideMenu isOpen={isSideMenuOpened} />
+        <PageContentContainer>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Outlet />
+          </ErrorBoundary>
+        </PageContentContainer>
+        <Modals />
+      </ErrorBoundary>
     </Container>
   );
 };
