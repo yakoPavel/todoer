@@ -59,10 +59,13 @@ function isMockFunction(fn: (...args: any[]) => any): asserts fn is jest.Mock {
  * Waits until all API calls through the `use-query` are finished.
  */
 async function waitForApiCallsFinish() {
-  await waitFor(() => {
-    if (queryClient.isFetching() !== 0 || queryClient.isMutating() !== 0)
-      throw new Error();
-  });
+  await waitFor(
+    () => {
+      if (queryClient.isFetching() !== 0 || queryClient.isMutating() !== 0)
+        throw new Error();
+    },
+    { timeout: 10_000 },
+  );
 }
 
 export * from "@testing-library/react";

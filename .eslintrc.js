@@ -5,6 +5,7 @@ module.exports = {
     node: true,
     jest: true,
     "jest/globals": true,
+    "cypress/globals": true,
   },
   extends: [
     "eslint:recommended",
@@ -21,6 +22,7 @@ module.exports = {
     "plugin:testing-library/react",
     "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
+    "plugin:cypress/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -38,6 +40,7 @@ module.exports = {
     "jest",
     "jest-dom",
     "testing-library",
+    "cypress",
   ],
   settings: {
     "import/resolver": {
@@ -120,6 +123,15 @@ module.exports = {
         "import/no-anonymous-default-export": "off",
         "import/no-extraneous-dependencies": "off",
         "@typescript-eslint/no-explicit-any": "off",
+      },
+    },
+    {
+      files: "cypress/**",
+      rules: {
+        "jest/expect-expect": "off",
+        "jest/valid-expect": "off",
+        "jest/valid-expect-in-promise": "off",
+        "jest/no-export": "off",
       },
     },
   ],

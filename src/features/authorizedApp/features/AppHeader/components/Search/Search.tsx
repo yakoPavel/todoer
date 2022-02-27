@@ -84,7 +84,7 @@ export const Search = (): JSX.Element => {
           <Styled.KeyboardShortcutHint>F</Styled.KeyboardShortcutHint>
         </Tooltip>
       </Styled.Combobox>
-      <Styled.Menu {...getMenuProps()}>
+      <Styled.Menu {...getMenuProps()} aria-label="Search results">
         {isOpen &&
           inputItems.map((itemData, index) => {
             return (

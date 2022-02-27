@@ -92,6 +92,7 @@ export const ColorInput: React.FC<ColorInputProps> = ({
       defaultValue={LABEL_COLORS[0].value}
       onChange={onChange}
       value={value || LABEL_COLORS[0].value}
+      data-testid="colorInput"
     >
       <StyledListboxButton value={value || LABEL_COLORS[0].value} />
       <ListboxPopover position={positionPopover}>
