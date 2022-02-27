@@ -81,7 +81,6 @@ export type PopupMenuProps =
 export const PopupMenu = React.forwardRef<HTMLUListElement, PopupMenuProps>(
   ({ onClick, menuItems, popupId }, ref) => {
     const onSubmitChoice = (clickId: string) => {
-      console.log("here");
       if (popupId) onClick(clickId, popupId);
       else (onClick as OnClickHandlerWithoutPopupId)(clickId);
     };

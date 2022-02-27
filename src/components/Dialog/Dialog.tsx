@@ -82,7 +82,6 @@ export const Dialog: React.FC<DialogProps> = (props) => {
   const { dialogContent, dialogTitle, onCancel } = props;
 
   const onKeyDown = (event: React.KeyboardEvent) => {
-    console.log("here");
     if (event.code === "Escape") onCancel();
   };
 
